@@ -1,6 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
 
-<html class="gr__getbootstrap_com" lang="en">
+<html>
 <head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <meta charset="utf-8">
@@ -13,7 +13,7 @@
     <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/navbar-fixed/">
 
     <!-- Bootstrap core CSS -->
-    <link href="../CSS/index.css" rel="stylesheet" type="text/css">
+    <link href="resources/CSS/style.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
 </head>
@@ -45,9 +45,11 @@
 <main role="main" class="container">
     <div class="jumbotron">
         <h1>Navbar example</h1>
+
         <p class="lead">This example is a quick exercise to illustrate how
             fixed to top navbar works. As you scroll, it will remain fixed to the
-            top of your browser’s viewport.</p>
+            top of your browser’s viewport.
+        </p>
         <a class="btn btn-lg btn-primary" href="https://getbootstrap.com/docs/4.3/components/navbar/" role="button">View navbar docs »</a>
     </div>
 </main>
