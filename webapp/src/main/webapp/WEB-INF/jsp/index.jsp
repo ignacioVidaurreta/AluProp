@@ -23,15 +23,15 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="#">Disabled</a>
-                </li>
+                <%--<li class="nav-item active">--%>
+                    <%--<a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>--%>
+                <%--</li>--%>
+                <%--<li class="nav-item">--%>
+                    <%--<a class="nav-link" href="#">Link</a>--%>
+                <%--</li>--%>
+                <%--<li class="nav-item">--%>
+                    <%--<a class="nav-link disabled" href="#">Disabled</a>--%>
+                <%--</li>--%>
             </ul>
             <form class="form-inline mt-2 mt-md-0">
                 <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
@@ -40,32 +40,29 @@
         </div>
     </nav>
     <div class="elem-container">
-        <div class="property-elem">
-            <p>
-                Elegante depto cerca del Obelisco. Ubicaci&oacute;n &uacute;nica
-            </p>
-            <img src="https://i.ytimg.com/vi/EkpYgepycN4/maxresdefault.jpg" alt="imagen"><br>
-            <small> Me interesa</small>
+        <div class="card property-elem">
+            <img class="card-img-top" src="https://i.ytimg.com/vi/EkpYgepycN4/maxresdefault.jpg" alt="Card image" style="width:100%">
+            <div class="card-body">
+                <h4 class="card-title">Elegante depto cerca del Obelisco. Ubicaci&oacute;n &uacute;nica</h4>
+                <p class="card-text">Some example text some example text. John Doe is an architect and engineer</p>
+                <a href="#" class="btn btn-primary stretched-link">Me interesa</a>
+            </div>
         </div>
-
-        <br>
-
-        <div class="property-elem">
-            <p>
-                Casa cerca del r&iacute;o
-            </p>
-            <img src="https://i.pinimg.com/736x/0b/d5/82/0bd58234bf3ec37c2e2d9e85ac35ec31.jpg" alt="imagen "><br>
-            <small> Me interesa</small>
+        <div class="card property-elem">
+            <img class="card-img-top" src="https://i.pinimg.com/736x/0b/d5/82/0bd58234bf3ec37c2e2d9e85ac35ec31.jpg" alt="Card image" style="width:100%">
+            <div class="card-body">
+                <h4 class="card-title">Casa cerca del r&iacute;o</h4>
+                <p class="card-text">Some example text some example text. John Doe is an architect and engineer</p>
+                <a href="#" class="btn btn-primary stretched-link">Me interesa</a>
+            </div>
         </div>
-
-        <br>
-
-        <div class="property-elem">
-            <p>
-                Moderna casa en Palermo Hollywood
-            </p>
-            <img src="https://img.archilovers.com/projects/c_383_57d7daff-e586-4a1b-83b3-8d5bf0f8e070.jpg" alt="imagen"><br>
-            <small> Me interesa</small>
+        <div class="card property-elem">
+            <img class="card-img-top" src="https://img.archilovers.com/projects/c_383_57d7daff-e586-4a1b-83b3-8d5bf0f8e070.jpg" alt="Card image" style="width:100%">
+            <div class="card-body">
+                <h4 class="card-title">Moderna casa en Palermo Hollywood</h4>
+                <p class="card-text">Some example text some example text. John Doe is an architect and engineer</p>
+                <a href="#" class="btn btn-primary stretched-link">Me interesa</a>
+            </div>
         </div>
     </div>
 
