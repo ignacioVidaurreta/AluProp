@@ -64,6 +64,79 @@
                 <a href="#" class="btn btn-primary stretched-link">Me interesa</a>
             </div>
         </div>
+        <div class="card property-elem">
+            <img class="card-img-top" src="https://i.ytimg.com/vi/EkpYgepycN4/maxresdefault.jpg" alt="Card image" style="width:100%">
+            <div class="card-body">
+                <h4 class="card-title">Elegante depto cerca del Obelisco. Ubicaci&oacute;n &uacute;nica</h4>
+                <p class="card-text">Some example text some example text. John Doe is an architect and engineer</p>
+                <a href="#" class="btn btn-primary stretched-link">Me interesa</a>
+            </div>
+        </div>
+        <div class="card property-elem">
+            <img class="card-img-top" src="https://i.pinimg.com/736x/0b/d5/82/0bd58234bf3ec37c2e2d9e85ac35ec31.jpg" alt="Card image" style="width:100%">
+            <div class="card-body">
+                <h4 class="card-title">Casa cerca del r&iacute;o</h4>
+                <p class="card-text">Some example text some example text. John Doe is an architect and engineer</p>
+                <a href="#" class="btn btn-primary stretched-link">Me interesa</a>
+            </div>
+        </div>
+        <div class="card property-elem">
+            <img class="card-img-top" src="https://img.archilovers.com/projects/c_383_57d7daff-e586-4a1b-83b3-8d5bf0f8e070.jpg" alt="Card image" style="width:100%">
+            <div class="card-body">
+                <h4 class="card-title">Moderna casa en Palermo Hollywood</h4>
+                <p class="card-text">Some example text some example text. John Doe is an architect and engineer</p>
+                <a href="#" class="btn btn-primary stretched-link">Me interesa</a>
+            </div>
+        </div>
+        <div class="card property-elem">
+            <img class="card-img-top" src="https://i.ytimg.com/vi/EkpYgepycN4/maxresdefault.jpg" alt="Card image" style="width:100%">
+            <div class="card-body">
+                <h4 class="card-title">Elegante depto cerca del Obelisco. Ubicaci&oacute;n &uacute;nica</h4>
+                <p class="card-text">Some example text some example text. John Doe is an architect and engineer</p>
+                <a href="#" class="btn btn-primary stretched-link">Me interesa</a>
+            </div>
+        </div>
+        <div class="card property-elem">
+            <img class="card-img-top" src="https://i.pinimg.com/736x/0b/d5/82/0bd58234bf3ec37c2e2d9e85ac35ec31.jpg" alt="Card image" style="width:100%">
+            <div class="card-body">
+                <h4 class="card-title">Casa cerca del r&iacute;o</h4>
+                <p class="card-text">Some example text some example text. John Doe is an architect and engineer</p>
+                <a href="#" class="btn btn-primary stretched-link">Me interesa</a>
+            </div>
+        </div>
+        <div class="card property-elem">
+            <img class="card-img-top" src="https://img.archilovers.com/projects/c_383_57d7daff-e586-4a1b-83b3-8d5bf0f8e070.jpg" alt="Card image" style="width:100%">
+            <div class="card-body">
+                <h4 class="card-title">Moderna casa en Palermo Hollywood</h4>
+                <p class="card-text">Some example text some example text. John Doe is an architect and engineer</p>
+                <a href="#" class="btn btn-primary stretched-link">Me interesa</a>
+            </div>
+        </div>
+        <div class="card property-elem">
+            <img class="card-img-top" src="https://i.ytimg.com/vi/EkpYgepycN4/maxresdefault.jpg" alt="Card image" style="width:100%">
+            <div class="card-body">
+                <h4 class="card-title">Elegante depto cerca del Obelisco. Ubicaci&oacute;n &uacute;nica</h4>
+                <p class="card-text">Some example text some example text. John Doe is an architect and engineer</p>
+                <a href="#" class="btn btn-primary stretched-link">Me interesa</a>
+            </div>
+        </div>
+        <div class="card property-elem">
+            <img class="card-img-top" src="https://i.pinimg.com/736x/0b/d5/82/0bd58234bf3ec37c2e2d9e85ac35ec31.jpg" alt="Card image" style="width:100%">
+            <div class="card-body">
+                <h4 class="card-title">Casa cerca del r&iacute;o</h4>
+                <p class="card-text">Some example text some example text. John Doe is an architect and engineer</p>
+                <a href="#" class="btn btn-primary stretched-link">Me interesa</a>
+            </div>
+        </div>
+        <div class="card property-elem">
+            <img class="card-img-top" src="https://img.archilovers.com/projects/c_383_57d7daff-e586-4a1b-83b3-8d5bf0f8e070.jpg" alt="Card image" style="width:100%">
+            <div class="card-body">
+                <h4 class="card-title">Moderna casa en Palermo Hollywood</h4>
+                <p class="card-text">Some example text some example text. John Doe is an architect and engineer</p>
+                <a href="#" class="btn btn-primary stretched-link">Me interesa</a>
+            </div>
+        </div>
+
     </div>
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
