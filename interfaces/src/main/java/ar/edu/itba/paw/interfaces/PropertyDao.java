@@ -9,4 +9,5 @@ public interface PropertyDao {
     Property get(int id);
     Collection<Property> getAll();
 	boolean showInterest(int propertyId, String email, String description);
+	Collection<Property> getAllContainingString(String searchString);
 }

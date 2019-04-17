@@ -52,4 +52,9 @@ public class APPropertyService implements PropertyService {
         return errors;
     }
 
+    @Override
+    public Collection<Property> getAllContainingString(String searchString) {
+        return propertyDao.getAllContainingString(searchString);
+    }
+
 }

@@ -19,6 +19,9 @@ import ar.edu.itba.paw.model.Property;
 @Repository
 public class APPropertyJdbcDao implements PropertyDao {
 
+    private static final String GET_ALL_MATCHING_STRING = "SELECT * FROM properties WHERE description LIKE ? OR area LIKE ? OR caption LIKE ?";
+    private static final String SELECT_ALL_QUERY = "SELECT * FROM properties";
+    private static final String FIND_BY_ID_QUERY = "SELECT * FROM properties WHERE id = ?";
     private JdbcTemplate jdbcTemplate;
     private final RowMapper<Property> ROW_MAPPER = (rs, rowNum) -> new Property(rs.getInt("id"),
             rs.getString("caption"), rs.getString("description"), rs.getString("image"), rs.getString("area"));
@@ -27,14 +30,12 @@ public class APPropertyJdbcDao implements PropertyDao {
     @Autowired
     public APPropertyJdbcDao(DataSource ds) {
         jdbcTemplate = new JdbcTemplate(ds);
-        jdbcInsert = new SimpleJdbcInsert(jdbcTemplate)
-                            .withTableName("interests")
-                            .usingGeneratedKeyColumns("id");
+        jdbcInsert = new SimpleJdbcInsert(jdbcTemplate).withTableName("interests").usingGeneratedKeyColumns("id");
     }
 
     @Override
     public Property get(int id) {
-        final List<Property> list = jdbcTemplate.query("SELECT * FROM properties WHERE id = ?", ROW_MAPPER, id);
+        final List<Property> list = jdbcTemplate.query(FIND_BY_ID_QUERY, ROW_MAPPER, id);
         if (list.isEmpty()) {
             return null;
         }
@@ -43,25 +44,34 @@ public class APPropertyJdbcDao implements PropertyDao {
 
     @Override
     public Collection<Property> getAll() {
-        final List<Property> list = jdbcTemplate.query("SELECT * FROM properties", ROW_MAPPER);
+        final List<Property> list = jdbcTemplate.query(SELECT_ALL_QUERY, ROW_MAPPER);
         return list;
     }
 
     @Override
     public boolean showInterest(int propertyId, String email, String description) {
-        final int rowsAffected 
-            = jdbcInsert.execute(generateArguementsForInterestCreation(propertyId, email, description));
+        final int rowsAffected = jdbcInsert
+                .execute(generateArguementsForInterestCreation(propertyId, email, description));
         if (rowsAffected == 1)
             return true;
         return false;
     }
 
-    private Map<String, Object> generateArguementsForInterestCreation(int propertyId, String email, String description) {
+    private Map<String, Object> generateArguementsForInterestCreation(int propertyId, String email,
+            String description) {
         final Map<String, Object> args = new HashMap<>();
         args.put("propertyId", propertyId);
         args.put("email", email);
         args.put("description", description);
         return args;
+    }
+
+    @Override
+    public Collection<Property> getAllContainingString(String searchString) {
+        String sqlContainString = "%" + searchString + "%";
+        final List<Property> list = jdbcTemplate.query(
+                GET_ALL_MATCHING_STRING, ROW_MAPPER, sqlContainString, sqlContainString, sqlContainString);
+        return list;
     }
 
 }

@@ -22,14 +22,14 @@ public class PropertyController {
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView index() {
         final ModelAndView mav = new ModelAndView("index");
-        mav.addObject("greeting", propertyService.getAll());
+        mav.addObject("properties", propertyService.getAll());
         return mav;
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.GET)
     public ModelAndView get(@PathVariable("id") int id) {
         final ModelAndView mav = new ModelAndView("index");
-        mav.addObject("greeting", propertyService.get(id).getCaption());
+        mav.addObject("property", propertyService.get(id));
         return mav;
     }
 
@@ -42,6 +42,13 @@ public class PropertyController {
             return new ModelAndView("redirect:/" + propertyId);
         ModelAndView mav = new ModelAndView("index");
         mav.addObject("errors", errorsOrLackThereof);
+        return mav;
+    }
+
+    @RequestMapping(value = "search")
+    public ModelAndView search(@RequestParam(value = "searchString") String searchString) {
+        final ModelAndView mav = new ModelAndView("index");
+        mav.addObject("properties", propertyService.getAllContainingString(searchString));
         return mav;
     }
 }

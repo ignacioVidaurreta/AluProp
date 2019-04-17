@@ -10,4 +10,5 @@ public interface PropertyService {
     Property get(int id);
     Collection<Property> getAll();
 	List<String> showInterestOrReturnErrors(int propertyId, String email, String description);
+	Collection<Property> getAllContainingString(String searchString);
 }
