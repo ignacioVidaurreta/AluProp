@@ -45,19 +45,23 @@
 
     <!-- ####################### CARDS CONTAINING PROPERTIES  #######################-->
     <div class="elem-container">
-
-        <c:if test="${not empty properties}">
-            <c:forEach var="property" items="${properties}">
-                <div class="card property-elem">
-                    <img class="card-img-top" src="${property.image}" alt="Card image" style="width:100%">
-                    <div class="card-body">
-                        <h4 class="card-title">${property.description}</h4>
-                        <p class="card-text">${property.caption}</p>
-                        <a href="#" class="btn btn-primary stretched-link">Me interesa</a>
+        <c:choose>
+            <c:when test="${not empty properties}">
+                <c:forEach var="property" items="${properties}">
+                    <div class="card property-elem">
+                        <img class="card-img-top" src="${property.image}" alt="Card image" style="width:100%">
+                        <div class="card-body">
+                            <h4 class="card-title">${property.description}</h4>
+                            <p class="card-text">${property.caption}</p>
+                            <a href="#" class="btn btn-primary stretched-link">Me interesa</a>
+                        </div>
                     </div>
-                </div>
-            </c:forEach>
-        </c:if>
+                </c:forEach>
+            </c:when>
+            <c:otherwise>
+                <h1> Oops, There seems there is no properties loaded right now. </h1>
+            </c:otherwise>
+        </c:choose>
 
     </div>
 
