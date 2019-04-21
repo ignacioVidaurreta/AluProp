@@ -59,8 +59,9 @@
                 <H6>[Tipo de propiedad] en [Barrio]</H6>
                 <H8>[N] huespedes | [privacidad]</H8>
             </div>
-            <div>
+            <div class="interest-column">
                 <H4 class="price">$[precio]</H4>
+                <a href="#" class="btn btn-primary stretched-link">Me interesa</a>
             </div>
         </div>
         <br>
