@@ -12,7 +12,7 @@
     <servlet-api.version>2.5</servlet-api.version>
     <jstl.version>1.2</jstl.version>
     <org.postgresql.version>9.3-1102-jdbc41</org.postgresql.version>
-    <org.hsql.version> 2.3.1 </org.hsql.version>
+    <org.hsqldb.version> 2.3.1 </org.hsqldb.version>
   </properties>
 
   <dependencyManagement>
