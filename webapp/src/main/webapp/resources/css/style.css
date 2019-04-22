@@ -43,6 +43,7 @@ img {
     margin: 1rem;
 }
 
+
 .carousel-image{
     height: 500px;
 }
@@ -69,4 +70,8 @@ img {
     justify-content: space-between;
 }
 
+
+.bold {
+    font-weight: bold;
+}
 

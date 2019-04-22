@@ -19,7 +19,9 @@
 
     <!-- #######################     NAV BAR     ####################### -->
 
+
     <%@include file="navigationBar.jsp"%>
+
 
     <!-- ####################### CARDS CONTAINING PROPERTIES  #######################-->
     <div class="elem-container">
