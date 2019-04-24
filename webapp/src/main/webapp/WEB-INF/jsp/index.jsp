@@ -29,17 +29,17 @@
             <c:when test="${not empty properties}">
                 <c:forEach var="property" items="${properties}">
                     <div class="card property-elem">
-                        <a href="/${property.id}"><img class="card-img-top" src="${property.image}" alt="Card image"></a>
+                        <img class="card-img-top" src="${property.image}" alt="Card image">
                         <div class="card-body">
                             <h4 class="card-title">${property.description}</h4>
                             <p class="card-text">${property.caption}</p>
-                            <a href="#" class="btn btn-primary">Me interesa</a>
+                            <a href="/${property.id}" class="btn btn-primary stretched-link">Ver m&aacute;s</a>
                         </div>
                     </div>
                 </c:forEach>
             </c:when>
             <c:otherwise>
-                <h1> Oops, There seems there is no properties loaded right now. </h1>
+                <h1> Oops, there are no properties loaded </h1>
             </c:otherwise>
         </c:choose>
 
