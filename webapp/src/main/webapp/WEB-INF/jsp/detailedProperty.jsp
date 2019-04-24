@@ -34,7 +34,7 @@
             </ol>
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <img src="https://img.archilovers.com/projects/c_383_57d7daff-e586-4a1b-83b3-8d5bf0f8e070.jpg" class="d-block w-100 carousel-image">
+                    <img src="${property.image}" class="d-block w-100 carousel-image">
                 </div>
                 <div class="carousel-item">
                     <img src="https://apartmentsilike.files.wordpress.com/2014/04/warehouse-loft-room-of-the-week.jpg" class="d-block w-100 carousel-image" alt="...">
@@ -55,7 +55,7 @@
         <br>
         <div class="flex-container">
             <div>
-                <H2>[Titulo]</H2>
+                <H2>${property.description}</H2>
                 <H6>[Tipo de propiedad] en [Barrio]</H6>
                 <H8>[N] huespedes | [privacidad]</H8>
             </div>
@@ -69,7 +69,7 @@
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-body">
-                        Descripcion
+                        ${property.caption}
                     </div>
                 </div>
             </div>

@@ -29,11 +29,11 @@
             <c:when test="${not empty properties}">
                 <c:forEach var="property" items="${properties}">
                     <div class="card property-elem">
-                        <img class="card-img-top" src="${property.image}" alt="Card image" style="width:100%">
+                        <a href="/${property.id}"><img class="card-img-top" src="${property.image}" alt="Card image"></a>
                         <div class="card-body">
                             <h4 class="card-title">${property.description}</h4>
                             <p class="card-text">${property.caption}</p>
-                            <a href="#" class="btn btn-primary stretched-link">Me interesa</a>
+                            <a href="#" class="btn btn-primary">Me interesa</a>
                         </div>
                     </div>
                 </c:forEach>
