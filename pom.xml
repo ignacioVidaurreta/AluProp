@@ -18,6 +18,7 @@
     <org.hibernate.validator>6.0.16.Final</org.hibernate.validator>
     <org.hsqldb.version> 2.3.1 </org.hsqldb.version>
     <org.junit.version>4.12</org.junit.version>
+    <org.mockito.version> 2.27.0 </org.mockito.version>
   </properties>
 
   <build>
@@ -105,6 +106,12 @@
         <artifactId>junit</artifactId>
         <version>${org.junit.version}</version>
         <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.mockito</groupId>
+        <artifactId>mockito-core</artifactId>
+        <version>${org.mockito.version}</version>
+        <scope> test </scope>
       </dependency>
     </dependencies>
   </dependencyManagement>
