@@ -114,19 +114,6 @@ public class APUserDao implements UserDao {
                 .fromUser(incompleteUser)
                 .withUniversity(universityDao.get(incompleteUser.getUniversityId()))
                 .withCareer(careerDao.get(incompleteUser.getCareerId()))
-                .withInterestedProperties(getInterestedProperties(id))
                 .build();
-    }
-
-    private Collection<Property> getInterestedProperties(long id) {
-        return propertyDao.getAll().stream()
-                .filter(userIsInterestedInProperty(id))
-                .collect(Collectors.toList());
-    }
-
-    private Predicate<Property> userIsInterestedInProperty(long id) {
-        return p -> interestDao.getAll().stream()
-                        .filter(i -> i.getUserId() == id)
-                        .anyMatch(i -> i.getPropertyId() == p.getId());
     }
 }
