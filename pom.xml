@@ -19,6 +19,9 @@
     <org.hsqldb.version> 2.3.1 </org.hsqldb.version>
     <org.junit.version>4.12</org.junit.version>
     <org.mockito.version> 2.27.0 </org.mockito.version>
+
+    <commons-io.version>2.6</commons-io.version>
+
   </properties>
 
   <build>
@@ -112,6 +115,11 @@
         <artifactId>mockito-core</artifactId>
         <version>${org.mockito.version}</version>
         <scope> test </scope>
+      </dependency>
+      <dependency>
+        <groupId>commons-io</groupId>
+        <artifactId>commons-io</artifactId>
+        <version>${commons-io.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>

@@ -11,8 +11,8 @@
     <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/navbar-fixed/">
 
     <!-- Bootstrap core css -->
-    <link href="resources/css/style.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="<c:url value="/resources/css/style.css" />" rel="stylesheet" type="text/css" />
 
 </head>
 <body data-gr-c-s-loaded="true">
@@ -23,13 +23,14 @@
     <%@include file="navigationBar.jsp"%>
 
 
+
     <!-- ####################### CARDS CONTAINING PROPERTIES  #######################-->
     <div class="elem-container">
         <c:choose>
             <c:when test="${not empty properties}">
                 <c:forEach var="property" items="${properties}">
                     <div class="card property-elem">
-                        <img class="card-img-top" src="${property.image}" alt="Card image">
+                        <img class="card-img-top" src="http://localhost:8080/webapp_war_exploded/images/${property.mainImageId}" alt="Card image">
                         <div class="card-body">
                             <h4 class="card-title">${property.description}</h4>
                             <p class="card-text">${property.caption}</p>
