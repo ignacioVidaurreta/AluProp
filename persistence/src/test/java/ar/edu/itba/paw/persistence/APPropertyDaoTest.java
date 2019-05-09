@@ -47,9 +47,9 @@ public class APPropertyDaoTest {
 
     @Test
     public void getAllPropertiesTest(){
-        int realRowCount = JdbcTestUtils.countRowsInTable(jdbcTemplate, "properties");
-        int expectedRowCount = propertyDao.getAll().size();
-        System.out.println(realRowCount);
+        int expectedRowCount = JdbcTestUtils.countRowsInTable(jdbcTemplate, "properties");
+        int realRowCount = propertyDao.getAll().size();
+
         Assert.assertEquals(expectedRowCount, realRowCount);
     }
 
@@ -66,8 +66,12 @@ public class APPropertyDaoTest {
         Assert.assertNotNull(maybeProperty.getRules());
     }
 
-    /*
-     * TODO: STILL HAVE TO TEST --> getInterestedUsers, userShowedInterestInProperty, getPropertyRules
-     *
-     */
+    /* TODO: Should use a Mock User w/Mockito
+    @Test
+    public void showInterestCreatesRelationshipUserPropertyTest(){
+        boolean columnsWhereChanged = propertyDao.showInterest(1, 1);
+
+    }
+    */
+
 }

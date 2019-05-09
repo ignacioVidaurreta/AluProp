@@ -13,18 +13,18 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.JdbcUtils;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.jdbc.Sql;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.jdbc.JdbcTestUtils;
 
 import javax.sql.DataSource;
 
 @Sql("classpath:schema.sql")
-@RunWith(MockitoJUnitRunner.class)
+@RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes= TestConfig.class)
 public class APUserDaoTest {
 
-    @Mock
-    User userMock;
-
+    private final static String NAME = "John";
+    private final static String MAIL = "johnTester@gmail.com";
     @Autowired
     private DataSource ds;
 
@@ -37,25 +37,28 @@ public class APUserDaoTest {
     @Before
     public void setUp(){
         jdbcTemplate = new JdbcTemplate(ds);
-        JdbcTestUtils.deleteFromTables(jdbcTemplate, "users");
     }
-
 
     @Test
-    public void testCreation(){
-        /*
-        Mockito.when(userMock.getUsername()).thenReturn("Mocked_Guy77");
-        Mockito.when(userMock.getId()).thenReturn((long) 2);
-        */
+    public void getUserTest(){
+        User maybeUser = userDao.get(1);
 
-        //User maybeUser = userDao.create(userMock);
-        /*
-        User maybe_user = userDao.getByUsername("Mocked_Guy77");
-        Assert.assertNotNull(maybe_user);
-        */
-        //Assert.assertNotNull(userDao);
-
-
+        Assert.assertNotNull(maybeUser);
+        Assert.assertEquals(1, maybeUser.getId());
+        Assert.assertEquals(NAME, maybeUser.getName());
+        Assert.assertEquals(MAIL, maybeUser.getEmail());
 
     }
+
+    @Test
+    public void getAllUsersTest(){
+        int expectedRowCount = JdbcTestUtils.countRowsInTable(jdbcTemplate, "users");
+        int realRowCount = userDao.getAll().size();
+
+        Assert.assertEquals(expectedRowCount, realRowCount);
+    }
+
+
+
+
 }

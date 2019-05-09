@@ -167,6 +167,5 @@ WHERE NOT EXISTS (SELECT * FROM careers WHERE id=1);
 
 INSERT INTO users (
     id, email, username, passwordhash, name, lastname, birthdate, gender, bio, contactnumber, universityid, careerid, role)
-SELECT * FROM (VALUES (1, 'nachovidau96@gmail.com', 'Nacho', 'HDSASDKF', 'Nacho', 'Vidaurreta', DATE '1996-07-12', 'MALE', 'RE capo', 1167226380, 1, 1, 'ROLE_GUEST'))
+SELECT * FROM (VALUES (1, 'johnTester@gmail.com', 'John_Tester', 'HDSASDKF', 'John', 'Tester', DATE '1996-07-12', 'MALE', 'RE capo', 1167567280, 1, 1, 'ROLE_GUEST'))
 WHERE NOT EXISTS (SELECT * FROM users WHERE id=1);
-
