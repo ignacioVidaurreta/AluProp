@@ -1,11 +1,13 @@
 package ar.edu.itba.paw.persistence;
 
+import ar.edu.itba.paw.model.Property;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -29,12 +31,11 @@ public class APPropertyDaoTest {
     @Before
     public void setUp(){
         jdbcTemplate = new JdbcTemplate(ds);
-        propertyDao = new APPropertyDao(ds);
 
 
     }
-/*  TODO: This should be uncommented once we have a way of adding elements to the database.
-    @Test
+
+    @Tgest
     public void getPropertyTest(){
         int propertyID = 1;
         Property maybeProperty;
@@ -43,11 +44,13 @@ public class APPropertyDaoTest {
         Assert.assertNotNull(maybeProperty);
         Assert.assertEquals(propertyID, maybeProperty.getId());
     }
-*/
+
     @Test
     public void getAllPropertiesTest(){
         int realRowCount = JdbcTestUtils.countRowsInTable(jdbcTemplate, "properties");
         int expectedRowCount = propertyDao.getAll().size();
+        System.out.println(realRowCount);
         Assert.assertEquals(expectedRowCount, realRowCount);
     }
+
 }
