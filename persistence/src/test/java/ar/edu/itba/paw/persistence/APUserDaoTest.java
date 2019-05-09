@@ -43,8 +43,10 @@ public class APUserDaoTest {
 
     @Test
     public void testCreation(){
+        /*
         Mockito.when(userMock.getUsername()).thenReturn("Mocked_Guy77");
         Mockito.when(userMock.getId()).thenReturn((long) 2);
+        */
 
         //User maybeUser = userDao.create(userMock);
         /*

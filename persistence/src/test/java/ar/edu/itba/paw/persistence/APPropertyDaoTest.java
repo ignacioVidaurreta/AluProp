@@ -35,7 +35,7 @@ public class APPropertyDaoTest {
 
     }
 
-    @Tgest
+    @Test
     public void getPropertyTest(){
         int propertyID = 1;
         Property maybeProperty;
