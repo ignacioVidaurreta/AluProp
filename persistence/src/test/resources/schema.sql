@@ -4,51 +4,37 @@ CREATE TABLE IF NOT EXISTS countries (
 );
 
 CREATE TABLE IF NOT EXISTS provinces (
-<<<<<<< Updated upstream
-     id INTEGER IDENTITY PRIMARY KEY,
-     name varchar(75),
-     countryId INTEGER REFERENCES countries(id)
-=======
     id INTEGER IDENTITY PRIMARY KEY,
     name varchar(75),
     countryId INTEGER REFERENCES countries(id) ON DELETE SET NULL
->>>>>>> Stashed changes
 );
 
 CREATE TABLE IF NOT EXISTS cities (
     id INTEGER IDENTITY PRIMARY KEY,
     name varchar(75),
-<<<<<<< Updated upstream
-    countryId INTEGER REFERENCES countries(id) null,
-    provinceId INTEGER REFERENCES countries(id) null
-=======
     countryId INTEGER REFERENCES countries(id) ON DELETE SET NULL,
     provinceId INTEGER REFERENCES countries(id) ON DELETE SET NULL
->>>>>>> Stashed changes
 );
 
 CREATE TABLE IF NOT EXISTS neighbourhoods (
     id INTEGER IDENTITY PRIMARY KEY,
     name varchar(75),
-<<<<<<< Updated upstream
-    cityId INTEGER REFERENCES cities(id) null
-=======
     cityId INTEGER REFERENCES cities(id) ON DELETE SET NULL
->>>>>>> Stashed changes
 );
 
 CREATE TABLE IF NOT EXISTS properties (
     id INTEGER IDENTITY PRIMARY KEY,
     description varchar(3000),
     caption varchar(250),
-<<<<<<< Updated upstream
     image varchar(300),
-    propertyType integer,
-    neighbourhoodId integer references neighbourhoods(id),
+    propertyType varchar(100),
+    neighbourhoodId integer references neighbourhoods(id) ON DELETE SET NULL,
     privacyLevel boolean,
     capacity integer,
-    price float
+    price float,
+    mainimageid integer --THIS SHOULD BE A FOREIGN KEY! BUT THE ADD COLUMN IF NOT EXISTS WASN'T WORKING TODO FIX
 );
+
 
 CREATE TABLE IF NOT EXISTS universities (
     id INTEGER IDENTITY PRIMARY KEY,
@@ -87,18 +73,11 @@ CREATE TABLE IF NOT EXISTS rules (
 );
 
 CREATE TABLE IF NOT EXISTS propertyRules (
-    id INTEGER IDENTITY wPRIMARY KEY,
+    id INTEGER IDENTITY PRIMARY KEY,
     propertyId INTEGER REFERENCES properties(id),
     ruleId INTEGER REFERENCES rules(id)
 );
-=======
-    propertyType varchar(100),
-    neighbourhoodId integer references neighbourhoods(id) ON DELETE SET NULL,
-    privacyLevel boolean,
-    capacity integer,
-    price float,
-    mainimageid integer --THIS SHOULD BE A FOREIGN KEY! BUT THE ADD COLUMN IF NOT EXISTS WASN'T WORKING TODO FIX
-);
+
 
 CREATE TABLE IF NOT EXISTS images (
     id INTEGER IDENTITY PRIMARY KEY,
@@ -165,4 +144,3 @@ INSERT INTO properties(
     id, description, caption, propertytype, neighbourhoodid, privacylevel, capacity, price, mainimageid)
 SELECT * FROM (VALUES (7, 'posta que el mejor depto', 'el mejor depto', 'APARTMENT', 1, true, 5, 100, 1))
 WHERE NOT EXISTS (SELECT * FROM properties WHERE id=7);
->>>>>>> Stashed changes
