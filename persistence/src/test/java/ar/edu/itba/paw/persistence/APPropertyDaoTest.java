@@ -7,7 +7,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -25,6 +24,7 @@ public class APPropertyDaoTest {
 
     @Autowired
     private APPropertyDao propertyDao;
+
 
     private JdbcTemplate jdbcTemplate;
 
@@ -53,4 +53,21 @@ public class APPropertyDaoTest {
         Assert.assertEquals(expectedRowCount, realRowCount);
     }
 
+    @Test
+    public void getPropertyWithRelatedEntitiesHasAllRelatedEntitiesTest(){
+        int propertyID = 1; //According to our schema.sql we have a property with ID 1, so it's correct to assume it exists
+        Property maybeProperty;
+
+        maybeProperty = propertyDao.getPropertyWithRelatedEntities(propertyID);
+        Assert.assertNotNull(maybeProperty);
+        Assert.assertEquals(propertyID, maybeProperty.getId());
+        Assert.assertNotNull(maybeProperty.getNeighbourhood());
+        Assert.assertNotNull(maybeProperty.getInterestedUsers());
+        Assert.assertNotNull(maybeProperty.getRules());
+    }
+
+    /*
+     * TODO: STILL HAVE TO TEST --> getInterestedUsers, userShowedInterestInProperty, getPropertyRules
+     *
+     */
 }
