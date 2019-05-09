@@ -54,11 +54,12 @@ CREATE TABLE IF NOT EXISTS users (
     name varchar(50),
     lastName varchar(100),
     birthDate date,
-    gender integer,
+    gender varchar(50),
     bio varchar(1000),
     contactNumber varchar(25),
     universityId INTEGER REFERENCES universities(id),
-    careerId INTEGER REFERENCES careers(id)
+    careerId INTEGER REFERENCES careers(id),
+    role VARCHAR(50)
 );
 
 CREATE TABLE IF NOT EXISTS interests (
@@ -144,3 +145,17 @@ INSERT INTO properties(
     id, description, caption, propertytype, neighbourhoodid, privacylevel, capacity, price, mainimageid)
 SELECT * FROM (VALUES (7, 'posta que el mejor depto', 'el mejor depto', 'APARTMENT', 1, true, 5, 100, 1))
 WHERE NOT EXISTS (SELECT * FROM properties WHERE id=7);
+
+INSERT INTO universities(id, name)
+SELECT * FROM (VALUES(1, 'ITBA'))
+WHERE NOT EXISTS (SELECT * FROM universities WHERE id=1);
+
+INSERT INTO careers(id, name)
+SELECT * FROM (VALUES(1, 'Ingenieria en Testing'))
+WHERE NOT EXISTS (SELECT * FROM careers WHERE id=1);
+
+INSERT INTO users (
+    id, email, username, passwordhash, name, lastname, birthdate, gender, bio, contactnumber, universityid, careerid, role)
+SELECT * FROM (VALUES (1, 'nachovidau96@gmail.com', 'Nacho', 'HDSASDKF', 'Nacho', 'Vidaurreta', DATE '1996-07-12', 'MALE', 'RE capo', 1167226380, 1, 1, 'ROLE_GUEST'))
+WHERE NOT EXISTS (SELECT * FROM users WHERE id=1);
+
