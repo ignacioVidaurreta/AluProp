@@ -24,7 +24,7 @@ import javax.sql.DataSource;
 public class APUserDaoTest {
 
     private final static String NAME = "John";
-    private final static String MAIL = "johnTester@gmail.com";
+    private final static String EMAIL = "johnTester@gmail.com";
     @Autowired
     private DataSource ds;
 
@@ -46,7 +46,7 @@ public class APUserDaoTest {
         Assert.assertNotNull(maybeUser);
         Assert.assertEquals(1, maybeUser.getId());
         Assert.assertEquals(NAME, maybeUser.getName());
-        Assert.assertEquals(MAIL, maybeUser.getEmail());
+        Assert.assertEquals(EMAIL, maybeUser.getEmail());
 
     }
 
@@ -58,7 +58,12 @@ public class APUserDaoTest {
         Assert.assertEquals(expectedRowCount, realRowCount);
     }
 
-
+    @Test
+    public void getUserByEmailTest(){
+        User maybeUser = userDao.getByEmail(EMAIL);
+        Assert.assertNotNull(maybeUser);
+        Assert.assertEquals(NAME, maybeUser.getName());
+    }
 
 
 }
