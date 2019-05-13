@@ -2,6 +2,8 @@ package ar.edu.itba.paw.persistence;
 
 import javax.sql.DataSource;
 
+import ar.edu.itba.paw.interfaces.PageRequest;
+import ar.edu.itba.paw.interfaces.PageResponse;
 import ar.edu.itba.paw.interfaces.dao.InterestDao;
 import ar.edu.itba.paw.interfaces.dao.CareerDao;
 import ar.edu.itba.paw.interfaces.dao.PropertyDao;
@@ -28,7 +30,10 @@ import java.util.stream.Collectors;
 @Repository
 public class APUserDao implements UserDao {
 
-    private static final String TABLE_NAME = "users";
+    private static final String GET_USERS_BY_PROPERTY_QUERY = "SELECT * FROM users u WHERE EXISTS " +
+                                                                    "(SELECT * FROM interests WHERE userId = u.id AND propertyId = ?)\n" +
+                                                                "ORDER BY u.name\n" +
+                                                                "LIMIT ? OFFSET ?";
     private final RowMapper<User> ROW_MAPPER = (rs, rowNum)
             -> new User.Builder()
                 .withId(rs.getLong("id"))
@@ -51,10 +56,6 @@ public class APUserDao implements UserDao {
     private CareerDao careerDao;
     @Autowired
     private UniversityDao universityDao;
-    @Autowired
-    private InterestDao interestDao;
-    @Autowired
-    private PropertyDao propertyDao;
 
     @Autowired
     public APUserDao(DataSource ds) {
@@ -108,25 +109,30 @@ public class APUserDao implements UserDao {
         return ret;
     }
 
-    public User getUserWithRelatedEntities(long id) {
-        User incompleteUser = get(id);
+    @Override
+    public User getUserWithRelatedEntitiesByEmail(String email) {
+        User incompleteUser = getByEmail(email);
         return new User.Builder()
                 .fromUser(incompleteUser)
                 .withUniversity(universityDao.get(incompleteUser.getUniversityId()))
                 .withCareer(careerDao.get(incompleteUser.getCareerId()))
-                .withInterestedProperties(getInterestedProperties(id))
                 .build();
     }
 
-    private Collection<Property> getInterestedProperties(long id) {
-        return propertyDao.getAll().stream()
-                .filter(userIsInterestedInProperty(id))
-                .collect(Collectors.toList());
+    @Override
+    public boolean userExistsByEmail(String email) {
+        return !jdbcTemplate.query("SELECT * FROM users WHERE email = ?", ROW_MAPPER, email).isEmpty();
     }
 
-    private Predicate<Property> userIsInterestedInProperty(long id) {
-        return p -> interestDao.getAll().stream()
-                        .filter(i -> i.getUserId() == id)
-                        .anyMatch(i -> i.getPropertyId() == p.getId());
+    @Override
+    public PageResponse<User> getUsersInterestedInProperty(long id, PageRequest pageRequest) {
+        Collection<User> data = jdbcTemplate.query((GET_USERS_BY_PROPERTY_QUERY),
+                                                    ROW_MAPPER,
+                                             id,
+                                                    pageRequest.getPageSize(),
+                                                    pageRequest.getPageNumber()*(pageRequest.getPageSize() + 1));
+        RowMapper<Integer> integerRowMapper = (rs, rowNum) -> rs.getInt("c");
+        int totalUsers = jdbcTemplate.query("SELECT COUNT(*) AS c FROM users", integerRowMapper).get(0);
+        return new PageResponse<>(pageRequest.getPageNumber(), pageRequest.getPageSize(), totalUsers, data);
     }
 }

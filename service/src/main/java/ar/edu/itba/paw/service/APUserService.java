@@ -1,6 +1,8 @@
 package ar.edu.itba.paw.service;
 
 import ar.edu.itba.paw.interfaces.Either;
+import ar.edu.itba.paw.interfaces.PageRequest;
+import ar.edu.itba.paw.interfaces.PageResponse;
 import ar.edu.itba.paw.interfaces.dao.CareerDao;
 import ar.edu.itba.paw.interfaces.dao.UniversityDao;
 import ar.edu.itba.paw.interfaces.dao.UserDao;
@@ -14,6 +16,8 @@ import java.util.List;
 
 @Service
 public class APUserService implements UserService {
+
+    private final String USER_EXISTS_BY_EMAIL = "A user with this email already exists";
 
     @Autowired
     private UserDao userDao;
@@ -40,9 +44,11 @@ public class APUserService implements UserService {
         checkRelatedEntitiesExist(user);
         if(!errors.isEmpty())
             return Either.alternativeFrom(errors);
+        if(userDao.userExistsByEmail(user.getEmail()))
+            errors.add(USER_EXISTS_BY_EMAIL);
         return Either.valueFrom(userDao.create(user));
     }
-
+    
     private void checkRelatedEntitiesExist(User user) {
         checkUniversityExists(user.getUniversityId());
         checkCareerExists(user.getCareerId());
@@ -56,5 +62,15 @@ public class APUserService implements UserService {
     private void checkCareerExists(long careerId) {
         if(careerDao.get(careerId) == null)
             errors.add("The specified career does not exist");
+    }
+
+    @Override
+    public User getUserWithRelatedEntitiesByEmail(String email) {
+        return userDao.getUserWithRelatedEntitiesByEmail(email);
+    }
+
+    @Override
+    public PageResponse<User> getUsersInterestedInProperty(long id, PageRequest pageRequest) {
+        return userDao.getUsersInterestedInProperty(id, pageRequest);
     }
 }
