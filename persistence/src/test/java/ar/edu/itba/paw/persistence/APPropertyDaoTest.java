@@ -19,6 +19,9 @@ import javax.sql.DataSource;
 @ContextConfiguration(classes= TestConfig.class)
 public class APPropertyDaoTest {
 
+    private final static String CAPTION = "el mejor depto";
+    private final static String DESCRIPTION = "posta que el mejor depto";
+
     @Autowired
     private DataSource ds;
 
@@ -43,6 +46,8 @@ public class APPropertyDaoTest {
         maybeProperty = propertyDao.get(propertyID);
         Assert.assertNotNull(maybeProperty);
         Assert.assertEquals(propertyID, maybeProperty.getId());
+        Assert.assertEquals(CAPTION, maybeProperty.getCaption());
+        Assert.assertEquals(DESCRIPTION, maybeProperty.getDescription());
     }
 
     @Test
@@ -50,6 +55,7 @@ public class APPropertyDaoTest {
         int expectedRowCount = JdbcTestUtils.countRowsInTable(jdbcTemplate, "properties");
         int realRowCount = propertyDao.getAll().size();
 
+        Assert.assertNotEquals(0, realRowCount);
         Assert.assertEquals(expectedRowCount, realRowCount);
     }
 
