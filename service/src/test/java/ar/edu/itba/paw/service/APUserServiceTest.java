@@ -27,17 +27,17 @@ import java.util.List;
 @RunWith(MockitoJUnitRunner.class)
 public class APUserServiceTest {
 
-    private static final int UNIVERSITY_ID = 1;
-    private static final String UNIVERSITY_NAME = "TEST_UNI";
+    /* package */ static final int UNIVERSITY_ID = 1;
+    /* package */ static final String UNIVERSITY_NAME = "TEST_UNI";
 
-    private static final int CAREER_ID = 1;
-    private static final String CAREER_NAME = "TEST_CAREER";
+    /* package */ static final int CAREER_ID = 1;
+    /* package */ static final String CAREER_NAME = "TEST_CAREER";
 
-    private static final String EMAIL = "dummyUser@gmail.com";
-    private static final String PASSWORD = "verySafePassword";
-    private final static String NAME = "John";
-    private final static String LAST_NAME = "Doe";
-    private final static String BIO = "Hi I'm john and I love testing";
+    /* package */ static final String EMAIL = "dummyUser@gmail.com";
+    /* package */ static final String PASSWORD = "verySafePassword";
+    /* package */ static final String NAME = "John";
+    /* package */ static final String LAST_NAME = "Doe";
+    /* package */ static final String BIO = "Hi I'm john and I love testing";
 
     @InjectMocks
     private APUserService userService = new APUserService();
