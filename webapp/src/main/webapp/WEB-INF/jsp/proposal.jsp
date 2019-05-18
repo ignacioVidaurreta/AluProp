@@ -1,3 +1,4 @@
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <html>
 <head>
     <head>
@@ -5,7 +6,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="description" content="">
-        <title>Property</title>
+        <title><spring:message code="label.property"/></title>
 
         <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/navbar-fixed/">
 
@@ -22,7 +23,7 @@
 <%@include file="navigationBar.jsp"%>
 <div class="card">
     <div class="card-header">
-        Usuarios interesados
+        <spring:message code="user.interested_users"/>
     </div>
     <ul class="list-group list-group-flush">
         <c:choose>
@@ -32,7 +33,7 @@
                 </c:forEach>
             </c:when>
             <c:otherwise>
-                <li class="list-group-item">No other users have shown interest in this property!</li>
+                <li class="list-group-item"><spring:message code="property.no_users_interested"/></li>
             </c:otherwise>
         </c:choose>
     </ul>
