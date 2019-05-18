@@ -20,10 +20,16 @@
 
 <!-- #######################     NAV BAR     ####################### -->
 
-<%@include file="navigationBar.jsp"%>
-<div class="card">
+<%--<%@include file="navigationBar.jsp"%>--%>
+
+<div class="card" style="width: 80%;">
     <div class="card-header">
         <spring:message code="user.interested_users"/>
+    </div>
+    <img class="card-img-top" src="..." alt="Card image cap">
+    <div class="card-body">
+        <h5 class="card-title">Property name</h5>
+        <p class="card-text">Property description</p>
     </div>
     <ul class="list-group list-group-flush">
         <c:choose>
@@ -34,10 +40,22 @@
             </c:when>
             <c:otherwise>
                 <li class="list-group-item"><spring:message code="property.no_users_interested"/></li>
-            </c:otherwise>
-        </c:choose>
+
     </ul>
+    <div class="card-body" id="answer">
+        <div class="row">
+        <div class="col-6">
+            <button type="button" class="btn btn-success"><spring:message code="label.proposal.accept"/></button>
+        </div>
+        <div class="col-6">
+            <button type="button" class="btn btn-danger"><spring:message code="label.proposal.decline"/></button>
+        </div>
+        <%--<div>--%>
+            <%--<button type="button" class="btn btn-secondary"><spring:message code="label.proposal.cancel"/></button>--%>
+        <%--</div>--%>
+        </div>
 </div>
+
 
 </body>
 </html>
