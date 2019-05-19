@@ -122,7 +122,7 @@ public class APPropertyDao implements PropertyDao {
         StringBuilder SEARCH_CONDITION = new StringBuilder();
         boolean shouldAddAnd = false;
 
-        if(!description.equals("")){
+        if(description!=null && !description.equals("")){
             SEARCH_CONDITION.append("LIKE %" + description + "&");
             shouldAddAnd = true;
         }
@@ -131,7 +131,22 @@ public class APPropertyDao implements PropertyDao {
             if(shouldAddAnd){
                 SEARCH_CONDITION.append(" AND ");
             }
-            SEARCH_CONDITION.append("propertyType=" + PropertyType.valueOf(propertyType));
+
+            String prop;
+
+            switch(propertyType.valueOf(propertyType)){
+                case 0:
+                    prop = "HOUSE";
+                    break;
+                case 1:
+                    prop = "APARTMENT";
+                    break;
+                default:
+                case 2:
+                    prop= "LOFT";
+
+            }
+            SEARCH_CONDITION.append("propertyType= '" + prop + "'");
             shouldAddAnd = true;
         }
 
@@ -161,7 +176,7 @@ public class APPropertyDao implements PropertyDao {
         if(minPrice != null && maxPrice != null){
             if(shouldAddAnd) SEARCH_CONDITION.append(" AND ");
 
-            SEARCH_CONDITION.append("price > " + minPrice + "AND price > " + maxPrice);
+            SEARCH_CONDITION.append("price > " + minPrice + " AND price > " + maxPrice);
             shouldAddAnd = true;
         }
 

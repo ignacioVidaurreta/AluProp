@@ -16,6 +16,8 @@ import ar.edu.itba.paw.webapp.Utilities.UserUtility;
 import ar.edu.itba.paw.webapp.form.FilteredSearchForm;
 import ar.edu.itba.paw.webapp.form.PropertyCreationForm;
 import ar.edu.itba.paw.webapp.form.ProposalForm;
+import com.sun.istack.internal.Nullable;
+import jdk.internal.util.xml.impl.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +36,7 @@ import javax.validation.Valid;
 public class PropertyController {
 
     private static final Logger logger = LoggerFactory.getLogger(PropertyController.class);
+    private static final Integer MAX_SIZE = 9;
 
     @Autowired
     private PropertyService propertyService;
@@ -48,9 +51,11 @@ public class PropertyController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping(method = RequestMethod.GET)
+    @Autowired
+    private ProposalService proposalService;
 
-    public ModelAndView index(@ModelAttribute("filteredSearchForm") final FilteredSearchForm searchForm,
+    @RequestMapping(method = RequestMethod.GET)
+    public ModelAndView index(@ModelAttribute FilteredSearchForm searchForm,
                               @RequestParam(required = false, defaultValue = "0") int pageNumber,
                               @RequestParam(required = false, defaultValue = "9") int pageSize) {
         final ModelAndView mav = new ModelAndView("index");
@@ -60,20 +65,20 @@ public class PropertyController {
         mav.addObject("properties", response.getResponseData());
         mav.addObject("currentPage", response.getPageNumber());
         mav.addObject("totalPages", response.getTotalPages());
+        mav.addObject("totalElements", response.getTotalItems());
+        mav.addObject("maxItems",MAX_SIZE);
+        mav.addObject("neighbourhoods", neighbourhoodService.getAll());
         return mav;
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.GET)
-    public ModelAndView get(@ModelAttribute("filteredSearchForm") final FilteredSearchForm searchForm, @ModelAttribute("proposalForm") final ProposalForm form, @PathVariable("id") long id) {
+    public ModelAndView get(@ModelAttribute("proposalForm") final ProposalForm form, @PathVariable("id") long id) {
         final ModelAndView mav = new ModelAndView("detailedProperty");
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = UserUtility.getCurrentlyLoggedUser(SecurityContextHolder.getContext(), userService);
         mav.addObject("userRole", auth.getAuthorities());
+        mav.addObject("currentUser", user);
         mav.addObject("property", propertyService.getPropertyWithRelatedEntities(id));
-        mav.addObject("userRole", auth.getAuthorities());
-        mav.addObject("rules", ruleService.getAll());
-        mav.addObject("services", serviceService.getAll());
-        mav.addObject("neighbourhoods", neighbourhoodService.getAll());
 
         if (user != null){
             mav.addObject("userInterested",userService.getUserIsInterestedInProperty(user.getId(), id));
@@ -101,7 +106,7 @@ public class PropertyController {
     }
 
     @RequestMapping(value = "/host/create", method = RequestMethod.GET)
-    public ModelAndView create(@ModelAttribute("filteredSearchForm") final FilteredSearchForm searchForm, @ModelAttribute("propertyCreationForm") final PropertyCreationForm form) {
+    public ModelAndView create(@ModelAttribute("propertyCreationForm") final PropertyCreationForm form) {
         return ModelAndViewWithPropertyCreationAttributes();
     }
 
@@ -117,41 +122,55 @@ public class PropertyController {
         mav.addObject("userRole", auth.getAuthorities());
         mav.addObject("rules", ruleService.getAll());
         mav.addObject("services", serviceService.getAll());
-        mav.addObject("neighbourhoods", neighbourhoodService.getAll());
+
+//        mav.addObject("propertyTypes", new Pair[]{new Pair(0, "forms.house"),new Pair(1, "forms.apartment"),new Pair(2, "forms.loft")});
+//        mav.addObject("neighbourhoods", neighbourhoodService.getAll());
+//        mav.addObject("privacyLevels", new Pair[]{new Pair(0, "forms.privacy.individual"),new Pair(1, "forms.privacy.shared")});
         return mav;
     }
 
-    @RequestMapping(value = "/host/create/uploadPictures", method = RequestMethod.POST)
-    public @ResponseBody ModelAndView uploadPictures(@RequestParam("file") MultipartFile[] files, @ModelAttribute("filteredSearchForm") final FilteredSearchForm searchForm,  @Valid @ModelAttribute PropertyCreationForm form, final BindingResult errors) {
-        long[] imageArray = new long[files.length];
+
+    private long[] loadImagesToDatabase(MultipartFile[] files){
+        ArrayList<Long> images = new ArrayList<>();
         for (int i = 0; i < files.length; i++)
-            imageArray[i] = imageService.create(files[i]);
-        form.setMainImageId(imageArray[0]);
-        form.setImageIds(imageArray);
-        return create(searchForm, form, errors);
+            if (!files[i].isEmpty())
+                images.add(imageService.create(files[i]));
+
+        long[] imageArray = new long[images.size()];
+        for (int i = 0; i < images.size(); i++)
+            imageArray[i] = images.get(i);
+        return imageArray;
     }
 
     @RequestMapping(value = "/host/create", method = RequestMethod.POST)
-    public ModelAndView create(@ModelAttribute("filteredSearchForm") final FilteredSearchForm searchForm, @Valid @ModelAttribute PropertyCreationForm propertyForm, final BindingResult errors) {
-        if (errors.hasErrors()){
-            return create(searchForm, propertyForm);
-        }
+    public ModelAndView create(@RequestParam("file") MultipartFile[] files, @Valid @ModelAttribute PropertyCreationForm propertyForm, final BindingResult errors) {
+        int numFiles = 0;
+        for (int i = 0; i < files.length; i++)
+            if (!files[i].isEmpty()) numFiles++;
+        if (numFiles == 0)
+            return create(propertyForm).addObject("noImages", true);
+        if (errors.hasErrors())
+            return create(propertyForm);
+        long[] uploadedFiles = loadImagesToDatabase(files);
+        propertyForm.setMainImageId(uploadedFiles[0]);
+        propertyForm.setImageIds(uploadedFiles);
         Either<Property, Collection<String>> propertyOrErrors = propertyService.create(
                 new Property.Builder()
-                    .withCaption(propertyForm.getCaption())
-                    .withDescription(propertyForm.getDescription())
-                    .withNeighbourhoodId(propertyForm.getNeighbourhoodId())
-                    .withPrice(propertyForm.getPrice())
-                    .withPropertyType(PropertyType.valueOf(propertyForm.getPropertyType()))
-                    .withPrivacyLevel(propertyForm.getPrivacyLevel() > 0)
-                    .withCapacity(propertyForm.getCapacity())
-                    .withMainImageId(propertyForm.getMainImageId())
-                    .withServices(generateObjects(propertyForm.getServiceIds(), Service::new))
-                    .withRules(generateObjects(propertyForm.getRuleIds(), Rule::new))
-                    .withImages(generateObjects(propertyForm.getImageIds(), Image::new))
-                    .withOwnerId(UserUtility.getCurrentlyLoggedUser(SecurityContextHolder.getContext(), userService).getId())
-                    .build()
+                        .withCaption(propertyForm.getCaption())
+                        .withDescription(propertyForm.getDescription())
+                        .withNeighbourhoodId(propertyForm.getNeighbourhoodId())
+                        .withPrice(propertyForm.getPrice())
+                        .withPropertyType(PropertyType.valueOf(propertyForm.getPropertyType()))
+                        .withPrivacyLevel(propertyForm.getPrivacyLevel() > 0)
+                        .withCapacity(propertyForm.getCapacity())
+                        .withMainImageId(propertyForm.getMainImageId())
+                        .withServices(generateObjects(propertyForm.getServiceIds(), Service::new))
+                        .withRules(generateObjects(propertyForm.getRuleIds(), Rule::new))
+                        .withImages(generateObjects(propertyForm.getImageIds(), Image::new))
+                        .withOwnerId(UserUtility.getCurrentlyLoggedUser(SecurityContextHolder.getContext(), userService).getId())
+                        .build()
         );
+
         if(propertyOrErrors.hasValue())
             return new ModelAndView("redirect:/" + propertyOrErrors.value().getId());
         else
@@ -168,7 +187,43 @@ public class PropertyController {
     @RequestMapping(value = "/interestsOfUser/{userId}")
     public ModelAndView interestsOfUser(@PathVariable(value = "userId") long userId) {
         return new ModelAndView("interestsOfUser")
-                    .addObject("interests", propertyService.getInterestsOfUser(userId));
+                .addObject("interests", propertyService.getInterestsOfUser(userId));
+    }
+
+//    @RequestMapping(value = "/proposal/create/{propertyId}", method = RequestMethod.POST )
+//    public ModelAndView create(@PathVariable(value = "propertyId") int propertyId, @Valid @ModelAttribute("proposalForm") ProposalForm form, final BindingResult errors) {
+//        Property prop = propertyService.get(propertyId);
+//        if (form.getInvitedUsersIds().length  < 1 || form.getInvitedUsersIds() == null || form.getInvitedUsersIds().length > prop.getCapacity() - 1)
+//            return get(form, propertyId).addObject("maxPeople", prop.getCapacity()-1);
+//
+//        String userEmail = UserUtility.getUsernameOfCurrentlyLoggedUser(SecurityContextHolder.getContext());
+//        long userId = userService.getByEmail(userEmail).getId();
+//
+//        Proposal proposal = new Proposal.Builder()
+//                .withCreatorId(userId)
+//                .withPropertyId(propertyId)
+//                .withUsers(getUsersByIds(form.getInvitedUsersIds()))
+//                .withInvitedUserStates(new ArrayList<>())
+//                .build();
+//        for (Long id: form.getInvitedUsersIds())
+//            proposal.getInvitedUserStates().add(0);
+//        Either<Proposal, List<String>> proposalOrErrors = proposalService.createProposal(proposal);
+//        if(proposalOrErrors.hasValue()){
+//            return new ModelAndView("redirect:/proposal/" + proposalOrErrors.value().getId());
+//        } else {
+//            ModelAndView mav = new ModelAndView("redirect:/" + propertyId);
+//            mav.addObject("proposalFailed", true);
+//            return mav;
+//        }
+//    }
+
+    private Collection<User> getUsersByIds(long[] ids){
+        Collection<User> list = new LinkedList<>();
+        if (ids != null && ids.length > 0)
+            for (long i = 0; i < ids.length; i++){
+                list.add(userService.get(ids[(int)i]));
+            }
+        return list;
     }
 
     @RequestMapping(value = "/search", method = RequestMethod.POST)

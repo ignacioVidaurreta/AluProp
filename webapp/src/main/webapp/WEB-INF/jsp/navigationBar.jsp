@@ -18,7 +18,7 @@
         <ul class="navbar-nav mr-auto">
         </ul>
         <ul class="navbar-nav" style="float: right">
-            <c:if test="${pageContext.request.requestURL == }">
+            <%--<c:if test="${pageContext.request.requestURL == }">--%>
                 <li>
                     <div class="input-group" id="adv-search">
                         <input type="text" class="form-control" placeholder="Search" />
@@ -101,7 +101,7 @@
                         </div>
                     </div>
                 </li>
-            </c:if>
+            <%--</c:if>--%>
             <c:if test="${pageContext.request.userPrincipal.name == null}">
                 <li><a class="nav-link mr-1 bold ${requestScope['javax.servlet.forward.request_uri'] == '/user/signUp' ? 'active':''}" href="<c:url value="/user/signUp"/>"><spring:message code="label.signup" /></a></li>
                 <li><span class="nav-link mr-1"><spring:message code="label.nav.or" /></span></li>
