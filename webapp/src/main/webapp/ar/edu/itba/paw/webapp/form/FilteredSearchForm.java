@@ -8,7 +8,7 @@ import javax.validation.constraints.Size;
 
 public class FilteredSearchForm {
     @Size(min=1, max=100)
-    private String caption;
+    private String description;
 
     @Range(min=0)
     private int propertyType;
@@ -34,12 +34,12 @@ public class FilteredSearchForm {
     private long[] serviceIds;
 
 
-    public String getCaption() {
-        return caption;
+    public String getDescription() {
+        return description;
     }
 
-    public void setCaption(String caption) {
-        this.caption = caption;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public int getPropertyType() {

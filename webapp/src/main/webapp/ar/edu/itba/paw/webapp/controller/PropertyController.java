@@ -50,7 +50,7 @@ public class PropertyController {
 
     @RequestMapping(method = RequestMethod.GET)
 
-    public ModelAndView index(@ModelAttribute("filteredSearchForm") final FilteredSearchForm form,
+    public ModelAndView index(@ModelAttribute("filteredSearchForm") final FilteredSearchForm searchForm,
                               @RequestParam(required = false, defaultValue = "0") int pageNumber,
                               @RequestParam(required = false, defaultValue = "9") int pageSize) {
         final ModelAndView mav = new ModelAndView("index");
@@ -64,12 +64,16 @@ public class PropertyController {
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.GET)
-    public ModelAndView get(@ModelAttribute("proposalForm") final ProposalForm form, @PathVariable("id") long id) {
+    public ModelAndView get(@ModelAttribute("filteredSearchForm") final FilteredSearchForm searchForm, @ModelAttribute("proposalForm") final ProposalForm form, @PathVariable("id") long id) {
         final ModelAndView mav = new ModelAndView("detailedProperty");
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = UserUtility.getCurrentlyLoggedUser(SecurityContextHolder.getContext(), userService);
         mav.addObject("userRole", auth.getAuthorities());
         mav.addObject("property", propertyService.getPropertyWithRelatedEntities(id));
+        mav.addObject("userRole", auth.getAuthorities());
+        mav.addObject("rules", ruleService.getAll());
+        mav.addObject("services", serviceService.getAll());
+        mav.addObject("neighbourhoods", neighbourhoodService.getAll());
 
         if (user != null){
             mav.addObject("userInterested",userService.getUserIsInterestedInProperty(user.getId(), id));
@@ -97,7 +101,7 @@ public class PropertyController {
     }
 
     @RequestMapping(value = "/host/create", method = RequestMethod.GET)
-    public ModelAndView create(@ModelAttribute("propertyCreationForm") final PropertyCreationForm form) {
+    public ModelAndView create(@ModelAttribute("filteredSearchForm") final FilteredSearchForm searchForm, @ModelAttribute("propertyCreationForm") final PropertyCreationForm form) {
         return ModelAndViewWithPropertyCreationAttributes();
     }
 
@@ -118,19 +122,19 @@ public class PropertyController {
     }
 
     @RequestMapping(value = "/host/create/uploadPictures", method = RequestMethod.POST)
-    public @ResponseBody ModelAndView uploadPictures(@RequestParam("file") MultipartFile[] files, @Valid @ModelAttribute PropertyCreationForm form, final BindingResult errors) {
+    public @ResponseBody ModelAndView uploadPictures(@RequestParam("file") MultipartFile[] files, @ModelAttribute("filteredSearchForm") final FilteredSearchForm searchForm,  @Valid @ModelAttribute PropertyCreationForm form, final BindingResult errors) {
         long[] imageArray = new long[files.length];
         for (int i = 0; i < files.length; i++)
             imageArray[i] = imageService.create(files[i]);
         form.setMainImageId(imageArray[0]);
         form.setImageIds(imageArray);
-        return create(form, errors);
+        return create(searchForm, form, errors);
     }
 
     @RequestMapping(value = "/host/create", method = RequestMethod.POST)
-    public ModelAndView create(@Valid @ModelAttribute PropertyCreationForm propertyForm, final BindingResult errors) {
+    public ModelAndView create(@ModelAttribute("filteredSearchForm") final FilteredSearchForm searchForm, @Valid @ModelAttribute PropertyCreationForm propertyForm, final BindingResult errors) {
         if (errors.hasErrors()){
-            return create(propertyForm);
+            return create(searchForm, propertyForm);
         }
         Either<Property, Collection<String>> propertyOrErrors = propertyService.create(
                 new Property.Builder()
@@ -167,22 +171,21 @@ public class PropertyController {
                     .addObject("interests", propertyService.getInterestsOfUser(userId));
     }
 
-//    @RequestMapping(value = "/search", method = RequestMethod.POST)
-//    public ModelAndView search(@RequestParam(required = false, defaultValue = "0") int pageNumber,
-//                               @RequestParam(required = false, defaultValue = "9") int pageSize,
-//                               @Valid @ModelAttribute FilteredSearchForm searchForm, final BindingResult errors) {
-//        if (errors.hasErrors()){
-//            return index(pageNumber,pageSize,searchForm);
-//        }
-//        final ModelAndView mav = new ModelAndView("index");
-//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//        mav.addObject("userRole", auth.getAuthorities());
-//        PageResponse<Property> response = propertyService.advancedSearch(new PageRequest(pageSize, pageNumber), searchForm.getCaption(), searchForm.getPropertyType(), searchForm.getNeighbourhoodId(), searchForm.getPrivacyLevel(), searchForm.getCapacity(), searchForm.getMinPrice(), searchForm.getMaxPrice(), searchForm.getRuleIds(), searchForm.getServiceIds());
-//        mav.addObject("properties", response.getResponseData());
-//        mav.addObject("currentPage", response.getPageNumber());
-//        mav.addObject("totalPages", response.getTotalPages());
-//        mav.addObject("totalElements", response.getTotalItems());
-//        mav.addObject("maxItems",MAX_SIZE);
-//        return mav;
-//    }
+    @RequestMapping(value = "/search", method = RequestMethod.POST)
+    public ModelAndView search(@RequestParam(required = false, defaultValue = "0") int pageNumber,
+                               @RequestParam(required = false, defaultValue = "9") int pageSize,
+                               @Valid @ModelAttribute FilteredSearchForm searchForm, final BindingResult errors) {
+        if (errors.hasErrors()){
+            return index(searchForm,pageNumber,pageSize);
+        }
+        final ModelAndView mav = new ModelAndView("index");
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        mav.addObject("userRole", auth.getAuthorities());
+        PageResponse<Property> response = propertyService.advancedSearch(new PageRequest(pageNumber, pageSize),searchForm.getDescription(), searchForm.getPropertyType(), searchForm.getNeighbourhoodId(), searchForm.getPrivacyLevel(), searchForm.getCapacity(), searchForm.getMinPrice(), searchForm.getMaxPrice(), searchForm.getRuleIds(), searchForm.getServiceIds());
+        mav.addObject("properties", response.getResponseData());
+        mav.addObject("currentPage", response.getPageNumber());
+        mav.addObject("totalPages", response.getTotalPages());
+        mav.addObject("totalElements", response.getTotalItems());
+        return mav;
+    }
 }

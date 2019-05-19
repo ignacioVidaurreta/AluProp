@@ -58,7 +58,6 @@ public class UserController {
         ModelAndView mav = new ModelAndView("signUpForm");
         mav.addObject("universities", universityService.getAll());
         mav.addObject("careers", careerService.getAll());
-
         return mav;
     }
 

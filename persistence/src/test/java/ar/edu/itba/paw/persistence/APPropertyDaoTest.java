@@ -62,20 +62,20 @@ public class APPropertyDaoTest {
         Assert.assertNotEquals(0, realRowCount);
         Assert.assertEquals(expectedRowCount, realRowCount);
     }
-
-    @Test
-    public void advancedSearchTest(){
-        int expectedCount =1;
-        List<Long> rules = new LinkedList<>();
-        rules.add(Long.valueOf(1));
-
-        List<Long> services = new LinkedList<>();
-        services.add(Long.valueOf(1));
-        int realCount = propertyDao.advancedSearch(new PageRequest(0, 0), "",rules, services, null, null).size();
-
-        Assert.assertEquals(expectedCount, realCount);
-
-    }
+//
+//    @Test
+//    public void advancedSearchTest(){
+//        int expectedCount =1;
+//        List<Long> rules = new LinkedList<>();
+//        rules.add(Long.valueOf(1));
+//
+//        List<Long> services = new LinkedList<>();
+//        services.add(Long.valueOf(1));
+//        int realCount = propertyDao.advancedSearch(new PageRequest(0, 0), "",rules, services, null, null).size();
+//
+//        Assert.assertEquals(expectedCount, realCount);
+//
+//    }
 
 
     /* TODO[IV]
