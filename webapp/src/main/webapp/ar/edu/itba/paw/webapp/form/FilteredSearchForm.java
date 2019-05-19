@@ -8,40 +8,32 @@ import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Size;
 
 public class FilteredSearchForm {
-    @Nullable
-    @Size(min=1, max=100)
+
+    @Size(min=0, max=100)
     private String description;
 
-    @Nullable
-    @Range(min=0)
+
     private int propertyType;
 
-    @Nullable
-    @Range(min=0)
+
     private int neighbourhoodId;
 
-    @Nullable
-    @Range(min=0)
+
     private int privacyLevel;
 
-    @Nullable
-    @Range(min=1, max=100)
+    @Range(min=0, max=100)
     private int capacity;
 
-    @Nullable
-    @DecimalMin("1")
+    @DecimalMin("0")
     @DecimalMax("9999999")
     private float minPrice;
 
-    @Nullable
-    @DecimalMin("1")
+    @DecimalMin("0")
     @DecimalMax("9999999")
     private float maxPrice;
 
-    @Nullable
     private long[] ruleIds;
 
-    @Nullable
     private long[] serviceIds;
 
 
