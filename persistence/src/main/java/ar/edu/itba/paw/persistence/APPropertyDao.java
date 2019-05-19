@@ -125,7 +125,7 @@ public class APPropertyDao implements PropertyDao {
             shouldAddAnd = true;
         }
 
-        if( propertyType != null){
+        if( propertyType != null && propertyType != -1){
             if(shouldAddAnd){
                 SEARCH_CONDITION.append(" AND ");
             }
@@ -148,14 +148,14 @@ public class APPropertyDao implements PropertyDao {
             shouldAddAnd = true;
         }
 
-        if(neighborhood != null){
+        if(neighborhood != null && neighborhood != -1){
             if(shouldAddAnd) SEARCH_CONDITION.append(" AND ");
 
             SEARCH_CONDITION.append("neighbourhoodid=" + neighborhood);
             shouldAddAnd=true;
         }
 
-        if(privacyLevel != null){
+        if(privacyLevel != null && privacyLevel != -1){
             if(shouldAddAnd) SEARCH_CONDITION.append(" AND ");
             boolean privacyLevelBool;
             privacyLevelBool = privacyLevel != 0;
@@ -164,14 +164,14 @@ public class APPropertyDao implements PropertyDao {
             shouldAddAnd = true;
         }
 
-        if( capacity != null){
+        if( capacity != null && capacity != 0){
             if(shouldAddAnd) SEARCH_CONDITION.append(" AND ");
 
             SEARCH_CONDITION.append("capacity=" + capacity);
             shouldAddAnd=true;
         }
 
-        if(minPrice != null && maxPrice != null){
+        if(minPrice != null && maxPrice != null && minPrice != 0 && maxPrice != 0){
             if(shouldAddAnd) SEARCH_CONDITION.append(" AND ");
 
             SEARCH_CONDITION.append("price > " + minPrice + " AND price < " + maxPrice);
@@ -205,6 +205,7 @@ public class APPropertyDao implements PropertyDao {
                         "INNER JOIN propertyRules on properties.id = propertyRules.propertyid " +
                         "WHERE " + SEARCH_CONDITION + " LIMIT ? OFFSET ?";
 
+        System.out.println("HOLA " + QUERY);
         
         List<Property> result= jdbcTemplate.query(QUERY,
                 ROW_MAPPER,
