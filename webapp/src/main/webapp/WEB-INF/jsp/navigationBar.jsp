@@ -1,6 +1,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%--<head>--%>
     <%--<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">--%>
     <%--<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>--%>
@@ -44,14 +45,15 @@
                                         <%--<label>Contains the words</label>--%>
                                         <%--<input class="form-control" type="text" />--%>
                                     <%--</div>--%>
+
                                 <form:form modelAttribute="filteredSearchForm" action="/search/" method="post">
                                     <div class="form-group">
                                         <form:label path="propertyType"><spring:message code="forms.property_type"/></form:label>
                                         <form:select path="propertyType" class="form-control">
-                                            <option value="-1"><spring:message code="forms.choose"/></option>
-                                            <option value="0"><spring:message code="forms.house"/></option>
-                                            <option value="1"><spring:message code="forms.apartment"/></option>
-                                            <option value="2"><spring:message code="forms.loft"/></option>
+                                            <form:option value="-1"><spring:message code="forms.choose"/></form:option>
+                                            <form:option value="0"><spring:message code="forms.house"/></form:option>
+                                            <form:option value="1"><spring:message code="forms.apartment"/></form:option>
+                                            <form:option value="2"><spring:message code="forms.loft"/></form:option>
                                         </form:select>
                                         <form:errors path="propertyType" cssClass="formError" element="p"/>
                                     </div>
@@ -68,9 +70,9 @@
                                     <div class="form-group">
                                         <form:label path="privacyLevel"><spring:message code="forms.privacy"/></form:label>
                                         <form:select path="privacyLevel" class="form-control">
-                                            <option value="-1"><spring:message code="forms.choose"/></option>
-                                            <option value="0"><spring:message code="forms.privacy.individual"/></option>
-                                            <option value="1"><spring:message code="forms.privacy.shared"/></option>
+                                            <form:option value="-1"><spring:message code="forms.choose"/></form:option>
+                                            <form:option value="0"><spring:message code="forms.privacy.individual"/></form:option>
+                                            <form:option value="1"><spring:message code="forms.privacy.shared"/></form:option>
                                         </form:select>
                                         <form:errors path="privacyLevel" cssClass="formError" element="p"/>
                                     </div>
