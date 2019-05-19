@@ -9,11 +9,21 @@ import ar.edu.itba.paw.interfaces.PageRequest;
 import ar.edu.itba.paw.interfaces.PageResponse;
 import ar.edu.itba.paw.model.Property;
 import ar.edu.itba.paw.model.User;
+import org.springframework.lang.Nullable;
 
 public interface PropertyService {
 
     Property get(long id);
     PageResponse<Property> getAll(PageRequest pageRequest);
+    PageResponse<Property> getByDescription(PageRequest pageRequest, String description);
+
+    PageResponse<Property> advancedSearch(PageRequest pageRequest,
+                                          String description,
+                                          @Nullable List<Long> rules,
+                                          @Nullable List<Long> services,
+                                          @Nullable Long neighborhood,
+                                          @Nullable Long propertyType);
+
     int showInterestOrReturnErrors(long propertyId, User user);
 	int undoInterestOrReturnErrors(long propertyId, User user);
     Property getPropertyWithRelatedEntities(long id);

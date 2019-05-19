@@ -85,6 +85,18 @@ public class APPropertyDao implements PropertyDao {
     }
 
     @Override
+    public Collection<Property> getPropertyByDescription(PageRequest pageRequest, String description){
+
+        String search_like = '%' + description + '%';
+        return jdbcTemplate.query("SELECT * FROM properties WHERE LIKE ? LIMIT ? OFFSET ?",
+                                                ROW_MAPPER,
+                                                search_like,
+                                                pageRequest.getPageSize(),
+                                                pageRequest.getPageNumber()*pageRequest.getPageSize());
+
+    }
+
+    @Override
     public Collection<Property> getAll(PageRequest pageRequest) {
         return jdbcTemplate.query("SELECT * FROM properties LIMIT ? OFFSET ?",
                             ROW_MAPPER,
@@ -92,6 +104,22 @@ public class APPropertyDao implements PropertyDao {
                             pageRequest.getPageNumber()*pageRequest.getPageSize());
     }
 
+    @Override
+    public Collection<Property> advancedSearch(PageRequest pageRequest, String description, List<Long> rules, List<Long> services, Long neighborhood, Long propertyType) {
+        if (rules == null && services==null && neighborhood == null && propertyType == null){ //No advanced search needed
+            return getPropertyByDescription(pageRequest, description);
+        }
+
+        StringBuilder SEARCH_CONDITION;
+
+        if(rules != null){
+            for(Long ruleID : rules){
+                SEARCH_CONDITION.append("")
+            }
+        }
+
+        return null;
+    }
     @Override
     public boolean showInterest(long propertyId, User user) {
 //        if (interestExists(propertyId, user))
@@ -186,4 +214,6 @@ public class APPropertyDao implements PropertyDao {
         RowMapper<Long> rowMapper = (rs, rowNum) -> rs.getLong("count");
         return jdbcTemplate.query("SELECT COUNT(*) FROM properties", rowMapper).get(0);
     }
+
+
 }

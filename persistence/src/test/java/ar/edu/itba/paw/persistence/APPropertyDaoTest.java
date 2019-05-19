@@ -60,6 +60,15 @@ public class APPropertyDaoTest {
         Assert.assertEquals(expectedRowCount, realRowCount);
     }
 
+
+    /* TODO[IV]
+    @Test
+    public void getPropertyByDescriptionTest(){
+
+    }
+    */
+
+
     @Test
     public void getPropertyWithRelatedEntitiesHasAllRelatedEntitiesTest(){
         int propertyID = 1; //According to our schema.sql we have a property with ID 1, so it's correct to assume it exists
@@ -73,7 +82,7 @@ public class APPropertyDaoTest {
         Assert.assertNotNull(maybeProperty.getRules());
     }
 
-    /* TODO: Should use a Mock User w/Mockito
+    /* TODO[IV]: Should use a Mock User w/Mockito???
     @Test
     public void showInterestCreatesRelationshipUserPropertyTest(){
         boolean columnsWhereChanged = propertyDao.showInterest(1, 1);
