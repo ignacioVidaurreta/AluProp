@@ -110,15 +110,56 @@ public class APPropertyDao implements PropertyDao {
             return getPropertyByDescription(pageRequest, description);
         }
 
-        StringBuilder SEARCH_CONDITION;
+
+        StringBuilder SEARCH_CONDITION = new StringBuilder();
+        boolean first=false;
 
         if(rules != null){
+            first=true;
             for(Long ruleID : rules){
-                SEARCH_CONDITION.append("")
+                if(!first){
+                    SEARCH_CONDITION.append(" AND ");
+                }else{
+                    first=false;
+                }
+                SEARCH_CONDITION.append("ruleid=" + ruleID);
+            }
+            first=false;
+        }
+
+        if(services != null){
+            SEARCH_CONDITION.append(" AND ");
+            first=true;
+            for(Long serviceID : services){
+                if(!first){
+                    SEARCH_CONDITION.append(" AND ");
+                }else{
+                    first=false;
+                }
+                SEARCH_CONDITION.append("serviceid=" + serviceID);
             }
         }
 
-        return null;
+        if(neighborhood != null){
+            SEARCH_CONDITION.append(" AND ");
+            SEARCH_CONDITION.append("neighbourhoodid=" + neighborhood);
+        }
+
+        if(propertyType != null){
+            SEARCH_CONDITION.append(" AND ");
+            SEARCH_CONDITION.append("propertytype=" + propertyType);
+        }
+
+        String QUERY = "SELECT * " +
+                        "FROM properties " +
+                        "INNER JOIN propertyServices on properties.id=propertyServices.propertyid " +
+                        "INNER JOIN propertyRules on properties.id = propertyRules.propertyid " +
+                        "WHERE " + SEARCH_CONDITION + " LIMIT ? OFFSET ?";
+
+        return jdbcTemplate.query(QUERY,
+                ROW_MAPPER,
+                pageRequest.getPageSize(),
+                pageRequest.getPageNumber()*pageRequest.getPageSize());
     }
     @Override
     public boolean showInterest(long propertyId, User user) {
