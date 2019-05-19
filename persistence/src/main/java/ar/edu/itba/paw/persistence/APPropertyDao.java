@@ -205,8 +205,7 @@ public class APPropertyDao implements PropertyDao {
                         "INNER JOIN propertyRules on properties.id = propertyRules.propertyid " +
                         "WHERE " + SEARCH_CONDITION + " LIMIT ? OFFSET ?";
 
-        System.out.println("HOLA " + QUERY);
-        
+
         List<Property> result= jdbcTemplate.query(QUERY,
                 ROW_MAPPER,
                 pageRequest.getPageSize(),
