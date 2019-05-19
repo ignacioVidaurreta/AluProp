@@ -70,15 +70,19 @@ public class APPropertyService implements PropertyService {
 
     @Override
     public PageResponse<Property> advancedSearch(PageRequest pageRequest,
-                                                 String description,
-                                                 @Nullable List<Long> rules,
-                                                 @Nullable List<Long> services,
-                                                 @Nullable Long neighborhood,
-                                                 @Nullable Long propertyType){
+                                          String description,
+                                          @Nullable Integer propertyType,
+                                          @Nullable Long neighborhood,
+                                          @Nullable Integer privacyLevel,
+                                          @Nullable Integer capacity,
+                                          @Nullable Long minPrice,
+                                          @Nullable Long maxPrice,
+                                          @Nullable List<Long> rules,
+                                          @Nullable List<Long> services){
 
         return new PageResponse<>(pageRequest,
                                   propertyDao.count(),
-                                  propertyDao.advancedSearch(pageRequest, description, rules, services, neighborhood,propertyType));
+                                  propertyDao.advancedSearch(pageRequest, description, propertyType, neighborhood, privacyLevel, capacity, minPrice, maxPrice, rules, services));
     }
 
     @Override

@@ -88,6 +88,10 @@ public class APPropertyDao implements PropertyDao {
     @Override
     public Collection<Property> getPropertyByDescription(PageRequest pageRequest, String description){
 
+        if(description.equals("")){
+            //No search needed.
+            return getAll(pageRequest);
+        }
         String search_like = '%' + description + '%';
         return jdbcTemplate.query("SELECT * FROM properties WHERE LIKE ? LIMIT ? OFFSET ?",
                                                 ROW_MAPPER,
@@ -106,20 +110,61 @@ public class APPropertyDao implements PropertyDao {
     }
 
     @Override
-    public Collection<Property> advancedSearch(PageRequest pageRequest, String description, List<Long> rules, List<Long> services, Long neighborhood, Long propertyType) {
-        if (rules == null && services==null && neighborhood == null && propertyType == null){ //No advanced search needed
+    public Collection<Property> advancedSearch(PageRequest pageRequest, String description, Integer propertyType, Long neighborhood, Integer privacyLevel, Integer capacity, Long minPrice, Long maxPrice, List<Long> rules, List<Long> services) {
+        if ( propertyType == null && neighborhood == null
+                && privacyLevel == null && capacity == null
+                && (minPrice == null || maxPrice == null)
+                && rules == null && services==null){ //No advanced search needed. Just do plain search.
             return getPropertyByDescription(pageRequest, description);
         }
 
 
         StringBuilder SEARCH_CONDITION = new StringBuilder();
-        boolean first=false;
         boolean shouldAddAnd = false;
 
         if(!description.equals("")){
             SEARCH_CONDITION.append("LIKE %" + description + "&");
             shouldAddAnd = true;
         }
+
+        if( propertyType != null){
+            if(shouldAddAnd){
+                SEARCH_CONDITION.append(" AND ");
+            }
+            SEARCH_CONDITION.append("propertyType=" + PropertyType.valueOf(propertyType));
+            shouldAddAnd = true;
+        }
+
+        if(neighborhood != null){
+            if(shouldAddAnd) SEARCH_CONDITION.append(" AND ");
+
+            SEARCH_CONDITION.append("neighbourhoodid=" + neighborhood);
+            shouldAddAnd=true;
+        }
+
+        if(privacyLevel != null){
+            if(shouldAddAnd) SEARCH_CONDITION.append(" AND ");
+            boolean privacyLevelBool;
+            privacyLevelBool = privacyLevel != 0;
+
+            SEARCH_CONDITION.append("privacylevel=" + privacyLevelBool);
+            shouldAddAnd = true;
+        }
+
+        if( capacity != null){
+            if(shouldAddAnd) SEARCH_CONDITION.append(" AND ");
+
+            SEARCH_CONDITION.append("capacity=" + capacity);
+            shouldAddAnd=true;
+        }
+
+        if(minPrice != null && maxPrice != null){
+            if(shouldAddAnd) SEARCH_CONDITION.append(" AND ");
+
+            SEARCH_CONDITION.append("price > " + minPrice + "AND price > " + maxPrice);
+            shouldAddAnd = true;
+        }
+
         if(rules != null){
             for(Long ruleID : rules){
                 if(shouldAddAnd){
@@ -140,16 +185,6 @@ public class APPropertyDao implements PropertyDao {
             }
         }
 
-        if(neighborhood != null){
-            if(shouldAddAnd) SEARCH_CONDITION.append(" AND ");
-
-            SEARCH_CONDITION.append("neighbourhoodid=" + neighborhood);
-        }
-
-        if(propertyType != null){
-            if(shouldAddAnd) SEARCH_CONDITION.append(" AND ");
-            SEARCH_CONDITION.append("propertytype=" + propertyType);
-        }
 
         String QUERY = "SELECT * " +
                         "FROM properties " +

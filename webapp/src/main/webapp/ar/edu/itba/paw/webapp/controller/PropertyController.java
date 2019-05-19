@@ -177,7 +177,7 @@ public class PropertyController {
 //        final ModelAndView mav = new ModelAndView("index");
 //        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 //        mav.addObject("userRole", auth.getAuthorities());
-//        PageResponse<Property> response = propertyService.advancedSearch(searchForm.getCaption(), searchForm.getPropertyType(), searchForm.getNeighbourhoodId(), searchForm.getPrivacyLevel(), searchForm.getCapacity(), searchForm.getMinPrice(), searchForm.getMaxPrice(), searchForm.getRuleIds(), searchForm.getServiceIds());
+//        PageResponse<Property> response = propertyService.advancedSearch(new PageRequest(pageSize, pageNumber), searchForm.getCaption(), searchForm.getPropertyType(), searchForm.getNeighbourhoodId(), searchForm.getPrivacyLevel(), searchForm.getCapacity(), searchForm.getMinPrice(), searchForm.getMaxPrice(), searchForm.getRuleIds(), searchForm.getServiceIds());
 //        mav.addObject("properties", response.getResponseData());
 //        mav.addObject("currentPage", response.getPageNumber());
 //        mav.addObject("totalPages", response.getTotalPages());
