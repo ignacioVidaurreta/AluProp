@@ -25,8 +25,8 @@ public interface PropertyService {
                                           @Nullable Integer capacity,
                                           @Nullable float minPrice,
                                           @Nullable float maxPrice,
-                                          @Nullable Long[] rules,
-                                          @Nullable Long[] services);
+                                          @Nullable long[] rules,
+                                          @Nullable long[] services);
 
     int showInterestOrReturnErrors(long propertyId, User user);
 	int undoInterestOrReturnErrors(long propertyId, User user);

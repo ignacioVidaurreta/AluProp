@@ -77,8 +77,8 @@ public class APPropertyService implements PropertyService {
                                           @Nullable Integer capacity,
                                           @Nullable float minPrice,
                                           @Nullable float maxPrice,
-                                          @Nullable Long[] rules,
-                                          @Nullable Long[] services){
+                                          @Nullable long[] rules,
+                                          @Nullable long[] services){
 
         return new PageResponse<>(pageRequest,
                                   propertyDao.count(),

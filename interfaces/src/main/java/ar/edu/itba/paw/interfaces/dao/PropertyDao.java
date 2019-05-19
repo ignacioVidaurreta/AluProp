@@ -18,5 +18,5 @@ public interface PropertyDao extends Dao<Property>{
     Collection<Property> getInterestsOfUser(long id);
     PageResponse<Property> getInterestsOfUserPaged(long id, PageRequest pageRequest);
     Long count();
-    Collection<Property> advancedSearch(PageRequest pageRequest, String description, Integer propertyType, Integer neighborhood, Integer privacyLevel, Integer capacity, Float minPrice, Float maxPrice, Long[] rules, Long[] services);
+    Collection<Property> advancedSearch(PageRequest pageRequest, String description, Integer propertyType, Integer neighborhood, Integer privacyLevel, Integer capacity, Float minPrice, Float maxPrice, long[] rules, long[] services);
 }
