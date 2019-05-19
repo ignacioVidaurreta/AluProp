@@ -176,7 +176,7 @@ public class APPropertyDao implements PropertyDao {
         if(minPrice != null && maxPrice != null){
             if(shouldAddAnd) SEARCH_CONDITION.append(" AND ");
 
-            SEARCH_CONDITION.append("price > " + minPrice + " AND price > " + maxPrice);
+            SEARCH_CONDITION.append("price > " + minPrice + " AND price < " + maxPrice);
             shouldAddAnd = true;
         }
 
@@ -206,6 +206,8 @@ public class APPropertyDao implements PropertyDao {
                         "INNER JOIN propertyServices on properties.id=propertyServices.propertyid " +
                         "INNER JOIN propertyRules on properties.id = propertyRules.propertyid " +
                         "WHERE " + SEARCH_CONDITION + " LIMIT ? OFFSET ?";
+
+        System.out.println("QUERYYYY " + QUERY);
         
         return jdbcTemplate.query(QUERY,
                 ROW_MAPPER,
