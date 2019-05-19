@@ -13,6 +13,7 @@ import ar.edu.itba.paw.model.*;
 import ar.edu.itba.paw.model.enums.PropertyType;
 import ar.edu.itba.paw.webapp.Utilities.StatusCodeUtility;
 import ar.edu.itba.paw.webapp.Utilities.UserUtility;
+import ar.edu.itba.paw.webapp.form.FilteredSearchForm;
 import ar.edu.itba.paw.webapp.form.PropertyCreationForm;
 import ar.edu.itba.paw.webapp.form.ProposalForm;
 import org.slf4j.Logger;
@@ -48,8 +49,10 @@ public class PropertyController {
     private UserService userService;
 
     @RequestMapping(method = RequestMethod.GET)
-    public ModelAndView index(@RequestParam(required = false, defaultValue = "0") int pageNumber,
-                              @RequestParam(required = false, defaultValue = "0") int pageSize) {
+
+    public ModelAndView index(@ModelAttribute("filteredSearchForm") final FilteredSearchForm form,
+                              @RequestParam(required = false, defaultValue = "0") int pageNumber,
+                              @RequestParam(required = false, defaultValue = "9") int pageSize) {
         final ModelAndView mav = new ModelAndView("index");
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         mav.addObject("userRole", auth.getAuthorities());
@@ -163,4 +166,23 @@ public class PropertyController {
         return new ModelAndView("interestsOfUser")
                     .addObject("interests", propertyService.getInterestsOfUser(userId));
     }
+
+//    @RequestMapping(value = "/search", method = RequestMethod.POST)
+//    public ModelAndView search(@RequestParam(required = false, defaultValue = "0") int pageNumber,
+//                               @RequestParam(required = false, defaultValue = "9") int pageSize,
+//                               @Valid @ModelAttribute FilteredSearchForm searchForm, final BindingResult errors) {
+//        if (errors.hasErrors()){
+//            return index(pageNumber,pageSize,searchForm);
+//        }
+//        final ModelAndView mav = new ModelAndView("index");
+//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+//        mav.addObject("userRole", auth.getAuthorities());
+//        PageResponse<Property> response = propertyService.advancedSearch(searchForm.getCaption(), searchForm.getPropertyType(), searchForm.getNeighbourhoodId(), searchForm.getPrivacyLevel(), searchForm.getCapacity(), searchForm.getMinPrice(), searchForm.getMaxPrice(), searchForm.getRuleIds(), searchForm.getServiceIds());
+//        mav.addObject("properties", response.getResponseData());
+//        mav.addObject("currentPage", response.getPageNumber());
+//        mav.addObject("totalPages", response.getTotalPages());
+//        mav.addObject("totalElements", response.getTotalItems());
+//        mav.addObject("maxItems",MAX_SIZE);
+//        return mav;
+//    }
 }
