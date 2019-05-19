@@ -1,9 +1,6 @@
 package ar.edu.itba.paw.persistence;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -123,6 +120,7 @@ public class APPropertyDao implements PropertyDao {
         boolean shouldAddAnd = false;
 
         if(description!=null && !description.equals("")){
+            System.out.println("LLEGUE QUE ONDA MAESTRO");
             SEARCH_CONDITION.append("LIKE %" + description + "&");
             shouldAddAnd = true;
         }
@@ -207,12 +205,23 @@ public class APPropertyDao implements PropertyDao {
                         "INNER JOIN propertyRules on properties.id = propertyRules.propertyid " +
                         "WHERE " + SEARCH_CONDITION + " LIMIT ? OFFSET ?";
 
-        System.out.println("QUERYYYY " + QUERY);
         
-        return jdbcTemplate.query(QUERY,
+        List<Property> result= jdbcTemplate.query(QUERY,
                 ROW_MAPPER,
                 pageRequest.getPageSize(),
                 pageRequest.getPageNumber()*pageRequest.getPageSize());
+
+        HashSet<Long> id_set = new HashSet<>();
+
+        List<Property> result_unique = new LinkedList<>();
+        for( Property prop : result){
+            if(!id_set.contains(prop.getId())){
+                id_set.add(prop.getId());
+                result_unique.add(prop);
+            }
+        }
+
+        return result_unique;
     }
     @Override
     public boolean showInterest(long propertyId, User user) {
