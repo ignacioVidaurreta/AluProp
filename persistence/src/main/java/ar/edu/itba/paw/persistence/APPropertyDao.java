@@ -66,6 +66,7 @@ public class APPropertyDao implements PropertyDao {
 
     @Autowired
     public APPropertyDao(DataSource ds) {
+
         jdbcTemplate = new JdbcTemplate(ds);
         jdbcInsert = new SimpleJdbcInsert(ds)
                         .withTableName("properties")
@@ -113,40 +114,40 @@ public class APPropertyDao implements PropertyDao {
 
         StringBuilder SEARCH_CONDITION = new StringBuilder();
         boolean first=false;
+        boolean shouldAddAnd = false;
 
+        if(!description.equals("")){
+            SEARCH_CONDITION.append("LIKE %" + description + "&");
+            shouldAddAnd = true;
+        }
         if(rules != null){
-            first=true;
             for(Long ruleID : rules){
-                if(!first){
+                if(shouldAddAnd){
                     SEARCH_CONDITION.append(" AND ");
-                }else{
-                    first=false;
                 }
                 SEARCH_CONDITION.append("ruleid=" + ruleID);
+                shouldAddAnd = true;
             }
-            first=false;
         }
 
         if(services != null){
-            SEARCH_CONDITION.append(" AND ");
-            first=true;
             for(Long serviceID : services){
-                if(!first){
+                if(shouldAddAnd){
                     SEARCH_CONDITION.append(" AND ");
-                }else{
-                    first=false;
                 }
                 SEARCH_CONDITION.append("serviceid=" + serviceID);
+                shouldAddAnd = true;
             }
         }
 
         if(neighborhood != null){
-            SEARCH_CONDITION.append(" AND ");
+            if(shouldAddAnd) SEARCH_CONDITION.append(" AND ");
+
             SEARCH_CONDITION.append("neighbourhoodid=" + neighborhood);
         }
 
         if(propertyType != null){
-            SEARCH_CONDITION.append(" AND ");
+            if(shouldAddAnd) SEARCH_CONDITION.append(" AND ");
             SEARCH_CONDITION.append("propertytype=" + propertyType);
         }
 
@@ -155,7 +156,7 @@ public class APPropertyDao implements PropertyDao {
                         "INNER JOIN propertyServices on properties.id=propertyServices.propertyid " +
                         "INNER JOIN propertyRules on properties.id = propertyRules.propertyid " +
                         "WHERE " + SEARCH_CONDITION + " LIMIT ? OFFSET ?";
-
+        
         return jdbcTemplate.query(QUERY,
                 ROW_MAPPER,
                 pageRequest.getPageSize(),
