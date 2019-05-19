@@ -110,7 +110,7 @@ public class APPropertyDao implements PropertyDao {
     }
 
     @Override
-    public Collection<Property> advancedSearch(PageRequest pageRequest, String description, Integer propertyType, Long neighborhood, Integer privacyLevel, Integer capacity, Long minPrice, Long maxPrice, List<Long> rules, List<Long> services) {
+    public Collection<Property> advancedSearch(PageRequest pageRequest, String description, Integer propertyType, Integer neighborhood, Integer privacyLevel, Integer capacity, Float minPrice, Float maxPrice, Long[] rules, Long[] services) {
         if ( propertyType == null && neighborhood == null
                 && privacyLevel == null && capacity == null
                 && (minPrice == null || maxPrice == null)

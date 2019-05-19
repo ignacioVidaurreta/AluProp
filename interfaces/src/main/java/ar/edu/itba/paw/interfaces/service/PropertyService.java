@@ -20,13 +20,13 @@ public interface PropertyService {
     PageResponse<Property> advancedSearch(PageRequest pageRequest,
                                           String description,
                                           @Nullable Integer propertyType,
-                                          @Nullable Long neighborhood,
+                                          @Nullable int neighborhood,
                                           @Nullable Integer privacyLevel,
                                           @Nullable Integer capacity,
-                                          @Nullable Long minPrice,
-                                          @Nullable Long maxPrice,
-                                          @Nullable List<Long> rules,
-                                          @Nullable List<Long> services);
+                                          @Nullable float minPrice,
+                                          @Nullable float maxPrice,
+                                          @Nullable Long[] rules,
+                                          @Nullable Long[] services);
 
     int showInterestOrReturnErrors(long propertyId, User user);
 	int undoInterestOrReturnErrors(long propertyId, User user);
