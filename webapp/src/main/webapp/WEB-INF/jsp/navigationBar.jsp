@@ -21,7 +21,7 @@
             <%--<c:if test="${pageContext.request.requestURL == }">--%>
                 <li>
                     <div class="input-group" id="adv-search">
-                        <form:form modelAttribute="filteredSearchForm" action="/search/" method="post">
+                        <form:form modelAttribute="filteredSearchForm" action="/search/" method="post" style="display:flex;">
                             <form:input path="description" type="text" class="form-control" placeholder="Search"/>
                             <form:errors path="description" cssClass="formError" element="p"/>
                         <%--<input type="text" class="form-control" placeholder="Search" />--%>
