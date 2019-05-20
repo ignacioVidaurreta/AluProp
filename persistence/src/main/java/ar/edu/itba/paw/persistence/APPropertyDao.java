@@ -120,7 +120,6 @@ public class APPropertyDao implements PropertyDao {
         boolean shouldAddAnd = false;
 
         if(description!=null && !description.equals("")){
-            System.out.println("LLEGUE QUE ONDA MAESTRO");
             SEARCH_CONDITION.append("LIKE %" + description + "&");
             shouldAddAnd = true;
         }
