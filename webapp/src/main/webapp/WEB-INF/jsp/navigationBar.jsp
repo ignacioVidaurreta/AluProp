@@ -21,85 +21,84 @@
             <%--<c:if test="${pageContext.request.requestURL == }">--%>
                 <li>
                     <div class="input-group" id="adv-search">
-                        <form:form modelAttribute="filteredSearchForm" action="/search/" method="post">
-                            <form:input path="description" type="text" class="form-control" placeholder="Search"></form:input>
-                            <form:errors path="description" cssClass="formError" element="p"/>
-                        <%--<input type="text" class="form-control" placeholder="Search" />--%>
-                            <div class="input-group-btn">
-                                <div class="btn-group" role="group">
-                                    <div class="dropdown dropdown-lg">
-                                        <button type="button" id="selection-btn" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></button>
-                                        <div class="dropdown-menu dropdown-menu-right" role="menu">
-                                                <%--<form:form class="form-horizontal" role="form">--%>
-                                                <div class="form-group">
-                                                    <form:label path="propertyType"><spring:message code="forms.property_type"/></form:label>
-                                                    <form:select path="propertyType" class="form-control">
-                                                        <form:option value="-1"><spring:message code="forms.choose"/></form:option>
-                                                        <form:option value="0"><spring:message code="forms.house"/></form:option>
-                                                        <form:option value="1"><spring:message code="forms.apartment"/></form:option>
-                                                        <form:option value="2"><spring:message code="forms.loft"/></form:option>
-                                                    </form:select>
-                                                    <form:errors path="propertyType" cssClass="formError" element="p"/>
-                                                </div>
-                                                <div class="form-group">
-                                                    <form:label path="neighbourhoodId"><spring:message code="forms.neighborhood"/></form:label>
-                                                    <form:select path="neighbourhoodId" id="select-neighbourhood" name="neighbourhoods" class="form-control">
-                                                        <form:option value="-1"><spring:message code="forms.choose"/></form:option>
-                                                        <c:forEach var="neighbourhood" items="${neighbourhoods}">
-                                                            <form:option value="${neighbourhood.id}">${neighbourhood.name}</form:option>
+                        <form:form modelAttribute="filteredSearchForm" action="/search/" style="display:flex;" method="post">
+                            <form:input path="description" type="text" class="form-control" placeholder="Search"/>
+                                <form:errors path="description" cssClass="formError" element="p"/>
+                                <div class="input-group-btn">
+                                    <div class="btn-group" role="group">
+                                        <div class="dropdown dropdown-lg">
+                                            <button type="button" id="selection-btn" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></button>
+                                            <div class="dropdown-menu dropdown-menu-right" role="menu">
+                                                    <%--<form:form class="form-horizontal" role="form">--%>
+                                                    <div class="form-group">
+                                                        <form:label path="propertyType"><spring:message code="forms.property_type"/></form:label>
+                                                        <form:select path="propertyType" class="form-control">
+                                                            <form:option value="-1"><spring:message code="forms.choose"/></form:option>
+                                                            <form:option value="0"><spring:message code="forms.house"/></form:option>
+                                                            <form:option value="1"><spring:message code="forms.apartment"/></form:option>
+                                                            <form:option value="2"><spring:message code="forms.loft"/></form:option>
+                                                        </form:select>
+                                                        <form:errors path="propertyType" cssClass="formError" element="p"/>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <form:label path="neighbourhoodId"><spring:message code="forms.neighborhood"/></form:label>
+                                                        <form:select path="neighbourhoodId" id="select-neighbourhood" name="neighbourhoods" class="form-control">
+                                                            <form:option value="-1"><spring:message code="forms.choose"/></form:option>
+                                                            <c:forEach var="neighbourhood" items="${neighbourhoods}">
+                                                                <form:option value="${neighbourhood.id}">${neighbourhood.name}</form:option>
+                                                            </c:forEach>
+                                                        </form:select>
+                                                        <form:errors path="neighbourhoodId" cssClass="formError" element="p"/>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <form:label path="privacyLevel"><spring:message code="forms.privacy"/></form:label>
+                                                        <form:select path="privacyLevel" class="form-control">
+                                                            <form:option value="-1"><spring:message code="forms.choose"/></form:option>
+                                                            <form:option value="0"><spring:message code="forms.privacy.individual"/></form:option>
+                                                            <form:option value="1"><spring:message code="forms.privacy.shared"/></form:option>
+                                                        </form:select>
+                                                        <form:errors path="privacyLevel" cssClass="formError" element="p"/>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <form:label path="capacity"><spring:message code="forms.capacity"/></form:label>
+                                                        <form:input path="capacity" type="text" class="form-control" placeholder=""></form:input>
+                                                        <form:errors path="capacity" cssClass="formError" element="p"/>
+                                                    </div>
+                                                    <spring:message code="forms.rent_per_month"/>
+                                                    <div class="form-row">
+                                                        <div class="form-group col-md-6">
+                                                                <%--<label>Min</label>--%>
+                                                            <form:label path="minPrice"><spring:message code="forms.rent_per_month_min"/></form:label>
+                                                            <form:input path="minPrice" type="number" class="form-control" placeholder="Max"></form:input>
+                                                            <form:errors path="minPrice" cssClass="formError" element="p"/>
+                                                        </div>
+                                                        <div class="form-group col-md-6 text-right">
+                                                                <%--<label>Max</label>--%>
+                                                            <form:label path="maxPrice"><spring:message code="forms.rent_per_month_max"/></form:label>
+                                                            <form:input path="maxPrice" type="number" class="form-control" placeholder="Min"></form:input>
+                                                            <form:errors path="maxPrice" cssClass="formError" element="p"/>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <form:label path="ruleIds"><spring:message code="forms.rules"/></form:label>
+                                                        <c:forEach var="rule" items="${rules}">
+                                                            <form:checkbox path="ruleIds" value="${rule.id}"/>${rule.name}
                                                         </c:forEach>
-                                                    </form:select>
-                                                    <form:errors path="neighbourhoodId" cssClass="formError" element="p"/>
-                                                </div>
-                                                <div class="form-group">
-                                                    <form:label path="privacyLevel"><spring:message code="forms.privacy"/></form:label>
-                                                    <form:select path="privacyLevel" class="form-control">
-                                                        <form:option value="-1"><spring:message code="forms.choose"/></form:option>
-                                                        <form:option value="0"><spring:message code="forms.privacy.individual"/></form:option>
-                                                        <form:option value="1"><spring:message code="forms.privacy.shared"/></form:option>
-                                                    </form:select>
-                                                    <form:errors path="privacyLevel" cssClass="formError" element="p"/>
-                                                </div>
-                                                <div class="form-group">
-                                                    <form:label path="capacity"><spring:message code="forms.capacity"/></form:label>
-                                                    <form:input path="capacity" type="text" class="form-control" placeholder=""></form:input>
-                                                    <form:errors path="capacity" cssClass="formError" element="p"/>
-                                                </div>
-                                                <spring:message code="forms.rent_per_month"/>
-                                                <div class="form-row">
-                                                    <div class="form-group col-md-6">
-                                                            <%--<label>Min</label>--%>
-                                                        <form:label path="minPrice"><spring:message code="forms.rent_per_month_min"/></form:label>
-                                                        <form:input path="minPrice" type="number" class="form-control" placeholder="Max"></form:input>
-                                                        <form:errors path="minPrice" cssClass="formError" element="p"/>
+                                                        <form:errors path="ruleIds" cssClass="formError" element="p"/>
                                                     </div>
-                                                    <div class="form-group col-md-6 text-right">
-                                                            <%--<label>Max</label>--%>
-                                                        <form:label path="maxPrice"><spring:message code="forms.rent_per_month_max"/></form:label>
-                                                        <form:input path="maxPrice" type="number" class="form-control" placeholder="Min"></form:input>
-                                                        <form:errors path="maxPrice" cssClass="formError" element="p"/>
+                                                    <div class="form-group">
+                                                        <form:label path="serviceIds"><spring:message code="forms.services"/></form:label>
+                                                        <c:forEach var="service" items="${services}">
+                                                            <form:checkbox path="serviceIds" value="${service.id}"/>${service.name}
+                                                        </c:forEach>
+                                                        <form:errors path="serviceIds" cssClass="formError" element="p"/>
                                                     </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <form:label path="ruleIds"><spring:message code="forms.rules"/></form:label>
-                                                    <c:forEach var="rule" items="${rules}">
-                                                        <form:checkbox path="ruleIds" value="${rule.id}"/>${rule.name}
-                                                    </c:forEach>
-                                                    <form:errors path="ruleIds" cssClass="formError" element="p"/>
-                                                </div>
-                                                <div class="form-group">
-                                                    <form:label path="serviceIds"><spring:message code="forms.services"/></form:label>
-                                                    <c:forEach var="service" items="${services}">
-                                                        <form:checkbox path="serviceIds" value="${service.id}"/>${service.name}
-                                                    </c:forEach>
-                                                    <form:errors path="serviceIds" cssClass="formError" element="p"/>
-                                                </div>
-                                                <%--<button type="submit" class="btn btn-primary">Search</button>--%>
+                                                    <%--<button type="submit" class="btn btn-primary">Search</button>--%>
+                                            </div>
                                         </div>
+                                        <button type="submit" class="btn btn-primary">Search</button>
                                     </div>
-                                    <button type="submit" class="btn btn-primary">Search</button>
                                 </div>
-                            </div>
                         </form:form>
                     </div>
                 </li>
