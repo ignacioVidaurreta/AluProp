@@ -22,15 +22,14 @@
                 <li>
                     <div class="input-group" id="adv-search">
                         <form:form modelAttribute="filteredSearchForm" action="/search/" method="post" style="display:flex;">
-                            <form:input path="description" type="text" class="form-control" placeholder="Search"/>
+                            <spring:message code="label.search" var="searchPlaceholder"/>
+                            <form:input path="description" type="text" class="form-control" placeholder="${searchPlaceholder}"/>
                             <form:errors path="description" cssClass="formError" element="p"/>
-                        <%--<input type="text" class="form-control" placeholder="Search" />--%>
                             <div class="input-group-btn">
                                 <div class="btn-group" role="group">
                                     <div class="dropdown dropdown-lg" style="display:flex;">
                                         <button type="button" id="selection-btn" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></button>
                                         <div class="dropdown-menu dropdown-menu-right" role="menu">
-                                                <%--<form:form class="form-horizontal" role="form">--%>
                                                 <div class="form-group">
                                                     <form:label path="propertyType"><spring:message code="forms.property_type"/></form:label>
                                                     <form:select path="propertyType" class="form-control">
