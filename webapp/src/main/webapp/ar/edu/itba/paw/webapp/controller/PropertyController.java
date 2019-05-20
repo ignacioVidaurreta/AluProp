@@ -72,7 +72,9 @@ public class PropertyController {
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.GET)
-    public ModelAndView get(@ModelAttribute("proposalForm") final ProposalForm form, @PathVariable("id") long id) {
+    public ModelAndView get(@ModelAttribute("proposalForm") final ProposalForm form,
+                            @ModelAttribute FilteredSearchForm searchForm,
+                            @PathVariable("id") long id) {
         final ModelAndView mav = new ModelAndView("detailedProperty");
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = UserUtility.getCurrentlyLoggedUser(SecurityContextHolder.getContext(), userService);
@@ -88,7 +90,8 @@ public class PropertyController {
     }
 
     @RequestMapping(value = "{id}/interest/", method = RequestMethod.POST)
-    public ModelAndView interest(@PathVariable(value = "id") int propertyId) {
+    public ModelAndView interest(@PathVariable(value = "id") int propertyId,
+                                 @ModelAttribute FilteredSearchForm searchForm) {
         User user = UserUtility.getCurrentlyLoggedUser(SecurityContextHolder.getContext(), userService);
         if (user != null){
             final int code = propertyService.showInterestOrReturnErrors(propertyId, user);
@@ -99,14 +102,16 @@ public class PropertyController {
     }
 
     @RequestMapping(value = "{id}/deInterest", method = RequestMethod.POST)
-    public ModelAndView deInterest(@PathVariable(value = "id") int propertyId) {
+    public ModelAndView deInterest(@PathVariable(value = "id") int propertyId,
+                                   @ModelAttribute FilteredSearchForm searchForm) {
         User user = UserUtility.getCurrentlyLoggedUser(SecurityContextHolder.getContext(), userService);
         final int code = propertyService.undoInterestOrReturnErrors(propertyId, user);
         return StatusCodeUtility.parseStatusCode(code, "redirect:/" + propertyId);
     }
 
     @RequestMapping(value = "/host/create", method = RequestMethod.GET)
-    public ModelAndView create(@ModelAttribute("propertyCreationForm") final PropertyCreationForm form) {
+    public ModelAndView create(@ModelAttribute("propertyCreationForm") final PropertyCreationForm form,
+                               @ModelAttribute FilteredSearchForm searchForm) {
         return ModelAndViewWithPropertyCreationAttributes();
     }
 
@@ -143,14 +148,17 @@ public class PropertyController {
     }
 
     @RequestMapping(value = "/host/create", method = RequestMethod.POST)
-    public ModelAndView create(@RequestParam("file") MultipartFile[] files, @Valid @ModelAttribute PropertyCreationForm propertyForm, final BindingResult errors) {
+    public ModelAndView create(@RequestParam("file") MultipartFile[] files,
+                               @Valid @ModelAttribute PropertyCreationForm propertyForm,
+                               final BindingResult errors,
+                               @ModelAttribute FilteredSearchForm searchForm) {
         int numFiles = 0;
         for (int i = 0; i < files.length; i++)
             if (!files[i].isEmpty()) numFiles++;
         if (numFiles == 0)
-            return create(propertyForm).addObject("noImages", true);
+            return create(propertyForm, searchForm).addObject("noImages", true);
         if (errors.hasErrors())
-            return create(propertyForm);
+            return create(propertyForm, searchForm);
         long[] uploadedFiles = loadImagesToDatabase(files);
         propertyForm.setMainImageId(uploadedFiles[0]);
         propertyForm.setImageIds(uploadedFiles);
