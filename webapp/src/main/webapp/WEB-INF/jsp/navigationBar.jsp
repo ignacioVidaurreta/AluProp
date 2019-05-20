@@ -27,7 +27,7 @@
                         <%--<input type="text" class="form-control" placeholder="Search" />--%>
                             <div class="input-group-btn">
                                 <div class="btn-group" role="group">
-                                    <div class="dropdown dropdown-lg">
+                                    <div class="dropdown dropdown-lg" style="display:flex;">
                                         <button type="button" id="selection-btn" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"></button>
                                         <div class="dropdown-menu dropdown-menu-right" role="menu">
                                                 <%--<form:form class="form-horizontal" role="form">--%>
