@@ -108,9 +108,9 @@ public class APPropertyDao implements PropertyDao {
 
     @Override
     public Collection<Property> advancedSearch(PageRequest pageRequest, String description, Integer propertyType, Integer neighborhood, Integer privacyLevel, Integer capacity, Float minPrice, Float maxPrice, long[] rules, long[] services) {
-        if ( propertyType == null && neighborhood == null
-                && privacyLevel == null && capacity == null
-                && (minPrice == null || maxPrice == null)
+        if ( propertyType == -1 && neighborhood == -1
+                && privacyLevel == -1 && capacity == 0
+                && (minPrice == 0 && maxPrice == 0)
                 && rules == null && services==null){ //No advanced search needed. Just do plain search.
             return getPropertyByDescription(pageRequest, description);
         }
@@ -124,7 +124,7 @@ public class APPropertyDao implements PropertyDao {
             shouldAddAnd = true;
         }
 
-        if( propertyType != null && propertyType != -1){
+        if(propertyType != -1){
             if(shouldAddAnd){
                 SEARCH_CONDITION.append(" AND ");
             }
@@ -147,14 +147,14 @@ public class APPropertyDao implements PropertyDao {
             shouldAddAnd = true;
         }
 
-        if(neighborhood != null && neighborhood != -1){
+        if(neighborhood != -1){
             if(shouldAddAnd) SEARCH_CONDITION.append(" AND ");
 
             SEARCH_CONDITION.append("neighbourhoodid=" + neighborhood);
             shouldAddAnd=true;
         }
 
-        if(privacyLevel != null && privacyLevel != -1){
+        if(privacyLevel!= null && privacyLevel != -1){
             if(shouldAddAnd) SEARCH_CONDITION.append(" AND ");
             boolean privacyLevelBool;
             privacyLevelBool = privacyLevel != 0;
