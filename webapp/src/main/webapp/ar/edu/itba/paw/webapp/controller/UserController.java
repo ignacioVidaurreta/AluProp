@@ -2,10 +2,7 @@ package ar.edu.itba.paw.webapp.controller;
 
 import ar.edu.itba.paw.interfaces.Either;
 import ar.edu.itba.paw.interfaces.PageRequest;
-import ar.edu.itba.paw.interfaces.service.CareerService;
-import ar.edu.itba.paw.interfaces.service.PropertyService;
-import ar.edu.itba.paw.interfaces.service.UniversityService;
-import ar.edu.itba.paw.interfaces.service.UserService;
+import ar.edu.itba.paw.interfaces.service.*;
 import ar.edu.itba.paw.model.Property;
 import ar.edu.itba.paw.model.User;
 import ar.edu.itba.paw.model.enums.Gender;
@@ -48,6 +45,12 @@ public class UserController {
     private PasswordEncoder passwordEncoder;
     @Autowired
     public JavaMailSender emailSender;
+    @Autowired
+    public NeighbourhoodService neighbourhoodService;
+    @Autowired
+    public RuleService ruleService;
+    @Autowired
+    public ServiceService serviceService;
 
     @RequestMapping("/logIn")
     public ModelAndView login(@ModelAttribute FilteredSearchForm searchForm) {
@@ -60,6 +63,10 @@ public class UserController {
         ModelAndView mav = new ModelAndView("signUpForm");
         mav.addObject("universities", universityService.getAll());
         mav.addObject("careers", careerService.getAll());
+        mav.addObject("neighbourhoods", neighbourhoodService.getAll());
+        mav.addObject("rules", ruleService.getAll());
+        mav.addObject("services", serviceService.getAll());
+
         return mav;
     }
 
@@ -122,6 +129,9 @@ public class UserController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         mav.addObject("userRole", auth.getAuthorities());
         mav.addObject("interests", propertyService.getInterestsOfUser(u.getId()));
+        mav.addObject("neighbourhoods", neighbourhoodService.getAll());
+        mav.addObject("rules", ruleService.getAll());
+        mav.addObject("services", serviceService.getAll());
         return mav;
     }
 
