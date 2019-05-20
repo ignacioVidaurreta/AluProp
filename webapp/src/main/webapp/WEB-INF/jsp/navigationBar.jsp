@@ -21,9 +21,9 @@
             <%--<c:if test="${pageContext.request.requestURL == }">--%>
                 <li>
                     <div class="input-group" id="adv-search">
-                        <form:form modelAttribute="filteredSearchForm" action="/search/" method="post" style="display:flex;">
+                        <form:form modelAttribute="filteredSearchForm"  action="/search/" method="post" style="display:flex;margin-bottom: 0px;">
                             <spring:message code="label.search" var="searchPlaceholder"/>
-                            <form:input path="description" type="text" class="form-control" placeholder="${searchPlaceholder}"/>
+                            <form:input path="description" type="text" class="form-control" placeholder="${searchPlaceholder}" style="border-top-right-radius: 0px;border-bottom-right-radius: 0px;"/>
                             <form:errors path="description" cssClass="formError" element="p"/>
                             <div class="input-group-btn">
                                 <div class="btn-group" role="group">
