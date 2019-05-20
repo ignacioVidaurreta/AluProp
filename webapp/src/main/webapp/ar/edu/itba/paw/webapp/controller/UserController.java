@@ -12,6 +12,7 @@ import ar.edu.itba.paw.model.enums.Gender;
 import ar.edu.itba.paw.model.enums.Role;
 import ar.edu.itba.paw.webapp.Utilities.UserUtility;
 import ar.edu.itba.paw.webapp.form.SignUpForm;
+import ar.edu.itba.paw.webapp.form.FilteredSearchForm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,12 +50,13 @@ public class UserController {
     public JavaMailSender emailSender;
 
     @RequestMapping("/logIn")
-    public ModelAndView login() {
+    public ModelAndView login(@ModelAttribute FilteredSearchForm searchForm) {
         return new ModelAndView("logInForm");
     }
 
     @RequestMapping(value = "/signUp", method = RequestMethod.GET )
-    public ModelAndView signUp(@ModelAttribute("signUpForm") final SignUpForm form) {
+    public ModelAndView signUp(@ModelAttribute("signUpForm") final SignUpForm form,
+                               @ModelAttribute FilteredSearchForm searchForm) {
         ModelAndView mav = new ModelAndView("signUpForm");
         mav.addObject("universities", universityService.getAll());
         mav.addObject("careers", careerService.getAll());
@@ -62,20 +64,22 @@ public class UserController {
     }
 
     @RequestMapping(value = "/signUp", method = RequestMethod.POST )
-    public ModelAndView register(@Valid @ModelAttribute("signUpForm") SignUpForm form, final BindingResult errors) {
+    public ModelAndView register(@Valid @ModelAttribute("signUpForm") SignUpForm form,
+                                 final BindingResult errors,
+                                 @ModelAttribute FilteredSearchForm searchForm) {
         if(errors.hasErrors()){
-            return signUp(form);
+            return signUp(form, searchForm);
         }
         else if (!form.getRepeatPassword().equals(form.getPassword())){
             form.setRepeatPassword("");
-            return signUp(form).addObject("passwordMatch", false);
+            return signUp(form, searchForm).addObject("passwordMatch", false);
         }
         Either<User, List<String>> maybeUser= userService.CreateUser(buildUserFromForm(form));
 
         if(!maybeUser.hasValue()){
             form.setEmail("");
             logger.debug("NOT A UNIQUE EMAIL");
-            return signUp(form).addObject("uniqueEmail", false);
+            return signUp(form, searchForm).addObject("uniqueEmail", false);
         }
         User user = maybeUser.value();
         String title = redactConfirmationTitle(user);
@@ -111,7 +115,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/profile", method = RequestMethod.GET)
-    public ModelAndView profile() {
+    public ModelAndView profile(@ModelAttribute FilteredSearchForm searchForm) {
         String email = UserUtility.getUsernameOfCurrentlyLoggedUser(SecurityContextHolder.getContext());
         User u = userService.getUserWithRelatedEntitiesByEmail(email);
         ModelAndView mav = new ModelAndView("profile").addObject("user", u);
