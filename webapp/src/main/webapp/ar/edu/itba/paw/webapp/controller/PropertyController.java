@@ -68,6 +68,8 @@ public class PropertyController {
         mav.addObject("totalElements", response.getTotalItems());
         mav.addObject("maxItems",MAX_SIZE);
         mav.addObject("neighbourhoods", neighbourhoodService.getAll());
+        mav.addObject("rules", ruleService.getAll());
+        mav.addObject("services", serviceService.getAll());
         return mav;
     }
 
@@ -86,6 +88,9 @@ public class PropertyController {
             mav.addObject("userInterested",userService.getUserIsInterestedInProperty(user.getId(), id));
             mav.addObject("interestedUsers", userService.getUsersInterestedInProperty(id, new PageRequest(0, 100)).getResponseData());
         }
+        mav.addObject("neighbourhoods", neighbourhoodService.getAll());
+        mav.addObject("rules", ruleService.getAll());
+        mav.addObject("services", serviceService.getAll());
         return mav;
     }
 
@@ -118,6 +123,7 @@ public class PropertyController {
     private ModelAndView create(Collection<String> errors) {
         ModelAndView mav = ModelAndViewWithPropertyCreationAttributes();
         mav.addObject("errors", errors);
+
         return mav;
     }
 
