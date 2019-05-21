@@ -125,6 +125,8 @@ public class UserController {
     public ModelAndView profile(@ModelAttribute FilteredSearchForm searchForm) {
         String email = UserUtility.getUsernameOfCurrentlyLoggedUser(SecurityContextHolder.getContext());
         User u = userService.getUserWithRelatedEntitiesByEmail(email);
+        if (u == null)
+            return new ModelAndView("404");
         ModelAndView mav = new ModelAndView("profile").addObject("user", u);
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         mav.addObject("userRole", auth.getAuthorities());

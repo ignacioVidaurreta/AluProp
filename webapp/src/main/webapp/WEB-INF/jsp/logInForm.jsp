@@ -36,7 +36,7 @@
                             <input id="email" name="email" class="form-control" placeholder="Email" type="email"/>
                         </div> <!-- form-group// -->
                         <div class="form-group">
-                            <a class="float-right" href="#"><spring:message code="label.forgot_password"/></a>
+                            <%--<a class="float-right" href="#"><spring:message code="label.forgot_password"/></a>--%>
                             <label for="password"><spring:message code="label.password"/></label>
                             <input id="password" name="password" class="form-control" placeholder="******" type="password"/>
                         </div> <!-- form-group// -->
