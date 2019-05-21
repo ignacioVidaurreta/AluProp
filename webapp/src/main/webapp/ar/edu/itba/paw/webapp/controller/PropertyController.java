@@ -1,9 +1,11 @@
 package ar.edu.itba.paw.webapp.controller;
 
+import java.net.URI;
 import java.util.*;
 import java.util.function.LongFunction;
 import java.util.stream.Collectors;
 
+import ar.edu.itba.paw.interfaces.APJavaMailSender;
 import ar.edu.itba.paw.interfaces.Either;
 import ar.edu.itba.paw.interfaces.PageRequest;
 import ar.edu.itba.paw.interfaces.PageResponse;
@@ -11,6 +13,7 @@ import ar.edu.itba.paw.interfaces.service.*;
 import ar.edu.itba.paw.interfaces.service.PropertyService;
 import ar.edu.itba.paw.model.*;
 import ar.edu.itba.paw.model.enums.PropertyType;
+import ar.edu.itba.paw.model.exceptions.IllegalPropertyStateException;
 import ar.edu.itba.paw.webapp.Utilities.StatusCodeUtility;
 import ar.edu.itba.paw.webapp.Utilities.UserUtility;
 import ar.edu.itba.paw.webapp.form.FilteredSearchForm;
@@ -21,6 +24,7 @@ import jdk.internal.util.xml.impl.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -29,10 +33,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 @Controller
-@RequestMapping("/")
 public class PropertyController {
 
     private static final Logger logger = LoggerFactory.getLogger(PropertyController.class);
@@ -50,13 +54,14 @@ public class PropertyController {
     private ImageService imageService;
     @Autowired
     private UserService userService;
-
     @Autowired
     private ProposalService proposalService;
+    @Autowired
+    public APJavaMailSender emailSender;
 
-    @RequestMapping(method = RequestMethod.GET)
-    public ModelAndView index(@ModelAttribute FilteredSearchForm searchForm,
-                              @RequestParam(required = false, defaultValue = "0") int pageNumber,
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public ModelAndView index(@RequestParam(required = false, defaultValue = "0") int pageNumber,
+                              @ModelAttribute FilteredSearchForm searchForm,
                               @RequestParam(required = false, defaultValue = "9") int pageSize) {
         final ModelAndView mav = new ModelAndView("index");
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -73,7 +78,7 @@ public class PropertyController {
         return mav;
     }
 
-    @RequestMapping(value = "{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ModelAndView get(@ModelAttribute("proposalForm") final ProposalForm form,
                             @ModelAttribute FilteredSearchForm searchForm,
                             @PathVariable("id") long id) {
@@ -94,7 +99,7 @@ public class PropertyController {
         return mav;
     }
 
-    @RequestMapping(value = "{id}/interest/", method = RequestMethod.POST)
+    @RequestMapping(value = "/{id}/interest/", method = RequestMethod.POST)
     public ModelAndView interest(@PathVariable(value = "id") int propertyId,
                                  @ModelAttribute FilteredSearchForm searchForm) {
         User user = UserUtility.getCurrentlyLoggedUser(SecurityContextHolder.getContext(), userService);
@@ -106,7 +111,8 @@ public class PropertyController {
 
     }
 
-    @RequestMapping(value = "{id}/deInterest", method = RequestMethod.POST)
+
+    @RequestMapping(value = "/{id}/deInterest", method = RequestMethod.POST)
     public ModelAndView deInterest(@PathVariable(value = "id") int propertyId,
                                    @ModelAttribute FilteredSearchForm searchForm) {
         User user = UserUtility.getCurrentlyLoggedUser(SecurityContextHolder.getContext(), userService);
@@ -133,10 +139,9 @@ public class PropertyController {
         mav.addObject("userRole", auth.getAuthorities());
         mav.addObject("rules", ruleService.getAll());
         mav.addObject("services", serviceService.getAll());
-
-//        mav.addObject("propertyTypes", new Pair[]{new Pair(0, "forms.house"),new Pair(1, "forms.apartment"),new Pair(2, "forms.loft")});
-//        mav.addObject("neighbourhoods", neighbourhoodService.getAll());
-//        mav.addObject("privacyLevels", new Pair[]{new Pair(0, "forms.privacy.individual"),new Pair(1, "forms.privacy.shared")});
+        mav.addObject("propertyTypes", new IdNamePair[]{new IdNamePair(0, "forms.house"),new IdNamePair(1, "forms.apartment"),new IdNamePair(2, "forms.loft")});
+        mav.addObject("neighbourhoods", neighbourhoodService.getAll());
+        mav.addObject("privacyLevels", new IdNamePair[]{new IdNamePair(0, "forms.privacy.individual"),new IdNamePair(1, "forms.privacy.shared")});
         return mav;
     }
 
@@ -168,27 +173,33 @@ public class PropertyController {
         long[] uploadedFiles = loadImagesToDatabase(files);
         propertyForm.setMainImageId(uploadedFiles[0]);
         propertyForm.setImageIds(uploadedFiles);
-        Either<Property, Collection<String>> propertyOrErrors = propertyService.create(
-                new Property.Builder()
-                        .withCaption(propertyForm.getCaption())
-                        .withDescription(propertyForm.getDescription())
-                        .withNeighbourhoodId(propertyForm.getNeighbourhoodId())
-                        .withPrice(propertyForm.getPrice())
-                        .withPropertyType(PropertyType.valueOf(propertyForm.getPropertyType()))
-                        .withPrivacyLevel(propertyForm.getPrivacyLevel() > 0)
-                        .withCapacity(propertyForm.getCapacity())
-                        .withMainImageId(propertyForm.getMainImageId())
-                        .withServices(generateObjects(propertyForm.getServiceIds(), Service::new))
-                        .withRules(generateObjects(propertyForm.getRuleIds(), Rule::new))
-                        .withImages(generateObjects(propertyForm.getImageIds(), Image::new))
-                        .withOwnerId(UserUtility.getCurrentlyLoggedUser(SecurityContextHolder.getContext(), userService).getId())
-                        .build()
-        );
+        try {
+            Either<Property, Collection<String>> propertyOrErrors = propertyService.create(buildPropertyForCreation(propertyForm));
+            if(propertyOrErrors.hasValue())
+                return new ModelAndView("redirect:/" + propertyOrErrors.value().getId());
+            else
+                return create(propertyOrErrors.alternative());
+        }
+        catch(IllegalPropertyStateException e) {
+            return new ModelAndView("404");
+        }
+    }
 
-        if(propertyOrErrors.hasValue())
-            return new ModelAndView("redirect:/" + propertyOrErrors.value().getId());
-        else
-            return create(propertyOrErrors.alternative());
+    private Property buildPropertyForCreation(@ModelAttribute @Valid PropertyCreationForm propertyForm) {
+        return new Property.Builder()
+            .withCaption(propertyForm.getCaption())
+            .withDescription(propertyForm.getDescription())
+            .withNeighbourhoodId(propertyForm.getNeighbourhoodId())
+            .withPrice(propertyForm.getPrice())
+            .withPropertyType(PropertyType.valueOf(propertyForm.getPropertyType()))
+            .withPrivacyLevel(propertyForm.getPrivacyLevel() > 0)
+            .withCapacity(propertyForm.getCapacity())
+            .withMainImageId(propertyForm.getMainImageId())
+            .withServices(generateObjects(propertyForm.getServiceIds(), Service::new))
+            .withRules(generateObjects(propertyForm.getRuleIds(), Rule::new))
+            .withImages(generateObjects(propertyForm.getImageIds(), Image::new))
+            .withOwnerId(UserUtility.getCurrentlyLoggedUser(SecurityContextHolder.getContext(), userService).getId())
+            .build();
     }
 
     private <T> Collection<T> generateObjects(long[] objectIds, LongFunction<T> function) {
@@ -231,21 +242,13 @@ public class PropertyController {
 //        }
 //    }
 
-    private Collection<User> getUsersByIds(long[] ids){
-        Collection<User> list = new LinkedList<>();
-        if (ids != null && ids.length > 0)
-            for (long i = 0; i < ids.length; i++){
-                list.add(userService.get(ids[(int)i]));
-            }
-        return list;
-    }
-
     @RequestMapping(value = "/search", method = RequestMethod.POST)
     public ModelAndView search(@RequestParam(required = false, defaultValue = "0") int pageNumber,
                                @RequestParam(required = false, defaultValue = "9") int pageSize,
-                               @Valid @ModelAttribute FilteredSearchForm searchForm, final BindingResult errors) {
+                               @Valid @ModelAttribute FilteredSearchForm searchForm,
+                               final BindingResult errors) {
         if (errors.hasErrors()){
-            return index(searchForm,pageNumber,pageSize);
+            return index(pageNumber,searchForm,pageSize);
         }
         final ModelAndView mav = new ModelAndView("index");
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -258,5 +261,51 @@ public class PropertyController {
         mav.addObject("maxItems",MAX_SIZE);
         mav.addObject("neighbourhoods", neighbourhoodService.getAll());
         return mav;
+    }
+
+    @RequestMapping(value = "/proposal/create/{propertyId}", method = RequestMethod.POST)
+    public ModelAndView create(HttpServletRequest request,
+                               @PathVariable(value = "propertyId") int propertyId,
+                               @Valid @ModelAttribute("proposalForm") ProposalForm form,
+                               final BindingResult errors,
+                               @ModelAttribute FilteredSearchForm searchForm) {
+        Property prop = propertyService.get(propertyId);
+        if (form.getInvitedUsersIds().length  < 1 || form.getInvitedUsersIds() == null || form.getInvitedUsersIds().length > prop.getCapacity() - 1)
+            return get(form, searchForm, propertyId).addObject("maxPeople", prop.getCapacity()-1);
+
+        String userEmail = UserUtility.getUsernameOfCurrentlyLoggedUser(SecurityContextHolder.getContext());
+        long userId = userService.getByEmail(userEmail).getId();
+
+        Proposal proposal = new Proposal.Builder()
+                .withCreatorId(userId)
+                .withPropertyId(propertyId)
+                .withUsers(getUsersByIds(form.getInvitedUsersIds()))
+                .withInvitedUserStates(new ArrayList<>())
+                .build();
+        for (Long id: form.getInvitedUsersIds())
+            proposal.getInvitedUserStates().add(0);
+        Either<Proposal, List<String>> proposalOrErrors = proposalService.createProposal(proposal);
+        if(proposalOrErrors.hasValue()){
+            emailSender.sendEmailToUsers("AluProp - You have been invited to a proposal!", "You can reply to the proposal using the following link: \n" + generateProposalUrl(proposalOrErrors.value(), request), proposalOrErrors.value().getUsers());
+            return new ModelAndView("redirect:/proposal/" + proposalOrErrors.value().getId());
+        } else {
+            ModelAndView mav = new ModelAndView("redirect:/" + propertyId);
+            mav.addObject("proposalFailed", true);
+            return mav;
+        }
+    }
+
+    private List<User> getUsersByIds(long[] ids){
+        List<User> list = new LinkedList<>();
+        if (ids != null && ids.length > 0)
+            for (long i = 0; i < ids.length; i++){
+                list.add(userService.get(ids[(int)i]));
+            }
+        return list;
+    }
+
+    private String generateProposalUrl(Proposal proposal, HttpServletRequest request){
+        URI contextUrl = URI.create(request.getRequestURL().toString()).resolve(request.getContextPath());
+        return contextUrl.toString().split("/proposal")[0] + "/proposal/" + proposal.getId();
     }
 }

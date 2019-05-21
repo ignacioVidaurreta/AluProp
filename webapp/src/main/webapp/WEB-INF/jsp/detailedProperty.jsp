@@ -14,7 +14,7 @@
         <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/navbar-fixed/">
 
         <!-- Bootstrap core css -->
-        <link href="resources/css/style.css" rel="stylesheet" type="text/css" />
+        <link href="<c:url value="/resources/css/style.css" />" rel="stylesheet" type="text/css" />
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -42,9 +42,10 @@
 
                 </ol>
                 <div class="carousel-inner">
-                    <c:forEach var="image" items="${property.images}">
-                        <div class="carousel-item active">
-                            <img src="http://${pageContext.request.localName}:${pageContext.request.serverPort}/images/${image.id}" class="d-block w-100 carousel-image">
+                    <c:forEach var="image" items="${property.images}" varStatus="i">
+                        <div class="carousel-item ${i.index == 0?"active":""}">
+                            <c:url value="/images/" var="imageUrl"/>
+                            <img src="${imageUrl}/${image.id}" class="d-block w-100 carousel-image">
                         </div>
                     </c:forEach>
                 </div>
@@ -77,9 +78,12 @@
                 <spring:message code="user.not_interested" var="not_interested"/>
 
                 <c:choose>
-                    <c:when test="${userInterested == true}">
+                    <c:when test="${userRole == '[ROLE_HOST]'}">
+
+                    </c:when>
+                    <c:when test="${userRole == '[ROLE_GUEST]' && userInterested == true}">
                         <form action="/${property.id}/deInterest/" method="POST">
-                            <input type="submit" value="${not_interested}" style="color:white;background-color:red;border-color:red" class="btn stretched-link"/>
+                            <input type="submit" value="${not_interested}" style="color:white;background-color:red;border-color:red" class="btn btn-primary stretched-link"/>
                         </form><br/>
                     </c:when>
                     <c:otherwise>
@@ -104,23 +108,29 @@
                 </div>
                 <br/>
                 <c:choose>
-                    <c:when test="${userInterested == true}">
-                        <c:url value="proposal/create/${property.id}" var="postPath"/>
+                    <c:when test="${userInterested == true || userRole == '[ROLE_HOST]'}">
+                        <c:url value="/proposal/create/${property.id}" var="postPath"/>
                         <form:form modelAttribute="proposalForm" action="${postPath}" method="post">
                             <div class="card">
-                                <div class="card-header">
+                                <div class="card-header" style="display: flex;justify-content: space-between;">
                                     <spring:message code="user.create_proposal" var="createProposal"/>
                                     <span> <spring:message code="user.interested_users"/>
-                                        <input type="submit" value="${createProposal}" class="btn btn-primary stretched-link"/>
+                                        <c:if test="${userRole != '[ROLE_HOST]' && interestedUsers.size() > 1}">
+                                            <input type="submit" value="${createProposal}" class="btn btn-primary stretched-link"/>
+                                        </c:if>
                                     </span>
+                                    <c:if test="${maxPeople != null}">
+                                        <span class="formError"><spring:message code="forms.proposal.max" arguments="${maxPeople}"/></span>
+                                    </c:if>
                                 </div>
                                 <ul class="list-group list-group-flush">
                                     <c:choose>
                                         <c:when test="${not empty interestedUsers and interestedUsers.size() > 1}">
                                             <c:forEach var="user" items="${interestedUsers}">
-                                                <li class="list-group-item"><form:checkbox path="invitedUsersIds" value="${user.id}"/> ${user.name}</li>
+                                                <c:if test="${user.id != currentUser.id}">
+                                                    <li class="list-group-item"><form:checkbox path="invitedUsersIds" value="${user.id}"/> ${user.name}</li>
+                                                </c:if>
                                             </c:forEach>
-                                            <form:errors path="invitedUsersIds" cssClass="formError" element="p"/>
                                         </c:when>
                                         <c:otherwise>
                                             <li class="list-group-item"><spring:message code="property.no_users_interested"/></li>

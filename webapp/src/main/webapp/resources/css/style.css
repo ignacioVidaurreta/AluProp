@@ -11,8 +11,9 @@ body {
     flex-flow: column wrap;
     min-height: 75rem;
     padding-top: 4.5rem;
-    background-color: #EDF5E1 !important;
+    background-color: #5cc4b94d !important;
     align-items: center;
+    #padding-top: 50px;
 }
 
 img {
@@ -162,11 +163,6 @@ img {
     margin: 0.3rem;
 }
 
-
-body {
-    padding-top: 50px;
-}
-
 .dropdown.dropdown-lg .dropdown-menu {
     padding: 6px 20px;
 }
@@ -221,3 +217,19 @@ background-color: #fff;
 border-color: #ccc;
 }
 
+#welcome {
+    margin-top: 30%;
+    margin-bottom: 10%;
+}
+
+#home-page {
+    background: url('https://wallpaperaccess.com/full/568265.jpg') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+}
+
+.go-button {
+    border-radius: 7px;
+}

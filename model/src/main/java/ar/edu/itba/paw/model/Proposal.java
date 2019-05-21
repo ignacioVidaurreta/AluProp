@@ -2,12 +2,14 @@ package ar.edu.itba.paw.model;
 
 import java.util.Collection;
 import java.util.LinkedList;
+import java.util.List;
 
 public class Proposal {
     private long id;
     private long propertyId;
     private long creatorId;
-    private Collection<User> users;
+    private List<User> users;
+    private List<Integer> invitedUserStates;
 
     public long getId() { return id; }
     public void setId(long id) { this.id = id; }
@@ -18,8 +20,23 @@ public class Proposal {
     public long getCreatorId() { return creatorId; }
     public void setCreatorId(long creatorId) { this.creatorId = creatorId; }
 
-    public Collection<User> getUsers() { return users; }
-    public void setUsers(Collection<User> users) { this.users = users; }
+    public List<User> getUsers() { return users; }
+    public void setUsers(List<User> users) { this.users = users; }
+
+    public List<Integer> getInvitedUserStates() {
+        return invitedUserStates;
+    }
+
+    public void setInvitedUserStates(List<Integer> invitedUserStates) {
+        this.invitedUserStates = invitedUserStates;
+    }
+
+    public boolean isCompletelyAccepted(){
+        for (Integer state: invitedUserStates)
+            if (state != 1)
+                return false;
+        return true;
+    }
 
     public static class Builder {
         private Proposal proposal;
@@ -32,7 +49,9 @@ public class Proposal {
 
         public Builder withCreatorId(long creatorId){proposal.creatorId = creatorId;return this;}
 
-        public Builder withUsers(Collection<User> users){proposal.users = users;return this;}
+        public Builder withUsers(List<User> users){proposal.users = users;return this;}
+
+        public Builder withInvitedUserStates(List<Integer> userStates){proposal.invitedUserStates = userStates;return this;}
 
         public Builder fromProposal(Proposal proposal){
             this.proposal.id = proposal.id;

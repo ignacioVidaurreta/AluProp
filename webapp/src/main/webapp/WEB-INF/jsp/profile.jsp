@@ -64,10 +64,18 @@
                             <spring:message code="label.profile.proposals"/>
                         </div>
                         <div class="list-group">
-                            <a href="#" class="list-group-item list-group-item-action proposal-list"><div><span class="title">Lel this is a proposal</span></div><div class="proposal-badge"><span class="badge badge-secondary">Pending</span></div></a>
-                            <a href="#" class="list-group-item list-group-item-action proposal-list"><div><span class="title">This house is really cool</span></div><div class="proposal-badge"><span class="badge badge-success">Sent</span></div></a>
-                            <a href="#" class="list-group-item list-group-item-action proposal-list"><div><span class="title">Loft as cool as the office</span></div><div class="proposal-badge"><span class="badge badge-secondary">Pending</span></div></a>
-                            <a href="#" class="list-group-item list-group-item-action proposal-list"><div><span class="title">Dopest property ever</span></div><div class="proposal-badge"><span class="badge badge-success">Sent</span></div></a>
+                            <c:choose>
+                                <c:when test="${not empty proposals}">
+                                    <div class="card-body">
+                                        <c:forEach var="proposal" items="${proposals}" varStatus="i">
+                                            <a href="/proposal/${proposal.id}" class="list-group-item list-group-item-action">${proposalPropertyNames[i.index]}</a>
+                                        </c:forEach>
+                                    </div>
+                                </c:when>
+                                <c:otherwise>
+                                    <div class="card-body"><spring:message code="label.profile.no_proposals" /></div>
+                                </c:otherwise>
+                            </c:choose>
                         </div>
                     </div>
                 </div>

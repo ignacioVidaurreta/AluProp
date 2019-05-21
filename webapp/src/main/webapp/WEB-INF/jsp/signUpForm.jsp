@@ -26,8 +26,9 @@
       <div class="row justify-content-center">
           <div class="col-md-6">
               <div class="card">
+                  <c:url value="/user/logIn" var="loginUrl" />
                   <header class="card-header">
-                      <a href="/user/logIn" class="float-right btn btn-outline-primary mt-1"><spring:message code="label.login"/></a>
+                      <a href="${loginUrl}" class="float-right btn btn-outline-primary mt-1"><spring:message code="label.login"/></a>
                       <h4 class="card-title mt-2"><spring:message code="label.signup"/></h4>
                   </header>
                   <article class="card-body">
@@ -38,7 +39,7 @@
                             <form:input path="email" type="email" class="form-control" placeholder=""></form:input>
                             <form:errors path="email" cssClass="formError" element="p"/>
                             <c:if test="${uniqueEmail == false}">
-                                <span class="formError">There's already an account with that email</span>
+                                <span class="formError"><spring:message code="errors.duplicate_email"/></span>
                             </c:if>
                           </div>
                           <div class="form-group">
@@ -49,7 +50,7 @@
                           <form:label path="repeatPassword"><spring:message code="signup.re_password"/> </form:label>
                           <form:input path="repeatPassword" class="form-control" type="password"></form:input>
                           <c:if test="${passwordMatch == false}">
-                                  <span class="formError">Please make sure that the passwords match.</span>
+                                  <span class="formError"><spring:message code="errors.password_mismatch"/></span>
                           </c:if>
                           <form:errors path="repeatPassword" cssClass="formError" element="p"/>
                           </div>
@@ -134,7 +135,10 @@
                           <small class="text-muted"><spring:message code="label.terms_of_use" arguments="${signUpButton}"/> </small>
                       </form:form>
                   </article> <!-- card-body end .// -->
-                  <div class="border-top card-body text-center"><spring:message code="label.have_account" arguments="${logInButton}"/> </div>
+                  <div class="border-top card-body text-center">
+                      <spring:message code="label.have_account"/>
+                      <a href="${loginUrl}"><spring:message code="label.login"/></a>
+                  </div>
               </div> <!-- card.// -->
           </div> <!-- col.//-->
 
