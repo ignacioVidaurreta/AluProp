@@ -111,8 +111,8 @@ public class APPropertyDao implements PropertyDao {
         if ( propertyType == -1 && neighborhood == -1
                 && privacyLevel == -1 && capacity == 0
                 && (minPrice == 0 && maxPrice == 0)
-                && (rules != null || rules.length == 0)
-                && (services != null || services.length== 0)){ //No advanced search needed. Just do plain search.
+                && (rules == null || rules.length == 0)
+                && (services == null || services.length== 0)){ //No advanced search needed. Just do plain search.
             return getPropertyByDescription(pageRequest, description);
         }
 
@@ -178,7 +178,7 @@ public class APPropertyDao implements PropertyDao {
             shouldAddAnd = true;
         }
 
-        if(rules != null || rules.length != 0){
+        if(rules != null && rules.length != 0){
             for(Long ruleID : rules){
                 if(shouldAddAnd){
                     SEARCH_CONDITION.append(" AND ");
@@ -188,7 +188,7 @@ public class APPropertyDao implements PropertyDao {
             }
         }
 
-        if(services != null || services.length != 0){
+        if(services != null && services.length != 0){
             for(Long serviceID : services){
                 if(shouldAddAnd){
                     SEARCH_CONDITION.append(" AND ");
@@ -200,10 +200,10 @@ public class APPropertyDao implements PropertyDao {
         StringBuilder QUERY = new StringBuilder();
         QUERY.append("SELECT * FROM properties ");
 
-        if (services.length != 0){
+        if (services != null && services.length != 0){
             QUERY.append("INNER JOIN propertyServices on properties.id=propertyServices.propertyid ");
         }
-        if(rules.length != 0){
+        if(services != null && rules.length != 0){
             QUERY.append("INNER JOIN propertyRules on properties.id = propertyRules.propertyid ");
         }
         QUERY.append("WHERE " + SEARCH_CONDITION + " LIMIT ? OFFSET ?");
