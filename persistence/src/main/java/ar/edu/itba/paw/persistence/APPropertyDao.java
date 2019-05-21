@@ -90,7 +90,7 @@ public class APPropertyDao implements PropertyDao {
             return getAll(pageRequest);
         }
         String search_like = '%' + description + '%';
-        return jdbcTemplate.query("SELECT * FROM properties WHERE LIKE ? LIMIT ? OFFSET ?",
+        return jdbcTemplate.query("SELECT * FROM properties WHERE description LIKE ? LIMIT ? OFFSET ?",
                                                 ROW_MAPPER,
                                                 search_like,
                                                 pageRequest.getPageSize(),
@@ -121,7 +121,7 @@ public class APPropertyDao implements PropertyDao {
         boolean shouldAddAnd = false;
 
         if(description!=null && !description.equals("")){
-            SEARCH_CONDITION.append("LIKE %" + description + "&");
+            SEARCH_CONDITION.append("description LIKE '%" + description + "%'");
             shouldAddAnd = true;
         }
 
