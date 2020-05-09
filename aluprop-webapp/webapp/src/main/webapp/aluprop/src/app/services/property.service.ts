@@ -13,7 +13,7 @@ export class PropertyService {
 
   constructor(private http: HttpClient) { }
 
-  getAll(pageRequest: PageRequest): Observable<Property[]>{
+  getAll(pageRequest?: PageRequest): Observable<Property[]>{
     return this.http.get<Property[]>(BASE_API_URL + '/properties');
   }
 }

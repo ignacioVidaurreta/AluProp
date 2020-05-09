@@ -14,14 +14,17 @@ import { LoginComponent } from './components/login/login.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
 import { MatFormFieldModule } from '@angular/material/form-field'
 import { FormsModule } from '@angular/forms';
-import { MatInputModule } from '@angular/material/input'
+import { MatInputModule } from '@angular/material/input';
+import { PropertyGridComponent } from './components/home/property-grid/property-grid.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     HomeComponent,
-    LoginComponent
+    LoginComponent,
+    PropertyGridComponent
   ],
   imports: [
     BrowserModule,
@@ -32,7 +35,8 @@ import { MatInputModule } from '@angular/material/input'
     MatCardModule, MatButtonModule, MatProgressSpinnerModule,
     MatFormFieldModule,
     MatInputModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   exports: [
     MatToolbarModule,
