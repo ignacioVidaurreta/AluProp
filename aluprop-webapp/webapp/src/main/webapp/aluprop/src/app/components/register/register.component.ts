@@ -3,20 +3,19 @@ import { Router } from '@angular/router';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
 import { AuthenticationService} from '../../services/authentication.service'
 
+
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss'],
+  selector: 'app-register',
+  templateUrl: './register.component.html',
+  styleUrls: ['./register.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class RegisterComponent implements OnInit {
 
   constructor(
     private router: Router, 
-    private authenticationService: AuthenticationService){ 
-      if( authenticationService.currentUser){
-        console.log("Already logged in...");
-        this.router.navigate(['']);
-      }
+    private authenticationService: AuthenticationService
+  ) { 
+
   }
   username: string;
   password: string;
@@ -27,8 +26,7 @@ export class LoginComponent implements OnInit {
     if(this.authenticationService.login(this.username, this.password)){
      this.router.navigate([""]);
     }else {
-      alert("Invalid credentials"); // TODO: Improve error handling lol
+      alert("Invalid credentials");
     }
   }
-
 }

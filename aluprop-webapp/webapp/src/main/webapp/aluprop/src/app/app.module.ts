@@ -20,6 +20,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { PropertyGridComponent } from './components/home/property-grid/property-grid.component';
 import { PropertyItemComponent } from './components/home/property-grid/property-item/property-item.component';
 import { HttpClientModule } from '@angular/common/http';
+import { RegisterComponent } from './components/register/register.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { HttpClientModule } from '@angular/common/http';
     HomeComponent,
     LoginComponent,
     PropertyGridComponent,
-    PropertyItemComponent
+    PropertyItemComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
