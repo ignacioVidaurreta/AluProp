@@ -17,6 +17,7 @@ import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { PropertyGridComponent } from './components/home/property-grid/property-grid.component';
 import { HttpClientModule } from '@angular/common/http';
+import { RegisterComponent } from './components/register/register.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { HttpClientModule } from '@angular/common/http';
     NavbarComponent,
     HomeComponent,
     LoginComponent,
-    PropertyGridComponent
+    PropertyGridComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,

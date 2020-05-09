@@ -1,0 +1,25 @@
+.login-card{
+    display: flex;
+    justify-content: center;
+    margin-top: 10%;
+}
+
+.login-container{
+    display: flex;
+    flex-flow: column;
+}
+
+.login-title{
+    display: flex;
+    justify-content: left;
+    font-size: 2rem;
+}
+
+.login-submit-btn{
+    float: right;
+}
+
+.form-container {
+    font-size: 1rem;
+    margin: 16px 12px 8px 0px;
+}
