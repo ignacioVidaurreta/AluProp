@@ -32,6 +32,6 @@ hs_err_pid*
 *application.properties
 *.attach_pid*
 /webapp/webapp.iml
-
+*.iml
 # TODO find what the hell those attach_pid#### files are and add them to gitignore
 
