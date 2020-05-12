@@ -1,0 +1,21 @@
+<div class="user-info mat-elevation-z6">
+        <div>
+          <h1 class="user-title">{{ user.firstName }} {{ user.lastName }}</h1>
+        </div>
+        <div class="user-description">
+          <p class="user-details"><mat-icon class="icon">school</mat-icon> {{ user.university }}</p>
+          <p class="user-details"><mat-icon class="icon">cake</mat-icon> {{ user.birthDate }}</p>
+        </div>
+</div>
+<div class="user-bio">
+  <mat-card class="user-bio-card mat-elevation-z8">
+    <mat-card-subtitle>Bio</mat-card-subtitle>
+    <mat-card-content>
+      <p>{{ user.bio }}</p>
+    </mat-card-content>
+  </mat-card>
+</div>
+<div class="user-properties">
+  <app-properties-table id="left-table" [dataSource]="user.interests"></app-properties-table>
+  <app-properties-table id="right-table" [dataSource]="user.proposals"></app-properties-table>
+</div>
