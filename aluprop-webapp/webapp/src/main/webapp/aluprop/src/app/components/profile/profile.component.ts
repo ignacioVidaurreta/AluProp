@@ -13,6 +13,7 @@ export class ProfileComponent implements OnInit {
     university: 'ITBA',
     birthDate: '07/07/1993',
     bio: 'Me gustan los drones',
+    role: 'guest',
     interests: new MatTableDataSource<Properties>(ELEMENT_DATA),
     properties: new MatTableDataSource<Properties>(ELEMENT_DATA),
     proposals: new MatTableDataSource<Properties>(ELEMENT_DATA),

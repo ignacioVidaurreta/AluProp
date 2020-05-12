@@ -16,6 +16,14 @@
   </mat-card>
 </div>
 <div class="user-properties">
-  <app-properties-table id="left-table" [dataSource]="user.interests"></app-properties-table>
-  <app-properties-table id="right-table" [dataSource]="user.proposals"></app-properties-table>
+<!--  TODO: *ngIf="user == currentUser" check, also empty list versions for 4 tables-->
+  <div *ngIf="user.role == 'guest'; then guestRole else hostRole"></div>
+  <ng-template #guestRole>
+    <app-properties-table id="left-table" [dataSource]="user.interests"></app-properties-table>
+    <app-properties-table id="right-table" [dataSource]="user.proposals"></app-properties-table><!--  TODO: propostals star badge when owner-->
+  </ng-template>
+  <ng-template #hostRole>
+    <app-properties-table id="left-table" [dataSource]="user.properties"></app-properties-table><!--  TODO: properties badge with its state-->
+    <app-properties-table id="right-table" [dataSource]="user.proposals"></app-properties-table><!--  TODO: propostals badge with its state-->
+  </ng-template>
 </div>
