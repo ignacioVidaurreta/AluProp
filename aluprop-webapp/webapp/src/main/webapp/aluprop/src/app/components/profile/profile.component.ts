@@ -13,10 +13,11 @@ export class ProfileComponent implements OnInit {
     university: 'ITBA',
     birthDate: '07/07/1993',
     bio: 'Me gustan los drones',
-    role: 'guest',
-    interests: new MatTableDataSource<Properties>(ELEMENT_DATA),
-    properties: new MatTableDataSource<Properties>(ELEMENT_DATA),
-    proposals: new MatTableDataSource<Properties>(ELEMENT_DATA),
+    role: 'host',
+    id: 1,
+    interests: new MatTableDataSource<Properties>(ELEMENT_DATA_PROPERTIES),
+    properties: new MatTableDataSource<Properties>(ELEMENT_DATA_PROPERTIES),
+    proposals: new MatTableDataSource<Proposals>(ELEMENT_DATA_PROPOSALS),
   };
 
   constructor() { }
@@ -28,34 +29,34 @@ export class ProfileComponent implements OnInit {
 
 export interface Properties {
   name: string;
+  availability: string;
 }
 
-const ELEMENT_DATA: Properties[] = [
-  {name: 'Bonita casa en Punta Chica'},
-  {name: 'Loft con vista al Rio'},
-  {name: 'Departamento moderno'},
-  {name: 'Bonita casa en Punta Chica'},
-  {name: 'Loft con vista al Rio'},
-  {name: 'Departamento moderno'},
-  {name: 'Bonita casa en Punta Chica'},
-  {name: 'Loft con vista al Rio'},
-  {name: 'Departamento moderno'},
-  {name: 'Bonita casa en Punta Chica'},
-  {name: 'Loft con vista al Rio'},
-  {name: 'Departamento moderno'},
-  {name: 'Bonita casa en Punta Chica'},
-  {name: 'Loft con vista al Rio'},
-  {name: 'Departamento moderno'},
-  {name: 'Bonita casa en Punta Chica'},
-  {name: 'Loft con vista al Rio'},
-  {name: 'Departamento moderno'},
-  {name: 'Bonita casa en Punta Chica'},
-  {name: 'Loft con vista al Rio'},
-  {name: 'Departamento moderno'},
-  {name: 'Bonita casa en Punta Chica'},
-  {name: 'Loft con vista al Rio'},
-  {name: 'Departamento moderno'},
-  {name: 'Bonita casa en Punta Chica'},
-  {name: 'Loft con vista al Rio'},
-  {name: 'Departamento moderno'},
+const ELEMENT_DATA_PROPERTIES: Properties[] = [
+  {name: 'Bonita casa en Punta Chica', availability: 'available'},
+  {name: 'Loft con vista al Rio', availability: 'available'},
+  {name: 'Departamento moderno', availability: 'unavailable'},
+  {name: 'Bonita casa en Punta Chica', availability: 'available'},
+  {name: 'Loft con vista al Rio', availability: 'available'},
+  {name: 'Bonita casa en Punta Chica', availability: 'unavailable'},
+  {name: 'Loft con vista al Rio', availability: 'unavailable'},
+  {name: 'Departamento moderno', availability: 'available'},
+  {name: 'Bonita casa en Punta Chica', availability: 'available'},
+  {name: 'Loft con vista al Rio', availability: 'available'},
+];
+
+
+export interface Proposals {
+  name: string;
+  creatorId: number;
+  state: string;
+}
+
+const ELEMENT_DATA_PROPOSALS: Proposals[] = [
+  {name: 'Bonita casa en Punta Chica', creatorId: 1, state: 'sent'},
+  {name: 'Loft con vista al Rio', creatorId: 2, state: 'accepted'},
+  {name: 'Departamento moderno',  creatorId: 1, state: 'declined'},
+  {name: 'Bonita casa en Punta Chica', creatorId: 1, state: 'dropped'},
+  {name: 'Loft con vista al Rio', creatorId: 2, state: 'sent'},
+  {name: 'Departamento moderno',  creatorId: 1, state: 'sent'},
 ];

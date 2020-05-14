@@ -26,6 +26,8 @@ import { MatListModule } from '@angular/material/list';
 import { PropertiesTableComponent } from './components/profile/properties-table/properties-table.component';
 import { MatIconModule } from "@angular/material/icon";
 import { MatTableModule } from "@angular/material/table";
+import { InterestsTableComponent } from './components/profile/interests-table/interests-table.component';
+import { ProposalsTableComponent } from './components/profile/proposals-table/proposals-table.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +40,8 @@ import { MatTableModule } from "@angular/material/table";
     RegisterComponent,
     ProfileComponent,
     PropertiesTableComponent,
+    InterestsTableComponent,
+    ProposalsTableComponent,
   ],
   imports: [
     BrowserModule,

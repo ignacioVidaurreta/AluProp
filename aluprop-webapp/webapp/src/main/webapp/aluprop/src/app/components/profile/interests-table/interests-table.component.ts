@@ -4,12 +4,12 @@ import {MatTableDataSource} from '@angular/material/table';
 import {Properties} from "../profile.component";
 
 @Component({
-  selector: 'app-properties-table',
-  templateUrl: './properties-table.component.html',
-  styleUrls: ['./properties-table.component.scss']
+  selector: 'app-interests-table',
+  templateUrl: './interests-table.component.html',
+  styleUrls: ['./interests-table.component.scss']
 })
-export class PropertiesTableComponent implements OnInit {
-  displayedColumns: string[] = ['name', 'state'];
+export class InterestsTableComponent implements OnInit {
+  displayedColumns: string[] = ['name'];
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @Input() dataSource: MatTableDataSource<Properties>;
@@ -19,5 +19,4 @@ export class PropertiesTableComponent implements OnInit {
   ngOnInit(): void {
     this.dataSource.paginator = this.paginator;
   }
-
 }
