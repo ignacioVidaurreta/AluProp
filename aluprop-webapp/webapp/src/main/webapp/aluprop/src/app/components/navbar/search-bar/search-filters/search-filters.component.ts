@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PropertyType, PrivacyLevel } from '../../../models/property';
+import { PropertyType, PrivacyLevel } from '../../../../models/property';
 import { Neighborhood } from 'src/app/models/neighborhood';
 import { Rule } from 'src/app/models/rule';
 import { Service } from 'src/app/models/service';

@@ -19,8 +19,8 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { PropertiesTableComponent } from './components/profile/properties-table/properties-table.component';
 import { InterestsTableComponent } from './components/profile/interests-table/interests-table.component';
 import { ProposalsTableComponent } from './components/profile/proposals-table/proposals-table.component';
-import { SearchFiltersComponent } from './components/navbar/search-filters/search-filters.component';
-import { SearchBarComponent } from './search-bar/search-bar.component';
+import { SearchFiltersComponent } from './components/navbar/search-bar/search-filters/search-filters.component';
+import { SearchBarComponent } from './components/navbar/search-bar/search-bar.component';
 
 @NgModule({
   declarations: [
