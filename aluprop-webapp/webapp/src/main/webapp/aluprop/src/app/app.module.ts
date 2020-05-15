@@ -6,7 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 
-import { MaterialModule } from './material.module';
+import { MaterialModule } from './modules/material.module';
 
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
@@ -20,6 +20,7 @@ import { PropertiesTableComponent } from './components/profile/properties-table/
 import { InterestsTableComponent } from './components/profile/interests-table/interests-table.component';
 import { ProposalsTableComponent } from './components/profile/proposals-table/proposals-table.component';
 import { SearchFiltersComponent } from './components/navbar/search-filters/search-filters.component';
+import { SearchBarComponent } from './search-bar/search-bar.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { SearchFiltersComponent } from './components/navbar/search-filters/searc
     InterestsTableComponent,
     ProposalsTableComponent,
     SearchFiltersComponent,
+    SearchBarComponent,
   ],
   imports: [
     BrowserModule,
