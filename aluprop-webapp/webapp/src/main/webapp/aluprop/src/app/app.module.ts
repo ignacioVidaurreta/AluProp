@@ -21,6 +21,7 @@ import { InterestsTableComponent } from './components/profile/interests-table/in
 import { ProposalsTableComponent } from './components/profile/proposals-table/proposals-table.component';
 import { SearchFiltersComponent } from './components/navbar/search-bar/search-filters/search-filters.component';
 import { SearchBarComponent } from './components/navbar/search-bar/search-bar.component';
+import { ProposalComponent } from './components/proposal/proposal.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { SearchBarComponent } from './components/navbar/search-bar/search-bar.co
     ProposalsTableComponent,
     SearchFiltersComponent,
     SearchBarComponent,
+    ProposalComponent,
   ],
   imports: [
     BrowserModule,
