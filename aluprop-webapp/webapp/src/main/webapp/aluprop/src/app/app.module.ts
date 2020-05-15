@@ -26,8 +26,12 @@ import { MatListModule } from '@angular/material/list';
 import { PropertiesTableComponent } from './components/profile/properties-table/properties-table.component';
 import { MatIconModule } from "@angular/material/icon";
 import { MatTableModule } from "@angular/material/table";
+import { MatSelectModule } from "@angular/material/select";
+import { MatCheckboxModule } from '@angular/material/checkbox';
+
 import { InterestsTableComponent } from './components/profile/interests-table/interests-table.component';
 import { ProposalsTableComponent } from './components/profile/proposals-table/proposals-table.component';
+import { SearchFiltersComponent } from './components/navbar/search-filters/search-filters.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +46,7 @@ import { ProposalsTableComponent } from './components/profile/proposals-table/pr
     PropertiesTableComponent,
     InterestsTableComponent,
     ProposalsTableComponent,
+    SearchFiltersComponent,
   ],
   imports: [
     BrowserModule,
@@ -59,7 +64,9 @@ import { ProposalsTableComponent } from './components/profile/proposals-table/pr
     FormsModule,
     HttpClientModule,
     MatIconModule,
-    MatTableModule
+    MatTableModule,
+    MatSelectModule,
+    MatCheckboxModule,
   ],
   exports: [
     MatToolbarModule,

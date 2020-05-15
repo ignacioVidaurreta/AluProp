@@ -1,0 +1,60 @@
+<div class="dropdown-menu dropdown-menu-right" role="menu">
+  <mat-form-field class="form-group">
+      <mat-label i18n>Property type</mat-label>
+      <mat-select class="form-control">
+          <mat-option value="0" i18n>House</mat-option>
+          <mat-option value="1" i18n>Appartment</mat-option>
+          <mat-option value="2" i18n>Loft</mat-option>
+      </mat-select>
+      <mat-error>Error</mat-error>
+  </mat-form-field>
+  <mat-form-field class="form-group">
+      <mat-label i18n>Neighborhood</mat-label>
+      <mat-select id="select-neighbourhood-search" name="neighbourhoods">
+          <div *ngFor="let neighborhood of neighborhoods">
+              <mat-option value="neighborhood.id">{{ neighborhood.name }}</mat-option>
+          </div>
+      </mat-select>
+      <mat-error>Error</mat-error>
+  </mat-form-field>
+  <mat-form-field class="form-group">
+      <mat-label i18n>Privacy</mat-label>
+      <mat-select class="form-control">
+          <mat-option value="0" i18n>Individual</mat-option>
+          <mat-option value="1" i18n>Shared</mat-option>
+      </mat-select>
+      <mat-error>Error</mat-error>
+  </mat-form-field>
+  <mat-form-field class="form-group">
+      <mat-label i18n>Max capacity</mat-label>
+      <input type="text" class="form-control">
+      <mat-error>Error</mat-error>
+  </mat-form-field>
+  <p i18n>Budget </p>
+  <div class="form-row">
+      <mat-form-field class="form-group col-md-6">
+          <mat-label i18n>Rent per month min</mat-label>
+          <input type="number" class="form-control">
+          <mat-error>Error</mat-error>
+      </mat-form-field>
+      <mat-form-field class="form-group col-md-6 text-right">
+          <mat-label i18n>Rent per month min</mat-label>
+          <input type="number" class="form-control" placeholder="Max">
+          <mat-error>Error</mat-error>
+      </mat-form-field>
+  </div>
+  <mat-form-field class="form-group">
+      <mat-label i18n>Rules</mat-label>
+      <span *ngFor="let rule of rules">
+        <mat-checkbox value="{{rule.id}}" i18n>{{rule.name}}</mat-checkbox>
+      </span>
+      <mat-error>Error</mat-error>
+  </mat-form-field>
+  <mat-form-field class="form-group">
+      <mat-label i18n>Services</mat-label>
+      <span *ngFor="let service of services">
+        <mat-checkbox value="{{service.id}}" i18n>{{service.name}}</mat-checkbox>
+      </span>
+      <mat-error>Error</mat-error>
+  </mat-form-field>
+</div>
