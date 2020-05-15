@@ -20,11 +20,11 @@
   <div *ngIf="user.role == 'guest'; then guestRole else hostRole"></div>
   <ng-template #guestRole>
     <app-interests-table id="left-table" [dataSource]="user.interests"></app-interests-table>
-    <app-proposals-table id="right-table" [userRole]="user.role" [userId]="user.id" [dataSource]="user.proposals"></app-proposals-table><!--  TODO: propostals star badge when owner-->
+    <app-proposals-table id="right-table" [userRole]="user.role" [userId]="user.id" [dataSource]="user.proposals"></app-proposals-table>
   </ng-template>
   <ng-template #hostRole>
     <app-properties-table id="left-table" [dataSource]="user.properties"></app-properties-table>
-    <app-proposals-table id="right-table" [userRole]="user.role" [userId]="user.id" [dataSource]="user.proposals"></app-proposals-table><!--  TODO: propostals badge with its state-->
+    <app-proposals-table id="right-table" [userRole]="user.role" [userId]="user.id" [dataSource]="user.proposals"></app-proposals-table>
   </ng-template>
 </div>
 <!--[userRole]="user.role"-->

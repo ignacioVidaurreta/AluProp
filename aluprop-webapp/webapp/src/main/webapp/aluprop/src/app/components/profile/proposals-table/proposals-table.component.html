@@ -23,22 +23,18 @@
     <ng-container matColumnDef="ownership">
       <th mat-header-cell class="state" *matHeaderCellDef>State</th>
       <td mat-cell class="state" *matCellDef="let element">
-        <div *ngIf="element.state == 'sent'; else elseBlock">
+        <div *ngIf="element.state == 'sent'">
           <span style="color: darkorange;"><mat-icon>schedule</mat-icon></span>
         </div>
-        <ng-template #elseBlock>
-          <div *ngIf="element.state == 'accepted'; else elseBlock2">
-            <span style="color: green;"><mat-icon>check</mat-icon></span>
-          </div>
-          <ng-template #elseBlock2>
-            <div *ngIf="element.state == 'declined'; else elseBlock3">
-              <span style="color: firebrick;"><mat-icon>clear</mat-icon></span>
-            </div>
-            <ng-template #elseBlock3>
-              <span style="color: dimgrey;"><mat-icon>block</mat-icon></span>
-            </ng-template>
-          </ng-template>
-        </ng-template>
+        <div *ngIf="element.state == 'accepted'">
+          <span style="color: green;"><mat-icon>check</mat-icon></span>
+        </div>
+        <div *ngIf="element.state == 'declined'">
+          <span style="color: firebrick;"><mat-icon>clear</mat-icon></span>
+        </div>
+        <div *ngIf="element.state == 'dropped'">
+          <span style="color: dimgrey;"><mat-icon>block</mat-icon></span>
+        </div>
       </td>
     </ng-container>
     </ng-template>
