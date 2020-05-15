@@ -1,34 +1,22 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
+
+import { MaterialModule } from './material.module';
+
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HomeComponent } from './components/home/home.component';
-
-import { MatToolbarModule} from '@angular/material/toolbar';
-import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
-import { MatPaginatorModule } from '@angular/material/paginator';
 import { LoginComponent } from './components/login/login.component';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { FormsModule } from '@angular/forms';
-import { MatInputModule } from '@angular/material/input';
-import { MatGridListModule } from '@angular/material/grid-list';
 import { PropertyGridComponent } from './components/home/property-grid/property-grid.component';
 import { PropertyItemComponent } from './components/home/property-grid/property-item/property-item.component';
-import { HttpClientModule } from '@angular/common/http';
 import { RegisterComponent } from './components/register/register.component';
 import { ProfileComponent } from './components/profile/profile.component';
-import { MatListModule } from '@angular/material/list';
 import { PropertiesTableComponent } from './components/profile/properties-table/properties-table.component';
-import { MatIconModule } from "@angular/material/icon";
-import { MatTableModule } from "@angular/material/table";
-import { MatSelectModule } from "@angular/material/select";
-import { MatCheckboxModule } from '@angular/material/checkbox';
-
 import { InterestsTableComponent } from './components/profile/interests-table/interests-table.component';
 import { ProposalsTableComponent } from './components/profile/proposals-table/proposals-table.component';
 import { SearchFiltersComponent } from './components/navbar/search-filters/search-filters.component';
@@ -53,31 +41,13 @@ import { SearchFiltersComponent } from './components/navbar/search-filters/searc
     BrowserAnimationsModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MatToolbarModule,
-    MatCardModule,
-    MatButtonModule,
-    MatProgressSpinnerModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatPaginatorModule,
-    MatGridListModule,
     FormsModule,
     HttpClientModule,
-    MatIconModule,
-    MatTableModule,
-    MatSelectModule,
-    MatCheckboxModule,
+    MaterialModule,
   ],
   exports: [
-    MatToolbarModule,
-    MatCardModule,
-    MatButtonModule,
     FormsModule,
-    MatPaginatorModule,
-    MatListModule,
-    MatProgressSpinnerModule,
-    MatFormFieldModule,
-    MatPaginatorModule,
+    MaterialModule
   ],
   providers: [],
   bootstrap: [AppComponent]
