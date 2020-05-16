@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/services/authentication.service';
+import { Observable, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-navbar',
@@ -9,6 +10,7 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 })
 export class NavbarComponent implements OnInit {
 
+  usernameSubscription: Subscription;
   username: string;
   constructor(
     private router: Router,
@@ -16,7 +18,9 @@ export class NavbarComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.username = this.authenticationService.currentUserValue;
+    this.usernameSubscription = this.authenticationService.currentUser.subscribe(
+      username => this.username = username
+      );
   }
 
   logout(): void{
@@ -30,6 +34,10 @@ export class NavbarComponent implements OnInit {
     }
     console.log(this.username)
     return false;
+  }
+
+  ngOnDestroy(): void{
+    this.usernameSubscription.unsubscribe()
   }
 
 }

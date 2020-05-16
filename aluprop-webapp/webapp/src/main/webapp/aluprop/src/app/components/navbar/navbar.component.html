@@ -6,7 +6,7 @@
           alt="aluprop">
     </a>
     <app-search-bar></app-search-bar>
-    <div *ngIf="!isUserLoggedIn(); else notLoggedIn" class="login-buttons-and-flags">
+    <div *ngIf="!username; else notLoggedIn" class="login-buttons-and-flags">
       <a [routerLink]="['/register/']" class="sign-up-button" i18n>Registrarse</a>
       <span i18n> o </span>
       <a [routerLink]="['/login/']" class="log-in-button" i18n>Ingresar</a>
@@ -15,7 +15,7 @@
     </div>
 
     <ng-template #notLoggedIn>
-      <span i18n> Hola {{ username }} </span>
+      <span i18n class="greeting"> Hola {{ username }} </span>
       <a (click)="logout()" class="log-in-button" i18n>Cerrar sesion</a>
       <img class="flag" src="../assets/img/uk.svg">
       <img class="flag" src="../assets/img/spain.svg">
