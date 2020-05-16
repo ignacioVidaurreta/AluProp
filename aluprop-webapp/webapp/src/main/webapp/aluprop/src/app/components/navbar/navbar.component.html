@@ -1,25 +1,21 @@
 <mat-toolbar class="mat-elevation-z6 navbar-container" color="primary">
   <mat-toolbar-row>
-    <a mat-button class="docs-button" routerLink="/" aria-label="Angular Material">
+    <a class="aluprop-logo-container" mat-button routerLink="/" aria-label="AluProp">
       <img class="aluprop-logo"
           src="../assets/img/logo.png"
           alt="aluprop">
     </a>
-    <div class="flex-spacer"></div>
-    <div *ngIf="isUserLoggedIn(); else unsignedUser" class="user-logged-in">
-      <div class="user-display">
-        Hola, {{ username }}
-      </div>
-      <div (click)="logout()" class="logout-display">
-        <a href="#" style="text-decoration: none;"> Logout </a>
-      </div>
+    <app-search-bar></app-search-bar>
+    <div class="login-buttons-and-flags">
+      <a [routerLink]="['/register/']" class="sign-up-button" i18n>Registrarse</a>
+      <span i18n> o </span>
+      <a [routerLink]="['/login/']" class="log-in-button" i18n>Ingresar</a>
+      <img class="flag" src="../assets/img/uk.svg">
+      <img class="flag" src="../assets/img/spain.svg">
     </div>
-    <ng-template #unsignedUser>
-      LOGIN
-    </ng-template>
   </mat-toolbar-row>
-  <mat-toolbar-row class="docs-navbar docs-navbar-show-small" aria-label="Section Nav Bar">
-      <a href="" mat-button class="docs-navbar-show-small docs-button">
+  <mat-toolbar-row class="navbar-show-small">
+      <a href="" mat-button class="navbar-show-small button">
         dont press
       </a>
   </mat-toolbar-row>

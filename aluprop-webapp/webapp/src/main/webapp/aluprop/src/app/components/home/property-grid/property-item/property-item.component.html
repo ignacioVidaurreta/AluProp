@@ -1,0 +1,8 @@
+<mat-card [routerLink]="['/propiedades/']">
+  <img class="card-img-top" src="">
+  <div class="card-body" style="display: flex;flex-direction: column; justify-content: space-between">
+        <h4 class="card-title">{{property.description}}</h4>
+        <h6 class="card-text">{{property.neighborhood.name}}</h6>
+        <h5>{{property.price}}</h5>
+  </div>
+</mat-card>

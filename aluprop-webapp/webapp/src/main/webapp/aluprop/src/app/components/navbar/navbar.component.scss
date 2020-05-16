@@ -3,21 +3,12 @@ mat-toolbar{
   z-index: 2;
 }
 
-.docs-navbar-header {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  padding: 8px 16px;
-
-  > .mat-button {
-    &:last-child {
-      margin-left: auto;
-    }
-  }
+mat-toolbar-row{
+  align-content: space-between;
 }
 
-.flex-spacer {
-  flex-grow: 1;
+.aluprop-logo-container{
+  flex: auto;
 }
 
 .aluprop-logo {
@@ -26,17 +17,29 @@ mat-toolbar{
   vertical-align: middle;
 }
 
-.docs-navbar-link {
-  text-decoration: inherit;
-  flex: 1;
+app-search-bar{
+  flex:auto;
 }
 
-.docs-navbar {
+.navbar-show-small {
   display: none;
 }
 
-.docs-navbar-show-small {
-  display: none;
+.login-buttons-and-flags{
+  flex: auto;
+  align-items: center;
+  flex-direction: row;
+}
+
+.sign-up-button, .log-in-button{
+  text-decoration: none;
+  color:white;
+  font-weight: bold;
+}
+
+.flag{
+  width:35px;
+  margin:0.4rem;
 }
 
 /**
@@ -44,43 +47,11 @@ mat-toolbar{
   * Moves content two rows instead of one.
   */
 @media (max-width: 720px) {
-  .docs-navbar-hide-small {
+  .navbar-hide-small {
     display: none;
   }
 
-  .docs-navbar-show-small {
+  .navbar-show-small {
     display: block;
   }
-
-  .docs-navbar {
-    display: flex;
-  }
-
-  .docs-navbar--github-logo {
-    margin: 0;
-  }
-}
-
-.navbar-container{
-  display: flex;
-  flex-direction: row;
-  align-content: space-between;
-}
-.user-and-btn{
-  display: flex;
-  flex-direction: row;
-
-}
-.user-display{
-  float: right;
-  padding-right: 10px;
-}
-
-.logout-display a{
-  color: white;
-}
-
-.user-logged-in{
-  display: flex;
-  flex-direction: row;
 }
