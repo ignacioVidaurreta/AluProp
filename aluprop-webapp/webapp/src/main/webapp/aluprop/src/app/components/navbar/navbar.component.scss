@@ -60,3 +60,27 @@ mat-toolbar{
     margin: 0;
   }
 }
+
+.navbar-container{
+  display: flex;
+  flex-direction: row;
+  align-content: space-between;
+}
+.user-and-btn{
+  display: flex;
+  flex-direction: row;
+
+}
+.user-display{
+  float: right;
+  padding-right: 10px;
+}
+
+.logout-display a{
+  color: white;
+}
+
+.user-logged-in{
+  display: flex;
+  flex-direction: row;
+}
