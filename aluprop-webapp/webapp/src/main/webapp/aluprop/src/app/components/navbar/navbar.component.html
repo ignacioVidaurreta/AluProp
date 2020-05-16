@@ -1,4 +1,4 @@
-<mat-toolbar class="mat-elevation-z6" color="primary">
+<mat-toolbar class="mat-elevation-z6 navbar-container" color="primary">
   <mat-toolbar-row>
     <a class="aluprop-logo-container" mat-button routerLink="/" aria-label="AluProp">
       <img class="aluprop-logo"
@@ -6,13 +6,20 @@
           alt="aluprop">
     </a>
     <app-search-bar></app-search-bar>
-    <div class="login-buttons-and-flags">
+    <div *ngIf="!isUserLoggedIn(); else notLoggedIn" class="login-buttons-and-flags">
       <a [routerLink]="['/register/']" class="sign-up-button" i18n>Registrarse</a>
       <span class="or" i18n> o </span>
       <a [routerLink]="['/login/']" class="log-in-button" i18n>Ingresar</a>
       <img class="flag" src="../assets/img/uk.svg">
       <img class="flag" src="../assets/img/spain.svg">
     </div>
+
+    <ng-template #notLoggedIn>
+      <span i18n> Hola {{ username }} </span>
+      <a (click)="logout()" class="log-in-button" i18n>Cerrar sesion</a>
+      <img class="flag" src="../assets/img/uk.svg">
+      <img class="flag" src="../assets/img/spain.svg">
+    </ng-template>
   </mat-toolbar-row>
   <mat-toolbar-row class="navbar-show-small">
       <a href="" mat-button class="navbar-show-small button">

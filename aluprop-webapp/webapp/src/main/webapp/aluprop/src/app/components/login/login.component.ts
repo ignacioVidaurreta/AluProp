@@ -13,7 +13,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private router: Router, 
     private authenticationService: AuthenticationService){ 
-      if( authenticationService.currentUser){
+      if( authenticationService.currentUserValue){
         console.log("Already logged in...");
         this.router.navigate(['']);
       }
