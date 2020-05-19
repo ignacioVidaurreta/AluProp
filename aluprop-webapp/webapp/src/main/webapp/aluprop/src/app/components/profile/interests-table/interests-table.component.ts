@@ -1,7 +1,8 @@
 import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
-import {Properties} from "../profile.component";
+import {Property} from "../../../models/property";
+
 
 @Component({
   selector: 'app-interests-table',
@@ -12,7 +13,9 @@ export class InterestsTableComponent implements OnInit {
   displayedColumns: string[] = ['name'];
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-  @Input() dataSource: MatTableDataSource<Properties>;
+  @Input() interestedProperties: Property[];
+
+  dataSource = new MatTableDataSource<Property>(this.interestedProperties);
 
   constructor() { }
 

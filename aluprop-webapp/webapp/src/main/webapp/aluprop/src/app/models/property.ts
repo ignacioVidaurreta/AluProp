@@ -10,6 +10,7 @@ export class Property {
   privacyLevel: PrivacyLevel;
   capacity: number;
   price: number;
+  availability: Availability;
 }
 
 export type PropertyType  = 'HOUSE' | 'APARTMENT' | 'LOFT';
@@ -23,4 +24,10 @@ export type PrivacyLevel  = true | false;
 export const PrivacyLevel = {
   Shared: true as PrivacyLevel,
   Individual: false as PrivacyLevel
+};
+
+export type Availability  = 'AVAILABLE' | 'RENTED';
+export const Availability = {
+  Available: 'AVAILABLE' as Availability,
+  Rented: 'RENTED' as Availability,
 };
