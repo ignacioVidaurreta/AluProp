@@ -4,15 +4,15 @@
     <!-- Name Column -->
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef>Proposals</th>
-      <td mat-cell *matCellDef="let element">{{element.name}}</td>
+      <td mat-cell *matCellDef="let userProposal">{{userProposal.proposal.name}}</td>
     </ng-container>
 
     <div *ngIf="userRole == 'guest'; else host">
     <!-- Ownership Column -->
     <ng-container matColumnDef="ownership">
       <th mat-header-cell class="state" *matHeaderCellDef>Creator</th>
-      <td mat-cell class="state" *matCellDef="let element">
-        <div *ngIf="element.creatorId == userId"><mat-icon>star_outline</mat-icon></div>
+      <td mat-cell class="state" *matCellDef="let userProposal">
+        <div *ngIf="userProposal.proposal.creator.id == userId"><mat-icon>star_outline</mat-icon></div>
       </td>
     </ng-container>
     </div>
@@ -22,17 +22,17 @@
     <ng-template #host>
     <ng-container matColumnDef="ownership">
       <th mat-header-cell class="state" *matHeaderCellDef>State</th>
-      <td mat-cell class="state" *matCellDef="let element">
-        <div *ngIf="element.state == 'sent'">
+      <td mat-cell class="state" *matCellDef="let userProposal">
+        <div *ngIf="userProposal.proposal.state == 'sent'">
           <span style="color: darkorange;"><mat-icon>schedule</mat-icon></span>
         </div>
-        <div *ngIf="element.state == 'accepted'">
+        <div *ngIf="userProposal.proposal.state == 'accepted'">
           <span style="color: green;"><mat-icon>check</mat-icon></span>
         </div>
-        <div *ngIf="element.state == 'declined'">
+        <div *ngIf="userProposal.proposal.state == 'declined'">
           <span style="color: firebrick;"><mat-icon>clear</mat-icon></span>
         </div>
-        <div *ngIf="element.state == 'dropped'">
+        <div *ngIf="userProposal.proposal.state == 'dropped'">
           <span style="color: dimgrey;"><mat-icon>block</mat-icon></span>
         </div>
       </td>
