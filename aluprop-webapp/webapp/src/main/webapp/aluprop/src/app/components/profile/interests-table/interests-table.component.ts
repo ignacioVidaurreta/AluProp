@@ -15,11 +15,14 @@ export class InterestsTableComponent implements OnInit {
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @Input() interestedProperties: Property[];
 
-  dataSource = new MatTableDataSource<Property>(this.interestedProperties);
+  dataSource;
 
-  constructor() { }
+  constructor() {
+    this.dataSource = [];
+  }
 
   ngOnInit(): void {
     this.dataSource.paginator = this.paginator;
+    this.dataSource = new MatTableDataSource<Property>(this.interestedProperties);
   }
 }

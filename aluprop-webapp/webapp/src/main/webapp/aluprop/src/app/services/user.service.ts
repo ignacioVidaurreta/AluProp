@@ -15,7 +15,7 @@ export class UserService {
   constructor(private http: HttpClient) { }
 
   getAll(pageRequest?: PageRequest): Observable<PageResponse<User>>{
-    console.log('lellll');
+    console.log('devolviendo');
     return this.http.get<PageResponse<User>>(BASE_API_URL);
   }
 

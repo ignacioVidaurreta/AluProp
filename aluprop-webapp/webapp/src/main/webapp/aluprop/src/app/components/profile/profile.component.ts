@@ -12,6 +12,8 @@ import {MatPaginator, PageEvent} from "@angular/material/paginator";
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
+  totalItems: number;
+  pageSize: number;
 
   pageRequest: PageRequest;
   pageResponse: PageResponse<User>;
@@ -22,7 +24,6 @@ export class ProfileComponent implements OnInit {
   constructor(private userService: UserService) { }
 
   ngOnInit(): void {
-    console.log('leel');
     this.createPageSubscription();
   }
 
@@ -31,6 +32,8 @@ export class ProfileComponent implements OnInit {
   }
 
   onPageChange(pageEvent: PageEvent){
+    this.pageRequest.pageNumber = pageEvent.pageIndex;
+    this.pageRequest.pageSize = pageEvent.pageSize;
     this.userSub.unsubscribe();
     this.createPageSubscription();
   }
@@ -39,41 +42,9 @@ export class ProfileComponent implements OnInit {
     this.userSub = this.userService.getAll(this.pageRequest).subscribe((pageResponse) => {
       console.log(pageResponse);
       this.user = pageResponse.data[0];
+      this.totalItems = pageResponse.totalItems;
+      this.pageSize = pageResponse.pageSize;
     });
   }
 
 }
-
-// export interface Properties {
-//   name: string;
-//   availability: string;
-// }
-//
-// const ELEMENT_DATA_PROPERTIES: Properties[] = [
-//   {name: 'Bonita casa en Punta Chica', availability: 'available'},
-//   {name: 'Loft con vista al Rio', availability: 'available'},
-//   {name: 'Departamento moderno', availability: 'unavailable'},
-//   {name: 'Bonita casa en Punta Chica', availability: 'available'},
-//   {name: 'Loft con vista al Rio', availability: 'available'},
-//   {name: 'Bonita casa en Punta Chica', availability: 'unavailable'},
-//   {name: 'Loft con vista al Rio', availability: 'unavailable'},
-//   {name: 'Departamento moderno', availability: 'available'},
-//   {name: 'Bonita casa en Punta Chica', availability: 'available'},
-//   {name: 'Loft con vista al Rio', availability: 'available'},
-// ];
-//
-//
-// export interface Proposals {
-//   name: string;
-//   creatorId: number;
-//   state: string;
-// }
-//
-// const ELEMENT_DATA_PROPOSALS: Proposals[] = [
-//   {name: 'Bonita casa en Punta Chica', creatorId: 1, state: 'sent'},
-//   {name: 'Loft con vista al Rio', creatorId: 2, state: 'accepted'},
-//   {name: 'Departamento moderno',  creatorId: 1, state: 'declined'},
-//   {name: 'Bonita casa en Punta Chica', creatorId: 1, state: 'dropped'},
-//   {name: 'Loft con vista al Rio', creatorId: 2, state: 'sent'},
-//   {name: 'Departamento moderno',  creatorId: 1, state: 'sent'},
-// ];

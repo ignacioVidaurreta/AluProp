@@ -14,13 +14,15 @@ export class PropertiesTableComponent implements OnInit {
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @Input() ownedProperties: Property[];
 
-  dataSource = new MatTableDataSource<Property>(this.ownedProperties);
+  dataSource;
 
-  constructor() { }
+  constructor() {
+    this.dataSource = [];
+  }
 
   ngOnInit(): void {
-    console.log('properties');
     this.dataSource.paginator = this.paginator;
+    this.dataSource = new MatTableDataSource<Property>(this.ownedProperties);
   }
 
 }
