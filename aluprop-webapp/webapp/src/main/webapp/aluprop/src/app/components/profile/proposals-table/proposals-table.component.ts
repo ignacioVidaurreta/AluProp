@@ -18,13 +18,19 @@ export class ProposalsTableComponent implements OnInit {
   @Input() userId: number;
   @Input() userRole: string;
 
-  dataSource = new MatTableDataSource<UserProposal>(this.userProposals);
+  dataSource;
+  proposals: Proposal[];
 
-  constructor() { }
+  constructor() {
+    this.proposals = [];
+    this.dataSource = [];
+  }
 
   ngOnInit(): void {
-    console.log('proposals');
-    console.log(this.dataSource.data);
     this.dataSource.paginator = this.paginator;
+    this.userProposals.forEach((value) => {
+      this.proposals.push(value.proposal);
+    });
+    this.dataSource = new MatTableDataSource<Proposal>(this.proposals);
   }
 }
