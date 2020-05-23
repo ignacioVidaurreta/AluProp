@@ -1,0 +1,29 @@
+<div class="user-info mat-elevation-z6">
+        <div>
+          <h1 class="user-title">{{ user.name }} {{ user.lastName }}</h1>
+        </div>
+        <div class="user-description">
+          <p class="user-details"><mat-icon class="icon">school</mat-icon> {{ user.university.name }}</p>
+          <p class="user-details"><mat-icon class="icon">cake</mat-icon> {{ user.birthDate }}</p>
+        </div>
+</div>
+<div class="user-bio">
+  <mat-card class="user-bio-card mat-elevation-z8">
+    <mat-card-subtitle>Bio</mat-card-subtitle>
+    <mat-card-content>
+      <p>{{ user.bio }}</p>
+    </mat-card-content>
+  </mat-card>
+</div>
+<div class="user-properties">
+<!--  TODO: *ngIf="user == currentUser" check, also empty list versions for 4 tables-->
+  <div *ngIf="user.role == 'ROLE_GUEST'; then guestRole else hostRole"></div>
+  <ng-template #guestRole>
+    <app-interests-table id="left-table" [interestedProperties]="user.interestedProperties"></app-interests-table>
+    <app-proposals-table id="right-table" [userRole]="user.role" [userId]="user.id" [userProposals]="user.userProposals"></app-proposals-table>
+  </ng-template>
+  <ng-template #hostRole>
+    <app-properties-table id="left-table" [ownedProperties]="user.ownedProperties"></app-properties-table>
+    <app-proposals-table id="right-table" [userRole]="user.role" [userId]="user.id" [userProposals]="user.userProposals"></app-proposals-table>
+  </ng-template>
+</div>

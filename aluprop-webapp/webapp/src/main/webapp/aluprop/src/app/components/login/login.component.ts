@@ -12,9 +12,11 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private router: Router, 
-    private authenticationService: AuthenticationService
-  ) { 
-
+    private authenticationService: AuthenticationService){ 
+      if( authenticationService.currentUserValue){
+        console.log("Already logged in...");
+        this.router.navigate(['']);
+      }
   }
   username: string;
   password: string;
@@ -25,7 +27,7 @@ export class LoginComponent implements OnInit {
     if(this.authenticationService.login(this.username, this.password)){
      this.router.navigate([""]);
     }else {
-      alert("Invalid credentials");
+      alert("Invalid credentials"); // TODO: Improve error handling lol
     }
   }
 
