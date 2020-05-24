@@ -2,6 +2,7 @@ import {Property} from "./property";
 import {UserProposal} from "./userProposal";
 import {University} from "./university";
 import {Career} from "./career";
+import {Proposal} from "./proposal";
 
 export class User {
   id: number;
@@ -16,9 +17,10 @@ export class User {
   bio: string;
   contactNumber: string;
   role: Role;
-  interestedProperties: Property[];
-  userProposals: UserProposal[];
-  ownedProperties: Property[];
+  interestedProperties: Property[]; //GUEST
+  userProposals: UserProposal[]; //GUEST
+  ownedProperties: Property[]; //HOST
+  hostProposals: Proposal[]; //HOST
 }
 
 export type Role = 'ROLE_GUEST' | 'ROLE_HOST';

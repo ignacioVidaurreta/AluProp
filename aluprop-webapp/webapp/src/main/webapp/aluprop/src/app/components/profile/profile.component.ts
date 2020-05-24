@@ -12,6 +12,7 @@ import {MatPaginator, PageEvent} from "@angular/material/paginator";
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
+
   totalItems: number;
   pageSize: number;
 
@@ -40,7 +41,6 @@ export class ProfileComponent implements OnInit {
 
   createPageSubscription(){
     this.userSub = this.userService.getAll(this.pageRequest).subscribe((pageResponse) => {
-      console.log(pageResponse);
       this.user = pageResponse.data[0];
       this.totalItems = pageResponse.totalItems;
       this.pageSize = pageResponse.pageSize;
