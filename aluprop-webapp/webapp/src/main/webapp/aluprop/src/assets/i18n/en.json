@@ -1,0 +1,9 @@
+{
+  "navbar": {
+    "signup": "Sign Up",
+    "or": " or ",
+    "login": "Log in",
+    "hi": "Hi, ",
+    "logout": "Log out"
+  }
+}

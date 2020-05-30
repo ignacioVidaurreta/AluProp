@@ -15,7 +15,6 @@ export class PropertyService {
   constructor(private http: HttpClient) { }
 
   getAll(pageRequest?: PageRequest): Observable<PageResponse<Property>>{
-    console.log('holaa');
     return this.http.get<PageResponse<Property>>(BASE_API_URL);
   }
 }

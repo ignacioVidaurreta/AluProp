@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { Observable, Subscription } from 'rxjs';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-navbar',
@@ -14,13 +15,18 @@ export class NavbarComponent implements OnInit {
   username: string;
   constructor(
     private router: Router,
-    private authenticationService: AuthenticationService) { 
+    private authenticationService: AuthenticationService,
+    private translateService: TranslateService) { 
   }
 
   ngOnInit(): void {
     this.usernameSubscription = this.authenticationService.currentUser.subscribe(
       username => this.username = username
       );
+  }
+
+  ngOnDestroy(): void{
+    this.usernameSubscription.unsubscribe()
   }
 
   logout(): void{
@@ -36,8 +42,7 @@ export class NavbarComponent implements OnInit {
     return false;
   }
 
-  ngOnDestroy(): void{
-    this.usernameSubscription.unsubscribe()
+  setLanguage(language: string){
+    this.translateService.use(language);
   }
-
 }
