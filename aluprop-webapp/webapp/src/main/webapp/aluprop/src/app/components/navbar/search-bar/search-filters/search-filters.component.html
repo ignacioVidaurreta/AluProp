@@ -1,60 +1,59 @@
-<div class="dropdown-menu dropdown-menu-right" role="menu">
-  <mat-form-field class="form-group">
-      <mat-label i18n>Property type</mat-label>
-      <mat-select class="form-control">
-          <mat-option value="0" i18n>House</mat-option>
-          <mat-option value="1" i18n>Appartment</mat-option>
-          <mat-option value="2" i18n>Loft</mat-option>
-      </mat-select>
-      <mat-error>Error</mat-error>
-  </mat-form-field>
-  <mat-form-field class="form-group">
-      <mat-label i18n>Neighborhood</mat-label>
-      <mat-select id="select-neighbourhood-search" name="neighbourhoods">
-          <div *ngFor="let neighborhood of neighborhoods">
-              <mat-option value="neighborhood.id">{{ neighborhood.name }}</mat-option>
-          </div>
-      </mat-select>
-      <mat-error>Error</mat-error>
-  </mat-form-field>
-  <mat-form-field class="form-group">
-      <mat-label i18n>Privacy</mat-label>
-      <mat-select class="form-control">
-          <mat-option value="0" i18n>Individual</mat-option>
-          <mat-option value="1" i18n>Shared</mat-option>
-      </mat-select>
-      <mat-error>Error</mat-error>
-  </mat-form-field>
-  <mat-form-field class="form-group">
-      <mat-label i18n>Max capacity</mat-label>
-      <input type="text" class="form-control">
-      <mat-error>Error</mat-error>
-  </mat-form-field>
-  <p i18n>Budget </p>
-  <div class="form-row">
-      <mat-form-field class="form-group col-md-6">
-          <mat-label i18n>Rent per month min</mat-label>
-          <input type="number" class="form-control">
-          <mat-error>Error</mat-error>
-      </mat-form-field>
-      <mat-form-field class="form-group col-md-6 text-right">
-          <mat-label i18n>Rent per month min</mat-label>
-          <input type="number" class="form-control" placeholder="Max">
-          <mat-error>Error</mat-error>
-      </mat-form-field>
-  </div>
-  <mat-form-field class="form-group">
-      <mat-label i18n>Rules</mat-label>
-      <span *ngFor="let rule of rules">
-        <mat-checkbox value="{{rule.id}}" i18n>{{rule.name}}</mat-checkbox>
-      </span>
-      <mat-error>Error</mat-error>
-  </mat-form-field>
-  <mat-form-field class="form-group">
-      <mat-label i18n>Services</mat-label>
-      <span *ngFor="let service of services">
-        <mat-checkbox value="{{service.id}}" i18n>{{service.name}}</mat-checkbox>
-      </span>
-      <mat-error>Error</mat-error>
-  </mat-form-field>
-</div>
+<mat-card class="filter-menu">
+    <form [formGroup]="filterForm">
+        <mat-form-field>
+            <mat-label i18n>Property type</mat-label>
+            <mat-select formControlName="property_type">
+                <mat-option value="0" i18n>House</mat-option>
+                <mat-option value="1" i18n>Appartment</mat-option>
+                <mat-option value="2" i18n>Loft</mat-option>
+            </mat-select>
+            <mat-error>Error</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label i18n>Neighborhood</mat-label>
+            <mat-select formControlName="neighborhood">
+                <div *ngFor="let neighborhood of neighborhoods">
+                    <mat-option value="neighborhood.id">{{ neighborhood.name }}</mat-option>
+                </div>
+            </mat-select>
+            <mat-error>Error</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label i18n>Privacy</mat-label>
+            <mat-select formControlName="privacy">
+                <mat-option value="0" i18n>Individual</mat-option>
+                <mat-option value="1" i18n>Shared</mat-option>
+            </mat-select>
+            <mat-error>Error</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label i18n>Max capacity</mat-label>
+            <input matInput type="text" formControlName="max_capacity"/>
+            <mat-error>Error</mat-error>
+        </mat-form-field>
+        <p i18n>Budget </p>
+        <div class="form-row">
+            <mat-form-field>
+                <mat-label i18n>Min rent per month</mat-label>
+                <input matInput matInput type="number" formControlName="min_rent"/>
+                <mat-error>Error</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label i18n>Max rent per month</mat-label>
+                <input matInput type="number" placeholder="Max" formControlName="max_rent"/>
+                <mat-error>Error</mat-error>
+            </mat-form-field>
+        </div>
+        <mat-label i18n>Rules</mat-label>
+        <span *ngFor="let rule of rules">
+        <mat-checkbox formControlName="rule" value="{{rule.id}}" i18n>{{rule.name}}</mat-checkbox>
+        </span>
+        <mat-error>Error</mat-error>
+
+        <mat-label i18n>Services</mat-label>
+        <span *ngFor="let service of services">
+        <mat-checkbox formControlName="service" value="{{service.id}}" i18n>{{service.name}}</mat-checkbox>
+        </span>
+        <mat-error>Error</mat-error>
+    </form>
+</mat-card>

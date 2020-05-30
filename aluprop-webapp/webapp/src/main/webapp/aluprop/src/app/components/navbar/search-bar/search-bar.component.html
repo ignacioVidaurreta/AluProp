@@ -1,7 +1,7 @@
 
 <mat-form-field>
-<!-- <mat-label>Buscar</mat-label> -->
 <input matInput placeholder="Buscar...">
 </mat-form-field>
-<button mat-button><mat-icon>filter_list</mat-icon></button>
-<button mat-button><mat-icon>search</mat-icon></button>
+<button mat-button (click)="toggleFilters()"><mat-icon>filter_list</mat-icon></button>
+<app-search-filters (filters)="setSearchFilters($event)" [hidden]="!showFilters" (click)="$event.stopPropagation();"></app-search-filters>
+<button mat-button (click)="search()"><mat-icon>search</mat-icon></button>
