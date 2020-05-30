@@ -8,7 +8,7 @@
     <app-search-bar></app-search-bar>
     <div *ngIf="!username; else notLoggedIn" class="login-buttons-and-flags">
       <a [routerLink]="['/register/']" class="sign-up-button" i18n>Registrarse</a>
-      <span i18n> o </span>
+      <span class="or" i18n> o </span>
       <a [routerLink]="['/login/']" class="log-in-button" i18n>Ingresar</a>
       <img class="flag" src="../assets/img/uk.svg">
       <img class="flag" src="../assets/img/spain.svg">

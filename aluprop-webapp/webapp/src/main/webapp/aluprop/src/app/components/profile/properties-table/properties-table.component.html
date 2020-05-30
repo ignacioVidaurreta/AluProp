@@ -4,14 +4,14 @@
     <!-- Name Column -->
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef>Properties</th>
-      <td mat-cell *matCellDef="let element">{{element.name}}</td>
+      <td mat-cell *matCellDef="let property">{{property.description}}</td>
     </ng-container>
 
     <!-- State Column -->
     <ng-container matColumnDef="state">
       <th mat-header-cell class="state" *matHeaderCellDef>State</th>
-      <td mat-cell class="state" *matCellDef="let element">
-        <div *ngIf="element.availability == 'available'; else unavailable">
+      <td mat-cell class="state" *matCellDef="let property">
+        <div *ngIf="property.availability == 'AVAILABLE'; else unavailable">
           <span style="color: green;">Active</span>
         </div>
         <ng-template #unavailable>

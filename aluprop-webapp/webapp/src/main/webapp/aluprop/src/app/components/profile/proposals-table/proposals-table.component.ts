@@ -14,12 +14,11 @@ export class ProposalsTableComponent implements OnInit {
   displayedColumns: string[] = ['name','ownership'];
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-  @Input() userProposals: UserProposal[];
+  @Input() proposals: UserProposal[] | Proposal[];
   @Input() userId: number;
   @Input() userRole: string;
 
   dataSource;
-  proposals: Proposal[];
 
   constructor() {
     this.proposals = [];
@@ -28,9 +27,6 @@ export class ProposalsTableComponent implements OnInit {
 
   ngOnInit(): void {
     this.dataSource.paginator = this.paginator;
-    this.userProposals.forEach((value) => {
-      this.proposals.push(value.proposal);
-    });
-    this.dataSource = new MatTableDataSource<Proposal>(this.proposals);
+    this.dataSource = new MatTableDataSource<UserProposal|Proposal>(this.proposals);
   }
 }

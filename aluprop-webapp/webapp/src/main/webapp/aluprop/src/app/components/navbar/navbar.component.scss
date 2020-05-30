@@ -26,9 +26,14 @@ app-search-bar{
 }
 
 .login-buttons-and-flags{
+  display: flex;
   flex: auto;
   align-items: center;
   flex-direction: row;
+}
+
+.or{
+  margin:5px;
 }
 
 .sign-up-button, .log-in-button{
