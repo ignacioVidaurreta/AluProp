@@ -3,7 +3,7 @@
     "signup": "Registrarse",
     "or": " o ",
     "login": "Iniciar sesión",
-    "hi": "Hola, ",
+    "hi": "Hola, {{name}}!",
     "logout": "Cerrar sesión"
   }
 }

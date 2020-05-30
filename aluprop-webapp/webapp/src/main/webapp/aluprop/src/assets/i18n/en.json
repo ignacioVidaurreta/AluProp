@@ -3,7 +3,7 @@
     "signup": "Sign Up",
     "or": " or ",
     "login": "Log in",
-    "hi": "Hi, ",
+    "hi": "Hi, {{name}}!",
     "logout": "Log out"
   }
 }

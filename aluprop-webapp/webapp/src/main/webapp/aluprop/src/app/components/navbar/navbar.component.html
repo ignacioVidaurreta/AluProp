@@ -15,7 +15,7 @@
     </div>
 
     <ng-template #notLoggedIn>
-      <span translate class="greeting"> navbar.hi {{ username }} </span>
+      <span translate [translateParams]="{name: username}" class="greeting">navbar.hi</span>
       <a (click)="logout()" class="log-in-button" translate>navbar.logout</a>
       <img class="flag" src="../assets/img/uk.svg">
       <img class="flag" src="../assets/img/spain.svg">
