@@ -33,6 +33,10 @@
       <param-name>jersey.config.server.provider.packages</param-name>
       <param-value>ar.edu.itba.paw.webapp.controller</param-value>
     </init-param>
+    <init-param>
+      <param-name>javax.ws.rs.Application</param-name>
+      <param-value>ar.edu.itba.paw.webapp.config.JsonResourceConfig</param-value>
+    </init-param>
     <load-on-startup>1</load-on-startup>
   </servlet>
 
