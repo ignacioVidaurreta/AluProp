@@ -22,7 +22,7 @@ import { ProposalsTableComponent } from './components/profile/proposals-table/pr
 import { SearchFiltersComponent } from './components/navbar/search-bar/search-filters/search-filters.component';
 import { SearchBarComponent } from './components/navbar/search-bar/search-bar.component';
 import { ProposalComponent } from './components/proposal/proposal.component';
-
+import { ProposalUsersTableComponent } from './components/proposal/proposal-users-table/proposal-users-table.component';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 
@@ -42,6 +42,7 @@ import {TranslateHttpLoader} from '@ngx-translate/http-loader';
     SearchFiltersComponent,
     SearchBarComponent,
     ProposalComponent,
+    ProposalUsersTableComponent,
   ],
   imports: [
     BrowserModule,

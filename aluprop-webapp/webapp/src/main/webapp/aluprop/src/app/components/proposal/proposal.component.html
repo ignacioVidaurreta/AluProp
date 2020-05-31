@@ -1,14 +1,24 @@
-<div class="proposal-container">
+<div *ngIf='proposal' class="proposal-container">
   <mat-card class="proposal-card mat-elevation-z8">
-    <div class="proposal-header-image"></div>
+    <img src="http://lisagryba.com/wp-content/uploads/2015/04/nice-houses-for-sale.jpg" mat-card-image>
     <mat-card-header>
-      <mat-card-title>Proposal</mat-card-title>
-      <mat-card-subtitle>Link to property [name]</mat-card-subtitle>
+      <mat-card-subtitle>Proposal</mat-card-subtitle>
+      <mat-card-title>{{ proposal.property.description }}</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <p>
-        Property description
-      </p>
+      <div>
+        <p>{{ proposal.property.caption }}</p>
+      </div>
+      <div>
+        <app-proposal-users-table [proposalState]="proposal.state"></app-proposal-users-table>
+      </div>
+    </mat-card-content>
+    <mat-card-content>
+      Lel kjfhksdjgfalkfjgha;h sdlfjsdf asdf sdfjasbdfa
+      <mat-card-actions>
+        <button mat-button>LIKE</button>
+        <button mat-button>SHARE</button>
+      </mat-card-actions>
     </mat-card-content>
   </mat-card>
 </div>

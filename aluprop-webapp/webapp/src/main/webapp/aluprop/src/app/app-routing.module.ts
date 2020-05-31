@@ -13,12 +13,12 @@ const routes: Routes = [
   // { path: 'user/:id', component: ProfileComponent},
   { path:'login', component: LoginComponent},
   { path:'register', component: RegisterComponent},
-  { 
-    path: 'user', 
+  {
+    path: 'user',
     component: ProfileComponent,
     canActivate: [AuthGuardService],
   },
-  { path: 'proposal', component: ProposalComponent},
+  { path: 'proposal/:id', component: ProposalComponent},
   { path: '**', redirectTo: '' }
 ];
 
