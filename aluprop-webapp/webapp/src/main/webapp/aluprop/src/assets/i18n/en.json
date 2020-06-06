@@ -22,5 +22,8 @@
     "max-rent": "Max rent per month",
     "rules": "Rules",
     "unspecified": "None specified"
+  },
+  "property-card": {
+    "see-more": "See more"
   }
 }

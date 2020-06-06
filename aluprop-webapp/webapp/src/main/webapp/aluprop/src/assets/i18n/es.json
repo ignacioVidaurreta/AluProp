@@ -22,5 +22,8 @@
     "max-rent": "Máximo",
     "rules": "Reglas",
     "unspecified": "Sin especificar"
+  },
+  "property-card": {
+    "see-more": "Ver más"
   }
 }
