@@ -1,9 +1,26 @@
 {
   "navbar": {
+    "search": "Search...",
     "signup": "Sign Up",
     "or": " or ",
     "login": "Log in",
     "hi": "Hi, {{name}}!",
     "logout": "Log out"
+  },
+  "search-filters": {
+    "property-type": "Property type",
+    "house": "House",
+    "apartment": "Apartment",
+    "loft": "Loft",
+    "neighborhood": "Neighborhood",
+    "privacy": "Privacy",
+    "individual": "Individual",
+    "shared": "Shared",
+    "max-capacity": "Max capacity",
+    "budget": "Budget",
+    "min-rent": "Min rent per month",
+    "max-rent": "Max rent per month",
+    "rules": "Rules",
+    "unspecified": "None specified"
   }
 }

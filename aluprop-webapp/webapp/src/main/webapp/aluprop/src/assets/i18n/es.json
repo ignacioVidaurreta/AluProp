@@ -1,9 +1,26 @@
 {
   "navbar": {
+    "search": "Buscar...",
     "signup": "Registrarse",
     "or": " o ",
     "login": "Iniciar sesión",
     "hi": "Hola, {{name}}!",
     "logout": "Cerrar sesión"
+  },
+  "search-filters": {
+    "property-type": "Tipo de propiedad",
+    "house": "Casa",
+    "apartment": "Departamento",
+    "loft": "Loft",
+    "neighborhood": "Barrio",
+    "privacy": "Privacidad",
+    "individual": "Individual",
+    "shared": "Compartida",
+    "max-capacity": "Capacidad máxima",
+    "budget": "Precio por mes",
+    "min-rent": "Mínimo",
+    "max-rent": "Máximo",
+    "rules": "Reglas",
+    "unspecified": "Sin especificar"
   }
 }

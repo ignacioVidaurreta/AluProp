@@ -41,7 +41,7 @@ export class ProfileComponent implements OnInit {
 
   createPageSubscription(){
     this.userSub = this.userService.getAll(this.pageRequest).subscribe((pageResponse) => {
-      this.user = pageResponse.data[0];
+      this.user = pageResponse.responseData[0];
       this.totalItems = pageResponse.totalItems;
       this.pageSize = pageResponse.pageSize;
     });

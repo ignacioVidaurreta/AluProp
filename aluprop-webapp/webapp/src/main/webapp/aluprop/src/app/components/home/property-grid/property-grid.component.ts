@@ -43,7 +43,7 @@ export class PropertyGridComponent implements OnInit, OnDestroy {
 
   createPageSubscription(){
     this.propertiesSub = this.propertyService.getAll(this.pageRequest).subscribe((pageResponse) => {
-      this.properties = pageResponse.data;
+      this.properties = pageResponse.responseData;
       this.totalItems = pageResponse.totalItems;
       this.pageSize = pageResponse.pageSize;
     });

@@ -6,6 +6,7 @@ import { Service } from 'src/app/models/service';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { EventEmitter } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-search-filters',
@@ -36,7 +37,7 @@ export class SearchFiltersComponent implements OnInit, OnDestroy {
   @Output()
   filters = new EventEmitter();
   
-  constructor() { }
+  constructor(private translateService: TranslateService) { }
   
   ngOnInit(): void {
     this.formChangesSub = this.filterForm.valueChanges.subscribe((filters) => this.filters.emit(filters));
