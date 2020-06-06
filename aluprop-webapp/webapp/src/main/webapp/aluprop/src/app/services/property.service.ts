@@ -7,6 +7,8 @@ import { PageResponse } from '../interfaces/page-response';
 
 const BASE_API_URL = 'http://localhost:8080/api';
 
+const JSON_ALL_PROPERTIES = '../assets/json/dummyProperties.json';
+
 const httpOptions = {
   headers: new HttpHeaders({ 
     'Access-Control-Allow-Origin':'*',
@@ -23,6 +25,9 @@ export class PropertyService {
   constructor(private http: HttpClient) { }
 
   getAll(pageRequest?: PageRequest): Observable<PageResponse<Property>>{
-    return this.http.get<PageResponse<Property>>(BASE_API_URL + '/property/', httpOptions);
+    // return this.http.get<PageResponse<Property>>(BASE_API_URL + '/property/', httpOptions);
+    let params = {pageSize: String(pageRequest.pageSize), pageNumber: String(pageRequest.pageNumber) };
+    return this.http.get<PageResponse<Property>>(JSON_ALL_PROPERTIES, {params: params});
+
   }
 }
