@@ -26,6 +26,8 @@ import { ProposalUsersTableComponent } from './components/proposal/proposal-user
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import { DetailedPropertyComponent } from './detailed-property/detailed-property.component';
+import { NotificationsMenuComponent } from './components/navbar/notifications-bar/notifications-menu/notifications-menu.component';
+import { NotificationsBarComponent } from './components/navbar/notifications-bar/notifications-bar.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +47,8 @@ import { DetailedPropertyComponent } from './detailed-property/detailed-property
     ProposalComponent,
     ProposalUsersTableComponent,
     DetailedPropertyComponent,
+    NotificationsMenuComponent,
+    NotificationsBarComponent,
   ],
   imports: [
     BrowserModule,

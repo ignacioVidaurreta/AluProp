@@ -14,12 +14,13 @@
       <img class="flag" src="../assets/img/spain.svg" (click)="setLanguage('es')">
     </div>
 
-    <ng-template #notLoggedIn>
+    <div class="login-buttons-and-flags" #notLoggedIn>
       <span translate [translateParams]="{name: username}" class="greeting">navbar.hi</span>
+      <app-notifications-bar></app-notifications-bar>
       <a (click)="logout()" class="log-in-button" translate>navbar.logout</a>
       <img class="flag" src="../assets/img/uk.svg">
       <img class="flag" src="../assets/img/spain.svg">
-    </ng-template>
+    </div>
   </mat-toolbar-row>
   <mat-toolbar-row class="navbar-show-small">
       <a href="" mat-button class="navbar-show-small button">
