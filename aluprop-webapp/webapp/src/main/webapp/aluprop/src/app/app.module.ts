@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -22,6 +22,9 @@ import { ProposalsTableComponent } from './components/profile/proposals-table/pr
 import { SearchFiltersComponent } from './components/navbar/search-bar/search-filters/search-filters.component';
 import { SearchBarComponent } from './components/navbar/search-bar/search-bar.component';
 import { ProposalComponent } from './components/proposal/proposal.component';
+import { ProposalUsersTableComponent } from './components/proposal/proposal-users-table/proposal-users-table.component';
+import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 
 @NgModule({
   declarations: [
@@ -39,6 +42,7 @@ import { ProposalComponent } from './components/proposal/proposal.component';
     SearchFiltersComponent,
     SearchBarComponent,
     ProposalComponent,
+    ProposalUsersTableComponent,
   ],
   imports: [
     BrowserModule,
@@ -49,6 +53,13 @@ import { ProposalComponent } from './components/proposal/proposal.component';
     ReactiveFormsModule,
     HttpClientModule,
     MaterialModule,
+    TranslateModule.forRoot({
+      loader: {
+          provide: TranslateLoader,
+          useFactory: HttpLoaderFactory,
+          deps: [HttpClient]
+      }
+  })
   ],
   exports: [
     FormsModule,
@@ -58,3 +69,8 @@ import { ProposalComponent } from './components/proposal/proposal.component';
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+// required for AOT compilation
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}

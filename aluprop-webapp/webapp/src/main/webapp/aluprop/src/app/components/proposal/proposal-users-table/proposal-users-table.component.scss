@@ -8,14 +8,16 @@ table {
 }
 
 .mat-row:hover {
-  background-color: gainsboro;
+  background: whitesmoke;
   cursor: pointer;
 }
 
 .state {
-  padding-right: 2px!important;
   width: 15%;
   text-align: center;
+  padding-right: 2px!important;
 }
 
-
+.state-icon {
+  vertical-align: middle;
+}

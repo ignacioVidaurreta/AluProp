@@ -1,0 +1,9 @@
+{
+  "navbar": {
+    "signup": "Registrarse",
+    "or": " o ",
+    "login": "Iniciar sesión",
+    "hi": "Hola, {{name}}!",
+    "logout": "Cerrar sesión"
+  }
+}

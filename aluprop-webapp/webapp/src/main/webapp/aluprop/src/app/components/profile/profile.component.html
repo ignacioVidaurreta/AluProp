@@ -7,7 +7,7 @@
           <p class="user-details"><mat-icon class="icon">cake</mat-icon> {{ user.birthDate }}</p>
         </div>
 </div>
-<div *ngIf="user" class="user-bio">
+<div *ngIf="user; else spinner" class="user-bio">
   <mat-card class="user-bio-card mat-elevation-z8">
     <mat-card-subtitle>Bio</mat-card-subtitle>
     <mat-card-content>
@@ -15,6 +15,7 @@
     </mat-card-content>
   </mat-card>
 </div>
+<ng-template #spinner><mat-spinner></mat-spinner></ng-template>
 <div *ngIf="user" class="user-properties">
 <!--  TODO: *ngIf="user == currentUser" check, also empty list versions for 4 tables-->
   <div *ngIf="user.role == 'ROLE_GUEST'; then guestRole else hostRole"></div>
