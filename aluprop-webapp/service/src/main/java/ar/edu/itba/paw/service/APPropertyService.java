@@ -53,6 +53,8 @@ public class APPropertyService implements PropertyService {
                                 propertyDao.getAllActiveOrdered(pageRequest, propertyOrder));
     }
 
+
+
     @Override
     public PageResponse<Property> advancedSearch(PageRequest pageRequest, SearchableProperty property){
         return new PageResponse<>(pageRequest,
