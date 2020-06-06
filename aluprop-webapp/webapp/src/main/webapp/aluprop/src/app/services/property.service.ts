@@ -27,7 +27,7 @@ export class PropertyService {
   getAll(pageRequest?: PageRequest): Observable<PageResponse<Property>>{
     // return this.http.get<PageResponse<Property>>(BASE_API_URL + '/property/', httpOptions);
     let params = {pageSize: String(pageRequest.pageSize), pageNumber: String(pageRequest.pageNumber) };
-    return this.http.get<PageResponse<Property>>(JSON_ALL_PROPERTIES, {params: params});
+    return this.http.get<PageResponse<Property>>(BASE_API_URL + '/property/', {params: params});
 
   }
 }
