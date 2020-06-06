@@ -30,7 +30,7 @@ export class SearchFiltersComponent implements OnInit, OnDestroy {
     min_rent: new FormControl('', [Validators.pattern('[0-9]*')]),
     max_rent: new FormControl('', [Validators.pattern('[0-9]*')]),
     rules: new FormControl(this.rules),
-    service: new FormControl(this.services)
+    services: new FormControl(this.services)
   });
   formChangesSub: Subscription;
   

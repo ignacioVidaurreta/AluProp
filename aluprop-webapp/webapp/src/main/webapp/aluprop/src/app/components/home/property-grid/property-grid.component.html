@@ -1,13 +1,10 @@
-<mat-grid-list cols="4" rowHeight="100px" gutterSize="1rem">
-  <mat-grid-tile
-      *ngFor="let property of properties"
-      [colspan]="1"
-      [rowspan]="1">
-      <app-property-item [property]="property" [routerLink]="['/propiedades/']"></app-property-item>
-  </mat-grid-tile>
-</mat-grid-list>
-<mat-paginator [length]="totalItems"
-              [pageSize]="pageSize"
-              [pageSizeOptions]="[5, 10, 25, 100]"
-              (page)="onPageChange($event)">
-</mat-paginator>
+<div class="container">
+  <div class="grid">
+    <app-property-item *ngFor="let property of properties"[property]="property" [routerLink]="['/propiedades/']"></app-property-item>
+  </div>
+  <mat-paginator [length]="totalItems"
+                [pageSize]="pageSize"
+                [pageSizeOptions]="[5, 10, 25, 100]"
+                (page)="onPageChange($event)">
+  </mat-paginator>
+</div>

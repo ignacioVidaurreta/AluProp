@@ -11,6 +11,7 @@ export class Property {
   capacity: number;
   price: number;
   availability: Availability;
+  image: any;
 }
 
 export type PropertyType  = 'HOUSE' | 'APARTMENT' | 'LOFT';

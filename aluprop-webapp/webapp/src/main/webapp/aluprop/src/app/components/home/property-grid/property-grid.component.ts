@@ -26,7 +26,7 @@ export class PropertyGridComponent implements OnInit, OnDestroy {
   constructor(private propertyService: PropertyService) { }
 
   ngOnInit(): void {
-    console.log('dsad');
+    this.pageRequest = {pageNumber: 1, pageSize: 9}
     this.createPageSubscription();
   }
 
@@ -44,6 +44,7 @@ export class PropertyGridComponent implements OnInit, OnDestroy {
   createPageSubscription(){
     this.propertiesSub = this.propertyService.getAll(this.pageRequest).subscribe((pageResponse) => {
       this.properties = pageResponse.responseData;
+      console.log(this.properties[0]);
       this.totalItems = pageResponse.totalItems;
       this.pageSize = pageResponse.pageSize;
     });
