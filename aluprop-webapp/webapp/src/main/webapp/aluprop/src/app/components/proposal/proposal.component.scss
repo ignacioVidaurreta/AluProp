@@ -5,9 +5,13 @@
 
 .proposal-card {
   margin-top: 3rem;
+  margin-bottom: 3rem;
   width: 70%;
 }
 
+.grayscale {
+  filter: grayscale(100%);
+}
 //.proposal-header-image {
 //  background: url(http://lisagryba.com/wp-content/uploads/2015/04/nice-houses-for-sale.jpg) no-repeat;
 //  background-size: cover;

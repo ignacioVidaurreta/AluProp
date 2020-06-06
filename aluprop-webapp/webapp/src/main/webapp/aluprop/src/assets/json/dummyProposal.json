@@ -77,7 +77,7 @@
     "capacity": 3,
     "price": 1882
   },
-  "state": "PENDING",
+  "state": "ACCEPTED",
   "creator": {
     "name": "Joe",
     "lastName": "Chrome",
