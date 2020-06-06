@@ -5,6 +5,8 @@ import {Subscription} from "rxjs";
 import {User} from "../../models/user";
 import {UserService} from "../../services/user.service";
 import {MatPaginator, PageEvent} from "@angular/material/paginator";
+import {ProposalService} from "../../services/proposal.service";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-profile',
@@ -12,20 +14,15 @@ import {MatPaginator, PageEvent} from "@angular/material/paginator";
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
-
-  totalItems: number;
-  pageSize: number;
-
-  pageRequest: PageRequest;
-  pageResponse: PageResponse<User>;
-
+  userId: number;
   user: User;
   userSub: Subscription;
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.createPageSubscription();
+    this.userId = +this.route.snapshot.paramMap.get("id");
   }
 
   ngOnDestroy(): void {
@@ -33,17 +30,13 @@ export class ProfileComponent implements OnInit {
   }
 
   onPageChange(pageEvent: PageEvent){
-    this.pageRequest.pageNumber = pageEvent.pageIndex;
-    this.pageRequest.pageSize = pageEvent.pageSize;
     this.userSub.unsubscribe();
     this.createPageSubscription();
   }
 
   createPageSubscription(){
-    this.userSub = this.userService.getAll(this.pageRequest).subscribe((pageResponse) => {
-      this.user = pageResponse.responseData[0];
-      this.totalItems = pageResponse.totalItems;
-      this.pageSize = pageResponse.pageSize;
+    this.userSub = this.userService.getUserById(this.userId).subscribe((user) => {
+      this.user = user;
     });
   }
 

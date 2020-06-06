@@ -1,8 +1,11 @@
 import {Component, Input, OnInit, ViewChild} from '@angular/core';
-import {MatPaginator} from '@angular/material/paginator';
+import {MatPaginator, PageEvent} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
 import {Proposal} from "../../../models/proposal";
 import {UserProposal} from "../../../models/userProposal";
+import {Subscription} from "rxjs";
+import {ActivatedRoute} from "@angular/router";
+import {UserService} from "../../../services/user.service";
 
 
 @Component({
@@ -14,19 +17,42 @@ export class ProposalsTableComponent implements OnInit {
   displayedColumns: string[] = ['name','ownership'];
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-  @Input() proposals: UserProposal[] | Proposal[];
-  @Input() userId: number;
+
   @Input() userRole: string;
 
+  userId: number;
+  proposalsSub: Subscription;
   dataSource;
 
-  constructor() {
-    this.proposals = [];
+  constructor(private userService: UserService, private route: ActivatedRoute) {
     this.dataSource = [];
   }
 
   ngOnInit(): void {
+    this.createPageSubscription();
     this.dataSource.paginator = this.paginator;
-    this.dataSource = new MatTableDataSource<UserProposal|Proposal>(this.proposals);
+    this.userId = +this.route.snapshot.paramMap.get("id");
+  }
+
+  ngOnDestroy(): void {
+    this.proposalsSub.unsubscribe();
+  }
+
+  onPageChange(pageEvent: PageEvent){
+    this.proposalsSub.unsubscribe();
+    this.createPageSubscription();
+  }
+
+  createPageSubscription(){
+    if(this.userRole == "GUEST") {//TODO: check with currentLoggedInUser
+      this.proposalsSub = this.userService.getAllUserProposalsByUserId(this.userId).subscribe((userProposals) => {
+        this.dataSource = new MatTableDataSource<UserProposal>(userProposals);
+      });
+    }
+    else {
+      this.proposalsSub = this.userService.getAllProposalsByUserId(this.userId).subscribe((proposals) => {
+        this.dataSource = new MatTableDataSource<Proposal>(proposals);
+      });
+    }
   }
 }

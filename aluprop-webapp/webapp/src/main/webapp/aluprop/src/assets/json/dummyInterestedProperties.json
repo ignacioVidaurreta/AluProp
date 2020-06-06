@@ -1,0 +1,128 @@
+[{
+  "id": 0,
+  "caption": "Alto depto con vista al mar ahre que era una laguna",
+  "description": "Depto en pilar",
+  "propertyType": "APARTMENT",
+  "neighborhood": {
+    "id": 0,
+    "name": "Pilar",
+    "city": {
+      "id": 0,
+      "name": "Pilar",
+      "province": "",
+      "country": "",
+      "neighborhoods": ""
+    },
+    "properties": ""
+  },
+  "address": "Tu vieja 1728",
+  "privacyLevel": "true",
+  "capacity": 3,
+  "price": 1882,
+  "availability": "AVAILABLE"
+},{
+  "id": 0,
+  "caption": "Alto depto con vista al mar ahre que era una laguna",
+  "description": "Depto en pilar",
+  "propertyType": "APARTMENT",
+  "neighborhood": {
+    "id": 0,
+    "name": "Pilar",
+    "city": {
+      "id": 0,
+      "name": "Pilar",
+      "province": "",
+      "country": "",
+      "neighborhoods": ""
+    },
+    "properties": ""
+  },
+  "address": "Tu vieja 1728",
+  "privacyLevel": "true",
+  "capacity": 3,
+  "price": 1882
+},{
+  "id": 0,
+  "caption": "Alto depto con vista al mar ahre que era una laguna",
+  "description": "Depto en pilar",
+  "propertyType": "APARTMENT",
+  "neighborhood": {
+    "id": 0,
+    "name": "Pilar",
+    "city": {
+      "id": 0,
+      "name": "Pilar",
+      "province": "",
+      "country": "",
+      "neighborhoods": ""
+    },
+    "properties": ""
+  },
+  "address": "Tu vieja 1728",
+  "privacyLevel": "true",
+  "capacity": 3,
+  "price": 1882
+},{
+  "id": 0,
+  "caption": "Alto depto con vista al mar ahre que era una laguna",
+  "description": "Depto en pilar",
+  "propertyType": "APARTMENT",
+  "neighborhood": {
+    "id": 0,
+    "name": "Pilar",
+    "city": {
+      "id": 0,
+      "name": "Pilar",
+      "province": "",
+      "country": "",
+      "neighborhoods": ""
+    },
+    "properties": ""
+  },
+  "address": "Tu vieja 1728",
+  "privacyLevel": "true",
+  "capacity": 3,
+  "price": 1882
+},{
+  "id": 0,
+  "caption": "Alto depto con vista al mar ahre que era una laguna",
+  "description": "Depto en pilar",
+  "propertyType": "APARTMENT",
+  "neighborhood": {
+    "id": 0,
+    "name": "Pilar",
+    "city": {
+      "id": 0,
+      "name": "Pilar",
+      "province": "",
+      "country": "",
+      "neighborhoods": ""
+    },
+    "properties": ""
+  },
+  "address": "Tu vieja 1728",
+  "privacyLevel": "true",
+  "capacity": 3,
+  "price": 1882
+},{
+  "id": 0,
+  "caption": "Alto depto con vista al mar ahre que era una laguna",
+  "description": "Depto en pilar",
+  "propertyType": "APARTMENT",
+  "neighborhood": {
+    "id": 0,
+    "name": "Pilar",
+    "city": {
+      "id": 0,
+      "name": "Pilar",
+      "province": "",
+      "country": "",
+      "neighborhoods": ""
+    },
+    "properties": ""
+  },
+  "address": "Tu vieja 1728",
+  "privacyLevel": "true",
+  "capacity": 3,
+  "price": 1882
+}]

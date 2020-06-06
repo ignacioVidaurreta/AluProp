@@ -14,13 +14,31 @@
       </div>
     </mat-card-content>
     <mat-card-content style="margin-top: 16px; text-align: center">
-      <div *ngIf="proposal.state == 'DECLINED' || proposal.state == 'CANCELLED' || proposal.state == 'DROPPED'">
-      </div>
-      <div *ngIf="proposal.state == 'ACCEPTED'">
-      </div>
-      <div *ngIf="proposal.state == 'SENT'">
-      </div>
-      Lel kjfhksdjgfalkfjgha;h sdlfjsdf asdf sdfjasbdfa
+<!--      &lt;!&ndash; TODO: && currentUser.role == 'ROLE_GUEST'&ndash;&gt;-->
+<!--          <div *ngIf="proposal.state == 'DECLINED' || proposal.state == 'CANCELLED' || proposal.state == 'DROPPED'"> &lt;!&ndash; TODO: && currentUser.role == 'ROLE_GUEST'&ndash;&gt;-->
+<!--          </div>-->
+<!--          <div *ngIf="proposal.state == 'ACCEPTED'">-->
+<!--          </div>-->
+<!--          <div *ngIf="proposal.state == 'SENT'"> &lt;!&ndash; TODO: && currentUser.role == 'ROLE_GUEST'&ndash;&gt;-->
+<!--          </div>-->
+<!--          <div *ngIf="isCreator()">-->
+<!--            <button mat-button>Cancel proposal</button>-->
+<!--                    &lt;!&ndash;        TODO: Post path delete proposal&ndash;&gt;-->
+<!--          </div>-->
+<!--          <div *ngIf="isInvited() == true && !hasReplied()">-->
+<!--          </div>-->
+<!--          <div *ngIf="isInvited() == true && hasReplied()">-->
+<!--          </div>-->
+<!--      &lt;!&ndash; TODO: && currentUser.role == 'ROLE_HOST'&ndash;&gt;-->
+<!--          <div>-->
+<!--            <div *ngIf="proposal.state == 'DECLINED' || proposal.state == 'CANCELLED' || proposal.state == 'DROPPED'">-->
+<!--            </div>-->
+<!--            <div *ngIf="proposal.state == 'ACCEPTED'">-->
+<!--            </div>-->
+<!--            <div *ngIf="proposal.state == 'SENT'">-->
+<!--            </div>-->
+<!--          </div>-->
+      Aca va a ir un mensaje dependiendo la logica del currently LoggedInUser
       <mat-card-actions>
         <button mat-button>LIKE</button>
         <button mat-button>SHARE</button>

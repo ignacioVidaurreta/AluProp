@@ -59,7 +59,6 @@ export class ProposalUsersTableComponent implements OnInit {
         this.dataSource = new MatTableDataSource<UserProposal>([this.creatorUserProposal].concat(this.userProposals));
       });
     });
-
   }
 
   ageFromDateOfBirthday(dateOfBirth: any): number {

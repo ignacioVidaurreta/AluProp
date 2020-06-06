@@ -1,8 +1,4 @@
 {
-  "pageNumber": 1,
-  "pageSize": 10,
-  "totalItems": 1,
-  "data": [{
   "name": "Joe",
   "lastName": "Chrome",
   "birthDate": "07/07/1993",
@@ -458,5 +454,4 @@
           "email": "aloha@lel.com"
         }
       }]
-  }]
-}
+  }

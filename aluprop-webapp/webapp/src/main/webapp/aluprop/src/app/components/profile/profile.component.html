@@ -15,16 +15,16 @@
     </mat-card-content>
   </mat-card>
 </div>
-<ng-template #spinner><mat-spinner></mat-spinner></ng-template>
+<ng-template #spinner><mat-spinner style="position: relative; margin-top:30rem; margin-left: 50%; margin-right: 50%;"></mat-spinner></ng-template>
 <div *ngIf="user" class="user-properties">
 <!--  TODO: *ngIf="user == currentUser" check, also empty list versions for 4 tables-->
   <div *ngIf="user.role == 'ROLE_GUEST'; then guestRole else hostRole"></div>
   <ng-template #guestRole>
-    <app-interests-table id="left-table" [interestedProperties]="user.interestedProperties"></app-interests-table>
-    <app-proposals-table id="right-table" [userRole]="user.role" [userId]="user.id" [proposals]="user.userProposals"></app-proposals-table>
+    <app-interests-table id="left-table"></app-interests-table>
+    <app-proposals-table id="right-table" [userRole]="user.role"></app-proposals-table>
   </ng-template>
   <ng-template #hostRole>
-    <app-properties-table id="left-table" [ownedProperties]="user.ownedProperties"></app-properties-table>
-    <app-proposals-table id="right-table" [userRole]="user.role" [userId]="user.id" [proposals]="user.hostProposals"></app-proposals-table>
+    <app-properties-table id="left-table"></app-properties-table>
+    <app-proposals-table id="right-table" [userRole]="user.role"></app-proposals-table>
   </ng-template>
 </div>
