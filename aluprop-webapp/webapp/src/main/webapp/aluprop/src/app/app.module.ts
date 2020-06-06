@@ -25,6 +25,7 @@ import { ProposalComponent } from './components/proposal/proposal.component';
 import { ProposalUsersTableComponent } from './components/proposal/proposal-users-table/proposal-users-table.component';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+import { DetailedPropertyComponent } from './detailed-property/detailed-property.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import {TranslateHttpLoader} from '@ngx-translate/http-loader';
     SearchBarComponent,
     ProposalComponent,
     ProposalUsersTableComponent,
+    DetailedPropertyComponent,
   ],
   imports: [
     BrowserModule,

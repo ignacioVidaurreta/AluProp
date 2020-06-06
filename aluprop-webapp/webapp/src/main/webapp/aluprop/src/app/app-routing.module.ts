@@ -6,6 +6,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { ProfileComponent } from "./components/profile/profile.component";
 import { ProposalComponent } from "./components/proposal/proposal.component";
 import { AuthGuardService } from "./services/auth-guard.service";
+import {DetailedPropertyComponent} from "./detailed-property/detailed-property.component";
 
 
 const routes: Routes = [
@@ -18,7 +19,14 @@ const routes: Routes = [
     component: ProfileComponent,
     canActivate: [AuthGuardService],
   },
-  { path: 'proposal/:id', component: ProposalComponent},
+  {
+    path: 'property/:id',
+    component: DetailedPropertyComponent,
+  },
+  { path: 'proposal/:id',
+    component: ProposalComponent,
+    canActivate: [AuthGuardService],
+  },
   { path: '**', redirectTo: '' }
 ];
 
