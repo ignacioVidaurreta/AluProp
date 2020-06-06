@@ -3,13 +3,13 @@
     <div *ngIf="userRole == 'ROLE_GUEST'; else host">
       <!-- Name Column -->
       <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef>Proposals</th>
+        <th mat-header-cell translate *matHeaderCellDef>proposals-table.proposals</th>
         <td mat-cell *matCellDef="let proposal">{{proposal?.proposal.property.description}}</td>
       </ng-container>
 
       <!-- Ownership Column -->
       <ng-container matColumnDef="ownership">
-        <th mat-header-cell class="state" *matHeaderCellDef>Creator</th>
+        <th mat-header-cell translate class="state" *matHeaderCellDef>proposals-table.creator</th>
         <td mat-cell class="state" *matCellDef="let proposal">
           <div *ngIf="proposal?.proposal.creator.id == userId"><span style="color: gold;"><mat-icon class="state-icon">star_outline</mat-icon></span></div>
         </td>
@@ -19,7 +19,7 @@
     <ng-template #host>
       <!-- Name Column -->
       <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef>Proposals</th>
+        <th mat-header-cell translate *matHeaderCellDef>proposals-table.proposals</th>
         <td mat-cell *matCellDef="let proposal">
           <div style="display: flex;flex-flow: row">
             <div>{{proposal?.property.description}}</div>
@@ -30,7 +30,7 @@
 
       <!-- State Column -->
       <ng-container matColumnDef="ownership">
-        <th mat-header-cell class="state" *matHeaderCellDef>State</th>
+        <th mat-header-cell translate class="state" *matHeaderCellDef>proposals-table.state</th>
         <td mat-cell class="state" *matCellDef="let proposal">
           <div *ngIf="proposal?.state == 'SENT'">
             <span style="color: darkorange;"><mat-icon>schedule</mat-icon></span>

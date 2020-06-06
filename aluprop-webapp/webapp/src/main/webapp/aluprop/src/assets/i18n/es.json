@@ -25,5 +25,30 @@
   },
   "property-card": {
     "see-more": "Ver más"
+  },
+  "profile": {
+    "bio": "Biografía"
+  },
+  "proposals-table": {
+    "proposals": "Propuestas",
+    "creator": "Creador",
+    "state": "Estado"
+  },
+  "properties-table": {
+    "properties": "Propiedades",
+    "state": "Estado",
+    "active": "Activa",
+    "inactive": "Inactiva"
+  },
+  "interests-table": {
+    "interests": "Intereses"
+  },
+  "proposal": {
+    "proposal": "Propuesta"
+  },
+  "proposals-user-table": {
+    "user": "Usuario",
+    "information": "Información",
+    "response": "Respuesta"
   }
 }

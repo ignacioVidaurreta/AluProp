@@ -2,7 +2,7 @@
   <mat-card class="proposal-card mat-elevation-z8">
     <img style="object-fit: cover;height: 25rem" [ngClass]="(proposal.state == 'DECLINED' || proposal.state == 'CANCELLED' || proposal.state == 'DROPPED') ? 'grayscale' : ''" src="http://lisagryba.com/wp-content/uploads/2015/04/nice-houses-for-sale.jpg" mat-card-image alt="">
     <mat-card-header>
-      <mat-card-subtitle>Proposal</mat-card-subtitle>
+      <mat-card-subtitle translate>proposal.proposal</mat-card-subtitle>
       <mat-card-title>{{ proposal.property.description }}</mat-card-title>
     </mat-card-header>
     <mat-card-content style="margin: 0 16px;">
