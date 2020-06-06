@@ -2,10 +2,14 @@ package ar.edu.itba.paw.webapp.controller;
 
 import ar.edu.itba.paw.interfaces.PageRequest;
 import ar.edu.itba.paw.interfaces.PageResponse;
+import ar.edu.itba.paw.interfaces.service.NeighbourhoodService;
 import ar.edu.itba.paw.interfaces.service.PropertyService;
+import ar.edu.itba.paw.interfaces.service.RuleService;
 import ar.edu.itba.paw.model.Property;
 import ar.edu.itba.paw.webapp.beanParams.PropertySearchRequest;
 import dto.IndexPropertyDto;
+import dto.NeighbourhoodDto;
+import dto.RuleDto;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.ws.rs.*;
@@ -19,6 +23,10 @@ public class PropertyApiController {
 
     @Autowired
     private PropertyService propertyService;
+    @Autowired
+    private NeighbourhoodService neighbourhoodService;
+    @Autowired
+    private RuleService ruleService;
 
     @GET
     public Response index(@BeanParam PropertySearchRequest propertySearchRequest,
@@ -35,5 +43,25 @@ public class PropertyApiController {
                                                         .map(IndexPropertyDto::fromProperty)
                                                         .collect(Collectors.toList()));
         return Response.ok(response).build();
+    }
+
+    @Path("/neighbourhood")
+    @GET
+    public Response neighbourhoods() {
+       return Response.ok(neighbourhoodService.getAll()
+                                            .stream()
+                                            .map(NeighbourhoodDto::fromNeighbourhood)
+                                            .collect(Collectors.toList()))
+                    .build();
+    }
+
+    @Path("/rules")
+    @GET
+    public Response rules() {
+        return Response.ok(ruleService.getAll()
+                                    .stream()
+                                    .map(RuleDto::fromRule)
+                                    .collect(Collectors.toList()))
+                .build();
     }
 }
