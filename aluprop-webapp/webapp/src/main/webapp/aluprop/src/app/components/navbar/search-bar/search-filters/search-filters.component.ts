@@ -18,7 +18,7 @@ export class SearchFiltersComponent implements OnInit, OnDestroy {
   privacyLevelOption = PrivacyLevel;
 
   neighborhoods: Neighborhood[];
-  rules: Rule[] = [{id: 0, name: 'rule', properties: []}];
+  rules: Rule[] = [{id: 0, name: 'Mascotas Prohibidas', properties: []}, {id: 1, name: 'Fiestas Prohibidas', properties: []}];
   services: Service[];
 
   filterForm = new FormGroup({
@@ -28,8 +28,8 @@ export class SearchFiltersComponent implements OnInit, OnDestroy {
     max_capacity: new FormControl('', [Validators.pattern('[0-9]*')]),
     min_rent: new FormControl('', [Validators.pattern('[0-9]*')]),
     max_rent: new FormControl('', [Validators.pattern('[0-9]*')]),
-    rule: new FormControl('', [Validators.required]),
-    service: new FormControl('', [Validators.required])
+    rules: new FormControl(this.rules),
+    service: new FormControl(this.services)
   });
   formChangesSub: Subscription;
   

@@ -45,15 +45,22 @@
             </mat-form-field>
         </div>
         <mat-label i18n>Rules</mat-label>
-        <span *ngFor="let rule of rules">
-        <mat-checkbox formControlName="rule" value="{{rule.id}}" i18n>{{rule.name}}</mat-checkbox>
-        </span>
-        <mat-error>Error</mat-error>
-
-        <mat-label i18n>Services</mat-label>
-        <span *ngFor="let service of services">
-        <mat-checkbox formControlName="service" value="{{service.id}}" i18n>{{service.name}}</mat-checkbox>
-        </span>
-        <mat-error>Error</mat-error>
+        <mat-form-field>
+            <mat-label>Sin especificar</mat-label>
+            <mat-select formControlName="rules" multiple>
+                <mat-option *ngFor="let rule of rules" [value]="rule.id">
+                    {{rule.name}}
+                </mat-option>
+            </mat-select>
+         </mat-form-field>
+         <mat-label i18n>Services</mat-label>
+         <mat-form-field>
+            <mat-label>Sin especificar</mat-label>
+            <mat-select formControlName="services" multiple>
+                <mat-option *ngFor="let service of services" [value]="service.id">
+                    {{service.name}}
+                </mat-option>
+            </mat-select>
+         </mat-form-field>
     </form>
 </mat-card>
