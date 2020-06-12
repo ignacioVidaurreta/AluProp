@@ -6,7 +6,7 @@
           alt="aluprop">
     </a>
     <app-search-bar></app-search-bar>
-    <div *ngIf="!username; else notLoggedIn" class="login-buttons-and-flags">
+    <div *ngIf="!username" class="login-buttons-and-flags">
       <a [routerLink]="['/register/']" class="sign-up-button" translate>navbar.signup</a>
       <span class="or" translate> navbar.or </span>
       <a [routerLink]="['/login/']" class="log-in-button" translate>navbar.login</a>
@@ -14,7 +14,7 @@
       <img class="flag" src="../assets/img/spain.svg" (click)="setLanguage('es')">
     </div>
 
-    <div class="login-buttons-and-flags" #notLoggedIn>
+    <div *ngIf="username" class="login-buttons-and-flags">
       <span translate [translateParams]="{name: username}" class="greeting">navbar.hi</span>
       <app-notifications-bar></app-notifications-bar>
       <a (click)="logout()" class="log-in-button" translate>navbar.logout</a>

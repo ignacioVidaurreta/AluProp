@@ -1,3 +1,5 @@
 <mat-card class="filter-menu">
-  holis
+  <mat-list role="list">
+    <mat-list-item *ngFor="let notification in notifications">{{notification.title}}</mat-list-item>
+  </mat-list>
 </mat-card>
