@@ -1,5 +1,5 @@
-<mat-card class="filter-menu">
+<mat-card class="menu">
   <mat-list role="list">
-    <mat-list-item *ngFor="let notification in notifications">{{notification.title}}</mat-list-item>
+    <mat-list-item *ngFor="let notification of notifications"><a href="{{notification.link}}">{{notification.subject}}</a></mat-list-item>
   </mat-list>
 </mat-card>

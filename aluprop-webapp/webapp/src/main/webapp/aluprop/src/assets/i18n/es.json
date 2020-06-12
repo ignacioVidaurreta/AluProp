@@ -7,6 +7,9 @@
     "hi": "Hola, {{name}}!",
     "logout": "Cerrar sesión"
   },
+  "notifications": {
+    "newProposalSubject": "Hay una nueva propuesta para tu propiedad!"
+  },
   "search-filters": {
     "property-type": "Tipo de propiedad",
     "house": "Casa",

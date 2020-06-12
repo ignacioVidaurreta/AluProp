@@ -4,7 +4,9 @@ export class Notification {
   user: User;
   id: number;
   subjectCode: string;
+  subject: string
   textCode: string;
+  text: string;
   link: string;
   state: NotificationState;
 }

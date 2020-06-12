@@ -2,7 +2,7 @@
   "id": 0,
   "subjectCode": "notifications.newProposalSubject",
   "textCode": "notifications.newProposalText",
-  "link": "http:",
+  "link": "http://localhost:4200/proposal/0",
   "state": "UNREAD",
   "User": {
     "name": "Joe",
@@ -467,7 +467,7 @@
   "id": 0,
   "subjectCode": "notifications.newProposalSubject",
   "textCode": "notifications.newProposalText",
-  "link": "http:",
+  "link": "http://localhost:4200/proposal/1",
   "state": "UNREAD",
   "User": {
     "name": "Joe",
@@ -932,7 +932,7 @@
   "id": 0,
   "subjectCode": "notifications.newProposalSubject",
   "textCode": "notifications.newProposalText",
-  "link": "http:",
+  "link": "http://localhost:4200/proposal/2",
   "state": "UNREAD",
   "User": {
     "name": "Joe",

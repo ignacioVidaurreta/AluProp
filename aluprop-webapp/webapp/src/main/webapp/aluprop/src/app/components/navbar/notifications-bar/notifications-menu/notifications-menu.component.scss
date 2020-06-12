@@ -1,13 +1,24 @@
-:host{
+:host {
   font-size: 15px;
 }
 
-.filter-menu{
+.menu {
   display: flex;
   flex-direction: column;
-  padding: 1rem;
+  padding: 0 0.5rem 0.3rem 0.5rem;
 }
 
-mat-form-field{
-  display:flex;
+@keyframes hover_animation {
+  to { background-color: whitesmoke; }
+}
+
+mat-list-item:hover {
+  cursor: pointer;
+  animation: hover_animation 0.3s;
+  animation-fill-mode:forwards; 
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
 }
