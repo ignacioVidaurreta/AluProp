@@ -28,6 +28,8 @@ import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import { DetailedPropertyComponent } from './detailed-property/detailed-property.component';
 import { NotificationsMenuComponent } from './components/navbar/notifications-bar/notifications-menu/notifications-menu.component';
 import { NotificationsBarComponent } from './components/navbar/notifications-bar/notifications-bar.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {MatTabsModule} from "@angular/material/tabs";
 
 @NgModule({
   declarations: [
@@ -61,11 +63,13 @@ import { NotificationsBarComponent } from './components/navbar/notifications-bar
     MaterialModule,
     TranslateModule.forRoot({
       loader: {
-          provide: TranslateLoader,
-          useFactory: HttpLoaderFactory,
-          deps: [HttpClient]
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
       }
-  })
+    }),
+    NgbModule,
+    MatTabsModule
   ],
   exports: [
     FormsModule,

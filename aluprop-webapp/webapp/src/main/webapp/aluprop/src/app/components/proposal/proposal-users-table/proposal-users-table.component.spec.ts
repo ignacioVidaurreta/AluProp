@@ -23,3 +23,4 @@ describe('ProposalUsersTableComponent', () => {
     expect(component).toBeTruthy();
   });
 });
+

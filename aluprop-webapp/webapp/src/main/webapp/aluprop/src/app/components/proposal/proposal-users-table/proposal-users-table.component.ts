@@ -15,6 +15,7 @@ import * as moment from 'moment';
   styleUrls: ['./proposal-users-table.component.scss']
 })
 export class ProposalUsersTableComponent implements OnInit {
+  //images = [944, 1011, 984].map((n) => `https://picsum.photos/id/${n}/900/500`);
 
   displayedColumns: string[] = ['user','information', 'response'];
 

@@ -1,0 +1,33 @@
+.detailed-property-image {
+  object-fit: cover;
+  height: 500px;
+  border-radius: 4px;
+}
+
+.detailed-property-container {
+  display: flex;
+  justify-content: center;
+  flex-flow: column;
+  align-items: center;
+}
+
+.detailed-property-cards-container {
+  display: flex;
+  justify-content: space-between;
+  width: 50%;
+}
+
+.detailed-property-carousel {
+  margin-top: 3rem;
+  margin-bottom: 2rem;
+  width: 50%;
+  border-radius: 4px;
+}
+
+.grayscale {
+  filter: grayscale(100%);
+}
+
+::ng-deep .mat-card-header-text {
+  margin: 0px;
+}
