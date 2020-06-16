@@ -30,7 +30,7 @@ public class Notification {
     @Enumerated(EnumType.STRING)
     private NotificationState state;
 
-    Notification(){ }
+    Notification() { }
 
     public static class Builder{
         private Notification notification;
