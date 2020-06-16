@@ -1,4 +1,4 @@
-package dto;
+package ar.edu.itba.paw.webapp.dto;
 
 import ar.edu.itba.paw.model.Neighbourhood;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;

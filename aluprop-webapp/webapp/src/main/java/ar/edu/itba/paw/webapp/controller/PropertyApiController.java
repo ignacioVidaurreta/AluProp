@@ -7,9 +7,9 @@ import ar.edu.itba.paw.interfaces.service.PropertyService;
 import ar.edu.itba.paw.interfaces.service.RuleService;
 import ar.edu.itba.paw.model.Property;
 import ar.edu.itba.paw.webapp.beanParams.PropertySearchRequest;
-import dto.IndexPropertyDto;
-import dto.NeighbourhoodDto;
-import dto.RuleDto;
+import ar.edu.itba.paw.webapp.dto.IndexPropertyDto;
+import ar.edu.itba.paw.webapp.dto.NeighbourhoodDto;
+import ar.edu.itba.paw.webapp.dto.RuleDto;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.ws.rs.*;

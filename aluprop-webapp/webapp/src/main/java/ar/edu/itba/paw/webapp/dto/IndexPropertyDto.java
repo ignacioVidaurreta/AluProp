@@ -1,12 +1,9 @@
-package dto;
+package ar.edu.itba.paw.webapp.dto;
 
-import ar.edu.itba.paw.model.Image;
 import ar.edu.itba.paw.model.Property;
 import ar.edu.itba.paw.model.enums.Availability;
 import ar.edu.itba.paw.model.enums.PropertyType;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
-
-import java.util.Collection;
 
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 public class IndexPropertyDto {
@@ -21,7 +18,7 @@ public class IndexPropertyDto {
     private boolean privacyLevel;
     private int capacity;
     private float price;
-    private Image image;
+    private ImageDto image;
     private Availability availability;
 
     public static IndexPropertyDto fromProperty(Property property) {
@@ -34,7 +31,7 @@ public class IndexPropertyDto {
        ret.privacyLevel = property.getPrivacyLevel();
        ret.capacity = property.getCapacity();
        ret.price = property.getPrice();
-       ret.image = property.getMainImage();
+       ret.image = ImageDto.fromImage(property.getMainImage());
        ret.availability = property.getAvailability();
        return ret;
     }
@@ -71,7 +68,7 @@ public class IndexPropertyDto {
         return price;
     }
 
-    public Image getImage() {
+    public ImageDto getImage() {
         return image;
     }
 
