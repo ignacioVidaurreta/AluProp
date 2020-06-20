@@ -4,13 +4,15 @@ import { PageRequest } from '../interfaces/page-request';
 import { Observable } from 'rxjs';
 import { Property } from '../models/property';
 import { PageResponse } from '../interfaces/page-response';
+import {Proposal} from "../models/proposal";
 
 const BASE_API_URL = 'http://localhost:8080/api';
+const BASE_API_URL_PROPERTY = 'http://localhost:8080/api/property/';
 
 const JSON_ALL_PROPERTIES = '../assets/json/dummyProperties.json';
 
 const httpOptions = {
-  headers: new HttpHeaders({ 
+  headers: new HttpHeaders({
     'Access-Control-Allow-Origin':'*',
     'Authorization':'authkey',
     'userid':'1'
@@ -29,5 +31,10 @@ export class PropertyService {
     let params = {pageSize: String(pageRequest.pageSize), pageNumber: String(pageRequest.pageNumber) };
     return this.http.get<PageResponse<Property>>(BASE_API_URL + '/property/', {params: params});
 
+  }
+
+  getById(id: number): Observable<Property>{
+    console.log(BASE_API_URL_PROPERTY+id);
+    return this.http.get<Property>(BASE_API_URL_PROPERTY+id);
   }
 }

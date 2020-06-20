@@ -1,4 +1,4 @@
-<div class="detailed-property-container">
+<div *ngIf="property" class="detailed-property-container">
   <div class="detailed-property-carousel mat-elevation-z8">
     <ngb-carousel>
       <ng-template ngbSlide>
@@ -21,16 +21,17 @@
   <div class="detailed-property-cards-container">
     <mat-card style="width: 60%" class="mat-elevation-z8">
       <mat-card-header>
-        <mat-card-title>Property name</mat-card-title>
-        <mat-card-subtitle translate>Property type in neighbor</mat-card-subtitle>
-        <mat-card-subtitle translate># guests | room type</mat-card-subtitle>
+        <mat-card-title style="margin-bottom: 16px;">{{property.description}}<div translate *ngIf="property.availability == 'RENTED'"> [ Inactive ]</div></mat-card-title>
+        <mat-card-subtitle translate>
+          <span *ngIf="property.propertyType == 'APARTMENT'" translate>Apartment</span>
+          <span *ngIf="property.propertyType == 'LOFT'" translate>Loft</span>
+          <span *ngIf="property.propertyType == 'HOUSE'" translate>House</span> in {{property.neighbourhood.name}}</mat-card-subtitle>
+        <mat-card-subtitle translate>{{property.capacity}} guests | <span translate *ngIf="property.privacyLevel else individual">Shared</span><ng-template #individual><span translate>Individual</span></ng-template></mat-card-subtitle>
       </mat-card-header>
       <mat-card-content>
         <mat-tab-group>
           <mat-tab label="Description"><mat-list role="list">
-            <mat-list-item role="listitem">Item 1</mat-list-item>
-            <mat-list-item role="listitem">Item 2</mat-list-item>
-            <mat-list-item role="listitem">Item 3</mat-list-item>
+            <mat-list-item role="listitem">{{property.caption}}</mat-list-item>
           </mat-list>
           </mat-tab>
           <mat-tab label="Rules"><mat-list role="list">
