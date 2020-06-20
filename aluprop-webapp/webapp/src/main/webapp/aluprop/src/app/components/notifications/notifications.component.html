@@ -1,11 +1,9 @@
-<h1 translate>notifications.notifications</h1>
-
 <div class="mat-elevation-z8">
   <table mat-table [dataSource]="dataSource">
 
     <!-- Name Column -->
     <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef>Hi there</th>
+      <th mat-header-cell *matHeaderCellDef translate>notifications.notifications</th>
       <td mat-cell *matCellDef="let notification">{{notification.subject}}</td>
     </ng-container>
 
