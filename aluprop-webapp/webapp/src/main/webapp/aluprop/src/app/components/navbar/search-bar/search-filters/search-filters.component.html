@@ -2,7 +2,7 @@
     <form [formGroup]="filterForm">
         <mat-form-field>
             <mat-label translate>search-filters.property-type</mat-label>
-            <mat-select formControlName="property_type">
+            <mat-select formControlName="propertyType">
                 <mat-option value="0"><span translate>search-filters.house</span></mat-option>
                 <mat-option value="1"><span translate>search-filters.apartment</span></mat-option>
                 <mat-option value="2"><span translate>search-filters.loft</span></mat-option>
@@ -28,19 +28,19 @@
         </mat-form-field>
         <mat-form-field>
             <mat-label translate>search-filters.max-capacity</mat-label>
-            <input matInput type="text" formControlName="max_capacity"/>
+            <input matInput type="text" formControlName="maxCapacity"/>
             <mat-error>Error</mat-error>
         </mat-form-field>
         <p translate>search-filters.budget</p>
         <div class="form-row">
             <mat-form-field>
                 <mat-label translate>search-filters.min-rent</mat-label>
-                <input matInput matInput type="number" formControlName="min_rent"/>
+                <input matInput matInput type="number" formControlName="minRent"/>
                 <mat-error>Error</mat-error>
             </mat-form-field>
             <mat-form-field>
                 <mat-label translate>search-filters.max-rent</mat-label>
-                <input matInput type="number" placeholder="Max" formControlName="max_rent"/>
+                <input matInput type="number" placeholder="Max" formControlName="maxRent"/>
                 <mat-error>Error</mat-error>
             </mat-form-field>
         </div>

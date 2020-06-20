@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -9,11 +9,14 @@ import { Router } from '@angular/router';
 export class SearchBarComponent implements OnInit {
 
   showFilters = false;
-  searchFilters = {};
+  searchFilters: any;
+
+  @ViewChild('searchInput') searchInput: ElementRef;
 
   constructor(private router: Router) { }
 
   ngOnInit(): void {
+    this.searchFilters = {};
   }
 
   toggleFilters(){
@@ -22,6 +25,7 @@ export class SearchBarComponent implements OnInit {
 
   search(){
     this.showFilters = false;
+    this.searchFilters.description = this.searchInput.nativeElement.value;
     this.router.navigate(['/'], { queryParams: this.searchFilters});
   }
 
@@ -39,6 +43,6 @@ export class SearchBarComponent implements OnInit {
         }
       );
       return params;
-}
+  }
 
 }
