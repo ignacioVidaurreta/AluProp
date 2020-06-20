@@ -22,12 +22,12 @@ export class SearchFiltersComponent implements OnInit, OnDestroy {
   services: Service[];
 
   filterForm = new FormGroup({
-    property_type: new FormControl(''),
+    propertyType: new FormControl(''),
     neighborhood: new FormControl(''),
     privacy: new FormControl(''),
-    max_capacity: new FormControl('', [Validators.pattern('[0-9]*')]),
-    min_rent: new FormControl('', [Validators.pattern('[0-9]*')]),
-    max_rent: new FormControl('', [Validators.pattern('[0-9]*')]),
+    maxCapacity: new FormControl('', [Validators.pattern('[0-9]*')]),
+    minRent: new FormControl('', [Validators.pattern('[0-9]*')]),
+    maxRent: new FormControl('', [Validators.pattern('[0-9]*')]),
     rules: new FormControl(this.rules),
     services: new FormControl(this.services)
   });

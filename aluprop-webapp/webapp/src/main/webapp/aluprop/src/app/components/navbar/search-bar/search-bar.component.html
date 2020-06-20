@@ -1,6 +1,6 @@
 
 <mat-form-field>
-<input matInput placeholder="{{'navbar.search' | translate}}">
+<input #searchInput matInput placeholder="{{'navbar.search' | translate}}">
 </mat-form-field>
 <button mat-button (click)="toggleFilters()"><mat-icon>filter_list</mat-icon></button>
 <app-search-filters (filters)="setSearchFilters($event)" [hidden]="!showFilters" (click)="$event.stopPropagation();"></app-search-filters>
