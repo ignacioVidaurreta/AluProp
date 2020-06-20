@@ -10,6 +10,7 @@ public interface NotificationDao {
     Collection<Notification> getAll(PageRequest pageRequest);
     Collection<Notification> getAllNotificationsForUser(long id, PageRequest pageRequest);
     Collection<Notification> getAllUnreadNotificationsForUser(long id, PageRequest pageRequest);
+    Collection<Notification> unreadWithRelatedEntities(long userId, PageRequest pageRequest);
     Notification createNotification(Notification notification);
     void markRead(long notificationId);
 }

@@ -70,4 +70,9 @@ public class APNotificationDao implements NotificationDao {
         notification.setState(NotificationState.READ);
         entityManager.merge(notification);
     }
+
+    @Override
+    public Collection<Notification> unreadWithRelatedEntities(long userId, PageRequest pageRequest) {
+        return null;
+    }
 }

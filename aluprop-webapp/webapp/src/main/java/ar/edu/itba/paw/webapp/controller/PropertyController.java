@@ -136,7 +136,7 @@ public class PropertyController {
             errors.addError(new FieldError("rangeError", "minPrice",errorMsg));
         }
         if (errors.hasErrors())
-            return index(request,pageNumber,searchForm, pageSize);
+            return index(request, pageNumber, searchForm, pageSize);
         final ModelAndView mav = navigationUtility.mavWithNavigationAttributes("index");
         mav.addObject("isSearch", true);
         PageResponse<Property> response = propertyService.advancedSearch(new PageRequest(pageNumber, pageSize), propertyForSearch(searchForm, propertyOrder));

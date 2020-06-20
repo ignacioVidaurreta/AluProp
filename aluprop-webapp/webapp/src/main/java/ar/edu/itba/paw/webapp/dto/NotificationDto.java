@@ -2,7 +2,9 @@ package ar.edu.itba.paw.webapp.dto;
 
 import ar.edu.itba.paw.model.Notification;
 import ar.edu.itba.paw.model.enums.NotificationState;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 
+@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 public class NotificationDto {
 
     private NotificationDto() { }
@@ -12,6 +14,7 @@ public class NotificationDto {
     private String textCode;
     private String link;
     private NotificationState state;
+    private ProposalDto proposal;
 
     public static NotificationDto fromNotification(Notification notification) {
         NotificationDto ret = new NotificationDto();
@@ -41,5 +44,13 @@ public class NotificationDto {
 
     public NotificationState getState() {
         return state;
+    }
+
+    public ProposalDto getProposal() {
+        return proposal;
+    }
+
+    public void setProposal(ProposalDto proposal) {
+        this.proposal = proposal;
     }
 }
