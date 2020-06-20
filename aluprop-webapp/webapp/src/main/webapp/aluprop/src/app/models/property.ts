@@ -5,7 +5,7 @@ export class Property {
   caption: string;
   description: string;
   propertyType: PropertyType;
-  neighborhood: Neighborhood;
+  neighbourhood: Neighborhood;
   address: string;
   privacyLevel: PrivacyLevel;
   capacity: number;
