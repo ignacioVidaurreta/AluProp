@@ -25,11 +25,12 @@ import { ProposalComponent } from './components/proposal/proposal.component';
 import { ProposalUsersTableComponent } from './components/proposal/proposal-users-table/proposal-users-table.component';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
-import { DetailedPropertyComponent } from './detailed-property/detailed-property.component';
+import { DetailedPropertyComponent } from './components/detailed-property/detailed-property.component';
 import { NotificationsMenuComponent } from './components/navbar/notifications-bar/notifications-menu/notifications-menu.component';
 import { NotificationsBarComponent } from './components/navbar/notifications-bar/notifications-bar.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {MatTabsModule} from "@angular/material/tabs";
+import { NotificationsComponent } from './components/notifications/notifications.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +52,7 @@ import {MatTabsModule} from "@angular/material/tabs";
     DetailedPropertyComponent,
     NotificationsMenuComponent,
     NotificationsBarComponent,
+    NotificationsComponent,
   ],
   imports: [
     BrowserModule,

@@ -6,12 +6,12 @@ import { RegisterComponent } from './components/register/register.component';
 import { ProfileComponent } from "./components/profile/profile.component";
 import { ProposalComponent } from "./components/proposal/proposal.component";
 import { AuthGuardService } from "./services/auth-guard.service";
-import {DetailedPropertyComponent} from "./detailed-property/detailed-property.component";
+import {DetailedPropertyComponent} from "./components/detailed-property/detailed-property.component";
+import { NotificationsComponent } from './components/notifications/notifications.component';
 
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
-  // { path: 'user/:id', component: ProfileComponent},
   { path:'login', component: LoginComponent},
   { path:'register', component: RegisterComponent},
   {
@@ -25,6 +25,10 @@ const routes: Routes = [
   },
   { path: 'proposal/:id',
     component: ProposalComponent,
+    canActivate: [AuthGuardService],
+  },
+  { path: 'notifications',
+    component: NotificationsComponent,
     canActivate: [AuthGuardService],
   },
   { path: '**', redirectTo: '' }

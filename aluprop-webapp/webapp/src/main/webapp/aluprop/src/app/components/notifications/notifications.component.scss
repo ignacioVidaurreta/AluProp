@@ -1,0 +1,19 @@
+:host {
+  display: block;
+  margin: 5%;
+  margin-top: 10%;
+}
+
+table {
+  width: 100%;
+}
+
+@keyframes hover_animation {
+  to { background-color: whitesmoke; }
+}
+
+mat-list-item:hover {
+  cursor: pointer;
+  animation: hover_animation 0.3s;
+  animation-fill-mode:forwards; 
+}

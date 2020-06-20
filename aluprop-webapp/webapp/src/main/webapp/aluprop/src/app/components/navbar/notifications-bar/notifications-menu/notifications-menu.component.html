@@ -1,5 +1,12 @@
 <mat-card class="menu">
+  <div class="title" translate>
+    notifications.new-notifications
+  </div>
+  <hr class="divider">
   <mat-list role="list">
     <mat-list-item *ngFor="let notification of notifications"><a href="{{notification.link}}">{{notification.subject}}</a></mat-list-item>
   </mat-list>
+  <div class="view-all"  [routerLink]="['/notifications']" translate>
+    notifications.view-all
+  </div>
 </mat-card>
