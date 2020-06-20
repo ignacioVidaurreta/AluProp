@@ -8,6 +8,9 @@
     "logout": "Cerrar sesión"
   },
   "notifications": {
+    "notifications": "Notificationes",
+    "new-notifications": "Notificaciones Nuevas",
+    "view-all": "Ver todas",
     "newProposalSubject": "Hay una nueva propuesta para tu propiedad!"
   },
   "search-filters": {

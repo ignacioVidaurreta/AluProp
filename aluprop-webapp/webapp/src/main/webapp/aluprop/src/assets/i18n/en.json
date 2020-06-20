@@ -8,6 +8,9 @@
     "logout": "Log out"
   },
   "notifications": {
+    "notifications": "Notifications",
+    "new-notifications": "New notifications",
+    "view-all": "View all",
     "newProposalSubject": "There's a new proposal for your Property!"
   },
   "search-filters": {
