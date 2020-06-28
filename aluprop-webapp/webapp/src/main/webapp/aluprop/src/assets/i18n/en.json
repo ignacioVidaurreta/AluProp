@@ -56,5 +56,29 @@
     "user": "User",
     "information": "Information",
     "response": "Response"
+  },
+  "create-property": {
+    "publish-a-property": "Publish a property",
+    "upload-up-to-4-pictures": "Upload up to 4 pictures of the property:",
+    "pictures-to-upload": "Pictures to upload:",
+    "name": "Name",
+    "description": "Description",
+    "property-type": "Property type",
+    "neighborhood": "Neighborhood",
+    "privacy": "Privacy",
+    "capacity": "Capacity",
+    "rent-per-month": "Rent per month",
+    "rules": "Rules:",
+    "services": "Services:",
+    "publish-property": "Publish property",
+    "error-msg": {
+      "pictures": "Please upload at least 1 picture of the property",
+      "name": "Please write a name with 50 characters or less",
+      "description": "Please write a description in 700 characters or less",
+      "property-type": "Please select a property type",
+      "neighborhood": "Please select a neighborhood",
+      "capacity": "Please select a value between 1 and 100",
+      "rent": "Rent per month must be at least $1"
+    }
   }
 }

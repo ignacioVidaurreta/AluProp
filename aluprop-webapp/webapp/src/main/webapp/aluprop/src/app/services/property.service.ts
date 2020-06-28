@@ -41,4 +41,10 @@ export class PropertyService {
     console.log(BASE_API_URL_PROPERTY+id);
     return this.http.get<Property>(BASE_API_URL_PROPERTY+id);
   }
+
+  publishProperty(property: Property): Observable<Property>{
+    console.log('Posting property:');
+    console.log(property);
+    return this.http.post<Property>(BASE_API_URL + '/property/', property);
+  }
 }

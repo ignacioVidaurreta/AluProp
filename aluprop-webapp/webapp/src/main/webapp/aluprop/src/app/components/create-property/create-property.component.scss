@@ -1,0 +1,48 @@
+:host {
+  margin-top: 8%;
+  display: flex;
+  justify-content: center;
+}
+
+.create-property-form {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  width: 70%;
+  align-items: center;
+}
+
+.card-title{
+  display: flex;
+  justify-content: left;
+  font-size: 2rem;
+}
+
+mat-form-field {
+  display: flex;
+  width: 100%;
+}
+
+.column-container{
+  display: flex;
+  justify-content: space-between;
+
+  .prop-info {
+    width: 50%;
+  }
+
+  .prop-pictures {
+    width: 50%;
+    
+    form-field {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      input {
+        margin-top: 4%;
+        margin-bottom: 4%;
+      }
+    }
+    
+  }
+}

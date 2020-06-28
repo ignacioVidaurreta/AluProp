@@ -56,5 +56,29 @@
     "user": "Usuario",
     "information": "Información",
     "response": "Respuesta"
+  },
+  "create-property": {
+    "publish-a-property": "Publicar una propiedad",
+    "upload-up-to-4-pictures": "Subir hasta 4 imágenes de la propiedad",
+    "pictures-to-upload": "Seleccionar imágenes:",
+    "name": "Nombre",
+    "description": "Descripción",
+    "property-type": "Tipo de propiedad",
+    "neighborhood": "Barrio",
+    "privacy": "Privacidad",
+    "capacity": "Capacidad",
+    "rent-per-month": "Renta por mes",
+    "rules": "Reglas:",
+    "services": "Servicios:",
+    "publish-property": "Publicar propiedad",
+    "error-msg": {
+      "pictures": "Por favor seleccione por lo menos 1 imagen de la propiedad",
+      "name": "Por favor escriba un nombre de 50 o menos caracteres",
+      "description": "Por favor escriba una descripción de 700 o menos caracteres",
+      "property-type": "Por favor seleccione el tipo de propiedad",
+      "neighborhood": "Por favor seleccione el barrio",
+      "capacity": "Por favor seleccione un valor entre 1 y 100.",
+      "rent": "La renta debe ser por lo menos $1"
+    }
   }
 }

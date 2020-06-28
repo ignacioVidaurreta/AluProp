@@ -1,4 +1,7 @@
 import { Neighborhood } from './neighborhood';
+import { Image } from './image';
+import { Rule } from './rule';
+import { Service } from './service';
 
 export class Property {
   id: number;
@@ -11,7 +14,9 @@ export class Property {
   capacity: number;
   price: number;
   availability: Availability;
-  image: any;
+  image: Image[];
+  rules: Rule[];
+  services: Service[];
 }
 
 export type PropertyType  = 'HOUSE' | 'APARTMENT' | 'LOFT';

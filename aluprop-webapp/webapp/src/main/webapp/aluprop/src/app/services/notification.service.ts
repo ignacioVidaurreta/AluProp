@@ -14,11 +14,12 @@ export class NotificationService {
   constructor(private http: HttpClient) { }
 
   getUnread(): Observable<Notification[]> {
-    // return this.http.get<Notification[]>(BASE_API_URL + '/notification');
-    return this.http.get<Notification[]>(JSON_NOTIFICATIONS);
+    return this.http.get<Notification[]>(BASE_API_URL + '/notification');
+    //  return this.http.get<Notification[]>(JSON_NOTIFICATIONS);
   }
 
   getAll(): Observable<Notification[]> {
-    return this.http.get<Notification[]>(JSON_NOTIFICATIONS);
+    return this.http.get<Notification[]>(BASE_API_URL + '/notification'); // 
+    // return this.http.get<Notification[]>(JSON_NOTIFICATIONS);
   }
 }
