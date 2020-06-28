@@ -34,6 +34,10 @@ public class NotificationApiController {
 
     @GET
     public Response unread() {
+        if(userService.getCurrentlyLoggedUser() == null) {
+            System.out.println("No logged user 4 u");
+            return  Response.status(Response.Status.FORBIDDEN).build();
+        }
         Collection<Notification> notifications =
                 notificationService.getAllUnreadNotificationsForUser(userService.getCurrentlyLoggedUser().getId(),
                                                                     NOTIFICATION_PAGE_REQUEST);
