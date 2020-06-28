@@ -9,6 +9,10 @@ public class NeighbourhoodDto {
     private long id;
     private String name;
 
+    public Neighbourhood toNeighbourhood() {
+        return new Neighbourhood(id, name);
+    }
+
     public static NeighbourhoodDto fromNeighbourhood(Neighbourhood neighbourhood) {
         final NeighbourhoodDto ret = new NeighbourhoodDto();
         ret.id = neighbourhood.getId();
