@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { Property } from '../models/property';
 import { PageResponse } from '../interfaces/page-response';
 import {Proposal} from "../models/proposal";
+import {User} from "../models/user";
 
 const BASE_API_URL = 'http://localhost:8080/api';
 const BASE_API_URL_PROPERTY = 'http://localhost:8080/api/property/';
@@ -42,9 +43,14 @@ export class PropertyService {
     return this.http.get<Property>(BASE_API_URL_PROPERTY+id);
   }
 
-  publishProperty(property: Property): Observable<Property>{
+  publishProperty(property: Property): Observable<Property> {
     console.log('Posting property:');
     console.log(property);
     return this.http.post<Property>(BASE_API_URL + '/property/', property);
+  }
+
+  getInterestedUsersByPropertyId(id: number): Observable<User[]>{
+    console.log(BASE_API_URL_PROPERTY+id);
+    return this.http.get<User[]>(BASE_API_URL_PROPERTY+id+'/interestedUsers');
   }
 }

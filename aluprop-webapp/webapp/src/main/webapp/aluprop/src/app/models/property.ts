@@ -2,6 +2,7 @@ import { Neighborhood } from './neighborhood';
 import { Image } from './image';
 import { Rule } from './rule';
 import { Service } from './service';
+import {User} from "./user";
 
 export class Property {
   id: number;
@@ -14,7 +15,8 @@ export class Property {
   capacity: number;
   price: number;
   availability: Availability;
-  image: Image[];
+  image: any;// TODO: has to be Image[] and change components that access this
+  owner: User;
   rules: Rule[];
   services: Service[];
 }

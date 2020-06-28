@@ -1,6 +1,10 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import {User} from "../models/user";
+import {HttpClient} from "@angular/common/http";
+
+const BASE_API_URL_CURRENT_USER = 'http://localhost:8080/api/user';
 
 @Injectable({
   providedIn: 'root'
@@ -8,13 +12,18 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 export class AuthenticationService {
   private currentUserSubject: BehaviorSubject<string>;
   public currentUser: Observable<string>;
-  constructor(){//private jwtHelper: JwtHelperService) { 
+  constructor(private http: HttpClient){//private jwtHelper: JwtHelperService) {
     this.currentUserSubject = new BehaviorSubject(localStorage.getItem("currentUser"));
     this.currentUser = this.currentUserSubject.asObservable();
   }
 
   public get currentUserValue(): string {
     return this.currentUserSubject.value;
+  }
+
+  getCurrentUser(): Observable<User>{
+    let header = {cookie: 'JSESSIONID=D15FF61A44E011C2D628288F5623E7E0'};
+    return this.http.get<User>(BASE_API_URL_CURRENT_USER, {headers: header});
   }
 
   login(username: string, password: string){
@@ -33,7 +42,7 @@ export class AuthenticationService {
   }
 
   public isAuthenticated(): boolean {
-    
+
     let token = localStorage.getItem("currentUser");
     return  token != undefined;
     //const token = localStorage.getItem('token');

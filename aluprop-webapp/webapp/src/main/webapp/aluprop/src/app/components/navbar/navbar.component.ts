@@ -16,13 +16,13 @@ export class NavbarComponent implements OnInit {
   constructor(
     private router: Router,
     private authenticationService: AuthenticationService,
-    private translateService: TranslateService) { 
+    private translateService: TranslateService) {
   }
 
   ngOnInit(): void {
-    this.usernameSubscription = this.authenticationService.currentUser.subscribe(
-      username => this.username = username
-      );
+    this.usernameSubscription = this.authenticationService.getCurrentUser().subscribe((currentUser)=> {
+      this.username = currentUser.name;
+    });
   }
 
   ngOnDestroy(): void{

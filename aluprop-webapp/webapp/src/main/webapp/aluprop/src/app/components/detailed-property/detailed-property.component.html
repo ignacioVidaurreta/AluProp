@@ -1,19 +1,20 @@
-<div *ngIf="property" class="detailed-property-container">
+<div *ngIf="property && currentUser" class="detailed-property-container">
   <div class="detailed-property-carousel mat-elevation-z8">
     <ngb-carousel>
       <ng-template ngbSlide>
+<!--        *ngFor="let img of property.image"-->
         <div>
-          <img class="d-block w-100 detailed-property-image" src="http://lisagryba.com/wp-content/uploads/2015/04/nice-houses-for-sale.jpg" alt="Random first slide">
+          <img class="d-block w-100 detailed-property-image" [attr.src]="'data:image/JPEG;base64,' + property.image.image ">
         </div>
       </ng-template>
       <ng-template ngbSlide>
         <div>
-          <img class=" d-block w-100 detailed-property-image" src="http://pawserver.it.itba.edu.ar/paw-2019a-5/images//50" alt="Random second slide">
+          <img class=" d-block w-100 detailed-property-image" src="http://pawserver.it.itba.edu.ar/paw-2019a-5/images//50">
         </div>
       </ng-template>
       <ng-template ngbSlide>
         <div >
-          <img class="d-block w-100 detailed-property-image" src="http://pawserver.it.itba.edu.ar/paw-2019a-5/images//49" alt="Random third slide">
+          <img class="d-block w-100 detailed-property-image" src="http://pawserver.it.itba.edu.ar/paw-2019a-5/images//49">
         </div>
       </ng-template>
     </ngb-carousel>
@@ -29,32 +30,53 @@
         <mat-card-subtitle translate>{{property.capacity}} guests | <span translate *ngIf="property.privacyLevel else individual">Shared</span><ng-template #individual><span translate>Individual</span></ng-template></mat-card-subtitle>
       </mat-card-header>
       <mat-card-content>
-        <mat-tab-group>
+        <mat-tab-group class="property-atributes">
           <mat-tab label="Description"><mat-list role="list">
-            <mat-list-item role="listitem">{{property.caption}}</mat-list-item>
+            <mat-list-item class="description-item" role="listitem">{{property.caption}}</mat-list-item>
           </mat-list>
           </mat-tab>
           <mat-tab label="Rules"><mat-list role="list">
-            <mat-list-item role="listitem">Item 1</mat-list-item>
-            <mat-list-item role="listitem">Item 2</mat-list-item>
-            <mat-list-item role="listitem">Item 3</mat-list-item>
+            <div *ngFor="let rule of property.rules">
+              <mat-list-item role="listitem">{{rule.name}}</mat-list-item>
+            </div>
           </mat-list>
           </mat-tab>
           <mat-tab label="Services"><mat-list role="list">
-            <mat-list-item role="listitem">Item 1</mat-list-item>
-            <mat-list-item role="listitem">Item 2</mat-list-item>
-            <mat-list-item role="listitem">Item 3</mat-list-item>
+            <div *ngFor="let service of property.services">
+              <mat-list-item role="listitem">{{service.name}}</mat-list-item>
+            </div>
           </mat-list>
           </mat-tab>
         </mat-tab-group>
       </mat-card-content>
     </mat-card>
-    <mat-card style="width: 35%" class="mat-elevation-z8">
+    <mat-card style="width: 35%;height: fit-content;" class="mat-elevation-z8">
       <mat-card-header>
-        <mat-card-title>$XXXXX</mat-card-title>
+        <mat-card-title>
+          <span>${{property.price}} </span>
+          <span translate>/ month</span>
+        </mat-card-title>
       </mat-card-header>
+      <mat-card-content style="margin-bottom: 2px">
+        <div *ngIf="property.availability == 'RENTED' && currentUser.id != property.owner.id" translate>
+          This property is inactive, you cannot create proposals or show interest in it.
+        </div>
+      </mat-card-content>
       <mat-card-actions>
-        <button mat-button>I'm interested</button>
+        <div *ngIf="currentUser.role == 'ROLE_HOST' && currentUser.id == property.owner.id" translate>
+          <button mat-raised-button color="primary"(click)="openDialog()" translate>Interested users</button>
+          <button *ngIf="property.availability == 'AVAILABLE'" mat-raised-button color="accent">Pause property</button>
+          <button *ngIf="property.availability == 'RENTED'" mat-raised-button color="accent">Activate property</button>
+          <button mat-raised-button color="warn" translate>Delete property</button>
+        </div>
+        <div *ngIf="currentUser.role == 'ROLE_HOST'">
+        </div>
+        <div *ngIf="currentUser.role == 'ROLE_GUEST' && currentUserIsInterested == true">
+
+        </div>
+        <!--      <div>-->
+<!--        <button mat-raised-button style="width: 100%;" color="primary">I'm interested</button>-->
+<!--      </div>-->
       </mat-card-actions>
     </mat-card>
   </div>

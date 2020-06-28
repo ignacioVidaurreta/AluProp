@@ -31,6 +31,9 @@ import { NotificationsMenuComponent } from './components/navbar/notifications-ba
 import { NotificationsBarComponent } from './components/navbar/notifications-bar/notifications-bar.component';
 import { NotificationsComponent } from './components/notifications/notifications.component';
 import { CreatePropertyComponent } from './components/create-property/create-property.component';
+import { InterestedUsersModalComponent } from './components/detailed-property/interested-users-modal/interested-users-modal.component';
+import {MatDialogModule} from "@angular/material/dialog";
+import {MatTabsModule} from "@angular/material/tabs";
 
 @NgModule({
   schemas: [ CUSTOM_ELEMENTS_SCHEMA],
@@ -54,6 +57,7 @@ import { CreatePropertyComponent } from './components/create-property/create-pro
     NotificationsMenuComponent,
     NotificationsBarComponent,
     NotificationsComponent,
+    InterestedUsersModalComponent,
     CreatePropertyComponent,
   ],
   imports: [
@@ -72,7 +76,9 @@ import { CreatePropertyComponent } from './components/create-property/create-pro
         deps: [HttpClient]
       }
     }),
-    NgbModule
+    NgbModule,
+    MatTabsModule,
+    MatDialogModule
   ],
   exports: [
     FormsModule,
