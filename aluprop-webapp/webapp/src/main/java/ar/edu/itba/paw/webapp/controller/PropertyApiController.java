@@ -113,4 +113,16 @@ public class PropertyApiController {
         User user = userService.getCurrentlyLoggedUser();
         return Response.ok(propertyService.undoInterestOrReturnErrors(propertyId, user)).build();
     }
+
+    @Path("/{propertyId}/interestedUsers")
+    @GET
+    public Response getInterestedUsersByPropertyId(@PathParam("propertyId") long propertyId){
+
+        Collection<User> interestedUsers = propertyService.getPropertyWithRelatedEntities(propertyId).getInterestedUsers();
+        return Response.ok(
+                interestedUsers.stream()
+                .map(IndexUserDto::fromUser)
+                .collect(Collectors.toList()))
+                .build();
+    }
 }
