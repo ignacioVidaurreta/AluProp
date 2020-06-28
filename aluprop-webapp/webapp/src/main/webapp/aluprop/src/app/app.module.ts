@@ -1,8 +1,11 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -23,16 +26,14 @@ import { SearchFiltersComponent } from './components/navbar/search-bar/search-fi
 import { SearchBarComponent } from './components/navbar/search-bar/search-bar.component';
 import { ProposalComponent } from './components/proposal/proposal.component';
 import { ProposalUsersTableComponent } from './components/proposal/proposal-users-table/proposal-users-table.component';
-import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
-import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import { DetailedPropertyComponent } from './components/detailed-property/detailed-property.component';
 import { NotificationsMenuComponent } from './components/navbar/notifications-bar/notifications-menu/notifications-menu.component';
 import { NotificationsBarComponent } from './components/navbar/notifications-bar/notifications-bar.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import {MatTabsModule} from "@angular/material/tabs";
 import { NotificationsComponent } from './components/notifications/notifications.component';
+import { CreatePropertyComponent } from './components/create-property/create-property.component';
 
 @NgModule({
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA],
   declarations: [
     AppComponent,
     NavbarComponent,
@@ -53,6 +54,7 @@ import { NotificationsComponent } from './components/notifications/notifications
     NotificationsMenuComponent,
     NotificationsBarComponent,
     NotificationsComponent,
+    CreatePropertyComponent,
   ],
   imports: [
     BrowserModule,
@@ -70,8 +72,7 @@ import { NotificationsComponent } from './components/notifications/notifications
         deps: [HttpClient]
       }
     }),
-    NgbModule,
-    MatTabsModule
+    NgbModule
   ],
   exports: [
     FormsModule,

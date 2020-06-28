@@ -6,14 +6,15 @@ import { RegisterComponent } from './components/register/register.component';
 import { ProfileComponent } from "./components/profile/profile.component";
 import { ProposalComponent } from "./components/proposal/proposal.component";
 import { AuthGuardService } from "./services/auth-guard.service";
-import {DetailedPropertyComponent} from "./components/detailed-property/detailed-property.component";
+import  {DetailedPropertyComponent } from "./components/detailed-property/detailed-property.component";
 import { NotificationsComponent } from './components/notifications/notifications.component';
-
+import { CreatePropertyComponent } from './components/create-property/create-property.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path:'login', component: LoginComponent},
   { path:'register', component: RegisterComponent},
+  { path:'host/create', component: CreatePropertyComponent},
   {
     path: 'user/:id',
     component: ProfileComponent,

@@ -12,8 +12,14 @@ table {
   to { background-color: whitesmoke; }
 }
 
-mat-list-item:hover {
+td:hover {
   cursor: pointer;
   animation: hover_animation 0.3s;
   animation-fill-mode:forwards; 
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  font-weight: 400;
 }
