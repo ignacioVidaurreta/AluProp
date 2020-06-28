@@ -25,7 +25,7 @@ public class GuestApiController {
 
     @GET
     @Path("/proposals")
-    public Response getAllUserProposals(){
+    public Response getAllUserProposalsOfUser(){
         User user = userService.getCurrentlyLoggedUser();
         Collection<UserProposal> proposals =
                 userService.getWithRelatedEntities(user.getId()).getUserProposals();
