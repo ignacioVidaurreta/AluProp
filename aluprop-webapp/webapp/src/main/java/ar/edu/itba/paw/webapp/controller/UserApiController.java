@@ -4,6 +4,7 @@ import ar.edu.itba.paw.interfaces.service.CareerService;
 import ar.edu.itba.paw.interfaces.service.ProposalService;
 import ar.edu.itba.paw.interfaces.service.UniversityService;
 import ar.edu.itba.paw.interfaces.service.UserService;
+import ar.edu.itba.paw.model.Property;
 import ar.edu.itba.paw.model.Proposal;
 import ar.edu.itba.paw.model.User;
 import ar.edu.itba.paw.model.UserProposal;
@@ -61,45 +62,6 @@ public class UserApiController {
                                             .stream()
                                             .map(CareerDto::fromCareer)
                                             .collect(Collectors.toList()))
-                .build();
-    }
-
-    @GET
-    @Path("/proposals")
-    /*
-     * If the user is a GUEST then return the proposals they are a part of
-     * If the user is a HOST get the proposals of their properties.
-     */
-    public Response getProposals(){
-        User user = userService.getCurrentlyLoggedUser();
-
-        if(user == null){
-            return Response.status(Response.Status.FORBIDDEN).build();
-        }
-        if(user.getRole() == Role.ROLE_GUEST){
-            return getAllUserProposals(user);
-        }else if(user.getRole() == Role.ROLE_HOST){
-            return getAllProposals(user);
-        }else{
-            return Response.status(Response.Status.FORBIDDEN).build();
-        }
-    }
-
-    private Response getAllUserProposals(User user){
-        Collection<UserProposal> proposals =
-                userService.getWithRelatedEntities(user.getId()).getUserProposals();
-        return Response.ok(proposals.stream()
-                            .map(UserProposalDto::fromUserProposal)
-                            .collect(Collectors.toList()))
-                .build();
-    }
-
-    private Response getAllProposals(User user){
-        Collection<Proposal> proposals = proposalService.getProposalsForOwnedProperties(user);
-
-        return Response.ok(proposals.stream()
-                            .map(ProposalDto::fromProposal)
-                            .collect(Collectors.toList()))
                 .build();
     }
 }
