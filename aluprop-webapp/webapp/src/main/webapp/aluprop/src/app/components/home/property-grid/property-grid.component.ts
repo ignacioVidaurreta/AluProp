@@ -5,6 +5,8 @@ import { PageRequest } from 'src/app/interfaces/page-request';
 import { Subscription } from 'rxjs';
 import { PageResponse } from 'src/app/interfaces/page-response';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { ActivatedRoute } from '@angular/router';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-property-grid',
@@ -12,6 +14,9 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
   styleUrls: ['./property-grid.component.scss']
 })
 export class PropertyGridComponent implements OnInit, OnDestroy {
+
+  searchParamsSub: Subscription;
+  searchParams: any;
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   totalItems: number;
@@ -23,10 +28,19 @@ export class PropertyGridComponent implements OnInit, OnDestroy {
   properties: Property[];
   propertiesSub: Subscription;
 
-  constructor(private propertyService: PropertyService) { }
+  constructor(private propertyService: PropertyService,
+              private route: ActivatedRoute) {
+    this.pageRequest = {pageNumber: 0, pageSize: 12}
+
+    this.searchParamsSub = route.queryParams.pipe(
+      filter((params) => Object.keys(params).length !== 0)
+    ).subscribe((params)=>{
+      this.searchParams = params;
+      this.createPageSubscription();
+    });
+  }
 
   ngOnInit(): void {
-    this.pageRequest = {pageNumber: 0, pageSize: 12}
     this.createPageSubscription();
   }
 
@@ -42,12 +56,21 @@ export class PropertyGridComponent implements OnInit, OnDestroy {
   }
 
   createPageSubscription(){
-    this.propertiesSub = this.propertyService.getAll(this.pageRequest).subscribe((pageResponse) => {
-      this.properties = pageResponse.responseData;
-      console.log(pageResponse);
-      this.totalItems = pageResponse.totalItems;
-      this.pageSize = pageResponse.pageSize;
-    });
+    if (this.searchParams && Object.keys(this.searchParams).length !== 0){
+      this.propertiesSub = this.propertyService.search(this.pageRequest, this.searchParams).subscribe((pageResponse) => {
+        this.properties = pageResponse.responseData;
+        this.totalItems = pageResponse.totalItems;
+        this.pageSize = pageResponse.pageSize;
+      });
+    }
+    else {
+      this.propertiesSub = this.propertyService.getAll(this.pageRequest).subscribe((pageResponse) => {
+        this.properties = pageResponse.responseData;
+        this.totalItems = pageResponse.totalItems;
+        this.pageSize = pageResponse.pageSize;
+      });
+    }
+    
   }
 
 }

@@ -24,10 +24,14 @@ export class PropertyService {
 
   constructor(private http: HttpClient) { }
 
-  getAll(pageRequest?: PageRequest): Observable<PageResponse<Property>>{
-    // return this.http.get<PageResponse<Property>>(BASE_API_URL + '/property/', httpOptions);
+  getAll(pageRequest: PageRequest): Observable<PageResponse<Property>>{
     let params = {pageSize: String(pageRequest.pageSize), pageNumber: String(pageRequest.pageNumber) };
     return this.http.get<PageResponse<Property>>(BASE_API_URL + '/property/', {params: params});
+  }
 
+  search(pageRequest: PageRequest, searchParams: any){
+    let params = {pageSize: String(pageRequest.pageSize), pageNumber: String(pageRequest.pageNumber), ...searchParams};
+    console.log(params);
+    return this.http.get<PageResponse<Property>>(BASE_API_URL + '/property/search/', {params: params});
   }
 }
