@@ -32,7 +32,7 @@ import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("host/")
-public class HostController {
+public class    HostController {
 
     @Autowired
     private ModelAndViewPopulator navigationUtility;

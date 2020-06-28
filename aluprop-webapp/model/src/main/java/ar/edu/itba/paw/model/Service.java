@@ -26,6 +26,11 @@ public class Service {
         this.id = id;
     }
 
+    public Service(long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
     public long getId() {
         return id;
     }

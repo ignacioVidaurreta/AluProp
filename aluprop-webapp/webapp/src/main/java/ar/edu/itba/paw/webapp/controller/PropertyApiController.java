@@ -6,12 +6,11 @@ import ar.edu.itba.paw.interfaces.SearchableProperty;
 import ar.edu.itba.paw.interfaces.service.NeighbourhoodService;
 import ar.edu.itba.paw.interfaces.service.PropertyService;
 import ar.edu.itba.paw.interfaces.service.RuleService;
+import ar.edu.itba.paw.interfaces.service.UserService;
 import ar.edu.itba.paw.model.Property;
+import ar.edu.itba.paw.model.User;
 import ar.edu.itba.paw.webapp.beanParams.PropertySearchRequest;
-import ar.edu.itba.paw.webapp.dto.IndexPropertyDto;
-import ar.edu.itba.paw.webapp.dto.NeighbourhoodDto;
-import ar.edu.itba.paw.webapp.dto.ProposalDto;
-import ar.edu.itba.paw.webapp.dto.RuleDto;
+import ar.edu.itba.paw.webapp.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.ws.rs.*;
@@ -30,6 +29,8 @@ public class PropertyApiController {
     private NeighbourhoodService neighbourhoodService;
     @Autowired
     private RuleService ruleService;
+    @Autowired
+    private UserService userService;
 
     @GET
     public Response index(@BeanParam PropertySearchRequest propertySearchRequest,
@@ -47,8 +48,8 @@ public class PropertyApiController {
         return Response.ok(response).build();
     }
 
-    @GET
     @Path("search")
+    @GET
     public Response search(@BeanParam PropertySearchRequest propertySearchRequest,
                            @QueryParam("pageNumber") @DefaultValue("0") int pageNumber,
                            @QueryParam("pageSize") @DefaultValue("12") int pageSize) {
@@ -73,10 +74,10 @@ public class PropertyApiController {
         return Response.ok(pageResponse).build();
     }
 
-    @GET
     @Path("/{propertyId}")
+    @GET
     public Response property(@PathParam("propertyId") long propertyId) {
-        return Response.ok(IndexPropertyDto.fromProperty(propertyService.get(propertyId))).build();
+        return Response.ok(PropertyDto.fromProperty(propertyService.getPropertyWithRelatedEntities(propertyId))).build();
     }
 
     @Path("/neighbourhood")
@@ -97,5 +98,19 @@ public class PropertyApiController {
                                     .map(RuleDto::fromRule)
                                     .collect(Collectors.toList()))
                 .build();
+    }
+
+    @Path("/{propertyId}/guest/interest")
+    @POST
+    public Response interest(@PathParam("propertyId") long propertyId) {
+        User user = userService.getCurrentlyLoggedUser();
+        return Response.ok(propertyService.showInterestOrReturnErrors(propertyId, user)).build();
+    }
+
+    @Path("/{propertyId}/guest/uninterested")
+    @POST
+    public Response uninterested(@PathParam("propertyId") long propertyId) {
+        User user = userService.getCurrentlyLoggedUser();
+        return Response.ok(propertyService.undoInterestOrReturnErrors(propertyId, user)).build();
     }
 }
