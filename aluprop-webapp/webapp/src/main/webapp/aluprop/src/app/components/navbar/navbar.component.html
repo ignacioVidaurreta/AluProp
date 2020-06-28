@@ -18,6 +18,7 @@
       <span translate [translateParams]="{name: username}" class="greeting">navbar.hi</span>
       <app-notifications-bar></app-notifications-bar>
       <a (click)="logout()" class="log-in-button" translate>navbar.logout</a>
+      <a routerLink="/host/create" class="log-in-button" translate>navbar.publish-a-property</a>
       <img class="flag" src="../assets/img/uk.svg" (click)="setLanguage('en')">
       <img class="flag" src="../assets/img/spain.svg" (click)="setLanguage('es')">
     </div>

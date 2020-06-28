@@ -5,7 +5,8 @@
     "or": " o ",
     "login": "Iniciar sesión",
     "hi": "Hola, {{name}}!",
-    "logout": "Cerrar sesión"
+    "logout": "Cerrar sesión",
+    "publish-a-property": "Publicar una propiedad"
   },
   "notifications": {
     "notifications": "Notificationes",
