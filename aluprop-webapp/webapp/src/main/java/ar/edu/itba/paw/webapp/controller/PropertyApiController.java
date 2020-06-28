@@ -10,10 +10,7 @@ import ar.edu.itba.paw.interfaces.service.UserService;
 import ar.edu.itba.paw.model.Property;
 import ar.edu.itba.paw.model.User;
 import ar.edu.itba.paw.webapp.beanParams.PropertySearchRequest;
-import ar.edu.itba.paw.webapp.dto.IndexPropertyDto;
-import ar.edu.itba.paw.webapp.dto.NeighbourhoodDto;
-import ar.edu.itba.paw.webapp.dto.ProposalDto;
-import ar.edu.itba.paw.webapp.dto.RuleDto;
+import ar.edu.itba.paw.webapp.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.ws.rs.*;
@@ -80,7 +77,7 @@ public class PropertyApiController {
     @Path("/{propertyId}")
     @GET
     public Response property(@PathParam("propertyId") long propertyId) {
-        return Response.ok(IndexPropertyDto.fromProperty(propertyService.get(propertyId))).build();
+        return Response.ok(PropertyDto.fromProperty(propertyService.getPropertyWithRelatedEntities(propertyId))).build();
     }
 
     @Path("/neighbourhood")
