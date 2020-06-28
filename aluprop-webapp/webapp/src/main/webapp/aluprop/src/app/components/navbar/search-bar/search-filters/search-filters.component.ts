@@ -26,7 +26,7 @@ export class SearchFiltersComponent implements OnInit, OnDestroy {
     neighborhood: new FormControl(''),
     privacy: new FormControl(''),
     maxCapacity: new FormControl('', [Validators.pattern('[0-9]*')]),
-    minRent: new FormControl('', [Validators.pattern('[0-9]*')]),
+    minPrice: new FormControl('', [Validators.pattern('[0-9]*')]),
     maxPrice: new FormControl('', [Validators.pattern('[0-9]*')]),
     rules: new FormControl(this.rules),
     services: new FormControl(this.services)
