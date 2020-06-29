@@ -3,19 +3,21 @@
   <p>Select up to <b>{{data.property.capacity - 1}}</b> other students to create a proposal to rent this property and split the rent.</p>
   <p>If you create a proposal without selecting anyone, the offer will be sent directly to the host and you will be paying full rent.</p>
   <div *ngIf="data.interestedUsers.length != 0 else noInterestedUsers">
-    <div *ngFor="let user of data.interestedUsers">
-      <div style="display: flex;flex-flow: row;justify-content: space-between" role="listitem">
-        <mat-checkbox class="example-margin">
-          <div style="margin-left: 6px">
-            {{user.name}}
-            <p style="margin-bottom: 8px;"><em><small>{{user.university.name}} - {{ageFromDateOfBirthday(user.birthDate)}} - {{user.gender.toString().toLowerCase()}}</small></em></p>
-          </div>
-        </mat-checkbox>
+  <mat-selection-list #users>
+    <mat-list-option #user checkboxPosition="before" *ngFor="let user of data.interestedUsers">
+      <div style="display: flex;flex-flow: row;justify-content: space-between;margin-top: 10px" role="listitem">
+        <div style="margin-left: 6px">
+          {{user.name}}
+          <p style="margin-bottom: 8px;"><em><small>{{user.university.name}} - {{ageFromDateOfBirthday(user.birthDate)}} - {{user.gender.toString().toLowerCase()}}</small></em></p>
+        </div>
         <div style="align-self: center">
           <a [routerLink]="['/user/' + user.id]" [mat-dialog-close]="true" translate>View profile</a>
         </div>
       </div>
-    </div>
+    </mat-list-option>
+  </mat-selection-list>
+  <p style="margin-top: 16px">You have selected <b>{{users.selectedOptions.selected.length}}</b> other students.</p>
+  <p>Each student will be paying <b>${{getPricePerPerson(users.selectedOptions.selected.length + 1).toFixed(2)}} / month</b>.</p>
   </div>
   <ng-template #noInterestedUsers>
     <p>

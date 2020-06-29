@@ -65,17 +65,22 @@
       <mat-card-actions>
         <div *ngIf="currentUser?.role == 'ROLE_HOST' && currentUser?.id == property.owner.id" translate>
           <button mat-raised-button color="primary" (click)="openDialogInterestedUsers()" translate>Interested users</button>
-          <button *ngIf="property.availability == 'AVAILABLE'" mat-raised-button color="accent">Pause property</button>
-          <button *ngIf="property.availability == 'RENTED'" mat-raised-button color="accent">Activate property</button>
+          <button *ngIf="property.availability == 'AVAILABLE'" mat-raised-button color="accent" translate>Pause property</button>
+          <button *ngIf="property.availability == 'RENTED'" mat-raised-button color="accent" translate>Activate property</button>
           <button mat-raised-button color="warn" translate>Delete property</button>
         </div>
         <div *ngIf="currentUser?.role == 'ROLE_HOST'">
         </div>
         <div *ngIf="currentUser?.role == 'ROLE_GUEST' && currentUserIsInterested == true">
           <button mat-raised-button color="primary" (click)="openDialogCreateProposal()" translate>Create proposal</button>
+          <button *ngIf="property.availability == 'AVAILABLE'" mat-raised-button color="accent" translate>I'm not interested anymore</button>
         </div>
-        <div *ngIf="(loggedInUser == false) || (currentUser?.role == 'ROLE_GUEST' && currentUserIsInterested == false)">
+        <div *ngIf="currentUser?.role == 'ROLE_GUEST' && currentUserIsInterested == false">
           <button mat-raised-button style="width: 100%;" color="primary" translate>I'm interested</button>
+        </div>
+        <div *ngIf="loggedInUser == false">
+          <p translate><span style="color: firebrick;">You must be logged in to show interest.</span></p>
+          <button mat-raised-button disabled style="width: 100%;"  translate>I'm interested</button>
         </div>
       </mat-card-actions>
     </mat-card>

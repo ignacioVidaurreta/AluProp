@@ -24,9 +24,16 @@ export class CreateProposalModalComponent implements OnInit {
     this.dialogRef.close();
   }
 
+  onClick(): void {
+
+  }
+
   ageFromDateOfBirthday(dateOfBirth: any): number {
     return moment().diff(dateOfBirth, 'years');
   }
 
+  getPricePerPerson(numberOfPeople: number): number {
+    return this.data.property.price / numberOfPeople;
+  }
 
 }

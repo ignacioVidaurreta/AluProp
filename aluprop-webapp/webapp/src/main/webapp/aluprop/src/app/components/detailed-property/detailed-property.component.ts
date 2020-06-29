@@ -97,7 +97,7 @@ export class DetailedPropertyComponent implements OnInit {
 
   openDialogCreateProposal(): void {
     const dialogRef = this.dialog.open(CreateProposalModalComponent, {
-      width: '400px',
+      width: '500px',
       data: {interestedUsers: this.interestedUsers, property: this.property}
     });
 

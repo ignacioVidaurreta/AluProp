@@ -22,7 +22,7 @@ export class AuthenticationService {
   }
 
   getCurrentUser(): Observable<User>{
-    let header = {cookie: 'JSESSIONID=A429BB961EA8559C07AD3D61AD0EF7A2'};
+    let header = {cookie: 'JSESSIONID=E113E99F8BDFFD0B5E0510277A733C1C'};
     return this.http.get<User>(BASE_API_URL_CURRENT_USER, {headers: header});
   }
 
