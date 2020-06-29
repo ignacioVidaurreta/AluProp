@@ -1,4 +1,4 @@
-<h1 mat-dialog-title>Interested users</h1>
+<h1 mat-dialog-title translate>Interested users</h1>
 <div mat-dialog-content>
   <div *ngFor="let user of data.interestedUsers">
     <div style="display: flex;flex-flow: row;justify-content: space-between" role="listitem">
@@ -7,11 +7,11 @@
         <p style="margin-bottom: 8px;"><em><small>{{user.university.name}} - {{ageFromDateOfBirthday(user.birthDate)}} - {{user.gender.toString().toLowerCase()}}</small></em></p>
       </div>
       <div style="align-self: center">
-        <a [routerLink]="['/user/' + user.id]">View profile</a>
+        <a [routerLink]="['/user/' + user.id]" [mat-dialog-close]="true" translate>View profile</a>
       </div>
     </div>
   </div>
 </div>
-<div mat-dialog-actions>
-  <button mat-button mat-dialog-close>Close</button>
+<div mat-dialog-actions style="float: right">
+  <button mat-button mat-dialog-close translate>Close</button>
 </div>

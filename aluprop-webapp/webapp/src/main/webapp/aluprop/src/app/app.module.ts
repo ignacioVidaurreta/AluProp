@@ -34,6 +34,7 @@ import { CreatePropertyComponent } from './components/create-property/create-pro
 import { InterestedUsersModalComponent } from './components/detailed-property/interested-users-modal/interested-users-modal.component';
 import {MatDialogModule} from "@angular/material/dialog";
 import {MatTabsModule} from "@angular/material/tabs";
+import { CreateProposalModalComponent } from './components/detailed-property/create-proposal-modal/create-proposal-modal.component';
 
 @NgModule({
   schemas: [ CUSTOM_ELEMENTS_SCHEMA],
@@ -59,6 +60,7 @@ import {MatTabsModule} from "@angular/material/tabs";
     NotificationsComponent,
     InterestedUsersModalComponent,
     CreatePropertyComponent,
+    CreateProposalModalComponent,
   ],
   imports: [
     BrowserModule,

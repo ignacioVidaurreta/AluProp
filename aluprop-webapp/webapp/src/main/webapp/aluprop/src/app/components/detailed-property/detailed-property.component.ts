@@ -8,6 +8,7 @@ import {User} from "../../models/user";
 import {AuthenticationService} from "../../services/authentication.service";
 import {MatDialog} from "@angular/material/dialog";
 import {InterestedUsersModalComponent} from "./interested-users-modal/interested-users-modal.component";
+import {CreateProposalModalComponent} from "./create-proposal-modal/create-proposal-modal.component";
 
 @Component({
   selector: 'app-detailed-property',
@@ -24,12 +25,14 @@ export class DetailedPropertyComponent implements OnInit {
   currentUserIsInterested: boolean;
   interestedUsers: User[];
   interestedUsersSub: Subscription;
+  loggedInUser: boolean;
 
   constructor(private propertyService: PropertyService, private authenticationService: AuthenticationService, public dialog: MatDialog, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.propertyId = +this.route.snapshot.paramMap.get("id");
     console.log(this.propertyId);
+    this.loggedInUser = false;
     this.createPageSubscription();
   }
 
@@ -53,29 +56,49 @@ export class DetailedPropertyComponent implements OnInit {
       this.currentUserSub = this.authenticationService.getCurrentUser().subscribe((currentUser)=> {
         this.currentUser = currentUser;
         console.log(currentUser);
-        this.validateIfCurrentUserIsInterested();
         this.interestedUsersSub = this.propertyService.getInterestedUsersByPropertyId(this.propertyId).subscribe((interestedUsers) => {
           console.log(this.propertyId);
           this.interestedUsers = interestedUsers;
           console.log(interestedUsers);
+          if(this.currentUser) {
+            this.validateIfCurrentUserIsInterested();
+            this.loggedInUser = true;
+          }
+          console.log(this.currentUser);
+          console.log(this.loggedInUser);
+          console.log(this.currentUserIsInterested);
         });
       })
     });
   }
 
   validateIfCurrentUserIsInterested() { //TODO: does this belong in the back-end?
-    var property: any;
+    let property: any;
     for(property in this.currentUser.interestedProperties) {
-      if(property.id == this.property.id)
+      console.log(property.id);
+      if(property.id == this.property.id) {
         this.currentUserIsInterested = true;
+        return;
+      }
     }
-    this.currentUserIsInterested = false;
+    this.currentUserIsInterested = true;// This is hardcoded just for now until the corresponding endpoint exists
   }
 
-  openDialog(): void {
+  openDialogInterestedUsers(): void {
     const dialogRef = this.dialog.open(InterestedUsersModalComponent, {
       width: '400px',
       data: {interestedUsers: this.interestedUsers}
+    });
+
+  dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
+
+  openDialogCreateProposal(): void {
+    const dialogRef = this.dialog.open(CreateProposalModalComponent, {
+      width: '400px',
+      data: {interestedUsers: this.interestedUsers, property: this.property}
     });
 
     dialogRef.afterClosed().subscribe(result => {

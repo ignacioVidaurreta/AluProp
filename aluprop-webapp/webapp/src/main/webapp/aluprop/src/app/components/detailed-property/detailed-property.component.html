@@ -58,25 +58,25 @@
         </mat-card-title>
       </mat-card-header>
       <mat-card-content style="margin-bottom: 2px">
-        <div *ngIf="property.availability == 'RENTED' && currentUser.id != property.owner.id" translate>
+        <div *ngIf="property.availability == 'RENTED' && currentUser?.id != property.owner.id" translate>
           This property is inactive, you cannot create proposals or show interest in it.
         </div>
       </mat-card-content>
       <mat-card-actions>
-        <div *ngIf="currentUser.role == 'ROLE_HOST' && currentUser.id == property.owner.id" translate>
-          <button mat-raised-button color="primary"(click)="openDialog()" translate>Interested users</button>
+        <div *ngIf="currentUser?.role == 'ROLE_HOST' && currentUser?.id == property.owner.id" translate>
+          <button mat-raised-button color="primary" (click)="openDialogInterestedUsers()" translate>Interested users</button>
           <button *ngIf="property.availability == 'AVAILABLE'" mat-raised-button color="accent">Pause property</button>
           <button *ngIf="property.availability == 'RENTED'" mat-raised-button color="accent">Activate property</button>
           <button mat-raised-button color="warn" translate>Delete property</button>
         </div>
-        <div *ngIf="currentUser.role == 'ROLE_HOST'">
+        <div *ngIf="currentUser?.role == 'ROLE_HOST'">
         </div>
-        <div *ngIf="currentUser.role == 'ROLE_GUEST' && currentUserIsInterested == true">
-
+        <div *ngIf="currentUser?.role == 'ROLE_GUEST' && currentUserIsInterested == true">
+          <button mat-raised-button color="primary" (click)="openDialogCreateProposal()" translate>Create proposal</button>
         </div>
-        <!--      <div>-->
-<!--        <button mat-raised-button style="width: 100%;" color="primary">I'm interested</button>-->
-<!--      </div>-->
+        <div *ngIf="(loggedInUser == false) || (currentUser?.role == 'ROLE_GUEST' && currentUserIsInterested == false)">
+          <button mat-raised-button style="width: 100%;" color="primary" translate>I'm interested</button>
+        </div>
       </mat-card-actions>
     </mat-card>
   </div>
