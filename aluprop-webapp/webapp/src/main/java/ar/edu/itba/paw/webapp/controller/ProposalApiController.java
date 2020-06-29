@@ -51,7 +51,6 @@ public class ProposalApiController {
 
     }
 
-    /* TODO Remove or uncomment
     @GET
     @Path("/{proposalId}/creatorUserProposal")
     public Response userProposalOfCreator(@PathParam("proposalId") long proposalId){
@@ -61,7 +60,7 @@ public class ProposalApiController {
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
         User creator = proposal.getCreator();
-        return Response.ok(UserProposalDto.fromUserProposal(creatorUserProposalList.get(0))).build();
+        return Response.ok(UserProposalDto.fromCreator(creator)).build();
     }
-     */
+
 }

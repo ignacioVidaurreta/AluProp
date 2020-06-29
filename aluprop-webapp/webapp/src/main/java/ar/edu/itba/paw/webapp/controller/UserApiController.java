@@ -11,6 +11,7 @@ import ar.edu.itba.paw.model.UserProposal;
 import ar.edu.itba.paw.model.enums.Role;
 import ar.edu.itba.paw.webapp.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.method.P;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -31,8 +32,6 @@ public class UserApiController {
     private UniversityService universityService;
     @Autowired
     private CareerService careerService;
-    @Autowired
-    private ProposalService proposalService;
 
     @GET
     public Response currentUser() {
@@ -63,5 +62,12 @@ public class UserApiController {
                                             .map(CareerDto::fromCareer)
                                             .collect(Collectors.toList()))
                 .build();
+    }
+
+    @GET
+    @Path("/loginStatus")
+    public Response isLoggedIn(){
+        BooleanDto isLoggedIn = BooleanDto.fromBoolean(userService.getCurrentlyLoggedUser() != null);
+        return Response.ok(isLoggedIn).build();
     }
 }
