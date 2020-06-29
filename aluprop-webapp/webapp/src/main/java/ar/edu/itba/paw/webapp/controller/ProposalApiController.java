@@ -51,6 +51,7 @@ public class ProposalApiController {
 
     }
 
+    /* TODO Remove or uncomment
     @GET
     @Path("/{proposalId}/creatorUserProposal")
     public Response userProposalOfCreator(@PathParam("proposalId") long proposalId){
@@ -60,30 +61,7 @@ public class ProposalApiController {
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
         User creator = proposal.getCreator();
-        Collection<UserProposal> userProposals = proposal.getUserProposals();
-        if(creator == null || userProposals.isEmpty()){
-            String errorMessage;
-            if(creator == null){
-                errorMessage = "Couldn't find creator of proposal ";
-            }else{
-                errorMessage = "Couldn't find any userProposals for proposal ";
-            }
-            logger.error(errorMessage + proposalId);
-            return Response.status(Response.Status.BAD_REQUEST).build();
-        }
-
-        List<UserProposal> creatorUserProposalList = userProposals.stream().map(up -> {
-           if(up.getUser().equals(creator)){
-               return up;
-           }
-           return null;
-        }).filter(Objects::nonNull).collect(Collectors.toList());
-
-        System.out.println(creatorUserProposalList.size());
-        if(creatorUserProposalList.size() != 1){
-            logger.error("Arrived to impossible state: creatorUserProposalListSize: " + creatorUserProposalList.size());
-            return Response.status(Response.Status.EXPECTATION_FAILED).build();
-        }
         return Response.ok(UserProposalDto.fromUserProposal(creatorUserProposalList.get(0))).build();
     }
+     */
 }
