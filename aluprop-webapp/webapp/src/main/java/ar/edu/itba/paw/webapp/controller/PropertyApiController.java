@@ -77,7 +77,11 @@ public class PropertyApiController {
     @Path("/{propertyId}")
     @GET
     public Response property(@PathParam("propertyId") long propertyId) {
-        return Response.ok(PropertyDto.fromProperty(propertyService.getPropertyWithRelatedEntities(propertyId))).build();
+        Property property = propertyService.getPropertyWithRelatedEntities(propertyId);
+        if( property == null){
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+        return Response.ok(PropertyDto.fromProperty(property)).build();
     }
 
     @Path("/neighbourhood")
