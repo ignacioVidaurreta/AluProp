@@ -81,7 +81,7 @@ export class DetailedPropertyComponent implements OnInit {
         return;
       }
     }
-    this.currentUserIsInterested = true;// This is hardcoded just for now until the corresponding endpoint exists
+    this.currentUserIsInterested = false;// This is hardcoded just for now until the corresponding endpoint exists
   }
 
   openDialogInterestedUsers(): void {

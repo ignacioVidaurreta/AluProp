@@ -81,5 +81,44 @@
       "capacity": "Por favor seleccione un valor entre 1 y 100.",
       "rent": "La renta debe ser por lo menos $1"
     }
+  },
+  "detailed-property": {
+    "inactive": "",
+    "apartment": "",
+    "loft": "",
+    "house": "",
+    "in": "",
+    "guests": "",
+    "shared": "",
+    "individual": "",
+    "month": "",
+    "property-is-inactive": "",
+    "interested-users": "",
+    "pause-property": "",
+    "activate-property": "",
+    "delete-property": "",
+    "create-proposal": "",
+    "not-interested": "",
+    "interested": "",
+    "must-be-logged-in": ""
+  },
+  "create-proposal-modal": {
+    "create-proposal": "Crear propuesta",
+    "select-up-to": "Selecciona hasta ",
+    "other-students": " otros estudiantes para crear una propuesta de renta, el precio se dividirá entre los participantes.",
+    "warning-limit": "Si creas una propuesta sin elegir a nadie más, se le hará una oferta al propietario donde pagarás la renta completa.",
+    "view-profile": "Ver perfil",
+    "you-have-selected": "Has seleccionado ",
+    "other-students-selected": "otros estudiantes.",
+    "each-student-will-be-paying": "Cada uno pagará ",
+    "month": "/ mes",
+    "no-other-students-are-interested": "No hay otros usuarios interesados en esta propiedad.",
+    "close": "Cerrar",
+    "create": "Crear"
+  },
+  "interested-users": {
+    "interested-users": "Usuarios interesados",
+    "view-profile": "Ver perfil",
+    "close": "Cerrar"
   }
 }

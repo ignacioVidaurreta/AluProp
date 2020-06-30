@@ -22,12 +22,12 @@
   <div class="detailed-property-cards-container">
     <mat-card style="width: 60%" class="mat-elevation-z8">
       <mat-card-header>
-        <mat-card-title style="margin-bottom: 16px;">{{property.description}}<div translate *ngIf="property.availability == 'RENTED'"> [ Inactive ]</div></mat-card-title>
+        <mat-card-title style="margin-bottom: 16px;">{{property.description}}<div translate *ngIf="property.availability == 'RENTED'">detailed-property.inactive</div></mat-card-title>
         <mat-card-subtitle translate>
-          <span *ngIf="property.propertyType == 'APARTMENT'" translate>Apartment</span>
-          <span *ngIf="property.propertyType == 'LOFT'" translate>Loft</span>
-          <span *ngIf="property.propertyType == 'HOUSE'" translate>House</span> in {{property.neighbourhood.name}}</mat-card-subtitle>
-        <mat-card-subtitle translate>{{property.capacity}} guests | <span translate *ngIf="property.privacyLevel else individual">Shared</span><ng-template #individual><span translate>Individual</span></ng-template></mat-card-subtitle>
+          <span *ngIf="property.propertyType == 'APARTMENT'" translate>detailed-property.apartment</span>
+          <span *ngIf="property.propertyType == 'LOFT'" translate>detailed-property.loft</span>
+          <span *ngIf="property.propertyType == 'HOUSE'" translate>detailed-property.house</span>{{property.neighbourhood.name}}</mat-card-subtitle>
+        <mat-card-subtitle translate>{{property.capacity}} detailed-property.guests<span translate *ngIf="property.privacyLevel else individual">detailed-property.shared</span><ng-template #individual><span translate>detailed-property.individual</span></ng-template></mat-card-subtitle>
       </mat-card-header>
       <mat-card-content>
         <mat-tab-group class="property-atributes">
@@ -54,33 +54,33 @@
       <mat-card-header>
         <mat-card-title>
           <span>${{property.price}} </span>
-          <span translate>/ month</span>
+          <span translate>detailed-property.month</span>
         </mat-card-title>
       </mat-card-header>
       <mat-card-content style="margin-bottom: 2px">
         <div *ngIf="property.availability == 'RENTED' && currentUser?.id != property.owner.id" translate>
-          This property is inactive, you cannot create proposals or show interest in it.
+          detailed-property.property-is-inactive
         </div>
       </mat-card-content>
       <mat-card-actions>
         <div *ngIf="currentUser?.role == 'ROLE_HOST' && currentUser?.id == property.owner.id" translate>
-          <button mat-raised-button color="primary" (click)="openDialogInterestedUsers()" translate>Interested users</button>
-          <button *ngIf="property.availability == 'AVAILABLE'" mat-raised-button color="accent" translate>Pause property</button>
-          <button *ngIf="property.availability == 'RENTED'" mat-raised-button color="accent" translate>Activate property</button>
-          <button mat-raised-button color="warn" translate>Delete property</button>
+          <button mat-raised-button color="primary" (click)="openDialogInterestedUsers()" translate>detailed-property.interested-users</button>
+          <button *ngIf="property.availability == 'AVAILABLE'" mat-raised-button color="accent" translate>detailed-property.pause-property</button>
+          <button *ngIf="property.availability == 'RENTED'" mat-raised-button color="accent" translate>detailed-property.activate-property</button>
+          <button mat-raised-button color="warn" translate>detailed-property.delete-property</button>
         </div>
         <div *ngIf="currentUser?.role == 'ROLE_HOST'">
         </div>
         <div *ngIf="currentUser?.role == 'ROLE_GUEST' && currentUserIsInterested == true">
-          <button mat-raised-button color="primary" (click)="openDialogCreateProposal()" translate>Create proposal</button>
-          <button *ngIf="property.availability == 'AVAILABLE'" mat-raised-button color="accent" translate>I'm not interested anymore</button>
+          <button mat-raised-button color="primary" (click)="openDialogCreateProposal()" translate>detailed-property.create-proposal</button>
+          <button *ngIf="property.availability == 'AVAILABLE'" mat-raised-button color="accent" translate>detailed-property.not-interested</button>
         </div>
         <div *ngIf="currentUser?.role == 'ROLE_GUEST' && currentUserIsInterested == false">
-          <button mat-raised-button style="width: 100%;" color="primary" translate>I'm interested</button>
+          <button mat-raised-button style="width: 100%;" color="primary" translate>detailed-property.interested</button>
         </div>
         <div *ngIf="loggedInUser == false">
-          <p translate><span style="color: firebrick;">You must be logged in to show interest.</span></p>
-          <button mat-raised-button disabled style="width: 100%;"  translate>I'm interested</button>
+          <p translate><span style="color: firebrick;">detailed-property.must-be-logged-in</span></p>
+          <button mat-raised-button disabled style="width: 100%;" translate>detailed-property.interested</button>
         </div>
       </mat-card-actions>
     </mat-card>

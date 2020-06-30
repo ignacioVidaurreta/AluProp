@@ -81,5 +81,44 @@
       "capacity": "Please select a value between 1 and 100",
       "rent": "Rent per month must be at least $1"
     }
+  },
+  "detailed-property": {
+    "inactive": " [ Inactive ]",
+    "apartment": "Apartment in ",
+    "loft": "Loft in ",
+    "house": "House in ",
+    "in": "in",
+    "guests": "guests | ",
+    "shared": "Shared",
+    "individual": "Individual",
+    "month": "/ month",
+    "property-is-inactive": "This property is inactive, you cannot create proposals or show interest in it.",
+    "interested-users": "Interested users",
+    "pause-property": "Pause property",
+    "activate-property": "Activate property",
+    "delete-property": "Delete property",
+    "create-proposal": "Create proposal",
+    "not-interested": "I'm not interested anymore",
+    "interested": "I'm interested",
+    "must-be-logged-in": "You must be logged in to show interest."
+  },
+  "create-proposal-modal": {
+    "create-proposal": "Create proposal",
+    "select-up-to":"Select up to ",
+    "other-students": " other students to create a proposal to rent this property and split the rent.",
+    "warning-limit": "If you create a proposal without selecting anyone, the offer will be sent directly to the host and you will be paying full rent.",
+    "view-profile": "View profile",
+    "you-have-selected": "You have selected ",
+    "other-students-selected": " other students.",
+    "each-student-will-be-paying": "Each student will be paying ",
+    "month": "/ month",
+    "no-other-students-are-interested": "No other users have shown interest in this property!",
+    "close": "Close",
+    "create": "Create"
+  },
+  "interested-users": {
+    "interested-users": "Interested users",
+    "view-profile": "View profile",
+    "close": "Close"
   }
 }
