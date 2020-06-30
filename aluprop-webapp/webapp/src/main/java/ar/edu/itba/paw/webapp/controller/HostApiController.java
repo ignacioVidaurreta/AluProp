@@ -12,6 +12,8 @@ import ar.edu.itba.paw.webapp.dto.IndexPropertyDto;
 import ar.edu.itba.paw.webapp.dto.PropertyDto;
 import ar.edu.itba.paw.webapp.dto.ProposalDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -22,6 +24,8 @@ import java.util.stream.Collectors;
 @Path("host")
 @Produces(MediaType.APPLICATION_JSON)
 public class HostApiController {
+
+    private final static Logger logger = LoggerFactory.getLogger(HostApiController.class);
 
     @Autowired
     UserService userService;
@@ -65,5 +69,20 @@ public class HostApiController {
         }
 
         return Response.status(Response.Status.CREATED).entity(PropertyDto.fromProperty(maybeProperty.value())).build();
+    }
+
+    @Path("/changeStatus/{propertyId}")
+    @POST
+    public Response changeStatus(@PathParam("propertyId") long propertyId) {
+        int statusCode = propertyService.changeStatus(propertyId);
+        return Response.status(Response.Status.fromStatusCode(statusCode)).build();
+    }
+
+    @Path("/delete/{propertyId}")
+    @POST
+    public Response delete(@PathParam("propertyId") long propertyId){
+        User currentUser = userService.getCurrentlyLoggedUser();
+        int statusCode = propertyService.delete(propertyId, currentUser);
+        return Response.status(Response.Status.fromStatusCode(statusCode)).build();
     }
 }
