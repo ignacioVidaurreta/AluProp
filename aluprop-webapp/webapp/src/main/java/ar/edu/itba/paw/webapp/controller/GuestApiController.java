@@ -59,7 +59,6 @@ public class GuestApiController {
         Collection<User> interestedUsers = propertyService.getPropertyWithRelatedEntities(propertyId)
                 .getInterestedUsers();
         boolean isInterested = interestedUsers.stream().anyMatch(user -> user.equals(currentUser));
-        System.out.println("INTEREST: " + isInterested);
-        return Response.ok(BooleanDto.fromBoolean(isInterested)).build();
+        return Response.ok(isInterested).build();
     }
 }
