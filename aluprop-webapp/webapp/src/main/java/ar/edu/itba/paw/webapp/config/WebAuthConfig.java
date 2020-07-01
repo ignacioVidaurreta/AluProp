@@ -56,8 +56,8 @@ public class WebAuthConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(final HttpSecurity http) throws Exception {
         http.userDetailsService(userDetailsService)
-                .addFilterBefore(createLoginAuthFilter(), UsernamePasswordAuthenticationFilter.class)
-                .addFilterBefore(createSessionAuthFilter(), UsernamePasswordAuthenticationFilter.class)
+                //.addFilterBefore(createLoginAuthFilter(), UsernamePasswordAuthenticationFilter.class)
+                // .addFilterBefore(createSessionAuthFilter(), UsernamePasswordAuthenticationFilter.class)
             .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and().logout().disable()
