@@ -1,5 +1,6 @@
 package ar.edu.itba.paw.webapp.config;
 
+import ar.edu.itba.paw.webapp.auth.APUserDetailsAuthenticationProvider;
 import ar.edu.itba.paw.webapp.auth.APUserDetailsService;
 import ar.edu.itba.paw.webapp.auth.LoginSuccessHandler;
 import ar.edu.itba.paw.webapp.config.filter.LoginAuthFilter;
@@ -39,20 +40,24 @@ public class WebAuthConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private APUserDetailsService userDetailsService;
     @Autowired
+    private APUserDetailsAuthenticationProvider authenticationProvider;
+    @Autowired
     private LoginAuthSuccessHandler successHandler;
     @Autowired
     private LoginAuthFailureHandler failureHandler;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+        auth.authenticationProvider(authenticationProvider)
+                .userDetailsService(userDetailsService)
+                .passwordEncoder(passwordEncoder());
     }
 
     @Override
     protected void configure(final HttpSecurity http) throws Exception {
         http.userDetailsService(userDetailsService)
                 .addFilterBefore(createLoginAuthFilter(), UsernamePasswordAuthenticationFilter.class)
-                // .addFilterBefore(createSessionAuthFilter(), UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(createSessionAuthFilter(), UsernamePasswordAuthenticationFilter.class)
             .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and().logout().disable()
