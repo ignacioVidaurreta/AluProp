@@ -33,8 +33,6 @@ public class SessionAuthFilter extends AbstractAuthenticationProcessingFilter {
     @Autowired
     private RequestMatcher guestMatcher;
     @Autowired
-    private RequestMatcher userMatcher;
-    @Autowired
     private RequestMatcher anonymousMatcher;
 
     public SessionAuthFilter() {
@@ -66,7 +64,6 @@ public class SessionAuthFilter extends AbstractAuthenticationProcessingFilter {
                                             FilterChain chain,
                                             Authentication authResult) throws IOException, ServletException {
         super.successfulAuthentication(request, response, chain, authResult);
-        chain.doFilter(request, response);
     }
 
     private APUsernamePasswordAuthToken parseToken(HttpServletRequest request) {

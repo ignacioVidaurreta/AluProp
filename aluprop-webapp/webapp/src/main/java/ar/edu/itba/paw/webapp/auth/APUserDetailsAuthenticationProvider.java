@@ -1,6 +1,5 @@
 package ar.edu.itba.paw.webapp.auth;
 
-import ar.edu.itba.paw.interfaces.service.UserService;
 import ar.edu.itba.paw.webapp.helperClasses.JwtTokenHandler;
 import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +8,9 @@ import org.springframework.security.authentication.dao.AbstractUserDetailsAuthen
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.stereotype.Component;
 
+@Component
 public class APUserDetailsAuthenticationProvider extends AbstractUserDetailsAuthenticationProvider {
 
     @Autowired

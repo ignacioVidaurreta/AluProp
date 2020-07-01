@@ -11,15 +11,15 @@ import java.util.Date;
 public class JwtTokenHandler {
 
     private final SecureRandom random = new SecureRandom();
-    private String secret = "iamverysafe";
+    private final String secret = "aWFtdmVyeXNhZmUK"; // TODO: adjust for prod
 
     public String createToken(User user) {
         return Jwts.builder()
                 .setClaims(Jwts.claims().setSubject(user.getEmail()))
                 .setHeaderParam("salt", random.nextLong())
-                .signWith(SignatureAlgorithm.HS512, secret) // TODO: adjust for prod
+                .signWith(SignatureAlgorithm.HS512, secret)
                 .setIssuedAt(new Date())
-                .setExpiration(new Date(new Date().getTime() + 2628000000L)) // one month
+                .setExpiration(new Date(2021, 1, 1)) // one month
                 .compact();
     }
 

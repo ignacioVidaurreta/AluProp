@@ -40,7 +40,8 @@ public class LoginAuthFilter extends UsernamePasswordAuthenticationFilter {
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(data.username,
                                                                                             data.password);
         setDetails(request, token);
-        return getAuthenticationManager().authenticate(token);
+        Authentication auth = getAuthenticationManager().authenticate(token);
+        return auth;
     }
 
     private LoginData parseLoginRequest(HttpServletRequest request) throws IOException {
