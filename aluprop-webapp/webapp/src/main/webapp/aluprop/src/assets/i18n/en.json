@@ -99,7 +99,10 @@
     "create-proposal": "Create proposal",
     "not-interested": "I'm not interested anymore",
     "interested": "I'm interested",
-    "must-be-logged-in": "You must be logged in to show interest."
+    "must-be-logged-in": "You must be logged in to show interest.",
+    "empty-rules": "This property has no special rules",
+    "empty-services": "This property has no special services",
+    "services.internet": "Internet"
   },
   "create-proposal-modal": {
     "create-proposal": "Create proposal",

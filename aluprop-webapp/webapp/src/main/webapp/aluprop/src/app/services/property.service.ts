@@ -9,7 +9,7 @@ import {User} from "../models/user";
 
 const BASE_API_URL = 'http://localhost:8080/api';
 const BASE_API_URL_PROPERTY = 'http://localhost:8080/api/property/';
-
+const BASE_API_URL_PROPERTY_IS_CURRENT_USER_INTERESTED = 'http://localhost:8080/api/guest/interested/';
 const JSON_ALL_PROPERTIES = '../assets/json/dummyProperties.json';
 
 const httpOptions = {
@@ -52,5 +52,9 @@ export class PropertyService {
   getInterestedUsersByPropertyId(id: number): Observable<User[]>{
     console.log(BASE_API_URL_PROPERTY+id);
     return this.http.get<User[]>(BASE_API_URL_PROPERTY+id+'/interestedUsers');
+  }
+
+  isCurrentUserInterested(id: number): Observable<boolean>{
+    return this.http.get<boolean>(BASE_API_URL_PROPERTY_IS_CURRENT_USER_INTERESTED+id);
   }
 }

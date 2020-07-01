@@ -13,6 +13,8 @@ const BASE_API_URL_USER_PROPOSALS = '../assets/json/dummyUserProposals.json';
 const BASE_API_URL_PROPOSALS = '../assets/json/dummyProposalsForUserService.json';
 const BASE_API_URL_OWNED_PROPERTIES = '../assets/json/dummyOwnedProperties.json';
 const BASE_API_URL_INTERESTED_PROPERTIES = '../assets/json/dummyInterestedProperties.json';
+const BASE_API_URL_IS_USER_LOGGED_IN = 'http://localhost:8080/api/user/loginStatus';
+
 
 @Injectable({
   providedIn: 'root'
@@ -40,4 +42,8 @@ export class UserService {
   getAllInterestedPropertiesByUserId(id: number): Observable<Property[]>{
     return this.http.get<Property[]>(BASE_API_URL_INTERESTED_PROPERTIES);
   }
+
+  isUserLoggedIn(): Observable<boolean>{
+  return this.http.get<boolean>(BASE_API_URL_IS_USER_LOGGED_IN);
+}
 }
