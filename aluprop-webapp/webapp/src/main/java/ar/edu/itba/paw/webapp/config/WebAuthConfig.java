@@ -1,9 +1,11 @@
 package ar.edu.itba.paw.webapp.config;
 
-import java.util.concurrent.TimeUnit;
-
 import ar.edu.itba.paw.webapp.auth.APUserDetailsService;
 import ar.edu.itba.paw.webapp.auth.LoginSuccessHandler;
+import ar.edu.itba.paw.webapp.config.filter.LoginAuthFilter;
+import ar.edu.itba.paw.webapp.config.filter.SessionAuthFilter;
+import ar.edu.itba.paw.webapp.config.handler.LoginAuthFailureHandler;
+import ar.edu.itba.paw.webapp.config.handler.LoginAuthSuccessHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -17,9 +19,16 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.security.web.util.matcher.NegatedRequestMatcher;
+import org.springframework.security.web.util.matcher.OrRequestMatcher;
+import org.springframework.security.web.util.matcher.RequestMatcher;
 
 @Configuration
 @EnableWebSecurity
@@ -29,8 +38,10 @@ public class WebAuthConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private APUserDetailsService userDetailsService;
-    @Value("${rememberme.key}")
-    private String remembermeKey;
+    @Autowired
+    private LoginAuthSuccessHandler successHandler;
+    @Autowired
+    private LoginAuthFailureHandler failureHandler;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -39,37 +50,31 @@ public class WebAuthConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(final HttpSecurity http) throws Exception {
-        http.sessionManagement()
-            .invalidSessionUrl("/")
-            .and().authorizeRequests()
-                .antMatchers("/user/logIn", "/user/signUp").anonymous()
-                .antMatchers("**/guest/**").hasRole("GUEST")
-                .antMatchers("/guest/**").hasRole("GUEST")
-                .antMatchers("**/host/**").hasRole("HOST")
-                .antMatchers("/host/**").hasRole("HOST")
-                .antMatchers("**/user/**").authenticated()
-                .antMatchers("/user/**").authenticated()
-                .antMatchers("/proposal/**").authenticated()
-                .antMatchers("/notifications").authenticated()
-                .antMatchers("/**/interest").authenticated()
-                .antMatchers("/**").permitAll()
-            .and().formLogin()
-                .usernameParameter("email")
-                .passwordParameter("password")
-                .defaultSuccessUrl("/", false)
-                .successHandler(successHandler())
-                .loginPage("/user/logIn")
-            .and().rememberMe()
-                .rememberMeParameter("rememberme")
-                .userDetailsService(userDetailsService)
-                .key(remembermeKey)
-                .tokenValiditySeconds((int) TimeUnit.DAYS.toSeconds(30))
-            .and().logout()
-                .logoutUrl("/user/logOut")
-                .logoutSuccessUrl("/user/logIn")
-            .and().exceptionHandling()
-                .accessDeniedPage("/403")
-            .and().csrf().disable();
+        http.userDetailsService(userDetailsService)
+                .addFilterBefore(createLoginAuthFilter(), UsernamePasswordAuthenticationFilter.class)
+                // .addFilterBefore(createSessionAuthFilter(), UsernamePasswordAuthenticationFilter.class)
+            .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and().logout().disable()
+                .rememberMe().disable()
+                .csrf().disable();
+    }
+
+    @Bean
+    public UsernamePasswordAuthenticationFilter createLoginAuthFilter() throws Exception {
+        LoginAuthFilter filter = new LoginAuthFilter();
+        filter.setRequiresAuthenticationRequestMatcher(new AntPathRequestMatcher("/api/login", "POST"));
+        filter.setAuthenticationManager(authenticationManager());
+        filter.setAuthenticationSuccessHandler(successHandler);
+        filter.setAuthenticationFailureHandler(failureHandler);
+        return filter;
+    }
+
+    @Bean
+    public AbstractAuthenticationProcessingFilter createSessionAuthFilter() throws Exception {
+        SessionAuthFilter filter = new SessionAuthFilter();
+        filter.setAuthenticationManager(authenticationManager());
+        return filter;
     }
 
     @Override
@@ -92,5 +97,37 @@ public class WebAuthConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public AuthenticationSuccessHandler successHandler() {
         return new LoginSuccessHandler("/");
+    }
+
+    @Bean
+    public RequestMatcher hostMatcher() {
+        return new OrRequestMatcher(
+            new AntPathRequestMatcher("/api/host/**", "POST"),
+            new AntPathRequestMatcher("/api/host/**", "GET")
+        );
+    }
+
+    @Bean
+    public RequestMatcher guestMatcher() {
+        return new OrRequestMatcher(
+            new AntPathRequestMatcher("/api/guest/**", "POST"),
+            new AntPathRequestMatcher("/api/guest/**", "GET")
+        );
+    }
+
+
+    @Bean
+    public RequestMatcher anonymousMatcher() {
+        return new NegatedRequestMatcher(userMatcher());
+    }
+
+    @Bean
+    public RequestMatcher userMatcher() {
+        return new OrRequestMatcher(
+            hostMatcher(),
+            guestMatcher(),
+            new AntPathRequestMatcher("/api/user/**", "POST"),
+            new AntPathRequestMatcher("/api/user/**", "GET")
+        );
     }
 }
