@@ -122,5 +122,13 @@
     "interested-users": "Usuarios interesados",
     "view-profile": "Ver perfil",
     "close": "Cerrar"
+  },
+  "rules": {
+    "noSmoking": "No smoking",
+    "noPets": "No pets"
+  },
+  "services": {
+    "noSmoking": "No smoking",
+    "noPets": "No pets"
   }
 }
