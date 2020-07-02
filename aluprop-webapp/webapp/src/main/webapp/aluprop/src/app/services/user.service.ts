@@ -8,11 +8,11 @@ import {UserProposal} from "../models/userProposal";
 import {Proposal} from "../models/proposal";
 import {Property} from "../models/property";
 
-const BASE_API_URL = '../assets/json/dummyUser.json';
-const BASE_API_URL_USER_PROPOSALS = '../assets/json/dummyUserProposals.json';
-const BASE_API_URL_PROPOSALS = '../assets/json/dummyProposalsForUserService.json';
-const BASE_API_URL_OWNED_PROPERTIES = '../assets/json/dummyOwnedProperties.json';
-const BASE_API_URL_INTERESTED_PROPERTIES = '../assets/json/dummyInterestedProperties.json';
+const BASE_API_URL = 'http://localhost:8080/api/user/';
+const BASE_API_URL_USER_PROPOSALS = 'http://localhost:8080/api/guest/proposals';
+const BASE_API_URL_PROPOSALS = 'http://localhost:8080/api/host/proposals';
+const BASE_API_URL_OWNED_PROPERTIES = 'http://localhost:8080/api/host/properties';
+const BASE_API_URL_INTERESTED_PROPERTIES = 'http://localhost:8080/api/guest/interests';
 const BASE_API_URL_IS_USER_LOGGED_IN = 'http://localhost:8080/api/user/loginStatus';
 
 
@@ -24,22 +24,23 @@ export class UserService {
   constructor(private http: HttpClient) { }
 
   getUserById(id: number): Observable<User>{
-    return this.http.get<User>(BASE_API_URL);
+    console.log(BASE_API_URL+id);
+    return this.http.get<User>(BASE_API_URL+id);
   }
 
-  getAllUserProposalsByUserId(id: number): Observable<UserProposal[]>{
+  getAllUserProposals(): Observable<UserProposal[]>{
     return this.http.get<UserProposal[]>(BASE_API_URL_USER_PROPOSALS);
   }
 
-  getAllProposalsByUserId(id: number): Observable<Proposal[]>{
+  getAllProposals(): Observable<Proposal[]>{
     return this.http.get<Proposal[]>(BASE_API_URL_PROPOSALS);
   }
 
-  getAllOwnedPropertiesByUserId(id: number): Observable<Property[]>{
+  getAllOwnedProperties(): Observable<Property[]>{
     return this.http.get<Property[]>(BASE_API_URL_OWNED_PROPERTIES);
   }
 
-  getAllInterestedPropertiesByUserId(id: number): Observable<Property[]>{
+  getAllInterestedProperties(): Observable<Property[]>{
     return this.http.get<Property[]>(BASE_API_URL_INTERESTED_PROPERTIES);
   }
 

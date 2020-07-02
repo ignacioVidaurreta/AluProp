@@ -17,7 +17,6 @@ export class InterestsTableComponent implements OnInit {
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
-  userId: number;
   interestedPropertiesSub: Subscription;
   dataSource;
 
@@ -26,9 +25,8 @@ export class InterestsTableComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.createPageSubscription();
     this.dataSource.paginator = this.paginator;
-    this.userId = +this.route.snapshot.paramMap.get("id");
+    this.createPageSubscription();
   }
 
   ngOnDestroy(): void {
@@ -41,7 +39,8 @@ export class InterestsTableComponent implements OnInit {
   }
 
   createPageSubscription(){
-    this.interestedPropertiesSub = this.userService.getAllInterestedPropertiesByUserId(this.userId).subscribe((interestedProperties) => {
+    this.interestedPropertiesSub = this.userService.getAllInterestedProperties().subscribe((interestedProperties) => {
+      console.log(interestedProperties);
       this.dataSource = new MatTableDataSource<Property>(interestedProperties);
     });
   }

@@ -3,8 +3,8 @@
           <h1 class="user-title">{{ user.name }} {{ user.lastName }}</h1>
         </div>
         <div class="user-description">
-          <div *ngIf="user.role == 'ROLE_GUEST'"><p class="user-details"><mat-icon class="icon">school</mat-icon> {{ user.university.name }}</p></div>
-          <p class="user-details"><mat-icon class="icon">cake</mat-icon> {{ user.birthDate }}</p>
+          <div *ngIf="user.role == 'ROLE_GUEST'"><p class="user-details"><mat-icon class="icon">school</mat-icon>{{ user.university.name }}</p></div>
+          <p class="user-details"><mat-icon class="icon">cake</mat-icon>{{ date(user.birthDate) }}</p>
         </div>
 </div>
 <div *ngIf="user; else spinner" class="user-bio">
