@@ -39,12 +39,14 @@
             <div *ngFor="let rule of property.rules">
               <mat-list-item role="listitem">{{rule.name}}</mat-list-item>
             </div>
+            <mat-list-item *ngIf="property.rules.length == 0" class="description-item" role="listitem"><span translate>detailed-property.empty-rules</span></mat-list-item>
           </mat-list>
           </mat-tab>
           <mat-tab label="Services"><mat-list role="list">
             <div *ngFor="let service of property.services">
               <mat-list-item role="listitem">{{service.name}}</mat-list-item>
             </div>
+            <mat-list-item *ngIf="property.services.length == 0" class="description-item" role="listitem"><span translate>detailed-property.empty-services</span></mat-list-item>
           </mat-list>
           </mat-tab>
         </mat-tab-group>
@@ -78,9 +80,8 @@
         <div *ngIf="currentUser?.role == 'ROLE_GUEST' && currentUserIsInterested == false">
           <button mat-raised-button style="width: 100%;" color="primary"><span translate>detailed-property.interested</span></button>
         </div>
-        <div *ngIf="loggedInUser == false">
-          <p><span translate style="color: firebrick;">detailed-property.must-be-logged-in</span></p>
-          <button mat-raised-button disabled style="width: 100%;"><span translate>detailed-property.interested</span></button>
+        <div *ngIf="isUserLoggedIn == false">
+          <button mat-raised-button style="width: 100%;" color="primary"><span translate>detailed-property.interested</span></button>
         </div>
       </mat-card-actions>
     </mat-card>

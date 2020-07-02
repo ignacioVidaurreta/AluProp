@@ -84,9 +84,9 @@
   },
   "detailed-property": {
     "inactive": " [ Inactiva ]",
-    "apartment": "Departamento en",
-    "loft": "Loft en",
-    "house": "Casa en",
+    "apartment": "Departamento en ",
+    "loft": "Loft en ",
+    "house": "Casa en ",
     "guests": "huéspedes | ",
     "shared": "Compartido",
     "individual": "Individual",
@@ -99,7 +99,10 @@
     "create-proposal": "Crear propuesta",
     "not-interested": "Ya no me Interesa",
     "interested": "Me Interesa",
-    "must-be-logged-in": "Debe iniciar sesión para mostrar interés."
+    "must-be-logged-in": "Debe iniciar sesión para mostrar interés.",
+    "empty-rules": "Esta propiedad no tiene reglas especiales",
+    "empty-services": "Esta propiedad no tiene servicios especiales",
+    "services.internet": "Internet"
   },
   "create-proposal-modal": {
     "create-proposal": "Crear propuesta",

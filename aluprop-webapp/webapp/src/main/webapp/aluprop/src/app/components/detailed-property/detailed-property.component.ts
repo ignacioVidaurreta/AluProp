@@ -9,6 +9,7 @@ import {AuthenticationService} from "../../services/authentication.service";
 import {MatDialog} from "@angular/material/dialog";
 import {InterestedUsersModalComponent} from "./interested-users-modal/interested-users-modal.component";
 import {CreateProposalModalComponent} from "./create-proposal-modal/create-proposal-modal.component";
+import {UserService} from "../../services/user.service";
 
 @Component({
   selector: 'app-detailed-property',
@@ -23,16 +24,16 @@ export class DetailedPropertyComponent implements OnInit {
   currentUser: User;
   currentUserSub: Subscription;
   currentUserIsInterested: boolean;
+  currentUserIsInterestedSub: Subscription;
   interestedUsers: User[];
   interestedUsersSub: Subscription;
-  loggedInUser: boolean;
+  isUserLoggedIn: boolean;
+  isUserLoggedInSub: Subscription;
 
-  constructor(private propertyService: PropertyService, private authenticationService: AuthenticationService, public dialog: MatDialog, private route: ActivatedRoute) { }
+  constructor(private propertyService: PropertyService, private userService: UserService, private authenticationService: AuthenticationService, public dialog: MatDialog, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.propertyId = +this.route.snapshot.paramMap.get("id");
-    console.log(this.propertyId);
-    this.loggedInUser = false;
     this.createPageSubscription();
   }
 
@@ -40,12 +41,16 @@ export class DetailedPropertyComponent implements OnInit {
     this.propertySub.unsubscribe();
     this.currentUserSub.unsubscribe();
     this.interestedUsersSub.unsubscribe();
+    this.isUserLoggedInSub.unsubscribe();
+    this.currentUserIsInterestedSub.unsubscribe();
   }
 
   onPageChange(pageEvent: PageEvent){
     this.propertySub.unsubscribe();
     this.currentUserSub.unsubscribe();
     this.interestedUsersSub.unsubscribe();
+    this.currentUserIsInterestedSub.unsubscribe();
+    this.isUserLoggedInSub.unsubscribe();
     this.createPageSubscription();
   }
 
@@ -53,35 +58,25 @@ export class DetailedPropertyComponent implements OnInit {
     this.propertySub = this.propertyService.getById(this.propertyId).subscribe((property) => {
       this.property = property;
       console.log(property);
-      this.currentUserSub = this.authenticationService.getCurrentUser().subscribe((currentUser)=> {
-        this.currentUser = currentUser;
-        console.log(currentUser);
-        this.interestedUsersSub = this.propertyService.getInterestedUsersByPropertyId(this.propertyId).subscribe((interestedUsers) => {
-          console.log(this.propertyId);
-          this.interestedUsers = interestedUsers;
-          console.log(interestedUsers);
-          if(this.currentUser) {
-            this.validateIfCurrentUserIsInterested();
-            this.loggedInUser = true;
-          }
-          console.log(this.currentUser);
-          console.log(this.loggedInUser);
-          console.log(this.currentUserIsInterested);
-        });
-      })
+      this.isUserLoggedInSub = this.userService.isUserLoggedIn().subscribe((isUserLoggedIn) => {
+        this.isUserLoggedIn = isUserLoggedIn;
+        if(this.isUserLoggedIn) {
+          this.currentUserSub = this.authenticationService.getCurrentUser().subscribe((currentUser)=> {
+            this.currentUser = currentUser;
+            console.log(currentUser);
+            this.interestedUsersSub = this.propertyService.getInterestedUsersByPropertyId(this.propertyId).subscribe((interestedUsers) => {
+            this.interestedUsers = interestedUsers;
+            });
+            if(this.currentUser?.role == 'ROLE_GUEST') {
+              this.currentUserIsInterestedSub = this.propertyService.isCurrentUserInterested(this.propertyId).subscribe((currentUserIsInterested) => {
+                console.log(currentUserIsInterested);
+                this.currentUserIsInterested = currentUserIsInterested;
+              });
+              }
+          });
+        }
+      });
     });
-  }
-
-  validateIfCurrentUserIsInterested() { //TODO: does this belong in the back-end?
-    let property: any;
-    for(property in this.currentUser.interestedProperties) {
-      console.log(property.id);
-      if(property.id == this.property.id) {
-        this.currentUserIsInterested = true;
-        return;
-      }
-    }
-    this.currentUserIsInterested = true;// This is hardcoded just for now until the corresponding endpoint exists
   }
 
   openDialogInterestedUsers(): void {
