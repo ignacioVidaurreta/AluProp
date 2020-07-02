@@ -81,8 +81,19 @@
       <div class="prop-pictures">
         <form-field class="form-group">
           <mat-label translate>create-property.upload-up-to-4-pictures</mat-label>
-          <input formControlName="pictures" type="file" multiple accept="image/x-png,image/jpeg" (change)="detectFiles($event)">
-          <mat-error><span translate>create-property.error-msg.pictures</span></mat-error>
+          <!-- <app-file-uploader (fileSelected)="detectFiles($event)"></app-file-uploader> -->
+          <div class="image-container">
+            <div *ngFor="let image of currentlyUploadedImages; let i = index" class="uploaded-image">
+              <mat-icon class="close-button" (click)="removeSelectedImage(i)">highlight_off</mat-icon>
+              <img class="preview-image" [src]="domSanitizer.bypassSecurityTrustUrl(image)"/>
+            </div>
+          </div>
+          <div class="upload-button">
+            <div class="upload-button-image">+</div>
+            <input class="image-uploader" formControlName="pictures" type="file" multiple accept="image/x-png,image/jpeg" (change)="detectFiles($event)">
+          </div>
+          <mat-error *ngIf="notEnoughFiles"><span translate>create-property.error-msg.notEnoughPictures</span></mat-error>
+          <mat-error *ngIf="tooManyFiles"><span translate>create-property.error-msg.tooManyPictures</span></mat-error>
         </form-field>
       </div>
     </div>

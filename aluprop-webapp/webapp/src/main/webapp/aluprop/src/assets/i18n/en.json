@@ -73,7 +73,8 @@
     "services": "Services:",
     "publish-property": "Publish property",
     "error-msg": {
-      "pictures": "Please upload at least 1 picture of the property",
+      "notEnoughPictures": "Please upload at least 1 picture of the property",
+      "tooManyPictures": "You may only upload up to 4 pictures of the property",
       "name": "Please write a name with 50 characters or less",
       "description": "Please write a description in 700 characters or less",
       "property-type": "Please select a property type",
@@ -101,8 +102,7 @@
     "interested": "I'm interested",
     "must-be-logged-in": "You must be logged in to show interest.",
     "empty-rules": "This property has no special rules",
-    "empty-services": "This property has no special services",
-    "services.internet": "Internet"
+    "empty-services": "This property has no special services"
   },
   "create-proposal-modal": {
     "create-proposal": "Create proposal",
@@ -128,7 +128,8 @@
     "noPets": "No pets"
   },
   "services": {
-    "noSmoking": "No smoking",
-    "noPets": "No pets"
+    "internet": "Internet",
+    "laundryMachine": "Laundry machine",
+    "kitchen": "Kitchen"
   }
 }

@@ -73,7 +73,8 @@
     "services": "Servicios:",
     "publish-property": "Publicar propiedad",
     "error-msg": {
-      "pictures": "Por favor seleccione por lo menos 1 imagen de la propiedad",
+      "notEnoughPictures": "Por favor seleccione por lo menos 1 imagen de la propiedad",
+      "tooManyPictures": "No se pueden subir más de 4 imágenes de la propiedad",
       "name": "Por favor escriba un nombre de 50 o menos caracteres",
       "description": "Por favor escriba una descripción de 700 o menos caracteres",
       "property-type": "Por favor seleccione el tipo de propiedad",
@@ -101,8 +102,7 @@
     "interested": "Me Interesa",
     "must-be-logged-in": "Debe iniciar sesión para mostrar interés.",
     "empty-rules": "Esta propiedad no tiene reglas especiales",
-    "empty-services": "Esta propiedad no tiene servicios especiales",
-    "services.internet": "Internet"
+    "empty-services": "Esta propiedad no tiene servicios especiales"
   },
   "create-proposal-modal": {
     "create-proposal": "Crear propuesta",
@@ -128,7 +128,8 @@
     "noPets": "No se permiten mascotas"
   },
   "services": {
-    "noSmoking": "No smoking",
-    "noPets": "No pets"
+    "internet": "Internet",
+    "laundryMachine": "Lavarropas",
+    "kitchen": "Cocina"
   }
 }

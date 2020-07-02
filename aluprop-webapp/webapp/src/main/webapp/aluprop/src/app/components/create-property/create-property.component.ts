@@ -9,6 +9,7 @@ import { Image } from 'src/app/models/image';
 import { PropertyService } from 'src/app/services/property.service';
 import { MetadataService } from 'src/app/metadata.service';
 import { TranslateService } from '@ngx-translate/core';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-create-property',
@@ -46,9 +47,17 @@ export class CreatePropertyComponent implements OnInit {
 
   createdProperty: Property;
   publishPropertySub: Subscription;
+
+  tooManyFiles =  false;
+  notEnoughFiles =  false;
+  currentlyUploadedImages: string[] = [];
   
-  constructor(private propertyService: PropertyService, private metadataService: MetadataService, private translateService: TranslateService) {
+  constructor(private propertyService: PropertyService, 
+              private metadataService: MetadataService, 
+              private translateService: TranslateService,
+              public domSanitizer: DomSanitizer) {
     this.createdProperty = new Property();
+    this.currentlyUploadedImages = [];
     this.languageChangedSub = translateService.onLangChange.subscribe((newLang) => this.translateRulesAndServices());
   }
 
@@ -81,17 +90,27 @@ export class CreatePropertyComponent implements OnInit {
     // if (this.formChangesSub) { this.formChangesSub.unsubscribe();}
   }
 
+  removeSelectedImage(i) {
+    this.currentlyUploadedImages.splice(i, 1);
+  }
+
   detectFiles(event) {
-    this.createdProperty.image = [];
     let files = event.target.files;
     if (files) {
-        for (let file of files) {
-            let reader = new FileReader();
-            reader.onload = (e: any) => {
-              this.createdProperty.image.push({id: 0, image: e.target.result});
-            }
-            reader.readAsDataURL(file);
-        }
+      if (this.currentlyUploadedImages.length + files.length > 4){
+        this.tooManyFiles = true;
+        this.notEnoughFiles = false;
+        return;
+      }
+      this.tooManyFiles = false;
+      this.notEnoughFiles = false;
+      for (let file of files) {
+          let reader = new FileReader();
+          reader.onload = (e: any) => {
+            this.currentlyUploadedImages.push(e.target.result);
+          }
+          reader.readAsDataURL(file);
+      }
     }
   }
 
@@ -105,6 +124,12 @@ export class CreatePropertyComponent implements OnInit {
 
   generatePropertyFromForm() {
     console.log(this.createPropertyForm.get('name'));
+    this.createdProperty.image = [];
+    this.currentlyUploadedImages.forEach(
+      (image) => {
+        this.createdProperty.image.push(image);
+      }
+    );
     this.createdProperty.description = this.createPropertyForm.controls['name'].value;
     this.createdProperty.caption = this.createPropertyForm.controls['description'].value;
     this.createdProperty.propertyType = this.createPropertyForm.controls['propertyType'].value;

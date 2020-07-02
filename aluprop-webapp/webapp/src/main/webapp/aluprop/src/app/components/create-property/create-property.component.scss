@@ -46,3 +46,52 @@ mat-form-field {
     
   }
 }
+
+.image-container {
+  display: flex;
+
+  .preview-image {
+    margin: 0.5rem;
+    border-width: 3px;
+    border-radius: 5px;
+    border-style: solid;
+    border-color: rgb(41, 161, 216);
+    width: 120px;
+  }
+  
+  .close-button {
+    position: absolute;
+    cursor: pointer;
+    background-color: white;
+    border-radius: 30px;
+  }
+}
+
+.upload-button {
+  position: relative;
+
+  .upload-button-image {
+    border: 2px solid gray;
+    color: gray;
+    background-color: white;
+    padding: 8px 8px;
+    border-radius: 8px;
+    font-size: 30px;
+    font-weight: bold;
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .image-uploader {
+    width: 50px;
+    height: 50px;
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    cursor: pointer;
+  }
+}
