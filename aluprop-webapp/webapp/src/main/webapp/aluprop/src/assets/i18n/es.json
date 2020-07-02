@@ -124,8 +124,8 @@
     "close": "Cerrar"
   },
   "rules": {
-    "noSmoking": "No smoking",
-    "noPets": "No pets"
+    "noSmoking": "Prohibido fumar",
+    "noPets": "No se permiten mascotas"
   },
   "services": {
     "noSmoking": "No smoking",
