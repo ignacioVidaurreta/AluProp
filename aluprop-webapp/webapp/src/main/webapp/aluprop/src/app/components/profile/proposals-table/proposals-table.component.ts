@@ -44,7 +44,7 @@ export class ProposalsTableComponent implements OnInit {
   }
 
   createPageSubscription(){
-    if(this.userRole == "ROLE_GUEST") {//TODO: check with currentLoggedInUser
+    if(this.userRole == "ROLE_GUEST") {
       this.proposalsSub = this.userService.getAllUserProposals().subscribe((userProposals) => {
         console.log(userProposals);
         this.dataSource = new MatTableDataSource<UserProposal>(userProposals);
