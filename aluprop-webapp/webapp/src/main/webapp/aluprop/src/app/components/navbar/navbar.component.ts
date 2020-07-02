@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { Observable, Subscription } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
+import {User} from "../../models/user";
 
 @Component({
   selector: 'app-navbar',
@@ -11,8 +12,9 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class NavbarComponent implements OnInit {
 
-  usernameSubscription: Subscription;
-  username: string;
+  currentUserSubscription: Subscription;
+  currentUser: User;
+
   constructor(
     private router: Router,
     private authenticationService: AuthenticationService,
@@ -20,13 +22,13 @@ export class NavbarComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.usernameSubscription = this.authenticationService.getCurrentUser().subscribe((currentUser)=> {
-      this.username = currentUser.name;
+    this.currentUserSubscription = this.authenticationService.getCurrentUser().subscribe((currentUser)=> {
+      this.currentUser = currentUser;
     });
   }
 
   ngOnDestroy(): void{
-    this.usernameSubscription.unsubscribe()
+    this.currentUserSubscription.unsubscribe()
   }
 
   logout(): void{
@@ -35,10 +37,10 @@ export class NavbarComponent implements OnInit {
   }
 
   isUserLoggedIn(){
-    if( this.username ){
+    if( this.currentUser ){
       return true;
     }
-    console.log(this.username)
+    console.log(this.currentUser)
     return false;
   }
 
