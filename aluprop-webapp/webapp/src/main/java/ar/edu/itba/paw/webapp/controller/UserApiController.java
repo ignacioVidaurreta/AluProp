@@ -67,7 +67,6 @@ public class UserApiController {
     @GET
     @Path("/loginStatus")
     public Response isLoggedIn(){
-        BooleanDto isLoggedIn = BooleanDto.fromBoolean(userService.getCurrentlyLoggedUser() != null);
-        return Response.ok(isLoggedIn).build();
+        return Response.ok(userService.getCurrentlyLoggedUser() != null).build();
     }
 }
