@@ -101,8 +101,7 @@
     "interested": "Me Interesa",
     "must-be-logged-in": "Debe iniciar sesión para mostrar interés.",
     "empty-rules": "Esta propiedad no tiene reglas especiales",
-    "empty-services": "Esta propiedad no tiene servicios especiales",
-    "services.internet": "Internet"
+    "empty-services": "Esta propiedad no tiene servicios especiales"
   },
   "create-proposal-modal": {
     "create-proposal": "Crear propuesta",
@@ -124,11 +123,12 @@
     "close": "Cerrar"
   },
   "rules": {
-    "noSmoking": "No smoking",
-    "noPets": "No pets"
+    "noSmoking": "No fumar",
+    "noPets": "Mascotas prohibidas"
   },
   "services": {
-    "noSmoking": "No smoking",
-    "noPets": "No pets"
+    "internet": "Internet",
+    "laundryMachine": "Lavarropas",
+    "kitchen": "Cocina"
   }
 }

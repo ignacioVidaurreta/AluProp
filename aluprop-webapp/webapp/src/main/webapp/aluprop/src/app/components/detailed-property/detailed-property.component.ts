@@ -10,6 +10,8 @@ import {MatDialog} from "@angular/material/dialog";
 import {InterestedUsersModalComponent} from "./interested-users-modal/interested-users-modal.component";
 import {CreateProposalModalComponent} from "./create-proposal-modal/create-proposal-modal.component";
 import {UserService} from "../../services/user.service";
+import {MetadataService} from "../../metadata.service";
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-detailed-property',
@@ -29,8 +31,11 @@ export class DetailedPropertyComponent implements OnInit {
   interestedUsersSub: Subscription;
   isUserLoggedIn: boolean;
   isUserLoggedInSub: Subscription;
+  languageChangedSub: Subscription;
 
-  constructor(private propertyService: PropertyService, private userService: UserService, private authenticationService: AuthenticationService, public dialog: MatDialog, private route: ActivatedRoute) { }
+  constructor(private propertyService: PropertyService, private userService: UserService, private translateService: TranslateService, private metadataService: MetadataService, private authenticationService: AuthenticationService, public dialog: MatDialog, private route: ActivatedRoute) {
+    this.languageChangedSub = translateService.onLangChange.subscribe((newLang) => this.translateRulesAndServices());
+  }
 
   ngOnInit(): void {
     this.propertyId = +this.route.snapshot.paramMap.get("id");
@@ -57,6 +62,7 @@ export class DetailedPropertyComponent implements OnInit {
   createPageSubscription(){
     this.propertySub = this.propertyService.getById(this.propertyId).subscribe((property) => {
       this.property = property;
+      this.translateRulesAndServices();
       console.log(property);
       this.isUserLoggedInSub = this.userService.isUserLoggedIn().subscribe((isUserLoggedIn) => {
         this.isUserLoggedIn = isUserLoggedIn;
@@ -99,5 +105,10 @@ export class DetailedPropertyComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
     });
+  }
+
+  translateRulesAndServices(){
+    this.metadataService.translateMetadataArray(this.property.rules);
+    this.metadataService.translateMetadataArray(this.property.services);
   }
 }

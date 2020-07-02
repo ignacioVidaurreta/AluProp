@@ -101,8 +101,7 @@
     "interested": "I'm interested",
     "must-be-logged-in": "You must be logged in to show interest.",
     "empty-rules": "This property has no special rules",
-    "empty-services": "This property has no special services",
-    "services.internet": "Internet"
+    "empty-services": "This property has no special services"
   },
   "create-proposal-modal": {
     "create-proposal": "Create proposal",
@@ -128,7 +127,8 @@
     "noPets": "No pets"
   },
   "services": {
-    "noSmoking": "No smoking",
-    "noPets": "No pets"
+    "internet": "Internet",
+    "laundryMachine": "Laundry machine",
+    "kitchen": "Kitchen"
   }
 }
