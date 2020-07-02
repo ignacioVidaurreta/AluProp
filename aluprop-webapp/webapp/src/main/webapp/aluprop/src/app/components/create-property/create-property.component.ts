@@ -61,8 +61,14 @@ export class CreatePropertyComponent implements OnInit {
     // this.formChangesSub = this.createPropertyForm.valueChanges.subscribe((filters) => {
     //   // this.filters.emit(filters)
     // });
-    this.rulesSub = this.metadataService.getAllRules().subscribe((rules) => this.rules = rules);
-    this.servicesSub = this.metadataService.getAllServices().subscribe((services) => this.services = services);
+    this.rulesSub = this.metadataService.getAllRules().subscribe((rules) => {
+      this.rules = rules;
+      this.translateRulesAndServices();
+    });
+    this.servicesSub = this.metadataService.getAllServices().subscribe((services) => {
+      this.services = services;
+      this.translateRulesAndServices();
+    });
     this.neighborhoodsSub = this.metadataService.getAllNeighborhoods().subscribe((neighborhoods) => this.neighborhoods = neighborhoods);
 
   }
