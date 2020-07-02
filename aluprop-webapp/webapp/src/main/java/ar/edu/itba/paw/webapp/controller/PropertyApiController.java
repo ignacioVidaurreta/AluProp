@@ -3,10 +3,7 @@ package ar.edu.itba.paw.webapp.controller;
 import ar.edu.itba.paw.interfaces.PageRequest;
 import ar.edu.itba.paw.interfaces.PageResponse;
 import ar.edu.itba.paw.interfaces.SearchableProperty;
-import ar.edu.itba.paw.interfaces.service.NeighbourhoodService;
-import ar.edu.itba.paw.interfaces.service.PropertyService;
-import ar.edu.itba.paw.interfaces.service.RuleService;
-import ar.edu.itba.paw.interfaces.service.UserService;
+import ar.edu.itba.paw.interfaces.service.*;
 import ar.edu.itba.paw.model.Property;
 import ar.edu.itba.paw.model.User;
 import ar.edu.itba.paw.webapp.beanParams.PropertySearchRequest;
@@ -31,6 +28,8 @@ public class PropertyApiController {
     private RuleService ruleService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private ServiceService serviceService;
 
     @GET
     public Response index(@BeanParam PropertySearchRequest propertySearchRequest,
@@ -101,6 +100,16 @@ public class PropertyApiController {
                                     .stream()
                                     .map(RuleDto::fromRule)
                                     .collect(Collectors.toList()))
+                .build();
+    }
+
+    @Path("/service")
+    @GET
+    public Response service() {
+        return Response.ok(serviceService.getAll()
+                                        .stream()
+                                        .map(ServiceDto::fromService)
+                                        .collect(Collectors.toList()))
                 .build();
     }
 
