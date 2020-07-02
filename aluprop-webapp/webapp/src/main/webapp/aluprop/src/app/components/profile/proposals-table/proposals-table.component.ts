@@ -29,9 +29,9 @@ export class ProposalsTableComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.createPageSubscription();
     this.dataSource.paginator = this.paginator;
     this.userId = +this.route.snapshot.paramMap.get("id");
+    this.createPageSubscription();
   }
 
   ngOnDestroy(): void {
@@ -44,13 +44,15 @@ export class ProposalsTableComponent implements OnInit {
   }
 
   createPageSubscription(){
-    if(this.userRole == "GUEST") {//TODO: check with currentLoggedInUser
-      this.proposalsSub = this.userService.getAllUserProposalsByUserId(this.userId).subscribe((userProposals) => {
+    if(this.userRole == "ROLE_GUEST") {//TODO: check with currentLoggedInUser
+      this.proposalsSub = this.userService.getAllUserProposals().subscribe((userProposals) => {
+        console.log(userProposals);
         this.dataSource = new MatTableDataSource<UserProposal>(userProposals);
       });
     }
     else {
-      this.proposalsSub = this.userService.getAllProposalsByUserId(this.userId).subscribe((proposals) => {
+      this.proposalsSub = this.userService.getAllProposals().subscribe((proposals) => {
+        console.log(proposals);
         this.dataSource = new MatTableDataSource<Proposal>(proposals);
       });
     }

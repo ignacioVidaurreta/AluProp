@@ -21,8 +21,8 @@ export class ProfileComponent implements OnInit {
   constructor(private userService: UserService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.createPageSubscription();
     this.userId = +this.route.snapshot.paramMap.get("id");
+    this.createPageSubscription();
   }
 
   ngOnDestroy(): void {
@@ -37,7 +37,11 @@ export class ProfileComponent implements OnInit {
   createPageSubscription(){
     this.userSub = this.userService.getUserById(this.userId).subscribe((user) => {
       this.user = user;
+      console.log(this.user);
     });
   }
 
+  date(birthDate: Date) {
+    return new Date(birthDate).toLocaleDateString();
+  }
 }

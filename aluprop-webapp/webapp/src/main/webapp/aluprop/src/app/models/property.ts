@@ -16,6 +16,7 @@ export class Property {
   price: number;
   availability: Availability;
   image: any;// TODO: has to be Image[] and change components that access this
+  images: Image[];
   owner: User;
   rules: Rule[];
   services: Service[];

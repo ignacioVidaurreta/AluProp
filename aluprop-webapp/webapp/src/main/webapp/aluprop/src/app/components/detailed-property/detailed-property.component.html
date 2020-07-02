@@ -1,20 +1,9 @@
 <div *ngIf="property && currentUser" class="detailed-property-container">
   <div class="detailed-property-carousel mat-elevation-z8">
     <ngb-carousel>
-      <ng-template ngbSlide>
-<!--        *ngFor="let img of property.image"-->
+      <ng-template *ngFor="let img of property.images" ngbSlide>
         <div>
-          <img class="d-block w-100 detailed-property-image" [attr.src]="'data:image/JPEG;base64,' + property.image.image ">
-        </div>
-      </ng-template>
-      <ng-template ngbSlide>
-        <div>
-          <img class=" d-block w-100 detailed-property-image" src="http://pawserver.it.itba.edu.ar/paw-2019a-5/images//50">
-        </div>
-      </ng-template>
-      <ng-template ngbSlide>
-        <div >
-          <img class="d-block w-100 detailed-property-image" src="http://pawserver.it.itba.edu.ar/paw-2019a-5/images//49">
+          <img class="d-block w-100 detailed-property-image" [attr.src]="'data:image/JPEG;base64,' + img.image ">
         </div>
       </ng-template>
     </ngb-carousel>

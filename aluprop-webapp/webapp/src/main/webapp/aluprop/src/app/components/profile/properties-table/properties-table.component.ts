@@ -18,7 +18,6 @@ export class PropertiesTableComponent implements OnInit {
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
-  userId: number;
   ownedPropertiesSub: Subscription;
   dataSource;
 
@@ -27,9 +26,8 @@ export class PropertiesTableComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.createPageSubscription();
     this.dataSource.paginator = this.paginator;
-    this.userId = +this.route.snapshot.paramMap.get("id");
+    this.createPageSubscription();
   }
 
   ngOnDestroy(): void {
@@ -42,7 +40,8 @@ export class PropertiesTableComponent implements OnInit {
   }
 
   createPageSubscription(){
-    this.ownedPropertiesSub = this.userService.getAllOwnedPropertiesByUserId(this.userId).subscribe((ownedProperties) => {
+    this.ownedPropertiesSub = this.userService.getAllOwnedProperties().subscribe((ownedProperties) => {
+      console.log(ownedProperties);
       this.dataSource = new MatTableDataSource<Property>(ownedProperties);
     });
   }
