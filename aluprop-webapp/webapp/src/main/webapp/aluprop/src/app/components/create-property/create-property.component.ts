@@ -7,6 +7,8 @@ import { Service } from 'src/app/models/service';
 import { Neighborhood } from 'src/app/models/neighborhood';
 import { Image } from 'src/app/models/image';
 import { PropertyService } from 'src/app/services/property.service';
+import { MetadataService } from 'src/app/metadata.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-create-property',
@@ -19,8 +21,13 @@ export class CreatePropertyComponent implements OnInit {
   privacyLevelOption = PrivacyLevel;
 
   neighborhoods: Neighborhood[];
-  rules: Rule[] = [{id: 0, name: 'Mascotas Prohibidas', properties: []}, {id: 1, name: 'Fiestas Prohibidas', properties: []}];
-  services: Service[];
+  neighborhoodsSub: Subscription;
+  rules: Rule[] = [];
+  rulesSub: Subscription;
+  services: Service[] = [{id: 0, name: 'Pileta climatizada', properties: []}, {id: 1, name: 'Rellenador de pollo automatico', properties: []}];
+  servicesSub: Subscription;
+
+  languageChangedSub: Subscription;
 
   createPropertyForm = new FormGroup({
     pictures: new FormControl(''),
@@ -40,19 +47,32 @@ export class CreatePropertyComponent implements OnInit {
   createdProperty: Property;
   publishPropertySub: Subscription;
   
-  constructor(private propertyService: PropertyService) {
+  constructor(private propertyService: PropertyService, private metadataService: MetadataService, private translateService: TranslateService) {
     this.createdProperty = new Property();
+    this.languageChangedSub = translateService.onLangChange.subscribe((newLang) => this.translateRulesAndServices());
+  }
+
+  translateRulesAndServices(){
+    this.metadataService.translateMetadataArray(this.rules);
+    this.metadataService.translateMetadataArray(this.services);
   }
   
   ngOnInit(): void {
-    this.formChangesSub = this.createPropertyForm.valueChanges.subscribe((filters) => {
-      // this.filters.emit(filters)
-    });
+    // this.formChangesSub = this.createPropertyForm.valueChanges.subscribe((filters) => {
+    //   // this.filters.emit(filters)
+    // });
+    this.rulesSub = this.metadataService.getAllRules().subscribe((rules) => this.rules = rules);
+    this.servicesSub = this.metadataService.getAllServices().subscribe((services) => this.services = services);
+    this.neighborhoodsSub = this.metadataService.getAllNeighborhoods().subscribe((neighborhoods) => this.neighborhoods = neighborhoods);
+
   }
 
   ngOnDestroy(){
     if (this.publishPropertySub) { this.publishPropertySub.unsubscribe();}
-    if (this.formChangesSub) { this.formChangesSub.unsubscribe();}
+    if (this.rulesSub) { this.rulesSub.unsubscribe();}
+    if (this.servicesSub) { this.servicesSub.unsubscribe();}
+    if (this.neighborhoodsSub) { this.neighborhoodsSub.unsubscribe();}
+    // if (this.formChangesSub) { this.formChangesSub.unsubscribe();}
   }
 
   detectFiles(event) {

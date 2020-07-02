@@ -61,6 +61,7 @@ export class PropertyGridComponent implements OnInit, OnDestroy {
         this.properties = pageResponse.responseData;
         this.totalItems = pageResponse.totalItems;
         this.pageSize = pageResponse.pageSize;
+        console.log(this.properties);
       });
     }
     else {
@@ -68,6 +69,7 @@ export class PropertyGridComponent implements OnInit, OnDestroy {
         this.properties = pageResponse.responseData;
         this.totalItems = pageResponse.totalItems;
         this.pageSize = pageResponse.pageSize;
+        console.log(this.properties);
       });
     }
     

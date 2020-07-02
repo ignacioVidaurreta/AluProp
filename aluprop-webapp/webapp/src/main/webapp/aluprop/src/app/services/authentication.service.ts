@@ -4,53 +4,39 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import {User} from "../models/user";
 import {HttpClient} from "@angular/common/http";
 
-const BASE_API_URL_CURRENT_USER = 'http://localhost:8080/api/user';
+const BASE_API_URL = 'http://localhost:8080/api/';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
-  private currentUserSubject: BehaviorSubject<string>;
-  public currentUser: Observable<string>;
-  constructor(private http: HttpClient){//private jwtHelper: JwtHelperService) {
-    this.currentUserSubject = new BehaviorSubject(localStorage.getItem("currentUser"));
-    this.currentUser = this.currentUserSubject.asObservable();
+  private authToken: string;
+  private currentUserSubject: BehaviorSubject<User>;
+  public currentUser: Observable<User>;
+
+  constructor(private http: HttpClient){
+    
   }
 
-  public get currentUserValue(): string {
-    return this.currentUserSubject.value;
-  }
 
   getCurrentUser(): Observable<User>{
-    let header = {cookie: 'JSESSIONID=2018900BF1B44CDF0BFB6A92AC6C1521'};
-    return this.http.get<User>(BASE_API_URL_CURRENT_USER, {headers: header});
+    return this.http.get<User>(BASE_API_URL + 'user/');
   }
 
   login(username: string, password: string){
-    if (username == 'admin' && password == 'admin'){
-      localStorage.setItem("currentUser", username);
-      this.currentUserSubject.next(username);
-      return true
-    }else{
-      return false
-    }
+    let params = {username: username, password: password};
+    return this.http.post<User>(BASE_API_URL + 'login/', {params: params}).subscribe(
+      (response)=>{
+        console.log(response);
+      }
+    );
   }
 
   logout(){
-    localStorage.removeItem("currentUser");
     this.currentUserSubject.next(null);
   }
 
   public isAuthenticated(): boolean {
-
-    let token = localStorage.getItem("currentUser");
-    return  token != undefined;
-    //const token = localStorage.getItem('token');
-
-
-
-    // Check wether the token is expired and return
-    // true or false
-    //return !this.jwtHelper.isTokenExpired(token)
+    return this.authToken !== null && this.authToken != '';
   }
 }

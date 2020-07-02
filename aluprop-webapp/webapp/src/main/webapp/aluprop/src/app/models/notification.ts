@@ -4,9 +4,9 @@ export class Notification {
   user: User;
   id: number;
   subjectCode: string;
-  subject: string
+  translatedSubject: string
   textCode: string;
-  text: string;
+  translatedText: string;
   link: string;
   state: NotificationState;
 }

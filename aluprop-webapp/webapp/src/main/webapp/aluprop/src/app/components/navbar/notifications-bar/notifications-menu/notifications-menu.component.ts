@@ -38,8 +38,8 @@ export class NotificationsMenuComponent implements OnInit {
       return;
     }
     this.notifications.forEach((notification) => {
-      this.translateService.get(notification.subjectCode).pipe(take(1)).subscribe((value) => notification.subject = value);
-      this.translateService.get(notification.textCode).pipe(take(1)).subscribe((value) => notification.text = value);
+      this.translateService.get(notification.subjectCode).pipe(take(1)).subscribe((value) => notification.translatedSubject = value);
+      this.translateService.get(notification.textCode).pipe(take(1)).subscribe((value) => notification.translatedText = value);
     })
   }
 

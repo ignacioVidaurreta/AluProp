@@ -63,7 +63,7 @@
             <mat-label translate>search-filters.unspecified</mat-label>
             <mat-select formControlName="rules" multiple>
                 <mat-option *ngFor="let rule of rules" [value]="rule.id">
-                    {{rule.name}}
+                    {{rule.translatedText}}
                 </mat-option>
             </mat-select>
         </mat-form-field>
@@ -73,7 +73,7 @@
           <mat-label translate>search-filters.unspecified</mat-label>
           <mat-select formControlName="services" multiple>
               <mat-option *ngFor="let service of services" [value]="service.id">
-                  {{service.name}}
+                  {{service.translatedText}}
               </mat-option>
           </mat-select>
         </mat-form-field>

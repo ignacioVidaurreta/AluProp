@@ -7,7 +7,7 @@ import { PageResponse } from '../interfaces/page-response';
 import {Proposal} from "../models/proposal";
 import {User} from "../models/user";
 
-const BASE_API_URL = 'http://localhost:8080/api';
+const BASE_API_URL = 'http://localhost:8080/api/';
 const BASE_API_URL_PROPERTY = 'http://localhost:8080/api/property/';
 const BASE_API_URL_PROPERTY_IS_CURRENT_USER_INTERESTED = 'http://localhost:8080/api/guest/interested/';
 const JSON_ALL_PROPERTIES = '../assets/json/dummyProperties.json';
@@ -29,13 +29,13 @@ export class PropertyService {
 
   getAll(pageRequest: PageRequest): Observable<PageResponse<Property>>{
     let params = {pageSize: String(pageRequest.pageSize), pageNumber: String(pageRequest.pageNumber) };
-    return this.http.get<PageResponse<Property>>(BASE_API_URL + '/property/', {params: params});
+    return this.http.get<PageResponse<Property>>(BASE_API_URL + 'property/', {params: params});
   }
 
   search(pageRequest: PageRequest, searchParams: any){
     let params = {pageSize: String(pageRequest.pageSize), pageNumber: String(pageRequest.pageNumber), ...searchParams};
     console.log(params);
-    return this.http.get<PageResponse<Property>>(BASE_API_URL + '/property/search/', {params: params});
+    return this.http.get<PageResponse<Property>>(BASE_API_URL + 'property/search/', {params: params});
   }
 
   getById(id: number): Observable<Property>{

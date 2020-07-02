@@ -13,10 +13,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private router: Router, 
     private authenticationService: AuthenticationService){ 
-      if( authenticationService.currentUserValue){
-        console.log("Already logged in...");
-        this.router.navigate(['']);
-      }
+      authenticationService.login('admin', 'admin');
   }
   username: string;
   password: string;
