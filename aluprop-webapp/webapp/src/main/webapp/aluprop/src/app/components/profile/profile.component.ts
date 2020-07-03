@@ -7,6 +7,7 @@ import {UserService} from "../../services/user.service";
 import {MatPaginator, PageEvent} from "@angular/material/paginator";
 import {ProposalService} from "../../services/proposal.service";
 import {ActivatedRoute} from "@angular/router";
+import {AuthenticationService} from "../../services/authentication.service";
 
 @Component({
   selector: 'app-profile',
@@ -17,8 +18,10 @@ export class ProfileComponent implements OnInit {
   userId: number;
   user: User;
   userSub: Subscription;
+  currentUser: User;
+  currentUserSub: Subscription;
 
-  constructor(private userService: UserService, private route: ActivatedRoute) { }
+  constructor(private userService: UserService, private route: ActivatedRoute, private authenticationService: AuthenticationService) { }
 
   ngOnInit(): void {
     this.userId = +this.route.snapshot.paramMap.get("id");
@@ -27,10 +30,12 @@ export class ProfileComponent implements OnInit {
 
   ngOnDestroy(): void {
     this.userSub.unsubscribe();
+    this.currentUserSub.unsubscribe();
   }
 
   onPageChange(pageEvent: PageEvent){
     this.userSub.unsubscribe();
+    this.currentUserSub.unsubscribe();
     this.createPageSubscription();
   }
 
@@ -38,6 +43,9 @@ export class ProfileComponent implements OnInit {
     this.userSub = this.userService.getUserById(this.userId).subscribe((user) => {
       this.user = user;
       console.log(this.user);
+      this.currentUserSub = this.authenticationService.getCurrentUser().subscribe((currentUser)=> {
+        this.currentUser = currentUser;
+      });
     });
   }
 

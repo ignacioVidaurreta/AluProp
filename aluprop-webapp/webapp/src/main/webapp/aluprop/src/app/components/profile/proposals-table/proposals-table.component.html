@@ -1,4 +1,4 @@
-<div *ngIf="dataSource" class="mat-elevation-z8">
+<div *ngIf="dataSource else empty" class="mat-elevation-z8">
   <table mat-table [dataSource]="dataSource">
     <div *ngIf="userRole == 'ROLE_GUEST'; else host">
       <!-- Name Column -->
@@ -61,3 +61,12 @@
 
   <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
 </div>
+<ng-template #empty>
+  <mat-card class="mat-elevation-z8">
+    <mat-card-subtitle style="font-size: 12px;font-weight: 500;" translate>proposals-table.proposals</mat-card-subtitle>
+    <mat-card-content>
+      <p *ngIf="userRole == 'ROLE_GUEST'" translate>proposals-table.no-proposals-guest</p>
+      <p *ngIf="userRole == 'ROLE_HOST'" translate>proposals-table.no-proposals-host</p>
+    </mat-card-content>
+  </mat-card>
+</ng-template>

@@ -17,7 +17,7 @@
 </div>
 <ng-template #spinner><mat-spinner style="position: relative; margin-top:30rem; margin-left: 50%; margin-right: 50%;"></mat-spinner></ng-template>
 <div *ngIf="user" class="user-properties">
-<!--  TODO: *ngIf="user == currentUser" check, also empty list versions for 4 tables-->
+<!--  ?.id == currentUser?.id-->
   <div *ngIf="user.role == 'ROLE_GUEST'; then guestRole else hostRole"></div>
   <ng-template #guestRole>
     <app-interests-table id="left-table"></app-interests-table>

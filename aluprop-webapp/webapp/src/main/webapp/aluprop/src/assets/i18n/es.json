@@ -39,16 +39,22 @@
   "proposals-table": {
     "proposals": "Propuestas",
     "creator": "Creador",
-    "state": "Estado"
+    "state": "Estado",
+    "no-proposals-guest": "No eres parte de ninguna propuesta.",
+    "no-proposals-host": "No has recibido ninguna propuesta."
   },
   "properties-table": {
     "properties": "Propiedades",
     "state": "Estado",
     "active": "Activa",
-    "inactive": "Inactiva"
+    "inactive": "Inactiva",
+    "no-properties": "No has publicado ninguna propiedad.",
+    "publish-a-property": "Publica tu primera propiedad aquí."
   },
   "interests-table": {
-    "interests": "Intereses"
+    "interests": "Intereses",
+    "no-interests": "No estás interesado en ninguna propiedad.",
+    "find-a-property": "¡Encuentra alguna que te interese y muestra tu interés!"
   },
   "proposal": {
     "proposal": "Propuesta"

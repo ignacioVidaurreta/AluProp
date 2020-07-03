@@ -39,16 +39,22 @@
   "proposals-table": {
     "proposals": "Proposals",
     "creator": "Creator",
-    "state": "State"
+    "state": "State",
+    "no-proposals-guest": "You are not participating in any proposals.",
+    "no-proposals-host": "You haven't received any proposals."
   },
   "properties-table": {
     "properties": "Properties",
     "state": "State",
     "active": "Active",
-    "inactive": "Inactive"
+    "inactive": "Inactive",
+    "no-properties": "You haven't published any properties.",
+    "publish-a-property": "Publish your first property here."
   },
   "interests-table": {
-    "interests": "Interests"
+    "interests": "Interests",
+    "no-interests": "You are not interested in any properties.",
+    "find-a-property": "Find a property that suits you and show your interest!"
   },
   "proposal": {
     "proposal": "Proposal"

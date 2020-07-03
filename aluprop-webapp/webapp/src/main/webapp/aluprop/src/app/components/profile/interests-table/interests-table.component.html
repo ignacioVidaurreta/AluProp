@@ -1,4 +1,4 @@
-<div class="mat-elevation-z8">
+<div *ngIf="dataSource else empty"  class="mat-elevation-z8">
   <table mat-table [dataSource]="dataSource">
 
     <!-- Name Column -->
@@ -13,3 +13,12 @@
 
   <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
 </div>
+<ng-template #empty>
+  <mat-card class="mat-elevation-z8">
+    <mat-card-subtitle style="font-size: 12px;font-weight: 500;" translate>interests-table.interests</mat-card-subtitle>
+    <mat-card-content>
+      <p translate>interests-table.no-interests</p>
+      <a [routerLink]="['/']"><span translate>interests-table.find-a-property</span></a>
+    </mat-card-content>
+  </mat-card>
+</ng-template>
