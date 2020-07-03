@@ -4,14 +4,14 @@
       <!-- Name Column -->
       <ng-container matColumnDef="name">
         <th mat-header-cell translate *matHeaderCellDef>proposals-table.proposals</th>
-        <td mat-cell *matCellDef="let proposal">{{proposal?.proposal.property.description}}</td>
+        <td mat-cell *matCellDef="let proposal">{{proposal?.property.description}}</td>
       </ng-container>
 
       <!-- Ownership Column -->
       <ng-container matColumnDef="ownership">
         <th mat-header-cell translate class="state" *matHeaderCellDef>proposals-table.creator</th>
         <td mat-cell class="state" *matCellDef="let proposal">
-          <div *ngIf="proposal?.proposal.creator.id == userId"><span style="color: gold;"><mat-icon class="state-icon">star_outline</mat-icon></span></div>
+          <div *ngIf="proposal?.creator.id == userId"><span style="color: gold;"><mat-icon class="state-icon">star_outline</mat-icon></span></div>
         </td>
       </ng-container>
     </div>

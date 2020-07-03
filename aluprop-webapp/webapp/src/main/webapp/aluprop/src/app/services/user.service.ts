@@ -28,8 +28,9 @@ export class UserService {
     return this.http.get<User>(BASE_API_URL+id);
   }
 
-  getAllUserProposals(): Observable<UserProposal[]>{
-    return this.http.get<UserProposal[]>(BASE_API_URL_USER_PROPOSALS);
+  getAllProposalsFromUserProposals(): Observable<Proposal[]>{
+    console.log(BASE_API_URL_USER_PROPOSALS);
+    return this.http.get<Proposal[]>(BASE_API_URL_USER_PROPOSALS);
   }
 
   getAllProposals(): Observable<Proposal[]>{
