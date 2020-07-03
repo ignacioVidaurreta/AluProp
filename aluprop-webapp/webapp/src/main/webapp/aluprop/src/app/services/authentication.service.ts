@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { JwtHelperService } from '@auth0/angular-jwt';
+import { Observable } from 'rxjs';
 import {User} from "../models/user";
 import {HttpClient} from "@angular/common/http";
+import { map } from 'rxjs/operators';
 
 const BASE_API_URL = 'http://localhost:8080/api/';
 
@@ -11,13 +11,10 @@ const BASE_API_URL = 'http://localhost:8080/api/';
 })
 export class AuthenticationService {
   private authToken: string;
-  private currentUserSubject: BehaviorSubject<User>;
-  public currentUser: Observable<User>;
+  // private currentUserSubject: BehaviorSubject<User>;
+  // public currentUser: Observable<User>;
 
-  constructor(private http: HttpClient){
-    
-  }
-
+  constructor(private http: HttpClient){ }
 
   getCurrentUser(): Observable<User>{
     return this.http.get<User>(BASE_API_URL + 'user/');
@@ -25,18 +22,21 @@ export class AuthenticationService {
 
   login(username: string, password: string){
     let params = {username: username, password: password};
-    return this.http.post<User>(BASE_API_URL + 'login/', {params: params}).subscribe(
+    return this.http.post<User>(BASE_API_URL + 'login/', {params: params}).pipe(map(
       (response)=>{
-        console.log(response);
-      }
+        console.log(response); //TODO: get token from response and store its value in authToken
+        return response;
+      })
     );
   }
 
-  logout(){
-    this.currentUserSubject.next(null);
+  getAuthToken(): string{
+    return this.authToken? this.authToken : 'it was packer';
   }
 
-  public isAuthenticated(): boolean {
-    return this.authToken !== null && this.authToken != '';
+  logout(){
+    this.authToken = null;
+    this.http.get<User>(BASE_API_URL + 'logout/');
   }
+
 }
