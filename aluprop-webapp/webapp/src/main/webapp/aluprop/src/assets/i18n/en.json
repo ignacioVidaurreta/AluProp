@@ -59,8 +59,9 @@
     "response": "Response"
   },
   "create-property": {
-    "publish-a-property": "Publish a property",
+    "publish-a-property": "Publish a property 🏠",
     "upload-up-to-4-pictures": "Upload up to 4 pictures of the property:",
+    "complete-property-info": "Complete property info",
     "pictures-to-upload": "Pictures to upload:",
     "name": "Name",
     "description": "Description",
@@ -79,6 +80,7 @@
       "description": "Please write a description in 700 characters or less",
       "property-type": "Please select a property type",
       "neighborhood": "Please select a neighborhood",
+      "privacy": "Please select a level of privacy",
       "capacity": "Please select a value between 1 and 100",
       "rent": "Rent per month must be at least $1"
     }

@@ -59,8 +59,9 @@
     "response": "Respuesta"
   },
   "create-property": {
-    "publish-a-property": "Publicar una propiedad",
+    "publish-a-property": "Publicar una propiedad 🏠",
     "upload-up-to-4-pictures": "Subir hasta 4 imágenes de la propiedad",
+    "complete-property-info": "Completar información de la propiedad",
     "pictures-to-upload": "Seleccionar imágenes:",
     "name": "Nombre",
     "description": "Descripción",
@@ -79,6 +80,7 @@
       "description": "Por favor escriba una descripción de 700 o menos caracteres",
       "property-type": "Por favor seleccione el tipo de propiedad",
       "neighborhood": "Por favor seleccione el barrio",
+      "privacy": "Por favor elija un nivel de privacidad",
       "capacity": "Por favor seleccione un valor entre 1 y 100.",
       "rent": "La renta debe ser por lo menos $1"
     }

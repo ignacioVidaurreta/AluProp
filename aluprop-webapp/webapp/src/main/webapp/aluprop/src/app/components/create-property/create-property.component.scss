@@ -18,17 +18,60 @@
   font-size: 2rem;
 }
 
-mat-form-field {
-  display: flex;
+h3 {
+  color: grey;
+  font-size: 20px;
+  font-weight: 300;
+}
+
+::ng-deep .mat-form-field-wrapper {
   width: 100%;
+}
+
+form {
+  width: 100%;
+}
+
+textarea{
+  resize: none;
 }
 
 .column-container{
   display: flex;
   justify-content: space-between;
 
+  mat-card {
+    margin: 1rem;
+    padding: 1rem;
+    height: fit-content;
+  }
+
   .prop-info {
     width: 50%;
+    justify-content: center;
+
+    mat-form-field {
+      display: flex;
+      width: 100%;
+    }
+
+    .description {
+      height: 100px;
+    }
+
+    .field-row {
+      flex-direction: row;
+      justify-content: space-between;
+
+      mat-form-field {
+        display: inline-block;
+        width: 48%;
+      }
+
+      .property-type, .rules{
+        margin-right: 0.5rem;
+      }
+    }
   }
 
   .prop-pictures {
@@ -49,13 +92,14 @@ mat-form-field {
 
 .image-container {
   display: flex;
+  flex-flow: row wrap;
 
   .preview-image {
     margin: 0.5rem;
     border-width: 3px;
     border-radius: 5px;
     border-style: solid;
-    border-color: rgb(41, 161, 216);
+    border-color: #3f51b5;
     width: 120px;
   }
   
@@ -65,6 +109,10 @@ mat-form-field {
     background-color: white;
     border-radius: 30px;
   }
+}
+
+.pictures-error {
+  margin-top: 5px;
 }
 
 .upload-button {
@@ -79,19 +127,26 @@ mat-form-field {
     font-size: 30px;
     font-weight: bold;
     cursor: pointer;
-    width: 50px;
-    height: 50px;
+    width: 80px;
+    height: 80px;
     display: flex;
     justify-content: center;
     align-items: center;
   }
 
   .image-uploader {
-    width: 50px;
-    height: 50px;
+    margin: 0.5rem;
+    width: 80px;
+    height: 80px;
     opacity: 0;
     position: absolute;
     top: 0;
     cursor: pointer;
   }
+}
+
+button {
+  font-size: large;
+  margin: 1rem;
+  width: 48%;
 }
