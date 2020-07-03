@@ -12,14 +12,14 @@ public class ProposalDto {
     private long id;
     private IndexPropertyDto property;
     private ProposalState state;
-    private IndexUserDto user;
+    private IndexUserDto creator;
 
     public static ProposalDto fromProposal(Proposal proposal) {
         ProposalDto ret = new ProposalDto();
         ret.id = proposal.getId();
         ret.property = IndexPropertyDto.fromProperty(proposal.getProperty());
         ret.state = proposal.getState();
-        ret.user = IndexUserDto.fromUser(proposal.getCreator());
+        ret.creator = IndexUserDto.fromUser(proposal.getCreator());
 
         return ret;
     }
@@ -36,7 +36,7 @@ public class ProposalDto {
         return state;
     }
 
-    public IndexUserDto getUser(){
-        return user;
+    public IndexUserDto getCreator(){
+        return creator;
     }
 }
