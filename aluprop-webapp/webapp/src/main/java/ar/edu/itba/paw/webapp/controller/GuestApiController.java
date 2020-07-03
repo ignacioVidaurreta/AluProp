@@ -1,12 +1,15 @@
 package ar.edu.itba.paw.webapp.controller;
 
 import ar.edu.itba.paw.interfaces.service.PropertyService;
+import ar.edu.itba.paw.interfaces.service.ProposalService;
 import ar.edu.itba.paw.interfaces.service.UserService;
 import ar.edu.itba.paw.model.Property;
+import ar.edu.itba.paw.model.Proposal;
 import ar.edu.itba.paw.model.User;
 import ar.edu.itba.paw.model.UserProposal;
 import ar.edu.itba.paw.webapp.dto.BooleanDto;
 import ar.edu.itba.paw.webapp.dto.IndexPropertyDto;
+import ar.edu.itba.paw.webapp.dto.ProposalDto;
 import ar.edu.itba.paw.webapp.dto.UserProposalDto;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -27,15 +30,18 @@ public class GuestApiController {
     private PropertyService propertyService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private ProposalService proposalService;
 
     @GET
     @Path("/proposals")
     public Response getAllUserProposalsOfUser(){
         User user = userService.getCurrentlyLoggedUser();
-        Collection<UserProposal> proposals =
-                userService.getWithRelatedEntities(user.getId()).getUserProposals();
+
+        Collection<Proposal> proposals= proposalService.getAllProposalForUserId(user.getId());
+
         return Response.ok(proposals.stream()
-                .map(UserProposalDto::fromUserProposal)
+                .map(ProposalDto::fromProposal)
                 .collect(Collectors.toList()))
                 .build();
     }
