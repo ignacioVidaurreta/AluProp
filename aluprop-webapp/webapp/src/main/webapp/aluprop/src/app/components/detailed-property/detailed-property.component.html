@@ -1,4 +1,4 @@
-<div *ngIf="property && currentUser" class="detailed-property-container">
+<div *ngIf="property" class="detailed-property-container">
   <div class="detailed-property-carousel mat-elevation-z8">
     <ngb-carousel>
       <ng-template *ngFor="let img of property.images" ngbSlide>
@@ -26,14 +26,14 @@
           </mat-tab>
           <mat-tab label="Rules"><mat-list role="list">
             <div *ngFor="let rule of property.rules">
-              <mat-list-item role="listitem">{{rule.name}}</mat-list-item>
+              <mat-list-item role="listitem">{{rule.translatedText}}</mat-list-item>
             </div>
             <mat-list-item *ngIf="property.rules.length == 0" class="description-item" role="listitem"><span translate>detailed-property.empty-rules</span></mat-list-item>
           </mat-list>
           </mat-tab>
           <mat-tab label="Services"><mat-list role="list">
             <div *ngFor="let service of property.services">
-              <mat-list-item role="listitem">{{service.name}}</mat-list-item>
+              <mat-list-item role="listitem">{{service.translatedText}}</mat-list-item>
             </div>
             <mat-list-item *ngIf="property.services.length == 0" class="description-item" role="listitem"><span translate>detailed-property.empty-services</span></mat-list-item>
           </mat-list>

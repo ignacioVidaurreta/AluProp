@@ -107,7 +107,7 @@
     "delete-property": "Eliminar propiedad",
     "create-proposal": "Crear propuesta",
     "not-interested": "Ya no me Interesa",
-    "interested": "Me Interesa",
+    "interested": "Me interesa",
     "must-be-logged-in": "Debe iniciar sesión para mostrar interés.",
     "empty-rules": "Esta propiedad no tiene reglas especiales",
     "empty-services": "Esta propiedad no tiene servicios especiales"
