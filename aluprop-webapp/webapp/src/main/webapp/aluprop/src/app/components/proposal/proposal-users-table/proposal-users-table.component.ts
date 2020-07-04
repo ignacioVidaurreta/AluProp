@@ -8,6 +8,7 @@ import {ActivatedRoute} from "@angular/router";
 import {Subscription} from "rxjs";
 import {User} from "../../../models/user";
 import * as moment from 'moment';
+import {take} from "rxjs/operators";
 
 @Component({
   selector: 'app-proposal-users-table',
@@ -69,15 +70,4 @@ export class ProposalUsersTableComponent implements OnInit {
     return moment().diff(dateOfBirth, 'years');
   }
 
-  getUserIdByUserProposalId(id: number) {
-    console.log(id);
-    var userProposal;
-    for(userProposal in this.userProposals) {
-      console.log(userProposal.id);
-      if(userProposal.id == id) {
-        return userProposal.user.id;
-      }
-    }
-    return this.proposalCreator.id;
-  }
 }
