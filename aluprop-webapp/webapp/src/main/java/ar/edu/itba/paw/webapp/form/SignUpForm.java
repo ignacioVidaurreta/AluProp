@@ -19,9 +19,6 @@ public class SignUpForm {
     @Size(min = 6, max = 100)
     private String password;
 
-    @Size(min = 6, max = 100)
-    private String repeatPassword;
-
     @Pattern(regexp = "^\\d{4}\\-(0?[1-9]|1[012])\\-(0?[1-9]|[12][0-9]|3[01])$")
     private String birthDate;
 
@@ -103,10 +100,6 @@ public class SignUpForm {
         return password;
     }
 
-    public String getRepeatPassword() {
-        return repeatPassword;
-    }
-
     public void setName(String name) {
         this.name = name;
     }
@@ -125,10 +118,6 @@ public class SignUpForm {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public void setRepeatPassword(String repeatPassword) {
-        this.repeatPassword = repeatPassword;
     }
 
     public int getRole() {

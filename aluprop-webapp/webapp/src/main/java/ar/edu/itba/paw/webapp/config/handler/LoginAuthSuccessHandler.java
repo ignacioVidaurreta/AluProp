@@ -28,8 +28,9 @@ public class LoginAuthSuccessHandler implements AuthenticationSuccessHandler {
     private JwtTokenHandler tokenHandler;
 
     @Override
-    public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse,
-            Authentication authentication) throws IOException {
+    public void onAuthenticationSuccess(HttpServletRequest httpServletRequest,
+                                    HttpServletResponse httpServletResponse,
+                                    Authentication authentication) throws IOException {
         User user = userService.getByEmail(authentication.getName());
         httpServletResponse.addHeader("X-TOKEN", tokenHandler.createToken(user));
         httpServletResponse.setStatus(HttpStatus.OK.value());
