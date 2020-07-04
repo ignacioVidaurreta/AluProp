@@ -46,7 +46,10 @@ public class GuestApiController {
         Collection<Proposal> proposals= proposalService.getAllProposalForUserId(user.getId());
 
         return Response.ok(proposals.stream()
-                .map(ProposalDto::fromProposal)
+                .map((proposal)-> {
+                    final Property property = propertyService.getPropertyWithRelatedEntities(proposal.getProperty().getId());
+                    return ProposalDto.withPropertyWithRelatedEntities(proposal, property);
+                })
                 .collect(Collectors.toList()))
                 .build();
     }
