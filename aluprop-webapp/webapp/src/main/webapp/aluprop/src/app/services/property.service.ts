@@ -10,7 +10,6 @@ import {User} from "../models/user";
 const BASE_API_URL = 'http://localhost:8080/api/';
 const BASE_API_URL_PROPERTY = 'http://localhost:8080/api/property/';
 const BASE_API_URL_PROPERTY_IS_CURRENT_USER_INTERESTED = 'http://localhost:8080/api/guest/interested/';
-const JSON_ALL_PROPERTIES = '../assets/json/dummyProperties.json';
 
 const httpOptions = {
   headers: new HttpHeaders({

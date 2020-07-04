@@ -57,7 +57,24 @@
     "find-a-property": "¡Encuentra alguna que te interese y muestra tu interés!"
   },
   "proposal": {
-    "proposal": "Propuesta"
+    "proposal": "Propuesta",
+    "declined-host": "La propuesta ha sido dada de baja.",
+    "declined": "El dueño de la propiedad ha declinado la oferta y por lo tanto se encuentra inactiva.",
+    "dropped": "El creador de esta propuesta la ha cancelado y por lo tanto se encuentra inactiva.",
+    "find-another-property": "Encuentra otra propiedad y crea una propuesta nueva",
+    "canceled": "Uno o más usuarios han declinado la propuesta y por lo tanto se encuentra inactiva.",
+    "accepted-host": "Has aceptado la propuesta, ahora puedes contactar a los estudiantes! La propiedad ahora está deshabilitada.",
+    "accepted": "El dueño de la propiedad ha aceptado la oferta! Ahora puedes contactar al resto de los estudiantes y al dueño.",
+    "host-info": "Información del dueño:",
+    "sent": "Una oferta se ha enviado al dueño de la propiedad, recibirás una notificación cuando responda!",
+    "rented-host": "Ésta propiedad se encuentra inactiva. Para poder responder la propuesta por favor activala.",
+    "decline": "Rechazar",
+    "accept": "Aceptar",
+    "your-property": "Esta es su propiedad. Puedes aceptar o declinar la oferta:",
+    "cancel": "Cancelar propuesta",
+    "you-would-pay": "Usted pagaría",
+    "per-month": "por mes.",
+    "already-replied": "Usted ya ha respondido a esta propuesta."
   },
   "proposals-user-table": {
     "user": "Usuario",

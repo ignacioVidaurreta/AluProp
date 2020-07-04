@@ -1,4 +1,4 @@
-<div *ngIf='proposal' class="proposal-container">
+<div *ngIf="proposal && currentUser" class="proposal-container">
   <mat-card class="proposal-card mat-elevation-z8">
     <img style="object-fit: cover;height: 25rem" [ngClass]="(proposal.state == 'DECLINED' || proposal.state == 'CANCELLED' || proposal.state == 'DROPPED') ? 'grayscale' : ''" src="http://lisagryba.com/wp-content/uploads/2015/04/nice-houses-for-sale.jpg" mat-card-image alt="">
     <mat-card-header>
@@ -10,39 +10,66 @@
         <p>{{ proposal.property.caption }}</p>
       </div>
       <div>
-        <app-proposal-users-table [proposalState]="proposal.state"></app-proposal-users-table>
+        <app-proposal-users-table [proposalCreator]="proposal.creator" [proposalState]="proposal.state"></app-proposal-users-table>
       </div>
     </mat-card-content>
     <mat-card-content style="margin-top: 16px; text-align: center">
-<!--      &lt;!&ndash; TODO: && currentUser.role == 'ROLE_GUEST'&ndash;&gt;-->
-<!--          <div *ngIf="proposal.state == 'DECLINED' || proposal.state == 'CANCELLED' || proposal.state == 'DROPPED'"> &lt;!&ndash; TODO: && currentUser.role == 'ROLE_GUEST'&ndash;&gt;-->
-<!--          </div>-->
-<!--          <div *ngIf="proposal.state == 'ACCEPTED'">-->
-<!--          </div>-->
-<!--          <div *ngIf="proposal.state == 'SENT'"> &lt;!&ndash; TODO: && currentUser.role == 'ROLE_GUEST'&ndash;&gt;-->
-<!--          </div>-->
-<!--          <div *ngIf="isCreator()">-->
-<!--            <button mat-button>Cancel proposal</button>-->
-<!--                    &lt;!&ndash;        TODO: Post path delete proposal&ndash;&gt;-->
-<!--          </div>-->
-<!--          <div *ngIf="isInvited() == true && !hasReplied()">-->
-<!--          </div>-->
-<!--          <div *ngIf="isInvited() == true && hasReplied()">-->
-<!--          </div>-->
-<!--      &lt;!&ndash; TODO: && currentUser.role == 'ROLE_HOST'&ndash;&gt;-->
-<!--          <div>-->
-<!--            <div *ngIf="proposal.state == 'DECLINED' || proposal.state == 'CANCELLED' || proposal.state == 'DROPPED'">-->
-<!--            </div>-->
-<!--            <div *ngIf="proposal.state == 'ACCEPTED'">-->
-<!--            </div>-->
-<!--            <div *ngIf="proposal.state == 'SENT'">-->
-<!--            </div>-->
-<!--          </div>-->
-      Aca va a ir un mensaje dependiendo la logica del currently LoggedInUser
-      <mat-card-actions>
-        <button mat-button>LIKE</button>
-        <button mat-button>SHARE</button>
-      </mat-card-actions>
+         <div *ngIf="proposal.state == 'DROPPED'">
+           <div translate *ngIf="currentUser.role == 'ROLE_HOST'">
+             proposal.declined-host
+           </div>
+           <div *ngIf="currentUser.role == 'ROLE_GUEST'">
+             <span translate>proposal.dropped</span>
+             <a translate>proposal.find-another-property</a>
+           </div>
+         </div>
+         <div *ngIf="proposal.state == 'CANCELLED'">
+           <span translate>proposal.canceled</span>
+           <a translate>proposal.find-another-property</a>
+         </div>
+         <div *ngIf="proposal.state == 'DECLINED'">
+           <span translate>proposal.declined</span>
+           <a translate>proposal.find-another-property</a>
+         </div>
+         <div *ngIf="proposal.state == 'ACCEPTED'">
+           <div translate *ngIf="currentUser.role == 'ROLE_HOST'">
+             proposal.accepted-host
+           </div>
+           <div *ngIf="currentUser.role == 'ROLE_GUEST'">
+             <span translate>proposal.accepted</span>
+             <span translate>proposal.host-info {{proposal.property.owner.name}} | {{proposal.property.owner.email}} | {{proposal.property.owner.contactNumber}}</span>
+           </div>
+         </div>
+         <div translate *ngIf="proposal.state == 'SENT' && currentUser.role == 'ROLE_GUEST'">
+           proposal.sent
+         </div>
+          <div *ngIf="proposal.state == 'SENT' && currentUser.role == 'ROLE_HOST'">
+            <div translate *ngIf="proposal.property.availability == 'RENTED' else active">
+              proposal.rented-host
+              <button disabled mat-button><span translate>proposal.decline</span></button>
+              <button disabled mat-button><span translate>proposal.accept</span></button>
+            </div>
+            <ng-template #active>
+              <div translate>
+                proposal.your-property
+                <button mat-button><span translate>proposal.decline</span></button>
+                <button mat-button><span translate>proposal.accept</span></button>
+              </div>
+            </ng-template>
+          </div>
+         <div *ngIf="currentUser.id == proposal.creator.id">
+            <button mat-button>proposal.cancel</button>
+         </div>
+<!--         <div *ngIf="isInvited == true && !hasReplied">-->
+<!--           <div translate>proposal.you-would-pay ${{proposal.property.price/(proposal.userProposals.length+1)}} proposal.per-month</div>-->
+<!--           <mat-card-actions>-->
+<!--             <button mat-button><span translate>proposal.decline</span></button>-->
+<!--             <button mat-button><span translate>proposal.accept</span></button>-->
+<!--           </mat-card-actions>-->
+<!--         </div>-->
+<!--         <div *ngIf="isInvited == true && hasReplied">-->
+<!--           <span translate>proposal.already-replied</span>-->
+<!--        </div>-->
     </mat-card-content>
   </mat-card>
 </div>

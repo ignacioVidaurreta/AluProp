@@ -15,11 +15,11 @@ import * as moment from 'moment';
   styleUrls: ['./proposal-users-table.component.scss']
 })
 export class ProposalUsersTableComponent implements OnInit {
-  //images = [944, 1011, 984].map((n) => `https://picsum.photos/id/${n}/900/500`);
 
   displayedColumns: string[] = ['user','information', 'response'];
 
   @Input() proposalState: ProposalState;
+  @Input() proposalCreator: User;
 
   dataSource;
   userProposals: UserProposal[];
@@ -37,8 +37,8 @@ export class ProposalUsersTableComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.createPageSubscription();
     this.proposalId = +this.route.snapshot.paramMap.get("id");
+    this.createPageSubscription();
   }
 
   ngOnDestroy(): void {
@@ -54,15 +54,30 @@ export class ProposalUsersTableComponent implements OnInit {
 
   createPageSubscription(){
     this.userProposalsSub = this.proposalService.getAllUserProposals(this.proposalId).subscribe((userProposals) => {
+      console.log(userProposals);
       this.userProposals = userProposals;
       this.creatorSub = this.proposalService.getCreatorUserProposal(this.proposalId).subscribe((creatorUserProposal) => {
+        console.log(creatorUserProposal);
         this.creatorUserProposal= creatorUserProposal;
         this.dataSource = new MatTableDataSource<UserProposal>([this.creatorUserProposal].concat(this.userProposals));
+        console.log(this.dataSource);
       });
     });
   }
 
   ageFromDateOfBirthday(dateOfBirth: any): number {
     return moment().diff(dateOfBirth, 'years');
+  }
+
+  getUserIdByUserProposalId(id: number) {
+    console.log(id);
+    var userProposal;
+    for(userProposal in this.userProposals) {
+      console.log(userProposal.id);
+      if(userProposal.id == id) {
+        return userProposal.user.id;
+      }
+    }
+    return this.proposalCreator.id;
   }
 }
