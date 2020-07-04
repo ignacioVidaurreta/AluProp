@@ -100,7 +100,10 @@
   "proposals-user-table": {
     "user": "User",
     "information": "Information",
-    "response": "Response"
+    "response": "Response",
+    "gender-MALE": "Male",
+    "gender-FEMALE": "Female",
+    "gender-OTHER": "Other"
   },
   "create-property": {
     "publish-a-property": "Publish a property 🏠",

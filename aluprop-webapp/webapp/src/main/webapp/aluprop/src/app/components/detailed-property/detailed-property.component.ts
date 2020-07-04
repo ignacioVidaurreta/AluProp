@@ -43,7 +43,7 @@ export class DetailedPropertyComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
-    
+    this.dropSubscriptions();
   }
 
   onPageChange(pageEvent: PageEvent){
