@@ -124,6 +124,11 @@ export class CreatePropertyComponent implements OnInit {
 
   generatePropertyFromForm() {
     console.log(this.createPropertyForm.get('name'));
+    if (this.currentlyUploadedImages.length === 0){
+      this.tooManyFiles = false;
+      this.notEnoughFiles = true;
+      return;
+    }
     this.createdProperty.image = [];
     this.currentlyUploadedImages.forEach(
       (image) => {

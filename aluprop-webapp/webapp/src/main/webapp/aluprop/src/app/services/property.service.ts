@@ -45,7 +45,7 @@ export class PropertyService {
   publishProperty(property: Property): Observable<Property> {
     console.log('Posting property:');
     console.log(property);
-    return this.http.post<Property>(BASE_API_URL + '/property/', property);
+    return this.http.post<Property>(BASE_API_URL + 'property/', property);
   }
 
   getInterestedUsersByPropertyId(id: number): Observable<User[]>{
