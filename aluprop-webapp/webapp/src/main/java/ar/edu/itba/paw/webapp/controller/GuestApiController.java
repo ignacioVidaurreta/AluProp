@@ -14,10 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.Collection;
@@ -99,6 +96,20 @@ public class GuestApiController {
                 .filter(up -> up.getUser().equals(currentUser))
                 .findFirst();
         return maybeUserProposal.map(userProposal -> userProposal.getState() != UserProposalState.PENDING);
+    }
+
+    @Path("/{propertyId}/interested")
+    @POST
+    public Response interest(@PathParam("propertyId") long propertyId) {
+        User user = userService.getCurrentlyLoggedUser();
+        return Response.ok(propertyService.showInterestOrReturnErrors(propertyId, user)).build();
+    }
+
+    @Path("/{propertyId}/uninterested")
+    @POST
+    public Response uninterested(@PathParam("propertyId") long propertyId) {
+        User user = userService.getCurrentlyLoggedUser();
+        return Response.ok(propertyService.undoInterestOrReturnErrors(propertyId, user)).build();
     }
 
 }
