@@ -76,18 +76,4 @@ public class ProposalApiController {
         return Response.ok(UserProposalDto.fromCreator(creator)).build();
     }
 
-    @GET
-    @Path("/{proposalId}/userProposal/{userProposalId}/userid")
-    public Response userIdFromUserProposal(@PathParam("proposalId") long proposalId,
-                                     @PathParam("userProposalId") long userProposalId){
-        Proposal proposal = proposalService.getWithRelatedEntities(proposalId);
-        Optional<UserProposal> maybeUserProposal = proposal.getUserProposals().stream()
-                                    .filter(up -> up.getId() == userProposalId)
-                                    .findFirst();
-        if(!maybeUserProposal.isPresent()){
-            return Response.status(Response.Status.NOT_FOUND).build();
-        }
-        return Response.ok(maybeUserProposal.get().getUser().getId()).build();
-    }
-
 }
