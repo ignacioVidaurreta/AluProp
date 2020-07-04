@@ -119,13 +119,6 @@ public class APUserService implements UserService {
 
     @Override
     public User getCurrentlyLoggedUser() {
-        boolean isHost = true;
-        if(isHost) {
-            return userDao.getUserWithRelatedEntitiesByEmail("cguzzetti@itba.edu.ar");
-        }else{
-            return userDao.getUserWithRelatedEntitiesByEmail("clara.guzzetti@sabf.org.ar");
-        }
-        /*
         SecurityContext context = SecurityContextHolder.getContext();
         Authentication auth = context.getAuthentication();
         if (auth == null)
@@ -134,6 +127,5 @@ public class APUserService implements UserService {
         if(principal instanceof UserDetails)
             return userDao.getUserWithRelatedEntitiesByEmail(((UserDetails) principal).getUsername());
         else return userDao.getUserWithRelatedEntitiesByEmail(principal.toString());
-         */
     }
 }

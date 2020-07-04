@@ -41,8 +41,7 @@ public class SessionAuthFilter extends AbstractAuthenticationProcessingFilter {
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request,
-                                                HttpServletResponse response)
-                                                throws AuthenticationException, IOException, ServletException {
+                                                HttpServletResponse response) throws AuthenticationException {
         APUsernamePasswordAuthToken token = parseToken(request);
         if (token != null) {
             Authentication auth = getAuthenticationManager().authenticate(token);
@@ -64,6 +63,7 @@ public class SessionAuthFilter extends AbstractAuthenticationProcessingFilter {
                                             FilterChain chain,
                                             Authentication authResult) throws IOException, ServletException {
         super.successfulAuthentication(request, response, chain, authResult);
+        chain.doFilter(request, response);
     }
 
     private APUsernamePasswordAuthToken parseToken(HttpServletRequest request) {

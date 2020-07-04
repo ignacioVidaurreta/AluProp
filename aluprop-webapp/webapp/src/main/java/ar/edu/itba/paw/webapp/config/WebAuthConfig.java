@@ -7,8 +7,8 @@ import ar.edu.itba.paw.webapp.config.filter.LoginAuthFilter;
 import ar.edu.itba.paw.webapp.config.filter.SessionAuthFilter;
 import ar.edu.itba.paw.webapp.config.handler.LoginAuthFailureHandler;
 import ar.edu.itba.paw.webapp.config.handler.LoginAuthSuccessHandler;
+import ar.edu.itba.paw.webapp.config.handler.SessionAuthSuccessHandler;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -56,8 +56,8 @@ public class WebAuthConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(final HttpSecurity http) throws Exception {
         http.userDetailsService(userDetailsService)
-                //.addFilterBefore(createLoginAuthFilter(), UsernamePasswordAuthenticationFilter.class)
-                // .addFilterBefore(createSessionAuthFilter(), UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(createLoginAuthFilter(), UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(createSessionAuthFilter(), UsernamePasswordAuthenticationFilter.class)
             .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and().logout().disable()
@@ -79,6 +79,8 @@ public class WebAuthConfig extends WebSecurityConfigurerAdapter {
     public AbstractAuthenticationProcessingFilter createSessionAuthFilter() throws Exception {
         SessionAuthFilter filter = new SessionAuthFilter();
         filter.setAuthenticationManager(authenticationManager());
+        filter.setRequiresAuthenticationRequestMatcher(anonymousMatcher());
+        filter.setAuthenticationSuccessHandler(new SessionAuthSuccessHandler());
         return filter;
     }
 
