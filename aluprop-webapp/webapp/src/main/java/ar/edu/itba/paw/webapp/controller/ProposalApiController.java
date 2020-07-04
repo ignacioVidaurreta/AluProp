@@ -20,6 +20,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Path("proposal")
 @Produces(value = { MediaType.APPLICATION_JSON })
@@ -44,10 +45,18 @@ public class ProposalApiController {
     public Response userProposalsFromProposal(@PathParam("proposalId") long proposalId){
         Proposal proposal = proposalService.getWithRelatedEntities(proposalId);
 
-        return Response.ok(proposal.getUserProposals().stream()
+        
+        // Only show user proposals that don't include the creator
+        Stream<UserProposal> userProposalStream = proposal.getUserProposals().stream().map(userProposal -> {
+            if(userProposal.getUser().equals(proposal.getCreator()))
+                return null;
+            return userProposal;
+        }).filter(Objects::nonNull);
+
+        return Response.ok(userProposalStream
                             .map(UserProposalDto::fromUserProposal)
                             .collect(Collectors.toList()))
-                        .build();
+                .build();
 
     }
 
