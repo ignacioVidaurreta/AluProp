@@ -1,0 +1,9 @@
+<div style="margin-top: 30%;margin-left: 25%;margin-right: 25%">
+  <div>
+    <h1 translate style="text-align: center;font-size: 32px;font-weight: 500">error.{{errorCode}}-title</h1>
+    <h3 *ngIf="errorCode == 500" translate style="text-align: center;">error.{{errorCode}}-subtitle <br/> error.{{errorCode}}-subtitle2 <a href="mailto:hola@aluprop.com.ar">hola@aluprop.com.ar</a> error.{{errorCode}}-subtitle3  </h3>
+    <h3 *ngIf="errorCode == 404" translate style="text-align: center;">error.{{errorCode}}-subtitle <a translate [routerLink]="''">error.{{errorCode}}-home</a> error.{{errorCode}}-subtitle2</h3>
+    <h3 *ngIf="errorCode == 403" translate style="text-align: center;">error.{{errorCode}}-subtitle</h3>
+  </div>
+</div>
+
