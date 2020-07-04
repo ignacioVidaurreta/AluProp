@@ -8,7 +8,7 @@ import {UserProposal} from "../models/userProposal";
 import {Proposal} from "../models/proposal";
 import {Property} from "../models/property";
 
-const BASE_API_URL = 'http://localhost:8080/api/user/';
+const BASE_API_URL = 'http://localhost:8080/api/user';
 const BASE_API_URL_USER_PROPOSALS = 'http://localhost:8080/api/guest/proposals';
 const BASE_API_URL_PROPOSALS = 'http://localhost:8080/api/host/proposals';
 const BASE_API_URL_OWNED_PROPERTIES = 'http://localhost:8080/api/host/properties';
@@ -46,6 +46,6 @@ export class UserService {
   }
 
   isUserLoggedIn(): Observable<boolean>{
-  return this.http.get<boolean>(BASE_API_URL_IS_USER_LOGGED_IN);
-}
+    return this.http.get<boolean>(BASE_API_URL_IS_USER_LOGGED_IN);
+  }
 }

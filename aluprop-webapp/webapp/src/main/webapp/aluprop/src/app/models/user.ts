@@ -35,3 +35,19 @@ export const Gender = {
   Female: 'FEMALE' as Gender,
   Other: 'OTHER' as Gender
 };
+
+
+export interface SignUpForm {
+  email: string;
+  password: string;
+  repeatPassword: string;
+  name:string ;
+  lastName: string;
+  phoneNumber: number;
+  birthDate: string;
+  role: number;
+  universityId: number;
+  careerId: number;
+  bio: string;
+  gender: number;
+}

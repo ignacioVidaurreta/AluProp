@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import {User} from "../models/user";
+import {User, SignUpForm} from "../models/user";
 import {HttpClient} from "@angular/common/http";
 import { map } from 'rxjs/operators';
 
 const BASE_API_URL = 'http://localhost:8080/api/';
+const LOCAL_STORAGE_AUTH_TOKEN = 'aluToken';
 
 @Injectable({
   providedIn: 'root'
@@ -14,28 +15,47 @@ export class AuthenticationService {
   // private currentUserSubject: BehaviorSubject<User>;
   // public currentUser: Observable<User>;
 
-  constructor(private http: HttpClient){ }
-
-  getCurrentUser(): Observable<User>{
-    return this.http.get<User>(BASE_API_URL + 'user/');
+  constructor(private http: HttpClient){
+    // localStorage.get(LOCAL_STORAGE_AUTH_TOKEN)
+    if (localStorage.getItem(LOCAL_STORAGE_AUTH_TOKEN)){
+      this.authToken = localStorage.getItem(LOCAL_STORAGE_AUTH_TOKEN);
+    }
   }
 
-  login(username: string, password: string){
-    let params = {username: username, password: password};
-    return this.http.post<User>(BASE_API_URL + 'login/', {params: params}).pipe(map(
+  getCurrentUser(): Observable<User>{
+    return this.http.get<User>(BASE_API_URL + 'user');
+  }
+
+  signUp(signUpForm: SignUpForm){
+    console.log(signUpForm);
+    return this.http.post<User>(BASE_API_URL + 'signUp', signUpForm, {observe: 'response'}).pipe(map(
       (response)=>{
-        console.log(response); //TODO: get token from response and store its value in authToken
+        this.setAuthToken(response.headers.get('X-TOKEN'));
         return response;
       })
     );
   }
 
-  getAuthToken(): string{
-    return this.authToken? this.authToken : 'it was packer';
+  login(signUpForm: any){
+    return this.http.post<User>(BASE_API_URL + 'login', signUpForm, {observe: 'response'}).pipe(map(
+      (response)=>{
+        this.setAuthToken(response.headers.get('X-TOKEN'));
+        return response;
+      })
+    );
+  }
+
+  getAuthToken(): string {
+    return this.authToken;
+  }
+
+  setAuthToken(newVal: string): void {
+    this.authToken = newVal;
+    localStorage.setItem(LOCAL_STORAGE_AUTH_TOKEN, newVal);
   }
 
   logout(){
-    this.authToken = null;
+    this.setAuthToken(null);
     this.http.get<User>(BASE_API_URL + 'logout/');
   }
 

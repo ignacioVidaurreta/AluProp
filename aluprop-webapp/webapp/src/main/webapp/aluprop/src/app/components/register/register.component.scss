@@ -1,25 +1,97 @@
-.login-card{
+:host {
+    margin-top: 8%;
     display: flex;
     justify-content: center;
-    margin-top: 10%;
-}
-
-.login-container{
+  }
+  
+  .create-property-form {
     display: flex;
-    flex-flow: column;
-}
-
-.login-title{
+    flex-direction: column;
+    padding: 1rem;
+    width: 70%;
+    align-items: center;
+  }
+  
+  .card-title{
     display: flex;
     justify-content: left;
     font-size: 2rem;
-}
-
-.login-submit-btn{
-    float: right;
-}
-
-.form-container {
-    font-size: 1rem;
-    margin: 16px 12px 8px 0px;
-}
+  }
+  
+  h3 {
+    color: grey;
+    font-size: 20px;
+    font-weight: 300;
+  }
+  
+  ::ng-deep .mat-form-field-wrapper {
+    width: 100%;
+  }
+  
+  form {
+    width: 100%;
+  }
+  
+  textarea{
+    resize: none;
+  }
+  
+  .column-container{
+    display: flex;
+    justify-content: space-between;
+  
+    mat-card {
+      margin: 1rem;
+      padding: 1rem;
+      height: fit-content;
+    }
+  
+    .prop-info {
+      width: 50%;
+      justify-content: center;
+  
+      mat-form-field {
+        display: flex;
+        width: 100%;
+      }
+  
+      .description {
+        height: 100px;
+      }
+  
+      .field-row {
+        flex-direction: row;
+        justify-content: space-between;
+  
+        mat-form-field {
+          display: inline-block;
+          width: 48%;
+        }
+  
+        .first-name, .phone{
+          margin-right: 0.5rem;
+        }
+      }
+    }
+  
+    .prop-pictures {
+      width: 50%;
+      
+      form-field {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        input {
+          margin-top: 4%;
+          margin-bottom: 4%;
+        }
+      }
+      
+    }
+  }
+  
+  button {
+    font-size: large;
+    margin: 1rem;
+    width: 48%;
+  }
