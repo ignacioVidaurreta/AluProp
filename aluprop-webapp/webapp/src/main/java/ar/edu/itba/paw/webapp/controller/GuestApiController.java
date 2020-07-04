@@ -81,19 +81,16 @@ public class GuestApiController {
     public Response userInfo(@PathParam(value = "proposalId") long proposalId) {
         Proposal proposal = proposalService.getWithRelatedEntities(proposalId);
         User currentUser = userService.getCurrentlyLoggedUser();
-        User creator = proposal.getCreator();
-
-        boolean isInvited = !proposal.getUsersWithoutCreator(creator.getId()).contains(currentUser)
-                            && !proposal.getProperty().getOwner().equals(currentUser);
+        boolean hasReplied;
 
         Optional<Boolean> maybeHasReplied = checkUserHasReplied(currentUser, proposal);
         if(!maybeHasReplied.isPresent())
-            return Response.status(Response.Status.NOT_FOUND).build();
-        boolean hasReplied = maybeHasReplied.get();
+            return Response.ok(ProposalUserInfoDto.fromData(false, false, -1f)).build();
 
+        hasReplied = maybeHasReplied.get();
         float budget = proposal.budget();
 
-        return Response.ok(ProposalUserInfoDto.fromData(isInvited, hasReplied, budget)).build();
+        return Response.ok(ProposalUserInfoDto.fromData(true, hasReplied, budget)).build();
     }
 
     private Optional<Boolean> checkUserHasReplied(User currentUser, Proposal proposal){
@@ -101,17 +98,7 @@ public class GuestApiController {
         Optional<UserProposal> maybeUserProposal = userProposals.stream()
                 .filter(up -> up.getUser().equals(currentUser))
                 .findFirst();
-        if(!maybeUserProposal.isPresent()) {
-            logger.error(String.format(
-                    "User with id %d doesn't have a user proposal in proposal with ID %d",
-                    currentUser.getId(),
-                    proposal.getId()
-            ));
-            return Optional.empty();
-        }
-        return Optional.of(
-                maybeUserProposal.get().getState() !=  UserProposalState.PENDING
-        );
+        return maybeUserProposal.map(userProposal -> userProposal.getState() != UserProposalState.PENDING);
     }
 
 }
