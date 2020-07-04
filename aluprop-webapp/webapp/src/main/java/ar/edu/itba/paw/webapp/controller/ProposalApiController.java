@@ -2,11 +2,11 @@ package ar.edu.itba.paw.webapp.controller;
 
 import ar.edu.itba.paw.interfaces.service.PropertyService;
 import ar.edu.itba.paw.interfaces.service.ProposalService;
+import ar.edu.itba.paw.model.Property;
 import ar.edu.itba.paw.model.Proposal;
 import ar.edu.itba.paw.model.User;
 import ar.edu.itba.paw.model.UserProposal;
 import ar.edu.itba.paw.webapp.dto.ProposalDto;
-import ar.edu.itba.paw.webapp.dto.ProposalWithPropCreatorDto;
 import ar.edu.itba.paw.webapp.dto.UserProposalDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.slf4j.Logger;
@@ -18,8 +18,6 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.Collection;
-import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -41,9 +39,8 @@ public class ProposalApiController {
         if(proposal == null){
             return Response.status(Response.Status.NOT_FOUND).build();
         }
-
-        propertyService.getPropertyWithRelatedEntities(proposal.getProperty().getId());
-        return Response.ok(ProposalWithPropCreatorDto.fromProposal(proposal)).build();
+        final Property property = propertyService.getPropertyWithRelatedEntities(proposal.getProperty().getId());
+        return Response.ok(ProposalDto.withPropertyWithRelatedEntities(proposal, property)).build();
     }
 
     @GET

@@ -12,14 +12,16 @@ public class JwtTokenHandler {
 
     private final SecureRandom random = new SecureRandom();
     private final String secret = "aWFtdmVyeXNhZmUK"; // TODO: adjust for prod
+    private final long oneMonth = 2592000000L;
 
     public String createToken(User user) {
+        final Date currentDate = new Date();
         return Jwts.builder()
                 .setClaims(Jwts.claims().setSubject(user.getEmail()))
                 .setHeaderParam("salt", random.nextLong())
                 .signWith(SignatureAlgorithm.HS512, secret)
-                .setIssuedAt(new Date())
-                .setExpiration(new Date(2021, 1, 1)) // one month
+                .setIssuedAt(currentDate)
+                .setExpiration(new Date(currentDate.getTime() + oneMonth)) // one month
                 .compact();
     }
 

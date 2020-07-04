@@ -1,5 +1,6 @@
 package ar.edu.itba.paw.webapp.dto;
 
+import ar.edu.itba.paw.model.Property;
 import ar.edu.itba.paw.model.Proposal;
 import ar.edu.itba.paw.model.enums.ProposalState;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
@@ -10,7 +11,7 @@ public class ProposalDto {
     public ProposalDto() { }
 
     private long id;
-    private IndexPropertyDto property;
+    private PropertyDto property;
     private ProposalState state;
     private IndexUserDto creator;
 
@@ -18,10 +19,15 @@ public class ProposalDto {
     public static ProposalDto fromProposal(Proposal proposal) {
         ProposalDto ret = new ProposalDto();
         ret.id = proposal.getId();
-        ret.property = IndexPropertyDto.fromProperty(proposal.getProperty());
         ret.state = proposal.getState();
         ret.creator = IndexUserDto.fromUser(proposal.getCreator());
 
+        return ret;
+    }
+
+    public static ProposalDto withPropertyWithRelatedEntities(Proposal proposal, Property property) {
+        ProposalDto ret = fromProposal(proposal);
+        ret.property = PropertyDto.fromProperty(property);
         return ret;
     }
 
@@ -29,7 +35,7 @@ public class ProposalDto {
         return id;
     }
 
-    public IndexPropertyDto getProperty() {
+    public PropertyDto getProperty() {
         return property;
     }
 
