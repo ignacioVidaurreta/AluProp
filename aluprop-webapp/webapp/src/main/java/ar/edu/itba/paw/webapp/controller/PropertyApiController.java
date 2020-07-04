@@ -113,19 +113,6 @@ public class PropertyApiController {
                 .build();
     }
 
-    @Path("/{propertyId}/guest/interest")
-    @POST
-    public Response interest(@PathParam("propertyId") long propertyId) {
-        User user = userService.getCurrentlyLoggedUser();
-        return Response.ok(propertyService.showInterestOrReturnErrors(propertyId, user)).build();
-    }
-
-    @Path("/{propertyId}/guest/uninterested")
-    @POST
-    public Response uninterested(@PathParam("propertyId") long propertyId) {
-        User user = userService.getCurrentlyLoggedUser();
-        return Response.ok(propertyService.undoInterestOrReturnErrors(propertyId, user)).build();
-    }
 
     @Path("/{propertyId}/interestedUsers")
     @GET
