@@ -23,7 +23,7 @@ public class PropertyDto {
     private boolean privacyLevel;
     private int capacity;
     private float price;
-    private ImageDto image;
+    private ImageDto mainImage;
     private Availability availability;
     private IndexUserDto owner;
     private Collection<RuleDto> rules;
@@ -40,7 +40,7 @@ public class PropertyDto {
         ret.privacyLevel = property.getPrivacyLevel();
         ret.capacity = property.getCapacity();
         ret.price = property.getPrice();
-        ret.image = ImageDto.fromImage(property.getMainImage());
+        ret.mainImage = ImageDto.fromImage(property.getMainImage());
         ret.availability = property.getAvailability();
         ret.owner = IndexUserDto.fromUser(property.getOwner());
         ret.rules = property.getRules().stream().map(RuleDto::fromRule).collect(Collectors.toList());
@@ -58,7 +58,7 @@ public class PropertyDto {
                                     .withPrivacyLevel(privacyLevel)
                                     .withCapacity(capacity)
                                     .withPrice(price)
-                                    .withMainImage(new Image(image.getId(), image.getImage()))
+                                    .withMainImage(new Image(mainImage.getId(), mainImage.getImage()))
                                     .withImages(images.stream().map(i -> new Image(i.getId(), i.getImage())).collect(Collectors.toList()))
                                     .withAvailability(availability)
                                     .withRules(rules.stream().map(r -> new Rule(r.getId(), r.getName())).collect(Collectors.toList()))
@@ -99,7 +99,7 @@ public class PropertyDto {
     }
 
     public ImageDto getImage() {
-        return image;
+        return mainImage;
     }
 
     public Availability getAvailability() {
