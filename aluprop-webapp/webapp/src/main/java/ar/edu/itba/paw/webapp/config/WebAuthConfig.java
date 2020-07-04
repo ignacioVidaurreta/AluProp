@@ -125,7 +125,10 @@ public class WebAuthConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public RequestMatcher anonymousMatcher() {
-        return new NegatedRequestMatcher(userMatcher());
+        return new OrRequestMatcher(
+                new AntPathRequestMatcher("/api/user/signup", "POST"),
+                new NegatedRequestMatcher(userMatcher())
+        );
     }
 
     @Bean
