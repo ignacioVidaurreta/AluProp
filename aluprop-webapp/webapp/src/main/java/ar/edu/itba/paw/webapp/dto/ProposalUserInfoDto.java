@@ -15,11 +15,11 @@ public class ProposalUserInfoDto {
         return ret;
     }
 
-    public boolean isInvited() {
+    public boolean getIsInvited() {
         return isInvited;
     }
 
-    public boolean isHasReplied() {
+    public boolean getHasReplied() {
         return hasReplied;
     }
 
