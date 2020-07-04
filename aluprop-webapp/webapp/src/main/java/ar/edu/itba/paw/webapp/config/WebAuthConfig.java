@@ -79,7 +79,7 @@ public class WebAuthConfig extends WebSecurityConfigurerAdapter {
     public AbstractAuthenticationProcessingFilter createSessionAuthFilter() throws Exception {
         SessionAuthFilter filter = new SessionAuthFilter();
         filter.setAuthenticationManager(authenticationManager());
-        filter.setRequiresAuthenticationRequestMatcher(anonymousMatcher());
+        filter.setRequiresAuthenticationRequestMatcher(userMatcher());
         filter.setAuthenticationSuccessHandler(new SessionAuthSuccessHandler());
         return filter;
     }

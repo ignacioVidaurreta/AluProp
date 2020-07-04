@@ -35,7 +35,8 @@ public class UserApiController {
 
     @GET
     public Response currentUser() {
-        return Response.ok(UserDto.fromUser(userService.getCurrentlyLoggedUser())).build();
+        Response response = Response.ok(UserDto.fromUser(userService.getCurrentlyLoggedUser())).build();
+        return response;
     }
 
     @GET
