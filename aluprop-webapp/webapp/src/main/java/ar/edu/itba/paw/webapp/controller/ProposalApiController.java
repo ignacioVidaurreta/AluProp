@@ -77,7 +77,7 @@ public class ProposalApiController {
     }
 
     @GET
-    @Path("/{proposalId}/userProposal/{userProposalId}/user")
+    @Path("/{proposalId}/userProposal/{userProposalId}/userid")
     public Response userIdFromUserProposal(@PathParam("proposalId") long proposalId,
                                      @PathParam("userProposalId") long userProposalId){
         Proposal proposal = proposalService.getWithRelatedEntities(proposalId);
