@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Notification } from 'src/app/models/notification';
 
-const BASE_API_URL = 'http://localhost:8080';
+const BASE_API_URL = 'http://localhost:8080/api';
 const JSON_NOTIFICATIONS = '../assets/json/dummyNotifications.json';
 
 @Injectable({

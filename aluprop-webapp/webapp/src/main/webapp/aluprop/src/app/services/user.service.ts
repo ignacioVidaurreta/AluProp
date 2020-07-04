@@ -24,8 +24,8 @@ export class UserService {
   constructor(private http: HttpClient) { }
 
   getUserById(id: number): Observable<User>{
-    console.log(BASE_API_URL+id);
-    return this.http.get<User>(BASE_API_URL+id);
+    console.log(BASE_API_URL + '/' + id);
+    return this.http.get<User>(BASE_API_URL + '/' + id);
   }
 
   getAllProposalsFromUserProposals(): Observable<Proposal[]>{

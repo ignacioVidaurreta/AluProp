@@ -29,13 +29,13 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
-    this.userSub.unsubscribe();
-    this.currentUserSub.unsubscribe();
+    if (this.userSub){ this.userSub.unsubscribe()};
+    if (this.currentUserSub){ this.currentUserSub.unsubscribe()};
   }
 
   onPageChange(pageEvent: PageEvent){
-    this.userSub.unsubscribe();
-    this.currentUserSub.unsubscribe();
+    if (this.userSub){ this.userSub.unsubscribe()};
+    if (this.currentUserSub){ this.currentUserSub.unsubscribe()};
     this.createPageSubscription();
   }
 
