@@ -13,6 +13,8 @@ public class UniversityDto {
 
     public static UniversityDto fromUniversity(University university) {
         UniversityDto ret = new UniversityDto();
+        if (university == null)
+            return ret;
         ret.id = university.getId();
         ret.name = university.getName();
         return ret;

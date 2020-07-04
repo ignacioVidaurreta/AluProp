@@ -13,6 +13,8 @@ public class CareerDto {
 
     public static CareerDto fromCareer(Career career) {
         CareerDto ret = new CareerDto();
+        if(career == null)
+            return ret;
         ret.id = career.getId();
         ret.name = career.getName();
         return ret;
