@@ -77,17 +77,17 @@ public class ProposalApiController {
     }
 
     @GET
-    @Path("/{proposalId}/user/{userId}")
-    public Response userFromProposal(@PathParam("proposalId") long proposalId,
-                                     @PathParam("userId") long userId){
+    @Path("/{proposalId}/userProposal/{userProposalId}/user")
+    public Response userIdFromUserProposal(@PathParam("proposalId") long proposalId,
+                                     @PathParam("userProposalId") long userProposalId){
         Proposal proposal = proposalService.getWithRelatedEntities(proposalId);
-        Optional<User> maybeUser = proposal.getUsers().stream()
-                                    .filter(user -> user.getId() == userId)
+        Optional<UserProposal> maybeUserProposal = proposal.getUserProposals().stream()
+                                    .filter(up -> up.getId() == userProposalId)
                                     .findFirst();
-        if(!maybeUser.isPresent()){
+        if(!maybeUserProposal.isPresent()){
             return Response.status(Response.Status.NOT_FOUND).build();
         }
-        return Response.ok(IndexUserDto.fromUser(maybeUser.get())).build();
+        return Response.ok(maybeUserProposal.get().getUser().getId()).build();
     }
 
 }
