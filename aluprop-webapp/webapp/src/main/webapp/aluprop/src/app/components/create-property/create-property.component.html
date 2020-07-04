@@ -22,9 +22,9 @@
           <mat-form-field class="property-type">
             <mat-label translate>create-property.property-type</mat-label>
             <mat-select formControlName="propertyType">
-                <mat-option value="0"><span translate>search-filters.house</span></mat-option>
-                <mat-option value="1"><span translate>search-filters.apartment</span></mat-option>
-                <mat-option value="2"><span translate>search-filters.loft</span></mat-option>
+                <mat-option [value]="propertyTypeOptions[0]"><span translate>search-filters.house</span></mat-option>
+                <mat-option [value]="propertyTypeOptions[1]"><span translate>search-filters.apartment</span></mat-option>
+                <mat-option [value]="propertyTypeOptions[2]"><span translate>search-filters.loft</span></mat-option>
             </mat-select>
             <mat-error><span translate>create-property.error-msg.property-type</span></mat-error>
           </mat-form-field>

@@ -18,7 +18,11 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 })
 export class CreatePropertyComponent implements OnInit {
 
-  propertyTypeOptions = PropertyType;
+  propertyTypeOptions = [
+    PropertyType.House,
+    PropertyType.Apartment,
+    PropertyType.Loft
+  ];
   privacyLevelOption = PrivacyLevel;
 
   neighborhoods: Neighborhood[];
@@ -146,7 +150,7 @@ export class CreatePropertyComponent implements OnInit {
     );
 
     console.log(this.createPropertyForm.controls['rules'].value);
-    console.log(this.createPropertyForm.controls['services'].value);
+    console.log(this.createPropertyForm.controls['propertyType'].value);
 
     this.createdProperty.description = this.createPropertyForm.controls['name'].value;
     this.createdProperty.caption = this.createPropertyForm.controls['description'].value;
