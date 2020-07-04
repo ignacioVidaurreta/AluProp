@@ -7,25 +7,38 @@ import ar.edu.itba.paw.model.enums.Gender;
 import ar.edu.itba.paw.model.enums.Role;
 import ar.edu.itba.paw.webapp.form.SignUpForm;
 import ar.edu.itba.paw.webapp.helperClasses.JwtTokenHandler;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.HttpHeaders;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.io.IOException;
 import java.sql.Date;
 import java.util.List;
 import java.util.Locale;
 
+@Produces(value = {MediaType.APPLICATION_JSON})
+@Consumes(value = {MediaType.APPLICATION_JSON})
+@Path("auth")
 public class AuthController {
 
     private static final Logger logger = LoggerFactory.getLogger(PropertyController.class);
+
+    private static final String NO_LANGUAGE_ERROR = "This endpoint requires a language";
 
     @Autowired
     private UserService userService;
@@ -36,21 +49,30 @@ public class AuthController {
 
     @POST
     @Path("/signup")
-    public Response signup(SignUpForm signUpForm,
-                           Locale loc,
-                           final BindingResult errors,
-                           HttpServletRequest request) {
-        if (errors.hasErrors())
-            return Response.status(Response.Status.BAD_REQUEST).build();
+    public Response signup(@RequestBody final String requestBody, @Context HttpServletRequest request) {
+        SignUpForm signUpForm = signUpForm(requestBody);
+        final String language = request.getHeader("Accept-Language");
+        if (language == null)
+            return Response.status(Response.Status.BAD_REQUEST).entity(NO_LANGUAGE_ERROR).build();
+        Locale loc = new Locale(language);
         Either<User, List<String>> maybeUser = userService.CreateUser(buildUserFromForm(signUpForm),
                 loc,
                 getBaseUrl(request.getRequestURL().toString(),
-                        "/user/signUp"));
+                        "/auth/signup"));
         if(!maybeUser.hasValue()) {
             logger.debug("NOT A UNIQUE EMAIL");
             return Response.status(Response.Status.BAD_REQUEST).entity("Username already exists").build();
         }
         return Response.ok(maybeUser.value()).header("X-TOKEN", tokenHandler.createToken(maybeUser.value())).build();
+    }
+
+    private SignUpForm signUpForm(String json) {
+        try {
+            return new ObjectMapper().readValue(json, SignUpForm.class);
+        }
+        catch (IOException e) {
+            throw new IllegalArgumentException("malformed json");
+        }
     }
 
     private User buildUserFromForm(@ModelAttribute("signUpForm") @Valid SignUpForm form) {
