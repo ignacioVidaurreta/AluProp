@@ -9,6 +9,7 @@ import { AuthGuardService } from "./services/auth-guard.service";
 import  {DetailedPropertyComponent } from "./components/detailed-property/detailed-property.component";
 import { NotificationsComponent } from './components/notifications/notifications.component';
 import { CreatePropertyComponent } from './components/create-property/create-property.component';
+import {ErrorComponent} from "./components/error/error.component";
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -31,6 +32,10 @@ const routes: Routes = [
   { path: 'notifications',
     component: NotificationsComponent,
     canActivate: [AuthGuardService],
+  },
+  {
+    path: 'error/:code',
+    component: ErrorComponent,
   },
   { path: '**', redirectTo: '' }
 ];

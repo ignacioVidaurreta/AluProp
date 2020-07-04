@@ -36,6 +36,7 @@ import {MatDialogModule} from "@angular/material/dialog";
 import {MatTabsModule} from "@angular/material/tabs";
 import { CreateProposalModalComponent } from './components/detailed-property/create-proposal-modal/create-proposal-modal.component';
 import { TokenInterceptor } from './services/token-interceptor';
+import { ErrorComponent } from './components/error/error.component';
 
 @NgModule({
   schemas: [ CUSTOM_ELEMENTS_SCHEMA],
@@ -62,6 +63,7 @@ import { TokenInterceptor } from './services/token-interceptor';
     InterestedUsersModalComponent,
     CreatePropertyComponent,
     CreateProposalModalComponent,
+    ErrorComponent,
   ],
   imports: [
     BrowserModule,

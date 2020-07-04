@@ -156,5 +156,17 @@
     "internet": "Internet",
     "laundryMachine": "Lavarropas",
     "kitchen": "Cocina"
+  },
+  "error": {
+    "500-title": "Oh no, algo salió mal!",
+    "500-subtitle": "Lo lamentamos, detectamos un error en la página. Nuestro personal ha sido notificado y va a repararlo.",
+    "500-subtitle2": "Te invitamos a contactarte con nosotros a",
+    "500-subtitle3": "y te avisaremos cuando solucionemos el problema. ¡Muchas gracias!",
+    "404-title": "Error 404: Página no encontrada",
+    "404-subtitle": "No pudimos encontrar la página que estás buscando :( apretá ",
+    "404-home": "acá",
+    "404-subtitle2": "para volver a la página de incio.",
+    "403-title": "403: Acceso denegado",
+    "403-subtitle": "Disculpas, no tienes permiso para ingresar aquí."
   }
 }

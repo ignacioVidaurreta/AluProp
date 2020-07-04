@@ -22,6 +22,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.Collection;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Path("guest")
@@ -45,7 +46,10 @@ public class GuestApiController {
         Collection<Proposal> proposals= proposalService.getAllProposalForUserId(user.getId());
 
         return Response.ok(proposals.stream()
-                .map(ProposalDto::fromProposal)
+                .map((proposal)-> {
+                    final Property property = propertyService.getPropertyWithRelatedEntities(proposal.getProperty().getId());
+                    return ProposalDto.withPropertyWithRelatedEntities(proposal, property);
+                })
                 .collect(Collectors.toList()))
                 .build();
     }
@@ -82,23 +86,32 @@ public class GuestApiController {
         boolean isInvited = !proposal.getUsersWithoutCreator(creator.getId()).contains(currentUser)
                             && !proposal.getProperty().getOwner().equals(currentUser);
 
-        boolean hasReplied = false;
-        try {
-            Collection<UserProposal> userProposals = proposal.getUserProposals();
-            hasReplied = userProposals.stream().filter(up -> up.getUser().equals(currentUser))
-                    .findFirst().get().getState() != UserProposalState.ACCEPTED;
-        }catch (NoSuchElementException e){
-            logger.error(String.format(
-                    "User with id %d doesn't have a user proposal in proposal with ID %d",
-                    currentUser.getId(),
-                    proposalId
-            ));
+        Optional<Boolean> maybeHasReplied = checkUserHasReplied(currentUser, proposal);
+        if(!maybeHasReplied.isPresent())
             return Response.status(Response.Status.NOT_FOUND).build();
-        }
+        boolean hasReplied = maybeHasReplied.get();
 
         float budget = proposal.budget();
 
         return Response.ok(ProposalUserInfoDto.fromData(isInvited, hasReplied, budget)).build();
+    }
+
+    private Optional<Boolean> checkUserHasReplied(User currentUser, Proposal proposal){
+        Collection<UserProposal> userProposals = proposal.getUserProposals();
+        Optional<UserProposal> maybeUserProposal = userProposals.stream()
+                .filter(up -> up.getUser().equals(currentUser))
+                .findFirst();
+        if(!maybeUserProposal.isPresent()) {
+            logger.error(String.format(
+                    "User with id %d doesn't have a user proposal in proposal with ID %d",
+                    currentUser.getId(),
+                    proposal.getId()
+            ));
+            return Optional.empty();
+        }
+        return Optional.of(
+                maybeUserProposal.get().getState() !=  UserProposalState.PENDING
+        );
     }
 
 }

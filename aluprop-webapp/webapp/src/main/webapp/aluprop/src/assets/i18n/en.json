@@ -177,5 +177,17 @@
     "internet": "Internet",
     "laundryMachine": "Laundry machine",
     "kitchen": "Kitchen"
+  },
+  "error": {
+    "500-title": "Oops, something went wrong!",
+    "500-subtitle": "We're sorry, we have detected an error in the website. Our staff has been notified and will repair it.",
+    "500-subtitle2": "We invite you to contact us at",
+    "500-subtitle3": "and we'll get back at you when we fix this issue. Thank you!",
+    "404-title": "404 Error: Page not found",
+    "404-subtitle": "We couldn't find the page you were looking for :( click ",
+    "404-home": "here",
+    "404-subtitle2": "to get back to the homepage.",
+    "403-title": "403: Forbidden",
+    "403-subtitle": "Sorry, you are not allowed in here."
   }
 }
