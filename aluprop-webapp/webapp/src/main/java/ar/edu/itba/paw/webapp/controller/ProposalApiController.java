@@ -1,10 +1,12 @@
 package ar.edu.itba.paw.webapp.controller;
 
+import ar.edu.itba.paw.interfaces.service.PropertyService;
 import ar.edu.itba.paw.interfaces.service.ProposalService;
 import ar.edu.itba.paw.model.Proposal;
 import ar.edu.itba.paw.model.User;
 import ar.edu.itba.paw.model.UserProposal;
 import ar.edu.itba.paw.webapp.dto.ProposalDto;
+import ar.edu.itba.paw.webapp.dto.ProposalWithPropCreatorDto;
 import ar.edu.itba.paw.webapp.dto.UserProposalDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.slf4j.Logger;
@@ -29,15 +31,19 @@ public class ProposalApiController {
 
     @Autowired
     private ProposalService proposalService;
+    @Autowired
+    private PropertyService propertyService;
 
     @GET
     @Path("/{proposalId}")
     public Response proposal(@PathParam("proposalId") long proposalId) {
-        Proposal proposal = proposalService.get(proposalId);
+        Proposal proposal = proposalService.getWithRelatedEntities(proposalId);
         if(proposal == null){
             return Response.status(Response.Status.NOT_FOUND).build();
         }
-        return Response.ok(ProposalDto.fromProposal(proposalService.get(proposalId))).build();
+
+        propertyService.getPropertyWithRelatedEntities(proposal.getProperty().getId());
+        return Response.ok(ProposalWithPropCreatorDto.fromProposal(proposal)).build();
     }
 
     @GET
