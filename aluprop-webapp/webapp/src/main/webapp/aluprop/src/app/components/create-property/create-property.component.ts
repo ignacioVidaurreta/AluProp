@@ -151,7 +151,7 @@ export class CreatePropertyComponent implements OnInit {
     this.createdProperty.description = this.createPropertyForm.controls['name'].value;
     this.createdProperty.caption = this.createPropertyForm.controls['description'].value;
     this.createdProperty.propertyType = this.createPropertyForm.controls['propertyType'].value;
-    this.createdProperty.neighbourhood = this.createPropertyForm.controls['neighborhood'].value !== ""? <Neighborhood>{id: this.createPropertyForm.controls['neighborhood'].value} : null;
+    this.createdProperty.neighbourhood = this.createPropertyForm.controls['neighborhood'].value;
     this.createdProperty.privacyLevel = this.createPropertyForm.controls['privacy'].value;
     this.createdProperty.capacity = this.createPropertyForm.controls['capacity'].value;
     this.createdProperty.price = this.createPropertyForm.controls['rent'].value;

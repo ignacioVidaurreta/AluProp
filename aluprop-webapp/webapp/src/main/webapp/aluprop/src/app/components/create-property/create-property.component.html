@@ -32,7 +32,7 @@
           <mat-form-field>
             <mat-label translate>create-property.neighborhood</mat-label>
             <mat-select formControlName="neighborhood">
-              <mat-option *ngFor="let neighborhood of neighborhoods" value="{{neighborhood}}">{{ neighborhood.name }}</mat-option>
+              <mat-option *ngFor="let neighborhood of neighborhoods" [value]="neighborhood">{{ neighborhood.name }}</mat-option>
             </mat-select>
             <mat-error><span translate>create-property.error-msg.neighborhood</span></mat-error>
           </mat-form-field>
