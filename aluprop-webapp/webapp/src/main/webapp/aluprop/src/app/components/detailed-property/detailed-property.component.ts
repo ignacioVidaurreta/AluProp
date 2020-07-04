@@ -43,20 +43,20 @@ export class DetailedPropertyComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
-    this.propertySub.unsubscribe();
-    this.currentUserSub.unsubscribe();
-    this.interestedUsersSub.unsubscribe();
-    this.isUserLoggedInSub.unsubscribe();
-    this.currentUserIsInterestedSub.unsubscribe();
+    
   }
 
   onPageChange(pageEvent: PageEvent){
-    this.propertySub.unsubscribe();
-    this.currentUserSub.unsubscribe();
-    this.interestedUsersSub.unsubscribe();
-    this.currentUserIsInterestedSub.unsubscribe();
-    this.isUserLoggedInSub.unsubscribe();
+    this.dropSubscriptions();
     this.createPageSubscription();
+  }
+
+  dropSubscriptions(){
+    if (this.propertySub){ this.propertySub.unsubscribe()};
+    if (this.currentUserSub){ this.currentUserSub.unsubscribe() };
+    if (this.interestedUsersSub){ this.interestedUsersSub.unsubscribe() };
+    if (this.isUserLoggedInSub){ this.isUserLoggedInSub.unsubscribe() };
+    if (this.currentUserIsInterestedSub){ this.currentUserIsInterestedSub.unsubscribe() };
   }
 
   createPageSubscription(){

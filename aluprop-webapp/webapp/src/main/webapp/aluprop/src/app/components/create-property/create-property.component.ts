@@ -25,7 +25,7 @@ export class CreatePropertyComponent implements OnInit {
   neighborhoodsSub: Subscription;
   rules: Rule[] = [];
   rulesSub: Subscription;
-  services: Service[] = [{id: 0, name: 'Pileta climatizada', properties: []}, {id: 1, name: 'Rellenador de pollo automatico', properties: []}];
+  services: Service[] = [];
   servicesSub: Subscription;
 
   languageChangedSub: Subscription;
@@ -122,6 +122,12 @@ export class CreatePropertyComponent implements OnInit {
       });
   }
 
+  removeTranslatedTextAttribute(input: Rule | Service){
+    let result = {... input};
+    delete result.translatedText;
+    return result;
+  }
+
   generatePropertyFromForm() {
     console.log(this.createPropertyForm.get('name'));
     if (this.currentlyUploadedImages.length === 0){
@@ -129,16 +135,23 @@ export class CreatePropertyComponent implements OnInit {
       this.notEnoughFiles = true;
       return;
     }
-    this.createdProperty.image = [];
+    this.createdProperty.images = [];
     this.currentlyUploadedImages.forEach(
-      (image) => {
-        this.createdProperty.image.push(image);
+      (image, index) => {
+        if (index === 0){
+          this.createdProperty.mainImage = <Image>{id: index, image: image.split(',')[1]};
+        }
+        this.createdProperty.images.push(<Image>{id: index, image: image.split(',')[1]});
       }
     );
+
+    console.log(this.createPropertyForm.controls['rules'].value);
+    console.log(this.createPropertyForm.controls['services'].value);
+
     this.createdProperty.description = this.createPropertyForm.controls['name'].value;
     this.createdProperty.caption = this.createPropertyForm.controls['description'].value;
     this.createdProperty.propertyType = this.createPropertyForm.controls['propertyType'].value;
-    this.createdProperty.neighbourhood = this.createPropertyForm.controls['neighborhood'].value !== ""? <Neighborhood>{id: this.createPropertyForm.controls['neighborhood'].value} : null;
+    this.createdProperty.neighbourhood = this.createPropertyForm.controls['neighborhood'].value;
     this.createdProperty.privacyLevel = this.createPropertyForm.controls['privacy'].value;
     this.createdProperty.capacity = this.createPropertyForm.controls['capacity'].value;
     this.createdProperty.price = this.createPropertyForm.controls['rent'].value;

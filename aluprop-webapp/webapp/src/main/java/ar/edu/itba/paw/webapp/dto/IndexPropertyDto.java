@@ -18,7 +18,7 @@ public class IndexPropertyDto {
     private boolean privacyLevel;
     private int capacity;
     private float price;
-    private ImageDto image;
+    private ImageDto mainImage;
     private Availability availability;
 
     public static IndexPropertyDto fromProperty(Property property) {
@@ -31,7 +31,7 @@ public class IndexPropertyDto {
        ret.privacyLevel = property.getPrivacyLevel();
        ret.capacity = property.getCapacity();
        ret.price = property.getPrice();
-       ret.image = ImageDto.fromImage(property.getMainImage());
+       ret.mainImage = ImageDto.fromImage(property.getMainImage());
        ret.availability = property.getAvailability();
        return ret;
     }
@@ -69,7 +69,7 @@ public class IndexPropertyDto {
     }
 
     public ImageDto getImage() {
-        return image;
+        return mainImage;
     }
 
     public Availability getAvailability() {

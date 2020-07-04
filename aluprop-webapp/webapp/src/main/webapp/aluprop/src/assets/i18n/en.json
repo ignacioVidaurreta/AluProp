@@ -1,4 +1,25 @@
 {
+
+  "sign-up": {
+    "sign-up": "Sign up",
+    "email": "Your e-mail address",
+    "password": "Your password",
+    "repeat-password": "Re-enter your password",
+    "first-name": "Forst name",
+    "last-name": "Last name",
+    "phone": "Phone number",
+    "birthday": "Date of birth",
+    "i-am-a": "I am a",
+    "student": "Strudel",
+    "host": "Host",
+    "bio": "Bio",
+    "bio-sample-text": "Tell us a little about yourself...",
+    "gender": "Gender",
+    "choose": "Choose",
+    "male": "Male",
+    "female": "Female",
+    "other": "Other"
+  },
   "navbar": {
     "search": "Search...",
     "signup": "Sign Up",

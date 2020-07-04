@@ -15,7 +15,7 @@ export class Property {
   capacity: number;
   price: number;
   availability: Availability;
-  image: any;// TODO: has to be erased and usages changed to images
+  mainImage: Image;// TODO: has to be erased and usages changed to images
   images: Image[];
   owner: User;
   rules: Rule[];
