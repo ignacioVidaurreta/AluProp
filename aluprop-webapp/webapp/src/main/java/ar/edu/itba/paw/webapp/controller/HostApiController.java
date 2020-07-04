@@ -37,9 +37,9 @@ public class HostApiController {
     @Autowired
     PropertyService propertyService;
 
-    @GET
     @Path("/proposals")
-    public Response getProposals(){
+    @GET
+    public Response proposals(){
         User user = userService.getCurrentlyLoggedUser();
         Collection<Proposal> proposals = proposalService.getProposalsForOwnedProperties(user);
 
@@ -50,7 +50,11 @@ public class HostApiController {
         );
 
         return Response.ok(validProposals
-                        .map(ProposalDto::fromProposal)
+                        .map((proposal -> {
+                            final Property property =
+                                    propertyService.getPropertyWithRelatedEntities(proposal.getProperty().getId());
+                            return ProposalDto.withPropertyWithRelatedEntities(proposal, property);
+                        }))
                         .collect(Collectors.toList()))
                 .build();
     }
