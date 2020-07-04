@@ -6,19 +6,20 @@ import ar.edu.itba.paw.model.Property;
 import ar.edu.itba.paw.model.Proposal;
 import ar.edu.itba.paw.model.User;
 import ar.edu.itba.paw.model.UserProposal;
+import ar.edu.itba.paw.webapp.dto.IndexUserDto;
 import ar.edu.itba.paw.webapp.dto.ProposalDto;
+import ar.edu.itba.paw.webapp.dto.UserDto;
 import ar.edu.itba.paw.webapp.dto.UserProposalDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.access.method.P;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
