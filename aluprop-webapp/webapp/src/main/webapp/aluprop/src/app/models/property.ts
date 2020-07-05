@@ -40,3 +40,20 @@ export const Availability = {
   Available: 'AVAILABLE' as Availability,
   Rented: 'RENTED' as Availability,
 };
+
+export type SortOption = 'NEWEST' | 
+                          'CAPACITY_DESC' | 
+                          'CAPACITY_ASC' | 
+                          'PRINCE_DESC' | 
+                          'PRICE_ASC' | 
+                          'BUDGET_DESC' | 
+                          'BUDGET_ASC';
+export const SortOption = {
+  Newest: 'NEWEST' as SortOption,
+  HighestCapacity: 'CAPACITY_DESC' as SortOption,
+  LowestCapacity: 'CAPACITY_ASC' as SortOption,
+  HighestPrice: 'PRICE_DESC' as SortOption,
+  LowestPrice: 'PRICE_ASC' as SortOption,
+  HighestBudget: 'BUDGET_DESC' as SortOption,
+  LowestBudget: 'BUDGET_ASC' as SortOption,
+};              

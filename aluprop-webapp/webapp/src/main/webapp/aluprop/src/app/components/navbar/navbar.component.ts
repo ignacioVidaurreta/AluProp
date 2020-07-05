@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { Observable, Subscription } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
-import {User} from "../../models/user";
+import { User, Role } from "../../models/user";
 
 @Component({
   selector: 'app-navbar',
@@ -11,6 +11,8 @@ import {User} from "../../models/user";
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
+
+  roles = Role;
 
   currentUserSubscription: Subscription;
   currentUser: User;

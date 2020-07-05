@@ -1,5 +1,16 @@
 {
-
+  "home": {
+    "sort-by": "Sort by",
+    "sort": {
+      "newest": "Newest",
+      "capacity-highest": "Highest capacity",
+      "capacity-lowest": "Lowest capacity",
+      "price-highest": "Highest price per month",
+      "price-lowest": "Lowest price per month",
+      "budget-highest": "Highest budget",
+      "budget-lowest": "Lowest budget"
+    }
+  },
   "sign-up": {
     "sign-up": "Sign up",
     "email": "Your e-mail address",
@@ -19,6 +30,13 @@
     "male": "Male",
     "female": "Female",
     "other": "Other"
+  },
+  "log-in": {
+    "login": "Log in",
+    "no-account": "No account? Register!",
+    "username": "Username",
+    "password": "Password",
+    "invalid-credentials": "Username or password is invalid"
   },
   "navbar": {
     "search": "Search...",

@@ -1,3 +1,11 @@
+<mat-form-field appearance="fill">
+  <mat-label translate>home.sort-by</mat-label>
+  <mat-select (selectionChange)="onSortSelected($event)">
+    <mat-option *ngFor="let option of sortOptions" [value]="option.value">
+      <span translate>{{option.text}}</span>
+    </mat-option>
+  </mat-select>
+</mat-form-field>
 <div class="grid">
   <app-property-item *ngFor="let property of properties" [property]="property" [routerLink]="['/propiedades/']"></app-property-item>
 </div>

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import {User, SignUpForm} from "../models/user";
 import {HttpClient} from "@angular/common/http";
-import { map } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 
 const BASE_API_URL = 'http://localhost:8080/api/';
 const LOCAL_STORAGE_AUTH_TOKEN = 'aluToken';
@@ -12,18 +12,22 @@ const LOCAL_STORAGE_AUTH_TOKEN = 'aluToken';
 })
 export class AuthenticationService {
   private authToken: string;
-  // private currentUserSubject: BehaviorSubject<User>;
-  // public currentUser: Observable<User>;
+  private currentUserSubject= new BehaviorSubject<User>(null);
+  public currentUser: Observable<User>;
 
   constructor(private http: HttpClient){
-    // localStorage.get(LOCAL_STORAGE_AUTH_TOKEN)
     if (localStorage.getItem(LOCAL_STORAGE_AUTH_TOKEN)){
       this.authToken = localStorage.getItem(LOCAL_STORAGE_AUTH_TOKEN);
     }
   }
 
   getCurrentUser(): Observable<User>{
-    return this.http.get<User>(BASE_API_URL + 'user');
+    this.http.get<User>(BASE_API_URL + 'user').pipe(take(1)).subscribe(
+      (user) => {
+        this.currentUserSubject.next(<User>user);
+      }
+    );
+    return this.currentUserSubject.asObservable();
   }
 
   signUp(signUpForm: SignUpForm){
@@ -31,6 +35,7 @@ export class AuthenticationService {
     return this.http.post<User>(BASE_API_URL + 'signUp', signUpForm, {observe: 'response'}).pipe(map(
       (response)=>{
         this.setAuthToken(response.headers.get('X-TOKEN'));
+        this.currentUserSubject.next(response.body);
         return response;
       })
     );
@@ -40,6 +45,7 @@ export class AuthenticationService {
     return this.http.post<User>(BASE_API_URL + 'login', signUpForm, {observe: 'response'}).pipe(map(
       (response)=>{
         this.setAuthToken(response.headers.get('X-TOKEN'));
+        this.currentUserSubject.next(response.body);
         return response;
       })
     );
@@ -56,6 +62,7 @@ export class AuthenticationService {
 
   logout(){
     this.setAuthToken(null);
+    this.currentUserSubject.next(null);
     this.http.get<User>(BASE_API_URL + 'logout/');
   }
 

@@ -1,11 +1,11 @@
 import { Component, OnInit, Input, ViewChild, OnDestroy } from '@angular/core';
 import { PropertyService } from 'src/app/services/property.service';
-import { Property } from 'src/app/models/property';
+import { Property, SortOption } from 'src/app/models/property';
 import { PageRequest } from 'src/app/interfaces/page-request';
 import { Subscription } from 'rxjs';
 import { PageResponse } from 'src/app/interfaces/page-response';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { filter } from 'rxjs/operators';
 
 @Component({
@@ -14,6 +14,36 @@ import { filter } from 'rxjs/operators';
   styleUrls: ['./property-grid.component.scss']
 })
 export class PropertyGridComponent implements OnInit, OnDestroy {
+
+  sortOptions = [
+    {
+        text: 'home.sort.newest',
+        value: SortOption.Newest
+    },
+    {
+      text: 'home.sort.capacity-highest',
+      value: SortOption.HighestCapacity
+    },
+    {
+      text: 'home.sort.capacity-lowest',
+      value: SortOption.LowestCapacity
+    },
+    {
+      text: 'home.sort.price-highest',
+      value: SortOption.HighestPrice
+    },
+    {
+      text: 'home.sort.price-lowest',
+      value: SortOption.LowestPrice
+    },
+    {
+      text: 'home.sort.budget-highest',
+      value: SortOption.HighestBudget
+    },
+    {
+      text: 'home.sort.budget-lowest',
+      value: SortOption.LowestBudget
+    }];
 
   searchParamsSub: Subscription;
   searchParams: any;
@@ -29,13 +59,15 @@ export class PropertyGridComponent implements OnInit, OnDestroy {
   propertiesSub: Subscription;
 
   constructor(private propertyService: PropertyService,
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute,
+              private router: Router) {
     this.pageRequest = {pageNumber: 0, pageSize: 12}
 
     this.searchParamsSub = route.queryParams.pipe(
       filter((params) => Object.keys(params).length !== 0)
     ).subscribe((params)=>{
       this.searchParams = params;
+      console.log('CreaingPageSubscription');
       this.createPageSubscription();
     });
   }
@@ -55,13 +87,17 @@ export class PropertyGridComponent implements OnInit, OnDestroy {
     this.createPageSubscription();
   }
 
+  onSortSelected(event: any){
+    this.router.navigate(['/'], { queryParams: {'orderBy': event.value}, queryParamsHandling: 'merge'});
+  }
+
   createPageSubscription(){
     if (this.searchParams && Object.keys(this.searchParams).length !== 0){
       this.propertiesSub = this.propertyService.search(this.pageRequest, this.searchParams).subscribe((pageResponse) => {
         this.properties = pageResponse.responseData;
         this.totalItems = pageResponse.totalItems;
         this.pageSize = pageResponse.pageSize;
-        console.log(this.properties);
+        // console.log(this.properties);
       });
     }
     else {
@@ -69,7 +105,7 @@ export class PropertyGridComponent implements OnInit, OnDestroy {
         this.properties = pageResponse.responseData;
         this.totalItems = pageResponse.totalItems;
         this.pageSize = pageResponse.pageSize;
-        console.log(this.properties);
+        // console.log(this.properties);
       });
     }
     
