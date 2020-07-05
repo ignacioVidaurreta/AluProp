@@ -14,7 +14,7 @@ import { Subscription } from 'rxjs';
 export class RegisterComponent implements OnInit {
 
   signUpForm = new FormGroup({    
-    email: new FormControl('', [Validators.required]),
+    email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required]),
     repeatPassword: new FormControl('', [Validators.required]),
     firstName: new FormControl('', [Validators.required]),
@@ -24,7 +24,9 @@ export class RegisterComponent implements OnInit {
     privacy: new FormControl('', [Validators.required]),
     bio: new FormControl('', [Validators.required]),
     gender: new FormControl('', [Validators.required])
-  });
+  },
+    {validators: this.checkIfMatchingPasswords('password', 'repeatPassword')}
+  );
   formChangesSub: Subscription;
 
   passwordMismatch: boolean;
@@ -33,7 +35,7 @@ export class RegisterComponent implements OnInit {
     private authenticationService: AuthenticationService
   ) { 
     this.formChangesSub = this.signUpForm.valueChanges.subscribe((filters) => {
-      this.onPhoneChange(filters['phone']);
+      this.onPhoneChange(filters['phoneNumber']);
     });
   }
   username: string;
@@ -97,21 +99,22 @@ export class RegisterComponent implements OnInit {
 
   signUp() {
     console.log(this.signUpForm.value);
-    if(this.isValidForm())
+    if(this.signUpForm.valid)
       this.authenticationService.signUp(this.signUpForm.value);
   }
 
-  checkPasswordsMatch(){
-    let password = this.signUpForm.get("password");
-    let confirm  = this.signUpForm.get("repeatPassword");
 
-    this.passwordMismatch = password !== confirm;
-
-    return !this.passwordMismatch;
-    
+  private checkIfMatchingPasswords(passwordKey: string, passwordConfirmationKey: string) {
+    return (group: FormGroup) => {
+      const passwordInput = group.controls[passwordKey],
+        passwordConfirmationInput = group.controls[passwordConfirmationKey];
+      if (passwordInput.value !== passwordConfirmationInput.value) {
+        passwordConfirmationInput.setErrors({notEquivalent: true});
+        return {notEquivalent: true};
+      } else {
+        passwordConfirmationInput.setErrors(null);
+      }
+    };
   }
 
-  isValidForm(): boolean {
-    return !this.signUpForm.invalid && this.checkPasswordsMatch()
-  }
 }

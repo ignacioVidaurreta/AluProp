@@ -3,6 +3,11 @@
     display: flex;
     justify-content: center;
   }
+
+  .title{
+    padding-right: 30px;
+    white-space: nowrap;
+  }
   
   .create-property-form {
     display: flex;
@@ -22,6 +27,28 @@
     color: grey;
     font-size: 20px;
     font-weight: 300;
+  }
+
+  .register-page{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+  }
+  .form-container {
+    padding: 45px 40px;
+    display: flex;
+    flex-direction: column;
+    margin-top:  20px;
+  }
+  .form-element{
+    padding-bottom: 10px;
+  }
+
+  .bio-form {
+    float: left;
+    clear: left;
   }
   
   ::ng-deep .mat-form-field-wrapper {

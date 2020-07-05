@@ -1,80 +1,84 @@
-  <mat-card-header>
-    <mat-card-title class="card-title" translate>sign-up.sign-up</mat-card-title>
-  </mat-card-header>
-  <form [formGroup]="signUpForm">
-    <mat-card class="prop-info mat-elevation-z4">
-      <mat-form-field>
-        <mat-label translate>sign-up.email</mat-label>
-        <input matInput type="text" formControlName="email"/>
-        <mat-error><span translate>sign-up.required-field-error</span></mat-error>
-      </mat-form-field>
+  <div class="register-page">
+    <mat-card-header>
+      <mat-card-title class="card-title title" translate>sign-up.sign-up</mat-card-title>
+    </mat-card-header>
+    <form [formGroup]="signUpForm">
+      <mat-card class="form-container prop-info mat-elevation-z4">
+        <mat-form-field class="form-element">
+          <mat-label translate>sign-up.email</mat-label>
+          <input matInput type="email" formControlName="email"/>
+          <mat-error><span translate>sign-up.invalid-email-error</span></mat-error>
+        </mat-form-field>
 
-      <mat-form-field class="password">
-        <mat-label translate>sign-up.password</mat-label>
-        <input matInput type="text" formControlName="password"/>
-        <mat-error><span translate>sign-up.required-field-error</span></mat-error>
-      </mat-form-field>
-
-      <mat-form-field class="repeatPassword">
-        <mat-label translate>sign-up.repeat-password</mat-label>
-        <input matInput type="text" formControlName="repeatPassword"/>
-        <mat-error><span translate>sign-up.required-field-error</span></mat-error>
-      </mat-form-field>
-
-      <div class="field-row">
-        <mat-form-field class="first-name">
-          <mat-label translate>sign-up.first-name</mat-label>
-          <input matInput type="text" formControlName="firstName"/>
+        <mat-form-field class="form-element password">
+          <mat-label translate>sign-up.password</mat-label>
+          <input matInput type="password" formControlName="password"/>
           <mat-error><span translate>sign-up.required-field-error</span></mat-error>
         </mat-form-field>
 
-        <mat-form-field>
-          <mat-label translate>sign-up.last-name</mat-label>
-          <input matInput type="text" formControlName="lastName"/>
+        <mat-form-field class="form-element repeatPassword">
+          <mat-label translate>sign-up.repeat-password</mat-label>
+          <input matInput type="password" formControlName="repeatPassword"/>
+          <mat-error ><span translate> sign-up.password-mismatch</span></mat-error>
+        </mat-form-field>
+        <div class="field-row form-element">
+          <mat-form-field class="first-name">
+            <mat-label translate>sign-up.first-name</mat-label>
+            <input matInput type="text" formControlName="firstName"/>
+            <mat-error><span translate>sign-up.required-field-error</span></mat-error>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label translate>sign-up.last-name</mat-label>
+            <input matInput type="text" formControlName="lastName"/>
+            <mat-error><span translate>sign-up.required-field-error</span></mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="field-row form-element">
+          <mat-form-field class="phone">
+              <mat-label translate>sign-up.phone</mat-label>
+              <input matInput type="text" formControlName="phoneNumber"/>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label translate>sign-up.birthday</mat-label>
+            <input matInput type="date" formControlName="birthday"/>
+          </mat-form-field>
+        </div>
+        
+        <mat-form-field class="form-element">
+          <mat-label translate>sign-up.i-am-a</mat-label>
+          <mat-select formControlName="privacy">
+              <mat-option value="0"><span translate>sign-up.student</span></mat-option>
+              <mat-option value="1"><span translate>sign-up.host</span></mat-option>
+          </mat-select>
           <mat-error><span translate>sign-up.required-field-error</span></mat-error>
         </mat-form-field>
-      </div>
 
-      <div class="field-row">
-        <mat-form-field class="phone">
-            <mat-label translate>sign-up.phone</mat-label>
-            <input matInput type="text" formControlName="phoneNumber"/>
+        <mat-form-field class="form-element">
+          <mat-label translate>sign-up.gender</mat-label>
+          <mat-select formControlName="gender">
+              <mat-option value="0"><span translate>sign-up.male</span></mat-option>
+              <mat-option value="1"><span translate>sign-up.female</span></mat-option>
+              <mat-option value="2"><span translate>sign-up.other</span></mat-option>
+          </mat-select>
+          <mat-error><span translate>sign-up.required-field-error</span></mat-error>
         </mat-form-field>
 
-        <mat-form-field>
-          <mat-label translate>sign-up.birthday</mat-label>
-          <input matInput type="date" formControlName="birthday"/>
+        <mat-form-field class="form-element bio">
+          <mat-label translate>sign-up.bio</mat-label>
+          <textarea class="bio-form" matInput cdkTextareaAutosize cdkAutosizeMinRows="5" cdkAutosizeMinRows="7" formControlName="bio"></textarea>
+          <mat-error><span translate>sign-up.required-field-error</span></mat-error>
         </mat-form-field>
-      </div>
-      
-      <mat-form-field>
-        <mat-label translate>sign-up.i-am-a</mat-label>
-        <mat-select formControlName="privacy">
-            <mat-option value="0"><span translate>sign-up.student</span></mat-option>
-            <mat-option value="1"><span translate>sign-up.host</span></mat-option>
-        </mat-select>
-        <mat-error><span translate>sign-up.required-field-error</span></mat-error>
-      </mat-form-field>
 
-      <mat-form-field class="bio">
-        <mat-label translate>sign-up.bio</mat-label>
-        <textarea matInput type="text" formControlName="bio"></textarea>
-        <mat-error><span translate>sign-up.required-field-error</span></mat-error>
-      </mat-form-field>
 
-      <mat-form-field>
-        <mat-label translate>sign-up.gender</mat-label>
-        <mat-select formControlName="gender">
-            <mat-option value="0"><span translate>sign-up.male</span></mat-option>
-            <mat-option value="1"><span translate>sign-up.female</span></mat-option>
-            <mat-option value="2"><span translate>sign-up.other</span></mat-option>
-        </mat-select>
-        <mat-error><span translate>sign-up.required-field-error</span></mat-error>
-      </mat-form-field>
-
-      <mat-card-footer>
-        Have an account? Log in
-      </mat-card-footer>
-    </mat-card>
-    <button class="btn btn-md btn-primary text-upper" type="submit" (click)="signUp()" translate>sign-up.publish-property</button>
-  </form>
+        <mat-card-footer>
+          <a routerLink="/login" translate> 
+            sign-up.login-message
+          </a>
+        </mat-card-footer>
+      </mat-card>
+      <button class="btn btn-md btn-primary text-upper" style="float: right;" type="submit" (click)="signUp()" translate>sign-up.sign-up</button>
+    </form>
+  </div>

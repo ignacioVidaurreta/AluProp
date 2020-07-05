@@ -30,8 +30,10 @@
     "male": "Masculino",
     "female": "Femenino",
     "other": "Otro",
-    "publish-property": "Publicar propiedad",
-    "required-field-error": "Campo obligatorio"
+    "required-field-error": "Campo obligatorio",
+    "login-message": "Ya tenes cuenta? Iniciar sesión",
+    "password-mismatch": "Las contraseñas deben coincidir",
+    "invalid-email-error": "Email inválido"
   },
   "log-in": {
     "login": "Iniciar Sesión",
