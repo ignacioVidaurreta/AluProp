@@ -3,9 +3,11 @@ import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import * as moment from "moment";
 import {User} from "../../../models/user";
 import {Property} from "../../../models/property";
+import {MatSelectionList} from "@angular/material/list";
 
 export interface DialogData {
   interestedUsers: User[];
+  currentUser: User;
   property: Property;
 }
 
@@ -15,6 +17,8 @@ export interface DialogData {
   styleUrls: ['./create-proposal-modal.component.scss']
 })
 export class CreateProposalModalComponent implements OnInit {
+
+  selectedOptions = [];
 
   ngOnInit(): void {}
 
@@ -26,6 +30,10 @@ export class CreateProposalModalComponent implements OnInit {
 
   onClick(): void {
 
+  }
+
+  log() {
+    console.log(this.selectedOptions);
   }
 
   ageFromDateOfBirthday(dateOfBirth: any): number {

@@ -86,7 +86,7 @@
     "canceled": "One or more users have declined the proposal and it is no longer active.",
     "accepted-host": "You have accepted the offer, now you can contact the guests! The property has now become inactive.",
     "accepted": "The host has accepted the offer! Now you can contact the other students and the host.",
-    "host-info": "Host's information:",
+    "host-info": " Host's information:",
     "sent": "An offer has been sent to the host, you will receive a notification when they reply!",
     "rented-host": "This property is currently inactive. In order to answer the proposal please make it active.",
     "decline": "Decline",
@@ -94,13 +94,16 @@
     "your-property": "This is your property. You can either accept or decline the offer:",
     "cancel": "Drop proposal",
     "you-would-pay": "You would pay",
-    "per-month": "per month",
+    "per-month": "per month.",
     "already-replied": "You have already replied to this proposal."
   },
   "proposals-user-table": {
     "user": "User",
     "information": "Information",
-    "response": "Response"
+    "response": "Response",
+    "gender-MALE": "Male",
+    "gender-FEMALE": "Female",
+    "gender-OTHER": "Other"
   },
   "create-property": {
     "publish-a-property": "Publish a property 🏠",

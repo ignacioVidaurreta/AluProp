@@ -8,8 +8,7 @@ import {User} from "../models/user";
 
 const BASE_API_URL = '../assets/json/dummyProposal.json';
 const BASE_API_URL_PROPOSAL = 'http://localhost:8080/api/proposal/';
-const BASE_API_URL_PROPOSAL_CREATOR = '../assets/json/dummyProposalCreator.json';
-const BASE_API_URL_PROPOSAL_CREATOR_USER_PROPOSAL = '../assets/json/dummyProposalCreatorUserProposal.json';
+const BASE_API_URL_PROPOSAL_USER_INFO = 'http://localhost:8080/api/guest/';
 
 @Injectable({
   providedIn: 'root'
@@ -30,11 +29,11 @@ export class ProposalService {
     return this.http.get<UserProposal[]>(BASE_API_URL_PROPOSAL+id+'/userProposals');
   }
 
-  getCreator(id: number): Observable<User>{
-    return this.http.get<User>(BASE_API_URL_PROPOSAL_CREATOR);
-  }
-
   getCreatorUserProposal(id: number): Observable<UserProposal>{
     return this.http.get<UserProposal>(BASE_API_URL_PROPOSAL+id+'/creatorUserProposal');
+  }
+
+  getGuestUserInfoByProposalId(id: Number): Observable<any>{
+    return this.http.get<any>(BASE_API_URL_PROPOSAL_USER_INFO+id+'/userInfo');
   }
 }
