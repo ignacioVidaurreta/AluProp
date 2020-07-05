@@ -1,31 +1,31 @@
 <mat-card class="login-card">
   <form [formGroup]="loginForm">
     <mat-card-header>
-      <mat-card-title class="login-title">Log in</mat-card-title>
+      <mat-card-title class="login-title" translate>log-in.login</mat-card-title>
     </mat-card-header>
 
     <mat-card-content class="form-container">
         <div>
           <div>
             <mat-form-field class="example-full-width">
-              <input matInput placeholder="Username" formControlName="username" required>
+              <input matInput placeholder="{{'log-in.username' | translate}}" formControlName="username" required>
             </mat-form-field>
           </div>
         </div>
         <div>
           <div>
             <mat-form-field class="example-full-width">
-                <input matInput placeholder="Password" type="password" formControlName="password" required>
+                <input matInput placeholder="{{'log-in.password' | translate}}" type="password" formControlName="password" required>
             </mat-form-field>
           </div>
         </div>
       <!-- <mat-spinner [style.display]="showSpinner ? 'block' : 'none'"></mat-spinner> -->
-      <a routerLink="/register" translate> No tiene cuenta? Registrese! </a>
+      <a routerLink="/register" translate> log-in.no-account </a>
     </mat-card-content>
-    <mat-card-content *ngIf="hasErrors" class="alert alert-danger error-msg"> El usuario o la contraseña es inválido.</mat-card-content>
+    <mat-card-content *ngIf="hasErrors" class="alert alert-danger error-msg"> log-in.invalid-credentials</mat-card-content>
 
     <mat-card-actions>
-      <button class="login-submit-btn" mat-raised-button (click)="login()" color="primary">Login</button>
+      <button class="login-submit-btn" mat-raised-button (click)="login()" color="primary"><span translate>log-in.login</span></button>
     </mat-card-actions>
   </form>
 </mat-card>
