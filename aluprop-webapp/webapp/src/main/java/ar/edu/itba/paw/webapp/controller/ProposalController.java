@@ -75,35 +75,6 @@ public class ProposalController {
         return mav;
     }
 
-    private String generateHostMailBody(Proposal proposal, User host, HttpServletRequest request){
-        Property property = propertyService.get(proposal.getProperty().getId());
-        StringBuilder builder = new StringBuilder("Hola ");
-        builder.append(host.getName());
-        builder.append("! ");
-        builder.append("Los siguientes estudiantes están interesados en tu propiedad ");
-        builder.append(property.getDescription());
-        builder.append(": \n");
-        for (User student: proposal.getUsers()){
-            builder.append('•');
-            builder.append(student.getFullName());
-            builder.append(": ");
-            builder.append(student.getEmail());
-            builder.append(" | Teléfono:");
-            builder.append(student.getContactNumber());
-            builder.append('\n');
-        }
-        builder.append("Puedes contactarlos para completar la oferta!\n");
-        builder.append("Puedes ver la propuesta usando el siguiente enlace: ");
-        builder.append(generateProposalUrl(proposal, request));
-        builder.append("\nSi no puedes ver la propuesta, recuerda iniciar sesión!\nSaludos,\nEl equipo de AluProp.");
-        return  builder.toString();
-    }
-
-    private String generateProposalUrl(Proposal proposal, HttpServletRequest request){
-        URI contextUrl = URI.create(request.getRequestURL().toString()).resolve(request.getContextPath());
-        return contextUrl.toString().split("/proposal")[0] + "/proposal/" + proposal.getId();
-    }
-
     private void addSearchObjectsToMav(ModelAndView mav){
         mav.addObject("neighbourhoods", neighbourhoodService.getAll());
         mav.addObject("rules", ruleService.getAll());
@@ -124,26 +95,4 @@ public class ProposalController {
         }
         return false;
     }
-
-    //English text
-//    private String generateHostMailBody(Proposal proposal, User host, HttpServletRequest request){
-//        Property property = propertyService.get(proposal.getPropertyId());
-//        StringBuilder builder = new StringBuilder("Hello ");
-//        builder.append(host.getName());
-//        builder.append("! ");
-//        builder.append("The following students are interested in your property ");
-//        builder.append(property.getDescription());
-//        builder.append(": \n");
-//        for (User student: proposal.getUsers()){
-//            builder.append('•');
-//            builder.append(student.getFullName());
-//            builder.append(": ");
-//            builder.append(student.getEmail());
-//            builder.append('\n');
-//        }
-//        builder.append("You can now contact them to complete the offer!\n");
-//        builder.append("The can be found on the following link: ");
-//        builder.append(generateProposalUrl(proposal, request));
-//        return  builder.toString();
-//    }
 }

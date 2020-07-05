@@ -1,5 +1,6 @@
 package ar.edu.itba.paw.webapp.controller;
 
+import ar.edu.itba.paw.interfaces.Either;
 import ar.edu.itba.paw.interfaces.service.NotificationService;
 import ar.edu.itba.paw.interfaces.service.PropertyService;
 import ar.edu.itba.paw.interfaces.service.ProposalService;
@@ -25,8 +26,6 @@ import java.util.stream.Collectors;
 @Path("guest")
 @Produces(value = {MediaType.APPLICATION_JSON})
 public class GuestApiController {
-
-    private static final Logger logger = LoggerFactory.getLogger(GuestApiController.class);
 
     @Autowired
     private PropertyService propertyService;
@@ -112,4 +111,12 @@ public class GuestApiController {
         return Response.ok(propertyService.undoInterestOrReturnErrors(propertyId, user)).build();
     }
 
+    @Path("proposal/{propertyId}")
+    @POST
+    public Response createProposal(@PathParam("propertyId") long propertyId, ProposalCreationDto proposalCreationDto) {
+        Either<Proposal, String> maybeProposal = proposalService.createProposal(propertyId, proposalCreationDto.getInviteeIds());
+        if (!maybeProposal.hasValue())
+            return Response.status(Response.Status.BAD_REQUEST).entity(maybeProposal.alternative()).build();
+        return Response.ok(maybeProposal.value()).build();
+    }
 }

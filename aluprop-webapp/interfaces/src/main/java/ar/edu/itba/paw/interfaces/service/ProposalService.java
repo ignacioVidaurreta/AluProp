@@ -9,7 +9,7 @@ import java.util.Collection;
 import java.util.List;
 
 public interface ProposalService {
-    Either<Proposal, List<String>> createProposal(Proposal proposal, long[] userIds);
+    Either<Proposal, String> createProposal(long propertyId, long[] userIds);
     int delete(long id);
     Proposal get(long id);
     Proposal getWithRelatedEntities(long id);

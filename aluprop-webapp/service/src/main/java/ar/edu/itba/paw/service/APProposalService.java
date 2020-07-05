@@ -5,11 +5,13 @@ import ar.edu.itba.paw.interfaces.dao.PropertyDao;
 import ar.edu.itba.paw.interfaces.dao.ProposalDao;
 import ar.edu.itba.paw.interfaces.dao.UserDao;
 import ar.edu.itba.paw.interfaces.service.NotificationService;
+import ar.edu.itba.paw.interfaces.service.PropertyService;
 import ar.edu.itba.paw.interfaces.service.ProposalService;
 import ar.edu.itba.paw.interfaces.service.UserService;
 import ar.edu.itba.paw.model.Property;
 import ar.edu.itba.paw.model.Proposal;
 import ar.edu.itba.paw.model.User;
+import ar.edu.itba.paw.model.enums.Availability;
 import ar.edu.itba.paw.model.enums.ProposalState;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -54,25 +56,40 @@ public class APProposalService implements ProposalService {
     private NotificationService notificationService;
     @Autowired
     private UserService userService;
-
-    private List<String> errors;
+    @Autowired
+    private PropertyService propertyService;
 
     @Override
-    public Either<Proposal, List<String>> createProposal(Proposal proposal, long[] userIds) {
-        errors = new LinkedList<>();
-        checkRelatedEntitiesExist(proposal);
-        if(!errors.isEmpty())
-            return Either.alternativeFrom(errors);
-
+    public Either<Proposal, String> createProposal(long propertyId, long[] userIds) {
+        Property property = propertyService.get(propertyId);
+        if (property == null) return Either.alternativeFrom("the given property does not exist");
+        if (!validProperty(property, userIds)) return Either.alternativeFrom("the given proposal is invalid for this property");
+        Proposal proposal = createProposal(property, userIds);
         Proposal result = proposalDao.create(proposal, userIds);
+        sendNotifications(result);
+        return Either.valueFrom(result);
+    }
 
+    private boolean validProperty(Property property, long[] ids) {
+        if (property.getCapacity() > ids.length) return false;
+        if (property.getAvailability() == Availability.RENTED) return false;
+        return true;
+    }
+
+    private Proposal createProposal(Property property, long[] ids) {
+        return new Proposal.Builder()
+                        .withCreator(userService.getCurrentlyLoggedUser())
+                        .withProperty(property)
+                        .withState(ids.length == 0 ? ProposalState.PENDING : ProposalState.SENT)
+                        .build();
+    }
+
+    private void sendNotifications(Proposal result) {
         User u = userService.getCurrentlyLoggedUser();
         if (result.getUsersWithoutCreator(u.getId()).size() > 0)
             notificationService.sendNotifications(INVITATION_SUBJECT_CODE, INVITATION_BODY_CODE, "/proposal/" + result.getId(), result.getUsers(), u.getId());
         else
             notificationService.sendNotification(SENT_HOST_SUBJECT_CODE, SENT_HOST_BODY_CODE, "/proposal/" + result.getId(), result.getProperty().getOwner());
-
-        return Either.valueFrom(result);
     }
 
     @Override
@@ -86,24 +103,10 @@ public class APProposalService implements ProposalService {
         return HttpURLConnection.HTTP_OK;
     }
 
-    private void checkRelatedEntitiesExist(Proposal proposal) {
-        checkPropertyExists(proposal.getProperty().getId());
-        checkCreatorExists(proposal.getCreator().getId());
-    }
-
 
     @Override
     public long findDuplicateProposal(Proposal proposal, long[] userIds){
         return proposalDao.findDuplicateProposal(proposal, userIds);
-    }
-    private void checkPropertyExists(long propertyId) {
-        if(propertyDao.get(propertyId) == null)
-            errors.add(PROPERTY_NOT_EXISTS);
-    }
-
-    private void checkCreatorExists(long creatorId) {
-        if(userDao.get(creatorId) == null)
-            errors.add(CREATOR_NOT_EXISTS);
     }
 
     @Override
