@@ -51,6 +51,7 @@
   },
   "notifications": {
     "notifications": "Notificationes",
+    "no-new-notifications": "No tienes notificationes nuevas",
     "new-notifications": "Notificaciones Nuevas",
     "view-all": "Ver todas",
     "newProposalSubject": "Hay una nueva propuesta para tu propiedad!"

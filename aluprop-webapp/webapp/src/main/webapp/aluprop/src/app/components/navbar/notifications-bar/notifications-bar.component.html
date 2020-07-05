@@ -1,2 +1,2 @@
-<button mat-button (click)="toggleNotifications()"><mat-icon>notifications</mat-icon></button>
-<app-notifications-menu [hidden]="!showNotifications" ></app-notifications-menu>
+<button mat-button id="toggle-notifications" (click)="toggleNotifications()"><mat-icon>notifications</mat-icon></button>
+<app-notifications-menu [hidden]="!showNotifications" (click)="$event.stopPropagation()"></app-notifications-menu>

@@ -1,5 +1,9 @@
+:host {
+  position: relative;
+}
+
 app-notifications-menu{
   position: absolute;
   top: 60px;
-  right: 10px;
+  left: -10px;
 }

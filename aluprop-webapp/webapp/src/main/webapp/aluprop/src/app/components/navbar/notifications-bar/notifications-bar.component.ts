@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 
 @Component({
   selector: 'app-notifications-bar',
@@ -9,6 +9,13 @@ export class NotificationsBarComponent implements OnInit {
 
   showNotifications = false;
 
+  @HostListener('document:click', ['$event']) 
+  onDocumentClick(event) {
+    if (this.showNotifications === true && event.path.filter(
+        (elem)=> elem.id === 'toggle-notifications').length !== 1){
+      this.showNotifications = false;
+    }
+  }
 
   constructor() { }
 
