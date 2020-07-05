@@ -63,4 +63,16 @@ export class PropertyService {
     return this.http.post(BASE_API_URL + 'host/changeStatus/' + propertyId, {});
   }
 
+  markInterest(propertyId: number) {
+    console.log('Marking interest:');
+    console.log(propertyId);
+    return this.http.post(BASE_API_URL + 'guest/' + propertyId + '/interested', {});
+  }
+
+  markUninterest(propertyId: number) {
+    console.log('Marking uninterest:');
+    console.log(propertyId);
+    return this.http.post(BASE_API_URL + 'guest/' + propertyId + '/uninterested', {});
+  }
+
 }

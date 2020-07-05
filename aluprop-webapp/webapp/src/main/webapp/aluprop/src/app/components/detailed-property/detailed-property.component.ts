@@ -34,6 +34,8 @@ export class DetailedPropertyComponent implements OnInit {
   isUserLoggedInSub: Subscription;
   languageChangedSub: Subscription;
   changePropertyStatusSub: Subscription;
+  interestSub: Subscription;
+  uninterestSub: Subscription;
 
   constructor(private propertyService: PropertyService, private userService: UserService, private translateService: TranslateService, private metadataService: MetadataService, private authenticationService: AuthenticationService, public dialog: MatDialog, private route: ActivatedRoute) {
     this.languageChangedSub = translateService.onLangChange.subscribe((newLang) => this.translateRulesAndServices());
@@ -60,13 +62,15 @@ export class DetailedPropertyComponent implements OnInit {
     if (this.isUserLoggedInSub){ this.isUserLoggedInSub.unsubscribe() };
     if (this.currentUserIsInterestedSub){ this.currentUserIsInterestedSub.unsubscribe() };
     if (this.changePropertyStatusSub){ this.changePropertyStatusSub.unsubscribe() }
+    if (this.interestSub){ this.interestSub.unsubscribe() }
+    if (this.uninterestSub){ this.uninterestSub.unsubscribe() }
   }
 
   createPageSubscription(){
     this.propertySub = this.propertyService.getById(this.propertyId).subscribe((property) => {
       this.property = property;
       this.translateRulesAndServices();
-      console.log(property.availability);
+      // console.log(property);
       this.isUserLoggedInSub = this.userService.isUserLoggedIn().subscribe((isUserLoggedIn) => {
         this.isUserLoggedIn = isUserLoggedIn;
         if(this.isUserLoggedIn) {
@@ -83,7 +87,7 @@ export class DetailedPropertyComponent implements OnInit {
             });
             if(this.currentUser?.role == 'ROLE_GUEST') {
               this.currentUserIsInterestedSub = this.propertyService.isCurrentUserInterested(this.propertyId).subscribe((currentUserIsInterested) => {
-                // console.log(currentUserIsInterested);
+                console.log(currentUserIsInterested);
                 this.currentUserIsInterested = currentUserIsInterested;
               });
               }
@@ -123,6 +127,20 @@ export class DetailedPropertyComponent implements OnInit {
   changePropertyAvailability() {
     console.log(this.property.availability);
     this.changePropertyStatusSub = this.propertyService.changePropertyAvailability(this.property.id).subscribe(
+      () => {this.onPageChange();}
+    );
+  }
+
+  markUninterest() {
+    console.log(this.currentUserIsInterested);
+    this.uninterestSub = this.propertyService.markUninterest(this.property.id).subscribe(
+      () => {this.onPageChange();}
+    );
+  }
+
+  markInterest() {
+    console.log(this.currentUserIsInterested);
+    this.interestSub = this.propertyService.markInterest(this.property.id).subscribe(
       () => {this.onPageChange();}
     );
   }

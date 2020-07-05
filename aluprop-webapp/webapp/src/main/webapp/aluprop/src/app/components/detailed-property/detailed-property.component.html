@@ -64,13 +64,13 @@
         </div>
         <div *ngIf="currentUser?.role == 'ROLE_GUEST' && currentUserIsInterested == true">
           <button mat-raised-button color="primary" (click)="openDialogCreateProposal()"><span translate>detailed-property.create-proposal</span></button>
-          <button *ngIf="property.availability == 'AVAILABLE'" mat-raised-button color="accent"><span translate>detailed-property.not-interested</span></button>
+          <button *ngIf="property.availability == 'AVAILABLE'" (click)="markUninterest()" mat-raised-button color="accent"><span translate>detailed-property.not-interested</span></button>
         </div>
         <div *ngIf="currentUser?.role == 'ROLE_GUEST' && currentUserIsInterested == false">
-          <button mat-raised-button style="width: 100%;" color="primary"><span translate>detailed-property.interested</span></button>
+          <button mat-raised-button style="width: 100%;" (click)="markInterest()" color="primary"><span translate>detailed-property.interested</span></button>
         </div>
         <div *ngIf="isUserLoggedIn == false">
-          <button mat-raised-button style="width: 100%;" color="primary"><span translate>detailed-property.interested</span></button>
+          <button mat-raised-button style="width: 100%;" [routerLink]="['/login/']" color="primary"><span translate>detailed-property.interested</span></button>
         </div>
       </mat-card-actions>
     </mat-card>
