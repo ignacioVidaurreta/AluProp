@@ -1,4 +1,12 @@
 {
+  
+  "log-in": {
+    "login": "Iniciar Sesión",
+    "no-account": "No tiene cuenta? Registrese!",
+    "username": "Usuario",
+    "password": "Contraseña",
+    "invalid-credentials": "Usuario o contraseña inválido"
+  },
   "navbar": {
     "search": "Buscar...",
     "signup": "Registrarse",
