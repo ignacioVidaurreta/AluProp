@@ -113,7 +113,8 @@ public class Proposal {
         }
 
         public Proposal build(){
-            initializeLists();return proposal;
+            initializeLists();
+            return proposal;
         }
 
         private void initializeLists() {if(this.proposal.userProposals == null) this.proposal.userProposals = new LinkedList<>(); }

@@ -12,10 +12,8 @@ import ar.edu.itba.paw.model.User;
 import ar.edu.itba.paw.model.enums.Availability;
 import ar.edu.itba.paw.model.enums.ProposalState;
 import ar.edu.itba.paw.model.enums.UserProposalState;
-import ar.edu.itba.paw.webapp.dto.ErrorDto;
-import ar.edu.itba.paw.webapp.dto.IndexPropertyDto;
-import ar.edu.itba.paw.webapp.dto.PropertyDto;
-import ar.edu.itba.paw.webapp.dto.ProposalDto;
+import ar.edu.itba.paw.model.exceptions.IllegalPropertyStateException;
+import ar.edu.itba.paw.webapp.dto.*;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.google.gson.JsonObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +26,8 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -36,8 +36,6 @@ import org.json.JSONObject;
 @Path("host")
 @Produces(MediaType.APPLICATION_JSON)
 public class HostApiController {
-
-    private final static Logger logger = LoggerFactory.getLogger(HostApiController.class);
 
     @Autowired
     UserService userService;
@@ -84,20 +82,37 @@ public class HostApiController {
 
     @POST
     @Path("/createProperty")
-    public Response createProperty(@RequestBody final String requesBody){
-        final ObjectMapper objectMapper = new ObjectMapper();
-        Property createdProperty;
-        final PropertyDto propertyDto;
+    public Response handlePropertyCreationErrors(@RequestBody final String requestBody) {
         try {
-            propertyDto = objectMapper.readValue(new JSONObject(requesBody).toString(), PropertyDto.class);
-            createdProperty = propertyDto.toProperty(userService.getCurrentlyLoggedUser());
-        }catch (IOException e){
-            return Response.status(Response.Status.BAD_REQUEST).build();
+            Property property = createProperty(new ObjectMapper().readValue(new JSONObject(requestBody).toString(),
+                                                                            PropertyDto.class));
+            return Response.ok(property).build();
+        } catch (IOException | IllegalPropertyStateException e) {
+            return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
         }
-        propertyService.create(createdProperty);
 
-        return Response.status(Response.Status.CREATED).entity(propertyDto).build();
+    }
 
+    private Property createProperty(PropertyDto propertyDto) {
+        createImages(propertyDto);
+        Property property = propertyDto.toProperty(userService.getCurrentlyLoggedUser());
+        property.setAvailability(Availability.AVAILABLE);
+        Either<Property, Collection<String>> maybeProperty = propertyService.create(property);
+        if (!maybeProperty.hasValue())
+            throw new IllegalPropertyStateException(maybeProperty.alternative().toString());
+        return property;
+    }
+
+    private void createImages(PropertyDto propertyDto) {
+        long[] ids = new long[propertyDto.getImages().size()];
+        int i = 0;
+        for (ImageDto image : propertyDto.getImages()) {
+            ids[i] = imageService.create(image.getImage());
+            if (i == 0)
+                propertyDto.setMainImageId(ids[0]);
+            i++;
+        }
+        propertyDto.setImageIds(ids);
     }
 
     @Path("/changeStatus/{propertyId}")
