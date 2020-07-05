@@ -3,7 +3,7 @@
     <ngb-carousel>
       <ng-template *ngFor="let img of property.images" ngbSlide>
         <div>
-          <img class="d-block w-100 detailed-property-image" [attr.src]="'data:image/JPEG;base64,' + img.image ">
+          <img class="d-block w-100 detailed-property-image" [ngClass]="(property.availability == 'RENTED') ? 'grayscale' : ''" [attr.src]="'data:image/JPEG;base64,' + img.image ">
         </div>
       </ng-template>
     </ngb-carousel>
@@ -11,7 +11,7 @@
   <div class="detailed-property-cards-container">
     <mat-card style="width: 72%" class="mat-elevation-z8">
       <mat-card-header>
-        <mat-card-title style="margin-bottom: 16px;">{{property.description}}<div translate *ngIf="property.availability == 'RENTED'">detailed-property.inactive</div></mat-card-title>
+        <mat-card-title style="margin-bottom: 16px;">{{property.description}}<span style="color: darkorange;" translate *ngIf="property.availability == 'RENTED'">detailed-property.inactive</span></mat-card-title>
         <mat-card-subtitle translate>
           <span *ngIf="property.propertyType == 'APARTMENT'" translate>detailed-property.apartment</span>
           <span *ngIf="property.propertyType == 'LOFT'" translate>detailed-property.loft</span>
@@ -54,24 +54,26 @@
         </div>
       </mat-card-content>
       <mat-card-actions>
-        <div *ngIf="currentUser?.role == 'ROLE_HOST' && currentUser?.id == property.owner.id" translate>
-          <button mat-raised-button color="primary" (click)="openDialogInterestedUsers()"><span translate>detailed-property.interested-users</span></button>
-          <button *ngIf="property.availability == 'AVAILABLE'" (click)="changePropertyAvailability()" mat-raised-button color="accent"><span translate>detailed-property.pause-property</span></button>
-          <button *ngIf="property.availability == 'RENTED'" (click)="changePropertyAvailability()" mat-raised-button color="accent"><span translate>detailed-property.activate-property</span></button>
-          <button mat-raised-button color="warn"><span translate>detailed-property.delete-property</span></button>
-        </div>
-        <div *ngIf="currentUser?.role == 'ROLE_HOST'">
-        </div>
-        <div *ngIf="currentUser?.role == 'ROLE_GUEST' && currentUserIsInterested == true">
-          <button mat-raised-button color="primary" (click)="openDialogCreateProposal()"><span translate>detailed-property.create-proposal</span></button>
-          <button *ngIf="property.availability == 'AVAILABLE'" (click)="markUninterest()" mat-raised-button color="accent"><span translate>detailed-property.not-interested</span></button>
-        </div>
-        <div *ngIf="currentUser?.role == 'ROLE_GUEST' && currentUserIsInterested == false">
-          <button mat-raised-button style="width: 100%;" (click)="markInterest()" color="primary"><span translate>detailed-property.interested</span></button>
-        </div>
-        <div *ngIf="isUserLoggedIn == false">
+        <div *ngIf="userIsloogedIn == false; else loggedIn">
           <button mat-raised-button style="width: 100%;" [routerLink]="['/login/']" color="primary"><span translate>detailed-property.interested</span></button>
         </div>
+        <ng-template #loggedIn>
+          <div *ngIf="currentUser?.role == 'ROLE_HOST' && currentUser?.id == property.owner.id" translate>
+            <button mat-raised-button color="primary" (click)="openDialogInterestedUsers()"><span translate>detailed-property.interested-users</span></button>
+            <button *ngIf="property.availability == 'AVAILABLE'" (click)="changePropertyAvailability()" mat-raised-button color="accent"><span translate>detailed-property.pause-property</span></button>
+            <button *ngIf="property.availability == 'RENTED'" (click)="changePropertyAvailability()" mat-raised-button color="accent"><span translate>detailed-property.activate-property</span></button>
+            <button mat-raised-button color="warn"><span translate>detailed-property.delete-property</span></button>
+          </div>
+          <div *ngIf="currentUser?.role == 'ROLE_HOST'">
+          </div>
+          <div *ngIf="currentUser?.role == 'ROLE_GUEST' && currentUserIsInterested == true">
+            <button mat-raised-button color="primary" (click)="openDialogCreateProposal()"><span translate>detailed-property.create-proposal</span></button>
+            <button *ngIf="property.availability == 'AVAILABLE'" (click)="markUninterest()" mat-raised-button color="accent"><span translate>detailed-property.not-interested</span></button>
+          </div>
+          <div *ngIf="currentUser?.role == 'ROLE_GUEST' && currentUserIsInterested == false">
+            <button mat-raised-button style="width: 100%;" (click)="markInterest()" color="primary"><span translate>detailed-property.interested</span></button>
+          </div>
+        </ng-template>
       </mat-card-actions>
     </mat-card>
   </div>
