@@ -79,7 +79,10 @@
   "proposals-user-table": {
     "user": "Usuario",
     "information": "Información",
-    "response": "Respuesta"
+    "response": "Respuesta",
+    "gender-MALE": "Masculino",
+    "gender-FEMALE": "Femenino",
+    "gender-OTHER": "Otro"
   },
   "create-property": {
     "publish-a-property": "Publicar una propiedad 🏠",

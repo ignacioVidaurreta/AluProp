@@ -28,6 +28,7 @@ export class DetailedPropertyComponent implements OnInit {
   currentUserIsInterested: boolean;
   currentUserIsInterestedSub: Subscription;
   interestedUsers: User[];
+  interestedUsersWithoutCurrentUser: User[];
   interestedUsersSub: Subscription;
   isUserLoggedIn: boolean;
   isUserLoggedInSub: Subscription;
@@ -43,7 +44,7 @@ export class DetailedPropertyComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
-    
+    this.dropSubscriptions();
   }
 
   onPageChange(pageEvent: PageEvent){
@@ -72,6 +73,11 @@ export class DetailedPropertyComponent implements OnInit {
             console.log(currentUser);
             this.interestedUsersSub = this.propertyService.getInterestedUsersByPropertyId(this.propertyId).subscribe((interestedUsers) => {
             this.interestedUsers = interestedUsers;
+            console.log(interestedUsers);
+            var index = interestedUsers.map(function(user) { return user.id; }).indexOf(this.currentUser.id);
+            console.log(interestedUsers.splice(index,1));
+            console.log(interestedUsers);
+            this.interestedUsersWithoutCurrentUser = interestedUsers;
             });
             if(this.currentUser?.role == 'ROLE_GUEST') {
               this.currentUserIsInterestedSub = this.propertyService.isCurrentUserInterested(this.propertyId).subscribe((currentUserIsInterested) => {
@@ -99,7 +105,7 @@ export class DetailedPropertyComponent implements OnInit {
   openDialogCreateProposal(): void {
     const dialogRef = this.dialog.open(CreateProposalModalComponent, {
       width: '500px',
-      data: {interestedUsers: this.interestedUsers, property: this.property}
+      data: {interestedUsers: this.interestedUsersWithoutCurrentUser, currentUser: this.currentUser, property: this.property}
     });
 
     dialogRef.afterClosed().subscribe(result => {

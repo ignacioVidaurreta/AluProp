@@ -1,12 +1,11 @@
 package ar.edu.itba.paw.webapp.dto;
 
-import ar.edu.itba.paw.model.Image;
-import ar.edu.itba.paw.model.Property;
-import ar.edu.itba.paw.model.Rule;
-import ar.edu.itba.paw.model.Service;
+import ar.edu.itba.paw.interfaces.service.UserService;
+import ar.edu.itba.paw.model.*;
 import ar.edu.itba.paw.model.enums.Availability;
 import ar.edu.itba.paw.model.enums.PropertyType;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Collection;
 import java.util.stream.Collectors;
@@ -49,7 +48,7 @@ public class PropertyDto {
         return ret;
     }
 
-    public Property toProperty() {
+    public Property toProperty(User currentUser) {
         return new Property.Builder().withId(id)
                                     .withCaption(caption)
                                     .withDescription(description)
@@ -63,6 +62,7 @@ public class PropertyDto {
                                     .withAvailability(availability)
                                     .withRules(rules.stream().map(r -> new Rule(r.getId(), r.getName())).collect(Collectors.toList()))
                                     .withServices(services.stream().map(r -> new Service(r.getId(), r.getName())).collect(Collectors.toList()))
+                                    .withOwner(currentUser)
                                     .build();
     }
 

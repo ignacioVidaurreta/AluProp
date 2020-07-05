@@ -6,5 +6,5 @@ import org.springframework.web.multipart.MultipartFile;
 public interface ImageService {
     Image get(long id);
 
-    long create(MultipartFile file);
+    long create(byte[] image);
 }
