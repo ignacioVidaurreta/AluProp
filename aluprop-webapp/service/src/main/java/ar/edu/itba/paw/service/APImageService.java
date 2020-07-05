@@ -21,12 +21,7 @@ public class APImageService implements ImageService {
     }
 
     @Override
-    public long create(MultipartFile file) {
-        try {
-            return imageDao.create(file.getBytes());
-        }
-        catch(IOException e) {
-            return 0;
-        }
+    public long create(byte[] image) {
+        return imageDao.create(image);
     }
 }
