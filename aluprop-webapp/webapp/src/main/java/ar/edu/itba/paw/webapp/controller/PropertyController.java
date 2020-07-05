@@ -180,49 +180,4 @@ public class PropertyController {
             mav.addObject("interestedUsers", propertyService.get(propertyId).getInterestedUsers());
         return mav;
     }
-
-    @RequestMapping(value = "/proposal/create/{propertyId}", method = RequestMethod.POST)
-    public ModelAndView create(HttpServletRequest request,
-                               @PathVariable(value = "propertyId") int propertyId,
-                               @Valid @ModelAttribute("proposalForm") ProposalForm form,
-                               final BindingResult errors,
-                               @ModelAttribute FilteredSearchForm searchForm) {
-        final ModelAndView mav = navigationUtility.mavWithNavigationAttributes();
-        final Property prop = propertyService.get(propertyId);
-        if (form.getInvitedUsersIds() != null && form.getInvitedUsersIds().length > prop.getCapacity() - 1)
-            return get(form, searchForm, propertyId).addObject("maxPeople", prop.getCapacity()-1);
-        if (prop.getAvailability() == Availability.RENTED){
-            mav.setViewName("redirect:/" + propertyId);
-            return mav;
-        }
-
-        long userId = userService.getCurrentlyLoggedUser().getId();
-
-        Proposal.Builder builder = new Proposal.Builder()
-                .withCreator(userService.get(userId))
-                .withProperty(propertyService.get(propertyId));
-
-        if(form.getInvitedUsersIds() == null || form.getInvitedUsersIds().length == 0)
-            builder.withState(ProposalState.SENT);
-        else
-            builder.withState(ProposalState.PENDING);
-        final Proposal proposal = builder.build();
-
-        final long duplicateId = proposalService.findDuplicateProposal(proposal, form.getInvitedUsersIds());
-        if(duplicateId != -1) {
-            mav.setViewName("redirect:/proposal/" + duplicateId);
-            return mav;
-        }
-
-        Either<Proposal, List<String>> proposalOrErrors = proposalService.createProposal(proposal, form.getInvitedUsersIds());
-
-        if(proposalOrErrors.hasValue()){
-            mav.setViewName("redirect:/proposal/" + proposalOrErrors.value().getId());
-            return mav;
-        } else {
-            mav.setViewName("redirect:/" + propertyId);
-            mav.addObject("errors", proposalOrErrors.alternative());
-            return mav;
-        }
-    }
 }
