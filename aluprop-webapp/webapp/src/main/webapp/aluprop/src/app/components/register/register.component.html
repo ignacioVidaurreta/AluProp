@@ -39,11 +39,13 @@
           <mat-form-field class="phone">
               <mat-label translate>sign-up.phone</mat-label>
               <input matInput type="text" formControlName="phoneNumber"/>
+              <mat-error><span translate>sign-up.required-field-error</span></mat-error>
           </mat-form-field>
 
           <mat-form-field>
             <mat-label translate>sign-up.birthday</mat-label>
             <input matInput type="date" formControlName="birthday"/>
+            <mat-error><span translate>sign-up.required-field-error</span></mat-error>
           </mat-form-field>
         </div>
         
