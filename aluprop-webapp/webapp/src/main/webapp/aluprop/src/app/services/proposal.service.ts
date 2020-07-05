@@ -41,6 +41,7 @@ export class ProposalService {
   createProposal(invitedUserIds: number[], propertyId: number): Observable<Proposal> {
     console.log('Creating proposal:');
     console.log(invitedUserIds);
-    return this.http.post<Proposal>(BASE_API_URL + 'guest/proposal/' + propertyId, invitedUserIds);
+    const payload = {inviteeIds: invitedUserIds};
+    return this.http.post<Proposal>(BASE_API_URL + 'guest/proposal/' + propertyId, payload);
   }
 }
