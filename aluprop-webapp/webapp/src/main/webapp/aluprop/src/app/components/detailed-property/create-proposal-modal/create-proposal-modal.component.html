@@ -3,7 +3,7 @@
   <p translate>create-proposal-modal.select-up-to<b>{{data.property.capacity - 1}}</b>create-proposal-modal.other-students</p>
   <p translate>create-proposal-modal.warning-limit</p>
   <div *ngIf="data.interestedUsers.length != 0 else noInterestedUsers">
-  <mat-selection-list #users [(ngModel)]="selectedOptions">
+  <mat-selection-list #users [(ngModel)]="selectedOptions" (ngModelChange)="onNgModelChange($event)">
     <mat-list-option #user checkboxPosition="before" *ngFor="let user of data.interestedUsers" [value]="user">
       <div style="display: flex;flex-flow: row;justify-content: space-between;margin-top: 10px" role="listitem">
         <div style="margin-left: 6px">
@@ -16,8 +16,9 @@
       </div>
     </mat-list-option>
   </mat-selection-list>
-  <p style="margin-top: 16px" translate>create-proposal-modal.you-have-selected<b>{{users.selectedOptions.selected.length}}</b>create-proposal-modal.other-students-selected</p>
-    <p translate>create-proposal-modal.each-student-will-be-paying<b>${{getPricePerPerson(users.selectedOptions.selected.length + 1).toFixed(2)}}</b><b translate> create-proposal-modal.month</b>.</p>
+  <p *ngIf="showErrorMaxGuests" style="margin-top: 16px;color: firebrick" translate>create-proposal-modal.you-have-already-selected<b>{{users.selectedOptions.selected.length}}</b>create-proposal-modal.other-students-selected-max</p>
+  <p *ngIf="!showErrorMaxGuests" style="margin-top: 16px" translate>create-proposal-modal.you-have-selected<b>{{users.selectedOptions.selected.length}}</b>create-proposal-modal.other-students-selected</p>
+  <p translate>create-proposal-modal.each-student-will-be-paying<b>${{getPricePerPerson(users.selectedOptions.selected.length + 1).toFixed(2)}}</b><b translate> create-proposal-modal.month</b>.</p>
   </div>
   <ng-template #noInterestedUsers>
     <p translate>
@@ -27,5 +28,5 @@
 </div>
 <div mat-dialog-actions style="float: right;">
     <button mat-raised-button mat-dialog-close><span translate>create-proposal-modal.close</span></button>
-    <button mat-raised-button mat-dialog-close (click)="log()" color="primary"><span translate>create-proposal-modal.create</span></button>
+    <button mat-raised-button mat-dialog-close (click)="createProposal()" color="primary"><span translate>create-proposal-modal.create</span></button>
 </div>
