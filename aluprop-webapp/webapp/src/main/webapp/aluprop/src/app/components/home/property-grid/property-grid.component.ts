@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, ViewChild, OnDestroy } from '@angular/core';
 import { PropertyService } from 'src/app/services/property.service';
-import { Property } from 'src/app/models/property';
+import { Property, SortOption } from 'src/app/models/property';
 import { PageRequest } from 'src/app/interfaces/page-request';
 import { Subscription } from 'rxjs';
 import { PageResponse } from 'src/app/interfaces/page-response';
@@ -14,6 +14,36 @@ import { filter } from 'rxjs/operators';
   styleUrls: ['./property-grid.component.scss']
 })
 export class PropertyGridComponent implements OnInit, OnDestroy {
+
+  sortOptions = [
+    {
+        text: 'home.sort.newest',
+        value: SortOption.Newest
+    },
+    {
+      text: 'home.sort.capacity-highest',
+      value: SortOption.HighestCapacity
+    },
+    {
+      text: 'home.sort.capacity-lowest',
+      value: SortOption.LowestCapacity
+    },
+    {
+      text: 'home.sort.price-highest',
+      value: SortOption.HighestPrice
+    },
+    {
+      text: 'home.sort.price-lowest',
+      value: SortOption.LowestPrice
+    },
+    {
+      text: 'home.sort.budget-highest',
+      value: SortOption.HighestBudget
+    },
+    {
+      text: 'home.sort.budget-lowest',
+      value: SortOption.LowestBudget
+    }];
 
   searchParamsSub: Subscription;
   searchParams: any;

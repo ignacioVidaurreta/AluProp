@@ -1,5 +1,16 @@
 {
-
+  "home": {
+    "sort-by": "Sort by",
+    "sort": {
+      "newest": "Newest",
+      "capacity-highest": "Highest capacity",
+      "capacity-lowest": "Lowest capacity",
+      "price-highest": "Highest price per month",
+      "price-lowest": "Lowest price per month",
+      "budget-highest": "Highest budget",
+      "budget-lowest": "Lowest budget"
+    }
+  },
   "sign-up": {
     "sign-up": "Sign up",
     "email": "Your e-mail address",

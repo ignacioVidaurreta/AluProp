@@ -1,4 +1,16 @@
 {
+  "home": {
+    "sort-by": "Ordenar por",
+    "sort": {
+      "newest": "Más nuevas",
+      "capacity-highest": "Máxima capacidad",
+      "capacity-lowest": "Mínima capacidad",
+      "price-highest": "Máxima renta por mes",
+      "price-lowest": "Mínima renta por mes",
+      "budget-highest": "Máximo presupuesto por persona",
+      "budget-lowest": "Mínimo presupuesto por persona"
+    }
+  },
   "navbar": {
     "search": "Buscar...",
     "signup": "Registrarse",
