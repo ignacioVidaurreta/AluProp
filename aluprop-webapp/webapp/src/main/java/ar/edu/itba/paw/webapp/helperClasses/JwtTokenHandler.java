@@ -1,10 +1,13 @@
 package ar.edu.itba.paw.webapp.helperClasses;
 
 import ar.edu.itba.paw.model.User;
+import ar.edu.itba.paw.webapp.auth.APUsernamePasswordAuthToken;
 import io.jsonwebtoken.*;
 import org.springframework.stereotype.Component;
 
+import javax.servlet.http.HttpServletRequest;
 import java.security.SecureRandom;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Component
@@ -47,5 +50,17 @@ public class JwtTokenHandler {
             claims = null;
         }
         return claims;
+    }
+
+    public Date expiry(String tokenString) {
+        Jwt token = Jwts.parser().setSigningKey(secret).parse(tokenString);
+        Claims claims = (Claims) token.getBody();
+        return claims.getExpiration();
+    }
+
+    public APUsernamePasswordAuthToken parseToken(HttpServletRequest request) {
+        String header = request.getHeader("Authorization");
+        if (header == null || !header.startsWith("Bearer ")) return null;
+        return new APUsernamePasswordAuthToken(header.substring("Bearer ".length()));
     }
 }
