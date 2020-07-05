@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -13,10 +13,23 @@ export class SearchBarComponent implements OnInit {
 
   @ViewChild('searchInput') searchInput: ElementRef;
 
+
+  @HostListener('document:click', ['$event']) 
+  onDocumentClick(event) {
+    if (this.showFilters === true && event.path.filter(
+        (elem)=> elem.id === 'toggle-filters' || 
+                            elem.id === 'filters' || 
+                            elem.classList?.contains('filter-select-option')).length !== 1){
+      this.showFilters = false;
+      console.log('dsfdsf');
+    }
+  }
+
   constructor(private router: Router) { }
 
   ngOnInit(): void {
     this.searchFilters = {};
+    // setInterval(()=>console.log(this.showFilters), 10);
   }
 
   toggleFilters(){

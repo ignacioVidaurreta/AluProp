@@ -3,9 +3,9 @@
         <mat-form-field>
             <mat-label translate>search-filters.property-type</mat-label>
             <mat-select formControlName="propertyType">
-                <mat-option value="0"><span translate>search-filters.house</span></mat-option>
-                <mat-option value="1"><span translate>search-filters.apartment</span></mat-option>
-                <mat-option value="2"><span translate>search-filters.loft</span></mat-option>
+                <mat-option class="filter-select-option" value="0"><span translate>search-filters.house</span></mat-option>
+                <mat-option class="filter-select-option" value="1"><span translate>search-filters.apartment</span></mat-option>
+                <mat-option class="filter-select-option" value="2"><span translate>search-filters.loft</span></mat-option>
             </mat-select>
             <mat-error>Error</mat-error>
         </mat-form-field>
@@ -13,7 +13,7 @@
             <mat-label translate>search-filters.neighborhood</mat-label>
             <mat-select formControlName="neighborhood">
                 <div *ngFor="let neighborhood of neighborhoods">
-                    <mat-option value="neighborhood.id">{{ neighborhood.name }}</mat-option>
+                    <mat-option class="filter-select-option" value="neighborhood.id">{{ neighborhood.name }}</mat-option>
                 </div>
             </mat-select>
             <mat-error>Error</mat-error>
@@ -21,8 +21,8 @@
         <mat-form-field>
             <mat-label translate>search-filters.privacy</mat-label>
             <mat-select formControlName="privacy">
-                <mat-option value="0"><span translate>search-filters.individual</span></mat-option>
-                <mat-option value="1"><span translate>search-filters.shared</span></mat-option>
+                <mat-option class="filter-select-option" value="0"><span translate>search-filters.individual</span></mat-option>
+                <mat-option class="filter-select-option" value="1"><span translate>search-filters.shared</span></mat-option>
             </mat-select>
             <mat-error>Error</mat-error>
         </mat-form-field>
@@ -48,7 +48,7 @@
         <mat-form-field>
             <mat-label translate>search-filters.unspecified</mat-label>
             <mat-select formControlName="rules" multiple>
-                <mat-option *ngFor="let rule of rules" [value]="rule.id">
+                <mat-option class="filter-select-option" *ngFor="let rule of rules" [value]="rule.id">
                     {{rule.name}}
                 </mat-option>
             </mat-select>
@@ -57,7 +57,7 @@
          <mat-form-field>
             <mat-label translate>search-filters.unspecified</mat-label>
             <mat-select formControlName="services" multiple>
-                <mat-option *ngFor="let service of services" [value]="service.id">
+                <mat-option class="filter-select-option" *ngFor="let service of services" [value]="service.id">
                     {{service.name}}
                 </mat-option>
             </mat-select>
