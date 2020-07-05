@@ -121,4 +121,18 @@ public class PropertyDto {
     public Collection<ImageDto> getImages() {
         return images;
     }
+
+    public void setMainImageId(long id) {
+        mainImage.setId(id);
+    }
+
+    public void setImageIds(long[] ids) {
+        if (images.size() != ids.length)
+            throw new IllegalArgumentException("quantity of ids must match images");
+        int i = 0;
+        for (ImageDto image : images) {
+            image.setId(ids[i]);
+            i++;
+        }
+    }
 }

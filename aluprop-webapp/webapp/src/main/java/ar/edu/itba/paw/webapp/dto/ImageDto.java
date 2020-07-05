@@ -23,4 +23,8 @@ public class ImageDto {
     public byte[] getImage() {
         return image;
     }
+
+    /* package */ void setId(long id) {
+        this.id = id;
+    }
 }
