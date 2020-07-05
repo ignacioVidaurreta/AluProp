@@ -53,7 +53,7 @@ import java.util.Properties;
                 "ar.edu.itba.paw.persistence",
                 "ar.edu.itba.paw.service",
                 "ar.edu.itba.paw.webapp.helperClasses",
-                "ar.edu.itba.paw.webapp.config.handler"})
+                "ar.edu.itba.paw.webapp.config.handler" })
 @PropertySource("classpath:application.properties")
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
