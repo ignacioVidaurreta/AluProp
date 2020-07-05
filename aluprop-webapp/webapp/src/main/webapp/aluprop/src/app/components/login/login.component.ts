@@ -19,22 +19,25 @@ export class LoginComponent implements OnInit {
     password: new FormControl('', [Validators.required]),
   });
 
+  username = this.loginForm.get('username');
+  password = this.loginForm.get('password');
   ngOnInit() { }
 
-  hasErrors: boolean = false;;
+  hasInvalidCredentials: boolean = false;;
 
   login() : void {
-    this.authenticationService.login(this.loginForm.value).subscribe( (response) =>{
-      if (response){
-        this.hasErrors = false;
-        this.router.navigate([""]);
-      } else {
-        this.hasErrors = true;
-        alert('Invalid credentials'); //TODO: better error message kek
-      }
-    }, (error: any) => {
-      this.hasErrors = true;
-    });
+    if(this.username.valid && this.password.valid){
+      this.authenticationService.login(this.loginForm.value).subscribe( (response) =>{
+        if (response){
+          this.hasInvalidCredentials = false;
+          this.router.navigate([""]);
+        } else {
+          this.hasInvalidCredentials = true;
+        }
+      }, (error: any) => {
+        this.hasInvalidCredentials = true;
+      });
+    }
   }
 
 }
