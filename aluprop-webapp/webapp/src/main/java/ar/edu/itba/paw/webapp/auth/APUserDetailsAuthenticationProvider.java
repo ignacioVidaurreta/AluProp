@@ -1,5 +1,7 @@
 package ar.edu.itba.paw.webapp.auth;
 
+import ar.edu.itba.paw.interfaces.service.JwtService;
+import ar.edu.itba.paw.webapp.exception.IllegalAccessException;
 import ar.edu.itba.paw.webapp.helperClasses.JwtTokenHandler;
 import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,9 +16,11 @@ import org.springframework.stereotype.Component;
 public class APUserDetailsAuthenticationProvider extends AbstractUserDetailsAuthenticationProvider {
 
     @Autowired
-    JwtTokenHandler tokenHandler;
+    private JwtTokenHandler tokenHandler;
     @Autowired
-    UserDetailsService userDetailsService;
+    private UserDetailsService userDetailsService;
+    @Autowired
+    private JwtService jwtService;
 
     @Override
     public boolean supports(Class<?> authentication) {
@@ -28,6 +32,8 @@ public class APUserDetailsAuthenticationProvider extends AbstractUserDetailsAuth
                                                 throws AuthenticationException {
         if (!(token instanceof APUsernamePasswordAuthToken))
             throw new IllegalArgumentException("This is not an APUsernamePasswordAuthToken: rejecting auth");
+        if (jwtService.isInBlacklist(((APUsernamePasswordAuthToken) token).getToken()))
+            throw new IllegalArgumentException("Blacklisted token");
     }
 
     @Override

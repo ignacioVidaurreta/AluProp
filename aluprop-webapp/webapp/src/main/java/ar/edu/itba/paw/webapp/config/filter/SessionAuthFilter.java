@@ -1,6 +1,6 @@
 package ar.edu.itba.paw.webapp.config.filter;
 
-import ar.edu.itba.paw.interfaces.service.UserService;
+import ar.edu.itba.paw.interfaces.service.JwtService;
 import ar.edu.itba.paw.model.enums.Role;
 import ar.edu.itba.paw.webapp.auth.APUsernamePasswordAuthToken;
 import ar.edu.itba.paw.webapp.exception.IllegalAccessException;
@@ -18,16 +18,17 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Collections;
+import java.util.Date;
 
 public class SessionAuthFilter extends AbstractAuthenticationProcessingFilter {
 
-    private static final boolean IN_DEVELOPMENT = true;
-
+    @Autowired
+    private JwtService jwtService;
     @Autowired
     private JwtTokenHandler tokenHandler;
-    @Autowired
-    private UserService userService;
     @Autowired
     private RequestMatcher hostMatcher;
     @Autowired
@@ -42,7 +43,7 @@ public class SessionAuthFilter extends AbstractAuthenticationProcessingFilter {
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request,
                                                 HttpServletResponse response) throws AuthenticationException {
-        APUsernamePasswordAuthToken token = parseToken(request);
+        APUsernamePasswordAuthToken token = tokenHandler.parseToken(request);
         if (token != null) {
             Authentication auth = getAuthenticationManager().authenticate(token);
             if (hostMatcher.matches(request)) return checkHost(auth);
@@ -54,25 +55,6 @@ public class SessionAuthFilter extends AbstractAuthenticationProcessingFilter {
         return new AnonymousAuthenticationToken("AP_ANONYMOUS",
                 "ANONYMOUS",
                 Collections.singletonList(new SimpleGrantedAuthority("NONE")));
-    }
-
-
-    @Override
-    protected void successfulAuthentication(HttpServletRequest request,
-                                            HttpServletResponse response,
-                                            FilterChain chain,
-                                            Authentication authResult) throws IOException, ServletException {
-        super.successfulAuthentication(request, response, chain, authResult);
-        chain.doFilter(request, response);
-    }
-
-    private APUsernamePasswordAuthToken parseToken(HttpServletRequest request) {
-        String header = request.getHeader("Authorization");
-        if (header != null && header.startsWith("Bearer ")) {
-            String authToken = header.substring("Bearer ".length());
-            return new APUsernamePasswordAuthToken(authToken);
-        }
-        return null;
     }
 
     private Authentication checkHost(Authentication auth) {

@@ -30,9 +30,11 @@ export class DetailedPropertyComponent implements OnInit {
   interestedUsers: User[];
   interestedUsersWithoutCurrentUser: User[];
   interestedUsersSub: Subscription;
-  isUserLoggedIn: boolean;
-  isUserLoggedInSub: Subscription;
   languageChangedSub: Subscription;
+  changePropertyStatusSub: Subscription;
+  interestSub: Subscription;
+  uninterestSub: Subscription;
+  userIsloogedIn: boolean;
 
   constructor(private propertyService: PropertyService, private userService: UserService, private translateService: TranslateService, private metadataService: MetadataService, private authenticationService: AuthenticationService, public dialog: MatDialog, private route: ActivatedRoute) {
     this.languageChangedSub = translateService.onLangChange.subscribe((newLang) => this.translateRulesAndServices());
@@ -47,48 +49,49 @@ export class DetailedPropertyComponent implements OnInit {
     this.dropSubscriptions();
   }
 
-  onPageChange(pageEvent: PageEvent){
+  onPageChange() {
     this.dropSubscriptions();
     this.createPageSubscription();
   }
 
-  dropSubscriptions(){
+  dropSubscriptions() {
     if (this.propertySub){ this.propertySub.unsubscribe()};
     if (this.currentUserSub){ this.currentUserSub.unsubscribe() };
     if (this.interestedUsersSub){ this.interestedUsersSub.unsubscribe() };
-    if (this.isUserLoggedInSub){ this.isUserLoggedInSub.unsubscribe() };
     if (this.currentUserIsInterestedSub){ this.currentUserIsInterestedSub.unsubscribe() };
+    if (this.changePropertyStatusSub){ this.changePropertyStatusSub.unsubscribe() }
+    if (this.interestSub){ this.interestSub.unsubscribe() }
+    if (this.uninterestSub){ this.uninterestSub.unsubscribe() }
   }
 
-  createPageSubscription(){
+  createPageSubscription() {
     this.propertySub = this.propertyService.getById(this.propertyId).subscribe((property) => {
       this.property = property;
       this.translateRulesAndServices();
-      console.log(property);
-      this.isUserLoggedInSub = this.userService.isUserLoggedIn().subscribe((isUserLoggedIn) => {
-        this.isUserLoggedIn = isUserLoggedIn;
-        if(this.isUserLoggedIn) {
-          this.currentUserSub = this.authenticationService.getCurrentUser().subscribe((currentUser)=> {
-            this.currentUser = currentUser;
-            console.log(currentUser);
-            this.interestedUsersSub = this.propertyService.getInterestedUsersByPropertyId(this.propertyId).subscribe((interestedUsers) => {
-            this.interestedUsers = interestedUsers;
-            console.log(interestedUsers);
-            var index = interestedUsers.map(function(user) { return user.id; }).indexOf(this.currentUser.id);
-            console.log(interestedUsers.splice(index,1));
-            console.log(interestedUsers);
-            this.interestedUsersWithoutCurrentUser = interestedUsers;
-            });
-            if(this.currentUser?.role == 'ROLE_GUEST') {
-              this.currentUserIsInterestedSub = this.propertyService.isCurrentUserInterested(this.propertyId).subscribe((currentUserIsInterested) => {
-                console.log(currentUserIsInterested);
-                this.currentUserIsInterested = currentUserIsInterested;
-              });
-              }
+      this.currentUserSub = this.authenticationService.getCurrentUser().subscribe((currentUser)=> {
+        this.currentUser = currentUser;
+        this.userIsloogedIn = this.isUserLoggedIn();
+        this.interestedUsersSub = this.propertyService.getInterestedUsersByPropertyId(this.propertyId).subscribe((interestedUsers) => {
+        this.interestedUsers = interestedUsers;
+        var index = interestedUsers.map(function(user) { return user?.id; }).indexOf(this.currentUser?.id);
+        this.interestedUsersWithoutCurrentUser = interestedUsers;
+        });
+        if(this.currentUser?.role == 'ROLE_GUEST') {
+          this.currentUserIsInterestedSub = this.propertyService.isCurrentUserInterested(this.propertyId).subscribe((currentUserIsInterested) => {
+            console.log(currentUserIsInterested);
+            this.currentUserIsInterested = currentUserIsInterested;
           });
-        }
+          }
       });
-    });
+      });
+  }
+
+  isUserLoggedIn(){
+    if( this.currentUser ){
+      return true;
+    }
+    console.log(this.currentUser)
+    return false;
   }
 
   openDialogInterestedUsers(): void {
@@ -116,5 +119,26 @@ export class DetailedPropertyComponent implements OnInit {
   translateRulesAndServices(){
     this.metadataService.translateMetadataArray(this.property.rules);
     this.metadataService.translateMetadataArray(this.property.services);
+  }
+
+  changePropertyAvailability() {
+    console.log(this.property.availability);
+    this.changePropertyStatusSub = this.propertyService.changePropertyAvailability(this.property.id).subscribe(
+      () => {this.onPageChange();}
+    );
+  }
+
+  markUninterest() {
+    console.log(this.currentUserIsInterested);
+    this.uninterestSub = this.propertyService.markUninterest(this.property.id).subscribe(
+      () => {this.onPageChange();}
+    );
+  }
+
+  markInterest() {
+    console.log(this.currentUserIsInterested);
+    this.interestSub = this.propertyService.markInterest(this.property.id).subscribe(
+      () => {this.onPageChange();}
+    );
   }
 }

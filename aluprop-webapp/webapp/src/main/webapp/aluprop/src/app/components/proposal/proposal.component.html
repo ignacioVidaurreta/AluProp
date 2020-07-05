@@ -20,7 +20,7 @@
              </div>
            <div *ngIf="currentUser.role == 'ROLE_GUEST'">
              <span translate>proposal.dropped</span>
-             <a translate>proposal.find-another-property</a>
+             <a [routerLink]="''" translate>proposal.find-another-property</a>
            </div>
           </div>
           <div *ngIf="proposal.state == 'CANCELED'">

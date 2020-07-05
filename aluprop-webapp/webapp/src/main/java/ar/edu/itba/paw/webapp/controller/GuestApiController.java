@@ -107,14 +107,14 @@ public class GuestApiController {
     @POST
     public Response interest(@PathParam("propertyId") long propertyId) {
         User user = userService.getCurrentlyLoggedUser();
-        return Response.ok(propertyService.showInterestOrReturnErrors(propertyId, user)).build();
+        return Response.status(propertyService.showInterestOrReturnErrors(propertyId, user)).build();
     }
 
     @Path("/{propertyId}/uninterested")
     @POST
     public Response uninterested(@PathParam("propertyId") long propertyId) {
         User user = userService.getCurrentlyLoggedUser();
-        return Response.ok(propertyService.undoInterestOrReturnErrors(propertyId, user)).build();
+        return Response.status(propertyService.undoInterestOrReturnErrors(propertyId, user)).build();
     }
 
     @Path("proposal/{propertyId}")

@@ -48,12 +48,31 @@ export class PropertyService {
     return this.http.post<Property>(BASE_API_URL + 'host/createProperty/', property);
   }
 
-  getInterestedUsersByPropertyId(id: number): Observable<User[]>{
-    console.log(BASE_API_URL_PROPERTY + id);
+  getInterestedUsersByPropertyId(id: number): Observable<User[]> {
+    // console.log(BASE_API_URL_PROPERTY + id);
     return this.http.get<User[]>(BASE_API_URL_PROPERTY + id + '/interestedUsers');
   }
 
-  isCurrentUserInterested(id: number): Observable<boolean>{
+  isCurrentUserInterested(id: number): Observable<boolean> {
     return this.http.get<boolean>(BASE_API_URL_PROPERTY_IS_CURRENT_USER_INTERESTED+id);
   }
+
+  changePropertyAvailability(propertyId: number) {
+    console.log('Pausing property:');
+    console.log(propertyId);
+    return this.http.post(BASE_API_URL + 'host/changeStatus/' + propertyId, {});
+  }
+
+  markInterest(propertyId: number) {
+    console.log('Marking interest:');
+    console.log(propertyId);
+    return this.http.post(BASE_API_URL + 'guest/' + propertyId + '/interested', {});
+  }
+
+  markUninterest(propertyId: number) {
+    console.log('Marking uninterest:');
+    console.log(propertyId);
+    return this.http.post(BASE_API_URL + 'guest/' + propertyId + '/uninterested', {});
+  }
+
 }
