@@ -1,5 +1,5 @@
 <mat-card [routerLink]="['/property/' + property.id]">
-  <img *ngIf="property.mainImage" mat-card-image class="card-img-top" [attr.src]="'data:image/JPEG;base64,' + property.mainImage.image ">
+  <img *ngIf="property.mainImage" mat-card-image class="card-img-top" [attr.src]="'data:image/JPEG;base64,' + property.mainImage?.image ">
   <mat-card-content class="card-body" style="display: flex;flex-direction: column; justify-content: space-between">
         <span class="prop-title">{{property.description}}</span>
         <span class="prop-neighborhood">{{property.neighbourhood.name}}</span>
