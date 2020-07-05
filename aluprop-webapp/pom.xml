@@ -27,6 +27,7 @@
     <logback-ext-spring.version>0.1.1</logback-ext-spring.version>
     <maven-war-plugin.version>2.6</maven-war-plugin.version>
     <org.hibernate.version>5.1.0.Final</org.hibernate.version>
+    <org.json>20171018</org.json>
     <org.hibernate.jpa.version>1.0.0.Final</org.hibernate.jpa.version>
     <javax.xml.bind.version> 2.3.0 </javax.xml.bind.version>
     <jersey.version>3.0-SNAPSHOT</jersey.version>
@@ -159,6 +160,11 @@
         <groupId>javax.mail</groupId>
         <artifactId>mail</artifactId>
         <version>${javax.mail.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.json</groupId>
+        <artifactId>json</artifactId>
+        <version>${org.json}</version>
       </dependency>
       <dependency>
         <groupId>org.slf4j</groupId>

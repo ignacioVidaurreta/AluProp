@@ -70,7 +70,7 @@ public class    HostController {
                                @ModelAttribute("filteredSearchForm") FilteredSearchForm searchForm) {
         return navigationUtility.mavWithNavigationAttributes("createProperty");
     }
-
+/*
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public ModelAndView create(@RequestParam("file") MultipartFile[] files,
                                @Valid @ModelAttribute PropertyCreationForm propertyForm,
@@ -109,7 +109,7 @@ public class    HostController {
             imageArray[i] = images.get(i);
         return imageArray;
     }
-
+*/
     private Property buildPropertyForCreation(@ModelAttribute @Valid PropertyCreationForm propertyForm) {
         return new Property.Builder()
                 .withCaption(propertyForm.getCaption())

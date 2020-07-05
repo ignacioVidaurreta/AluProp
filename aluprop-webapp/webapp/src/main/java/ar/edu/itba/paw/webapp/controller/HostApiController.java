@@ -1,28 +1,37 @@
 package ar.edu.itba.paw.webapp.controller;
 
 import ar.edu.itba.paw.interfaces.Either;
+import ar.edu.itba.paw.interfaces.service.ImageService;
 import ar.edu.itba.paw.interfaces.service.PropertyService;
 import ar.edu.itba.paw.interfaces.service.ProposalService;
 import ar.edu.itba.paw.interfaces.service.UserService;
+import ar.edu.itba.paw.model.Image;
 import ar.edu.itba.paw.model.Property;
 import ar.edu.itba.paw.model.Proposal;
 import ar.edu.itba.paw.model.User;
+import ar.edu.itba.paw.model.enums.Availability;
 import ar.edu.itba.paw.model.enums.ProposalState;
 import ar.edu.itba.paw.model.enums.UserProposalState;
 import ar.edu.itba.paw.webapp.dto.ErrorDto;
 import ar.edu.itba.paw.webapp.dto.IndexPropertyDto;
 import ar.edu.itba.paw.webapp.dto.PropertyDto;
 import ar.edu.itba.paw.webapp.dto.ProposalDto;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.google.gson.JsonObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import org.json.JSONObject;
 
 @Path("host")
 @Produces(MediaType.APPLICATION_JSON)
@@ -36,6 +45,8 @@ public class HostApiController {
     ProposalService proposalService;
     @Autowired
     PropertyService propertyService;
+    @Autowired
+    ImageService imageService;
 
     @Path("/proposals")
     @GET
@@ -72,16 +83,21 @@ public class HostApiController {
     }
 
     @POST
-    @Consumes(MediaType.APPLICATION_JSON)
     @Path("/createProperty")
-    public Response createProperty(Property property){
-        Either<Property,Collection<String> > maybeProperty = propertyService.create(property);
-
-        if(!maybeProperty.hasValue()){
-            Response.status(Response.Status.CONFLICT).entity(ErrorDto.fromErrors(maybeProperty.alternative())).build();
+    public Response createProperty(@RequestBody final String requesBody){
+        final ObjectMapper objectMapper = new ObjectMapper();
+        Property createdProperty;
+        final PropertyDto propertyDto;
+        try {
+            propertyDto = objectMapper.readValue(new JSONObject(requesBody).toString(), PropertyDto.class);
+            createdProperty = propertyDto.toProperty(userService.getCurrentlyLoggedUser());
+        }catch (IOException e){
+            return Response.status(Response.Status.BAD_REQUEST).build();
         }
+        propertyService.create(createdProperty);
 
-        return Response.status(Response.Status.CREATED).entity(PropertyDto.fromProperty(maybeProperty.value())).build();
+        return Response.status(Response.Status.CREATED).entity(propertyDto).build();
+
     }
 
     @Path("/changeStatus/{propertyId}")
