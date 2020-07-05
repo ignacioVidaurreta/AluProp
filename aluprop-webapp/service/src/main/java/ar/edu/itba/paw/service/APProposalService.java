@@ -71,7 +71,7 @@ public class APProposalService implements ProposalService {
     }
 
     private boolean validProperty(Property property, long[] ids) {
-        if (property.getCapacity() > ids.length) return false;
+        if (property.getCapacity() < ids.length) return false;
         if (property.getAvailability() == Availability.RENTED) return false;
         return true;
     }
