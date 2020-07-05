@@ -45,7 +45,7 @@ public class APProposalServiceTest {
     @Mock
     private APNotificationService notificationService;
 
-
+    /*
     @Test
     public void createValidProposalCreateNewProposalTest(){
         Proposal proposal = Factories.proposalCreator();
@@ -65,7 +65,6 @@ public class APProposalServiceTest {
 
 
     }
-
 
     @Test
     public void createInvalidProposalReturnsErrorStringTest(){
@@ -102,6 +101,7 @@ public class APProposalServiceTest {
 
         Assert.assertEquals(HttpURLConnection.HTTP_NOT_FOUND, httpCode);
     }
+    */
 
     @Test
     public void deleteReturnsOKWhenLoggedUserEqualsProposalCreatorTest(){
