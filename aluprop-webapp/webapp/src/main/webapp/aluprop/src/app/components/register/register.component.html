@@ -6,32 +6,32 @@
       <mat-form-field>
         <mat-label translate>sign-up.email</mat-label>
         <input matInput type="text" formControlName="email"/>
-        <mat-error><span translate>sign-up.error-msg.email</span></mat-error>
+        <mat-error><span translate>sign-up.required-field-error</span></mat-error>
       </mat-form-field>
 
       <mat-form-field class="password">
         <mat-label translate>sign-up.password</mat-label>
         <input matInput type="text" formControlName="password"/>
-        <mat-error><span translate>sign-up.error-msg.password</span></mat-error>
+        <mat-error><span translate>sign-up.required-field-error</span></mat-error>
       </mat-form-field>
 
       <mat-form-field class="repeatPassword">
         <mat-label translate>sign-up.repeat-password</mat-label>
         <input matInput type="text" formControlName="repeatPassword"/>
-        <mat-error><span translate>sign-up.error-msg.repeat-password</span></mat-error>
+        <mat-error><span translate>sign-up.required-field-error</span></mat-error>
       </mat-form-field>
 
       <div class="field-row">
         <mat-form-field class="first-name">
           <mat-label translate>sign-up.first-name</mat-label>
           <input matInput type="text" formControlName="firstName"/>
-          <mat-error><span translate>sign-up.error-msg.first-name</span></mat-error>
+          <mat-error><span translate>sign-up.required-field-error</span></mat-error>
         </mat-form-field>
 
         <mat-form-field>
           <mat-label translate>sign-up.last-name</mat-label>
           <input matInput type="text" formControlName="lastName"/>
-          <mat-error><span translate>sign-up.error-msg.last-name</span></mat-error>
+          <mat-error><span translate>sign-up.required-field-error</span></mat-error>
         </mat-form-field>
       </div>
 
@@ -53,13 +53,13 @@
             <mat-option value="0"><span translate>sign-up.student</span></mat-option>
             <mat-option value="1"><span translate>sign-up.host</span></mat-option>
         </mat-select>
-        <mat-error><span translate>sign-up.error-msg.i-am-a</span></mat-error>
+        <mat-error><span translate>sign-up.required-field-error</span></mat-error>
       </mat-form-field>
 
       <mat-form-field class="bio">
-        <mat-label translate>create-property.bio</mat-label>
+        <mat-label translate>sign-up.bio</mat-label>
         <textarea matInput type="text" formControlName="bio"></textarea>
-        <mat-error><span translate>create-property.error-msg.bio</span></mat-error>
+        <mat-error><span translate>sign-up.required-field-error</span></mat-error>
       </mat-form-field>
 
       <mat-form-field>
@@ -69,7 +69,7 @@
             <mat-option value="1"><span translate>sign-up.female</span></mat-option>
             <mat-option value="2"><span translate>sign-up.other</span></mat-option>
         </mat-select>
-        <mat-error><span translate>sign-up.error-msg.i-am-a</span></mat-error>
+        <mat-error><span translate>sign-up.required-field-error</span></mat-error>
       </mat-form-field>
 
       <mat-card-footer>

@@ -27,6 +27,8 @@ export class RegisterComponent implements OnInit {
   });
   formChangesSub: Subscription;
 
+  passwordMismatch: boolean;
+  
   constructor(
     private authenticationService: AuthenticationService
   ) { 
@@ -95,6 +97,21 @@ export class RegisterComponent implements OnInit {
 
   signUp() {
     console.log(this.signUpForm.value);
-    this.authenticationService.signUp(this.signUpForm.value);
+    if(this.isValidForm())
+      this.authenticationService.signUp(this.signUpForm.value);
+  }
+
+  checkPasswordsMatch(){
+    let password = this.signUpForm.get("password");
+    let confirm  = this.signUpForm.get("repeatPassword");
+
+    this.passwordMismatch = password !== confirm;
+
+    return !this.passwordMismatch;
+    
+  }
+
+  isValidForm(): boolean {
+    return !this.signUpForm.invalid && this.checkPasswordsMatch()
   }
 }

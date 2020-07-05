@@ -11,6 +11,28 @@
       "budget-lowest": "Mínimo presupuesto por persona"
     }
   },
+  "sign-up": {
+    "sign-up": "Registrarse",
+    "email": "Su cuenta de e-mail",
+    "password": "Su contraseña ",
+    "repeat-password": "Repita su contraseña",
+    "first-name": "Nombre",
+    "last-name": "Apellido",
+    "phone": "Número de telefono",
+    "birthday": "Fecha de nacimietno",
+    "i-am-a": "Soy ...",
+    "student": "Estudiante",
+    "host": "Propietario",
+    "bio": "Bio",
+    "bio-sample-text": "Contanos un poco sobre vos...",
+    "gender": "Género",
+    "choose": "Elija",
+    "male": "Masculino",
+    "female": "Femenino",
+    "other": "Otro",
+    "publish-property": "Publicar propiedad",
+    "required-field-error": "Campo obligatorio"
+  },
   "log-in": {
     "login": "Iniciar Sesión",
     "no-account": "No tiene cuenta? Registrese!",

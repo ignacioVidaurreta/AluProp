@@ -16,12 +16,12 @@
     "email": "Your e-mail address",
     "password": "Your password",
     "repeat-password": "Re-enter your password",
-    "first-name": "Forst name",
+    "first-name": "First name",
     "last-name": "Last name",
     "phone": "Phone number",
     "birthday": "Date of birth",
     "i-am-a": "I am a",
-    "student": "Strudel",
+    "student": "Student",
     "host": "Host",
     "bio": "Bio",
     "bio-sample-text": "Tell us a little about yourself...",
@@ -29,7 +29,9 @@
     "choose": "Choose",
     "male": "Male",
     "female": "Female",
-    "other": "Other"
+    "other": "Other",
+    "publish-property": "Publish property",
+    "required-field-error": "Field required"
   },
   "log-in": {
     "login": "Log in",
