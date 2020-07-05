@@ -12,6 +12,8 @@ import {CreateProposalModalComponent} from "./create-proposal-modal/create-propo
 import {UserService} from "../../services/user.service";
 import {MetadataService} from "../../metadata.service";
 import {TranslateService} from "@ngx-translate/core";
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-detailed-property',
@@ -35,8 +37,9 @@ export class DetailedPropertyComponent implements OnInit {
   interestSub: Subscription;
   uninterestSub: Subscription;
   userIsloogedIn: boolean;
+  deleteSub: Subscription;
 
-  constructor(private propertyService: PropertyService, private userService: UserService, private translateService: TranslateService, private metadataService: MetadataService, private authenticationService: AuthenticationService, public dialog: MatDialog, private route: ActivatedRoute) {
+  constructor(private propertyService: PropertyService, private router: Router, private userService: UserService, private translateService: TranslateService, private metadataService: MetadataService, private authenticationService: AuthenticationService, public dialog: MatDialog, private route: ActivatedRoute) {
     this.languageChangedSub = translateService.onLangChange.subscribe((newLang) => this.translateRulesAndServices());
   }
 
@@ -62,6 +65,7 @@ export class DetailedPropertyComponent implements OnInit {
     if (this.changePropertyStatusSub){ this.changePropertyStatusSub.unsubscribe() }
     if (this.interestSub){ this.interestSub.unsubscribe() }
     if (this.uninterestSub){ this.uninterestSub.unsubscribe() }
+    if (this.deleteSub){ this.deleteSub.unsubscribe() }
   }
 
   createPageSubscription() {
@@ -139,6 +143,14 @@ export class DetailedPropertyComponent implements OnInit {
     console.log(this.currentUserIsInterested);
     this.interestSub = this.propertyService.markInterest(this.property.id).subscribe(
       () => {this.onPageChange();}
+    );
+  }
+
+  deleteProperty() {
+    this.deleteSub = this.propertyService.deleteProperty(this.property.id).subscribe(
+      () => {
+        this.router.navigate(['/']);
+      }
     );
   }
 }
