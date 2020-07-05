@@ -21,13 +21,19 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() { }
 
+  hasErrors: boolean = false;;
+
   login() : void {
     this.authenticationService.login(this.loginForm.value).subscribe( (response) =>{
       if (response){
+        this.hasErrors = false;
         this.router.navigate([""]);
       } else {
+        this.hasErrors = true;
         alert('Invalid credentials'); //TODO: better error message kek
       }
+    }, (error: any) => {
+      this.hasErrors = true;
     });
   }
 
