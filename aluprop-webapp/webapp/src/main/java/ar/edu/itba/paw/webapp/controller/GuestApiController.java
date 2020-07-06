@@ -1,6 +1,8 @@
 package ar.edu.itba.paw.webapp.controller;
 
 import ar.edu.itba.paw.interfaces.Either;
+import ar.edu.itba.paw.interfaces.PageRequest;
+import ar.edu.itba.paw.interfaces.PageResponse;
 import ar.edu.itba.paw.interfaces.service.NotificationService;
 import ar.edu.itba.paw.interfaces.service.PropertyService;
 import ar.edu.itba.paw.interfaces.service.ProposalService;
@@ -26,6 +28,7 @@ import java.io.IOException;
 import java.util.Collection;
 import java.util.NoSuchElementException;
 import java.util.Optional;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 @Path("guest")
@@ -42,30 +45,30 @@ public class GuestApiController {
 
     @GET
     @Path("/proposals")
-    public Response getAllUserProposalsOfUser(){
-        User user = userService.getCurrentlyLoggedUser();
-
-        Collection<Proposal> proposals= proposalService.getAllProposalForUserId(user.getId());
-
-        return Response.ok(proposals.stream()
-                .map((proposal)-> {
-                    final Property property = propertyService.getPropertyWithRelatedEntities(proposal.getProperty().getId());
-                    return ProposalDto.withPropertyWithRelatedEntities(proposal, property);
-                })
-                .collect(Collectors.toList()))
-                .build();
+    public Response getCurrentUserProposals(@QueryParam("pageNumber") @DefaultValue("0") int pageNumber,
+                                            @QueryParam("pageSize") @DefaultValue("12") int pageSize){
+        PageResponse<Proposal> proposals = userService.getCurrentUserProposals(new PageRequest(pageNumber, pageSize));
+        PageResponse<ProposalDto> proposalDtos = new PageResponse<>(proposals,
+                                                                proposals.getResponseData()
+                                                                        .stream()
+                                                                        .map(ProposalDto::fromProposal)
+                                                                        .collect(Collectors.toList()));
+        return Response.ok(proposalDtos).build();
     }
 
     @GET
     @Path("/interests")
-    public Response getPropertiesInterests(){
-        User user = userService.getCurrentlyLoggedUser();
-        Collection<Property> properties = userService.getWithRelatedEntities(user.getId()).getInterestedProperties();
+    public Response getInterests(@QueryParam("pageNumber") @DefaultValue("0") int pageNumber,
+                                 @QueryParam("pageSize") @DefaultValue("12") int pageSize){
 
-        return Response.ok(properties.stream()
-                            .map(IndexPropertyDto::fromProperty)
-                            .collect(Collectors.toList()))
-                        .build();
+        PageResponse<Property> properties = userService.getCurrentUserInterests(new PageRequest(pageNumber, pageSize));
+        PageResponse<IndexPropertyDto> propertyDtos = new PageResponse<>(properties,
+                                                                        properties.getResponseData()
+                                                                        .stream()
+                                                                        .map(IndexPropertyDto::fromProperty)
+                                                                        .collect(Collectors.toList()));
+
+        return Response.ok(propertyDtos).build();
     }
 
     @GET

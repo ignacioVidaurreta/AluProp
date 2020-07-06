@@ -37,13 +37,10 @@ public class PropertyApiController {
                           @QueryParam("pageSize") @DefaultValue("12") int pageSize) {
         PageResponse<Property> properties = propertyService.getAll(new PageRequest(pageNumber, pageSize),
                                                                 propertySearchRequest.getOrderBy());
-        PageResponse<IndexPropertyDto> response = new PageResponse<>(properties.getPageNumber(),
-                                                                    properties.getPageSize(),
-                                                                    properties.getTotalItems(),
-                                                                    properties.getResponseData()
-                                                                            .stream()
-                                                                            .map(IndexPropertyDto::fromProperty)
-                                                                            .collect(Collectors.toList()));
+        PageResponse<IndexPropertyDto> response = new PageResponse<>(properties, properties.getResponseData()
+                                                                                .stream()
+                                                                                .map(IndexPropertyDto::fromProperty)
+                                                                                .collect(Collectors.toList()));
         return Response.ok(response).build();
     }
 
@@ -69,7 +66,7 @@ public class PropertyApiController {
         Collection<IndexPropertyDto> response = properties.getResponseData().stream()
                                                                             .map(IndexPropertyDto::fromProperty)
                                                                             .collect(Collectors.toList());
-        PageResponse<IndexPropertyDto> pageResponse = new PageResponse(pageNumber, pageSize, properties.getTotalItems(), response);
+        PageResponse<IndexPropertyDto> pageResponse = new PageResponse(properties, response);
         return Response.ok(pageResponse).build();
     }
 
