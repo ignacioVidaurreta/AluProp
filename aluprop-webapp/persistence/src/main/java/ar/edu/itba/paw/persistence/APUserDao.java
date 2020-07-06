@@ -136,13 +136,14 @@ public class APUserDao implements UserDao {
     public Collection<Proposal> getUserProposals(PageRequest pageRequest, long userId) {
         Long createdProposalCount = countCreatedProposals(userId);
         Long invitedToProposalCount = countInvitedToProposals(userId);
-        int totalElements = (pageRequest.getPageNumber() + 1) * pageRequest.getPageSize();
-        if (createdProposalCount >= totalElements)
+        int left = pageRequest.getPageNumber() * pageRequest.getPageSize();
+        int right = left + pageRequest.getPageSize();
+        if (createdProposalCount >= right)
             return getCreatedProposals(pageRequest, userId);
-        if (createdProposalCount + pageRequest.getPageSize() > totalElements &&
-            createdProposalCount + invitedToProposalCount > totalElements)
-            return getInvitedToProposals(pageRequest, userId, totalElements - createdProposalCount);
-        return getMixedProposals(pageRequest, userId, createdProposalCount);
+        if (createdProposalCount > left &&
+            createdProposalCount + pageRequest.getPageSize() > right)
+            return getMixedProposals(pageRequest, userId, createdProposalCount);
+        return getInvitedToProposals(pageRequest, userId, left - createdProposalCount);
     }
 
     private Collection<Proposal> getCreatedProposals(PageRequest pageRequest, long userId) {
