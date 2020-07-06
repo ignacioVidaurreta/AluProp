@@ -21,4 +21,6 @@ public interface UserDao {
     Collection<Property> getUserInterests(PageRequest pageRequest, long currentUserId);
     Long countUserProposals(long userId);
     Collection<Proposal> getUserProposals(PageRequest pageRequest, long userId);
+    Long countUserProperties(long userId);
+    Collection<Property> getUserProperties(PageRequest pageRequest, long userId);
 }

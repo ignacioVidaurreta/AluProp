@@ -135,7 +135,6 @@ public class APUserDao implements UserDao {
     @Override
     public Collection<Proposal> getUserProposals(PageRequest pageRequest, long userId) {
         Long createdProposalCount = countCreatedProposals(userId);
-        Long invitedToProposalCount = countInvitedToProposals(userId);
         int left = pageRequest.getPageNumber() * pageRequest.getPageSize();
         int right = left + pageRequest.getPageSize();
         if (createdProposalCount >= right)
@@ -173,5 +172,19 @@ public class APUserDao implements UserDao {
         Collection<Proposal> invitedTo = invitedToQuery.getResultList().stream().map(u -> u.getProposal()).collect(Collectors.toList());
         created.addAll(invitedTo);
         return created;
+    }
+
+    @Override
+    public Long countUserProperties(long userId) {
+        return entityManager.createQuery("SELECT COUNT(p.id) FROM Property p WHERE p.owner.id = :userId", Long.class)
+                .setParameter("userId", userId)
+                .getSingleResult();
+    }
+
+    @Override
+    public Collection<Property> getUserProperties(PageRequest pageRequest, long userId) {
+        TypedQuery<Property> query = entityManager.createQuery("FROM Property p WHERE p.owner.id = :userId", Property.class);
+        query.setParameter("userId", userId);
+        return  paginator.makePagedQuery(query, pageRequest).getResultList();
     }
 }
