@@ -41,8 +41,9 @@ export class UserService {
     return this.http.get<Property[]>(BASE_API_URL_OWNED_PROPERTIES);
   }
 
-  getAllInterestedProperties(): Observable<Property[]>{
-    return this.http.get<Property[]>(BASE_API_URL_INTERESTED_PROPERTIES);
+  getAllInterestedProperties(pageRequest: PageRequest): Observable<PageResponse<Property>>{
+    let params = {pageSize: String(pageRequest.pageSize), pageNumber: String(pageRequest.pageNumber) };
+    return this.http.get<PageResponse<Property>>(BASE_API_URL_INTERESTED_PROPERTIES, {params: params});
   }
 
   isUserLoggedIn(): Observable<boolean>{
