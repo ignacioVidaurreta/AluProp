@@ -24,20 +24,13 @@ export class ProfileComponent implements OnInit {
   currentUser: User;
   currentUserSub: Subscription;
   deletionParamsSub: Subscription;
-  deletionParams: any;
 
   horizontalPosition: MatSnackBarHorizontalPosition = 'center';
   verticalPosition: MatSnackBarVerticalPosition = 'top';
 
-  checkParams(){
-    if(this.deletionParams?.deletion == 'SUCCESSFUL') {
-      this.openSnackBar();
-    }
-  }
-
   openSnackBar() {
     this._snackBar.open('You have successfully deleted your property', 'Dismiss', {
-      duration: 1000,
+      duration: 2000,
       horizontalPosition: this.horizontalPosition,
       verticalPosition: this.verticalPosition,
     });
@@ -47,10 +40,8 @@ export class ProfileComponent implements OnInit {
     this.deletionParamsSub = route.queryParams.pipe(
       filter((params) => Object.keys(params).length !== 0)
     ).subscribe((params)=>{
-      this.deletionParams = params;
-      this.cdr.detectChanges();
-      console.log('CreatingPageSubscription');
-      console.log(this.deletionParams);
+      if(params.deletion == 'SUCCESSFUL')
+        this.openSnackBar();
       this.createPageSubscription();
     });
   }
@@ -61,8 +52,9 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
-    if (this.userSub){ this.userSub.unsubscribe()};
-    if (this.currentUserSub){ this.currentUserSub.unsubscribe()};
+    if (this.userSub){ this.userSub.unsubscribe()}
+    if (this.currentUserSub){ this.currentUserSub.unsubscribe()}
+    if (this.deletionParamsSub) { this.deletionParamsSub.unsubscribe()}
   }
 
   onPageChange(){
