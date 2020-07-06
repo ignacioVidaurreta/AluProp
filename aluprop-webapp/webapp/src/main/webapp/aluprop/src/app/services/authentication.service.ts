@@ -62,8 +62,7 @@ export class AuthenticationService {
 
   logout(){
     this.currentUserSubject.next(null);
-    this.http.get<User>(BASE_API_URL + 'auth/logout/');
-    this.setAuthToken(null);
+    return this.http.get<User>(BASE_API_URL + 'auth/logout/');
   }
 
 }
