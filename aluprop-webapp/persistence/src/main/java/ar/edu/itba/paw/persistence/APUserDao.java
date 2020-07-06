@@ -3,8 +3,7 @@ package ar.edu.itba.paw.persistence;
 import ar.edu.itba.paw.interfaces.PageRequest;
 import ar.edu.itba.paw.interfaces.Paginator;
 import ar.edu.itba.paw.interfaces.dao.UserDao;
-import ar.edu.itba.paw.model.Interest;
-import ar.edu.itba.paw.model.User;
+import ar.edu.itba.paw.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -94,5 +93,84 @@ public class APUserDao implements UserDao {
     @Override
     public Long count() {
         return entityManager.createQuery("SELECT COUNT(u.id) FROM User u", Long.class).getSingleResult();
+    }
+
+    @Override
+    public Long countUserInterests(long userId) {
+        return entityManager.createQuery("SELECT COUNT(i.id) FROM Interest i WHERE i.user.id = :userId", Long.class)
+                            .setParameter("userId", userId)
+                            .getSingleResult();
+    }
+
+    @Override
+    public Collection<Property> getUserInterests(PageRequest pageRequest, long userId) {
+        TypedQuery<Interest> query = entityManager.createQuery("FROM Interest i WHERE i.user.id = :userId", Interest.class);
+        query.setParameter("userId", userId);
+        Collection<Interest> interests = paginator.makePagedQuery(query, pageRequest).getResultList();
+        return interests.stream().map(Interest::getProperty).collect(Collectors.toList());
+    }
+
+    @Override
+    public Long countUserProposals(long userId) {
+        return countInvitedToProposals(userId) + countCreatedProposals(userId);
+    }
+
+    private Long countInvitedToProposals(long userId) {
+        return entityManager.createQuery("SELECT COUNT(u.id) FROM UserProposal u WHERE u.user.id = :userId", Long.class)
+                .setParameter("userId", userId)
+                .getSingleResult();
+    }
+
+    private Long countCreatedProposals(long userId) {
+        return entityManager.createQuery("SELECT COUNT(p.id) FROM Proposal p WHERE p.creator.id = :userId", Long.class)
+                .setParameter("userId", userId)
+                .getSingleResult();
+    }
+
+    // this function has to be a mess because of a design flaw in the fact that the creator of a proposal
+    // is not included in the intermediate object UserProposal. This function returns created proposals
+    // first and proposals to which the user has been invited to second.
+    // The function is a mess because it has to determine whether to bring just created proposals, invited to
+    // proposals or a bit of both.
+    @Override
+    public Collection<Proposal> getUserProposals(PageRequest pageRequest, long userId) {
+        Long createdProposalCount = countCreatedProposals(userId);
+        Long invitedToProposalCount = countInvitedToProposals(userId);
+        int totalElements = (pageRequest.getPageNumber() + 1) * pageRequest.getPageSize();
+        if (createdProposalCount >= totalElements)
+            return getCreatedProposals(pageRequest, userId);
+        if (createdProposalCount + pageRequest.getPageSize() > totalElements &&
+            createdProposalCount + invitedToProposalCount > totalElements)
+            return getInvitedToProposals(pageRequest, userId, totalElements - createdProposalCount);
+        return getMixedProposals(pageRequest, userId, createdProposalCount);
+    }
+
+    private Collection<Proposal> getCreatedProposals(PageRequest pageRequest, long userId) {
+        TypedQuery<Proposal> query = entityManager.createQuery("FROM Proposal p WHERE p.creator.id = :userId", Proposal.class);
+        query.setParameter("userId", userId);
+        return  paginator.makePagedQuery(query, pageRequest).getResultList();
+    }
+
+    private Collection<Proposal> getInvitedToProposals(PageRequest pageRequest, long userId, Long overflow) {
+        TypedQuery<UserProposal> query = entityManager.createQuery("FROM UserProposal p WHERE p.user.id = :userId", UserProposal.class);
+        query.setParameter("userId", userId);
+        query.setFirstResult(overflow.intValue());
+        query.setMaxResults(pageRequest.getPageSize());
+        return query.getResultList().stream().map(u -> u.getProposal()).collect(Collectors.toList());
+    }
+
+    private Collection<Proposal> getMixedProposals(PageRequest pageRequest, long userId, Long createdProposalCount) {
+        int createdProposalsStart = pageRequest.getPageNumber() * pageRequest.getPageSize();
+        Long invitedToProposalsEnd = (pageRequest.getPageNumber() + 1) * pageRequest.getPageSize() - createdProposalCount;
+        TypedQuery<Proposal> query = entityManager.createQuery("FROM Proposal p WHERE p.creator.id = :userId", Proposal.class);
+        query.setParameter("userId", userId);
+        query.setFirstResult(createdProposalsStart);
+        Collection<Proposal> created = query.getResultList();
+        TypedQuery<UserProposal> invitedToQuery = entityManager.createQuery("FROM UserProposal p WHERE p.user.id = :userId", UserProposal.class);
+        invitedToQuery.setParameter("userId", userId);
+        invitedToQuery.setMaxResults(invitedToProposalsEnd.intValue());
+        Collection<Proposal> invitedTo = invitedToQuery.getResultList().stream().map(u -> u.getProposal()).collect(Collectors.toList());
+        created.addAll(invitedTo);
+        return created;
     }
 }
