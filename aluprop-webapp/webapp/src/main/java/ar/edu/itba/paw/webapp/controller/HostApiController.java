@@ -1,6 +1,8 @@
 package ar.edu.itba.paw.webapp.controller;
 
 import ar.edu.itba.paw.interfaces.Either;
+import ar.edu.itba.paw.interfaces.PageRequest;
+import ar.edu.itba.paw.interfaces.PageResponse;
 import ar.edu.itba.paw.interfaces.service.ImageService;
 import ar.edu.itba.paw.interfaces.service.PropertyService;
 import ar.edu.itba.paw.interfaces.service.ProposalService;
@@ -62,14 +64,15 @@ public class HostApiController {
 
     @GET
     @Path("/properties")
-    public Response getProperties(){
-        User user = userService.getCurrentlyLoggedUser();
-        Collection<Property> ownedProperties = userService.getWithRelatedEntities(user.getId()).getOwnedProperties();
-
-        return Response.ok(ownedProperties.stream()
-                            .map(IndexPropertyDto::fromProperty)
-                            .collect(Collectors.toList()))
-                .build();
+    public Response getProperties(@QueryParam("pageNumber") @DefaultValue("0") int pageNumber,
+                                  @QueryParam("pageSize") @DefaultValue("12") int pageSize) {
+        PageResponse<Property> properties = userService.getCurrentUserProperties(new PageRequest(pageNumber, pageSize));
+        PageResponse<IndexPropertyDto> propertyDtos = new PageResponse<>(properties,
+                                                    properties.getResponseData()
+                                                            .stream()
+                                                            .map(IndexPropertyDto::fromProperty)
+                                                            .collect(Collectors.toList()));
+        return Response.ok(propertyDtos).build();
     }
 
     @POST
