@@ -62,7 +62,7 @@
             <button mat-raised-button color="primary" (click)="openDialogInterestedUsers()"><span translate>detailed-property.interested-users</span></button>
             <button *ngIf="property.availability == 'AVAILABLE'" (click)="changePropertyAvailability()" mat-raised-button color="accent"><span translate>detailed-property.pause-property</span></button>
             <button *ngIf="property.availability == 'RENTED'" (click)="changePropertyAvailability()" mat-raised-button color="accent"><span translate>detailed-property.activate-property</span></button>
-            <button mat-raised-button color="warn"><span translate>detailed-property.delete-property</span></button>
+            <button mat-raised-button (click)="deleteProperty()" color="warn"><span translate>detailed-property.delete-property</span></button>
           </div>
           <div *ngIf="currentUser?.role == 'ROLE_HOST'">
           </div>

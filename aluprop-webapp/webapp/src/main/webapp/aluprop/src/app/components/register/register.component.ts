@@ -19,8 +19,8 @@ export class RegisterComponent implements OnInit {
     repeatPassword: new FormControl('', [Validators.required]),
     firstName: new FormControl('', [Validators.required]),
     lastName: new FormControl('', [Validators.required]),
-    phoneNumber: new FormControl('', [Validators.pattern('[0-9]*'), Validators.required]),
-    birthday: new FormControl('', [Validators.pattern('[0-9]*'), Validators.required]),
+    phoneNumber: new FormControl('', [Validators.required]),
+    birthday: new FormControl('', [Validators.required]),
     privacy: new FormControl('', [Validators.required]),
     bio: new FormControl('', [Validators.required]),
     gender: new FormControl('', [Validators.required])
@@ -98,7 +98,6 @@ export class RegisterComponent implements OnInit {
   }
 
   signUp() {
-    console.log(this.signUpForm.value);
     if(this.signUpForm.valid)
       this.authenticationService.signUp(this.signUpForm.value);
   }
