@@ -20,8 +20,6 @@ public class APPropertyService implements PropertyService {
     /* package */ final static String SERVICE_NOT_EXISTS = "One of the services specified does not exist";
     /* package */ final static String RULE_NOT_EXISTS ="One of the rules specified does not exist";
     /* package */ final static String NEIGHBOURHOOD_NOT_EXISTS = "The neighbourhood specified does not exist";
-    private final int DEFAULT_PAGE_SIZE = 12;
-    private final int DEFAULT_PAGE_NUMBER = 0;
     private List<String> errors;
 
     @Autowired
@@ -47,7 +45,7 @@ public class APPropertyService implements PropertyService {
     @Override
     public PageResponse<Property> getAll(PageRequest pageRequest, PropertyOrder propertyOrder) {
         if(pageRequest.getPageNumber() < 0 || pageRequest.getPageSize() < 1)
-            pageRequest = new PageRequest(DEFAULT_PAGE_NUMBER, DEFAULT_PAGE_SIZE);
+            pageRequest = new PageRequest(PageRequest.DEFAULT_PAGE_NUMBER, PageRequest.DEFAULT_PAGE_SIZE);
         return new PageResponse<>(pageRequest,
                                 propertyDao.countAvailable(),
                                 propertyDao.getAllActiveOrdered(pageRequest, propertyOrder));
