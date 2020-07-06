@@ -4,11 +4,9 @@ import ar.edu.itba.paw.webapp.auth.APUserDetailsAuthenticationProvider;
 import ar.edu.itba.paw.webapp.auth.APUserDetailsService;
 import ar.edu.itba.paw.webapp.auth.LoginSuccessHandler;
 import ar.edu.itba.paw.webapp.config.filter.LoginAuthFilter;
-import ar.edu.itba.paw.webapp.config.filter.LogoutAuthFilter;
 import ar.edu.itba.paw.webapp.config.filter.SessionAuthFilter;
 import ar.edu.itba.paw.webapp.config.handler.LoginAuthFailureHandler;
 import ar.edu.itba.paw.webapp.config.handler.LoginAuthSuccessHandler;
-import ar.edu.itba.paw.webapp.config.handler.LogoutAuthSuccessHandler;
 import ar.edu.itba.paw.webapp.config.handler.SessionAuthSuccessHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -60,7 +58,6 @@ public class WebAuthConfig extends WebSecurityConfigurerAdapter {
         http.userDetailsService(userDetailsService)
                 .addFilterBefore(createLoginAuthFilter(), UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(createSessionAuthFilter(), UsernamePasswordAuthenticationFilter.class)
-                .addFilterBefore(createLogoutAuthFilter(), UsernamePasswordAuthenticationFilter.class)
             .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and().logout().disable()
@@ -84,15 +81,6 @@ public class WebAuthConfig extends WebSecurityConfigurerAdapter {
         filter.setAuthenticationManager(authenticationManager());
         filter.setRequiresAuthenticationRequestMatcher(userMatcher());
         filter.setAuthenticationSuccessHandler(new SessionAuthSuccessHandler());
-        return filter;
-    }
-
-    @Bean
-    public UsernamePasswordAuthenticationFilter createLogoutAuthFilter() throws Exception {
-        LogoutAuthFilter filter = new LogoutAuthFilter();
-        filter.setAuthenticationManager(authenticationManager());
-        filter.setRequiresAuthenticationRequestMatcher(new AntPathRequestMatcher("/api/auth/logout"));
-        filter.setAuthenticationSuccessHandler(new LogoutAuthSuccessHandler());
         return filter;
     }
 
@@ -138,7 +126,7 @@ public class WebAuthConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public RequestMatcher anonymousMatcher() {
         return new OrRequestMatcher(
-                new AntPathRequestMatcher("/api/user/signup", "POST"),
+                new AntPathRequestMatcher("/api/auth/signup", "POST"),
                 new NegatedRequestMatcher(userMatcher())
         );
     }
@@ -148,6 +136,7 @@ public class WebAuthConfig extends WebSecurityConfigurerAdapter {
         return new OrRequestMatcher(
             hostMatcher(),
             guestMatcher(),
+            logoutMatcher(),
             new AntPathRequestMatcher("/api/user/**", "POST"),
             new AntPathRequestMatcher("/api/user/**", "GET"),
             new AntPathRequestMatcher("/api/proposal/**", "POST"),
@@ -157,6 +146,6 @@ public class WebAuthConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public RequestMatcher logoutMatcher() {
-        return new AntPathRequestMatcher("/api/auth/logout/");
+        return new AntPathRequestMatcher("/api/auth/logout");
     }
 }
