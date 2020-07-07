@@ -37,8 +37,9 @@ export class UserService {
     return this.http.get<Proposal[]>(BASE_API_URL_PROPOSALS);
   }
 
-  getAllOwnedProperties(): Observable<Property[]>{
-    return this.http.get<Property[]>(BASE_API_URL_OWNED_PROPERTIES);
+  getAllOwnedProperties(pageRequest: PageRequest): Observable<PageResponse<Property>>{
+    let params = {pageSize: String(pageRequest.pageSize), pageNumber: String(pageRequest.pageNumber) };
+    return this.http.get<PageResponse<Property>>(BASE_API_URL_OWNED_PROPERTIES, {params: params});
   }
 
   getAllInterestedProperties(pageRequest: PageRequest): Observable<PageResponse<Property>>{
