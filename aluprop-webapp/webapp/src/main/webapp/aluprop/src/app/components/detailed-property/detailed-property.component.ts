@@ -13,6 +13,7 @@ import {UserService} from "../../services/user.service";
 import {MetadataService} from "../../metadata.service";
 import {TranslateService} from "@ngx-translate/core";
 import { Router } from '@angular/router';
+import {MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition} from "@angular/material/snack-bar";
 
 
 @Component({
@@ -39,7 +40,7 @@ export class DetailedPropertyComponent implements OnInit {
   userIsloogedIn: boolean;
   deleteSub: Subscription;
 
-  constructor(private propertyService: PropertyService, private router: Router, private userService: UserService, private translateService: TranslateService, private metadataService: MetadataService, private authenticationService: AuthenticationService, public dialog: MatDialog, private route: ActivatedRoute) {
+  constructor( private propertyService: PropertyService, private router: Router, private userService: UserService, private translateService: TranslateService, private metadataService: MetadataService, private authenticationService: AuthenticationService, public dialog: MatDialog, private route: ActivatedRoute) {
     this.languageChangedSub = translateService.onLangChange.subscribe((newLang) => this.translateRulesAndServices());
   }
 
@@ -148,8 +149,9 @@ export class DetailedPropertyComponent implements OnInit {
 
   deleteProperty() {
     this.deleteSub = this.propertyService.deleteProperty(this.property.id).subscribe(
-      () => {
-        this.router.navigate(['/']);
+      (response) => {
+        console.log(response);
+        this.router.navigate(['/user/' + this.currentUser?.id ], { queryParams: {'deletion': "SUCCESSFUL"}});
       }
     );
   }
