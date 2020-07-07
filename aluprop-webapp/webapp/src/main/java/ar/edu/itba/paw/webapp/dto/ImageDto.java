@@ -12,7 +12,6 @@ public class ImageDto {
     public static ImageDto fromImage(Image image) {
         ImageDto ret = new ImageDto();
         ret.id = image.getId();
-        ret.image = image.getImage();
         return ret;
     }
 

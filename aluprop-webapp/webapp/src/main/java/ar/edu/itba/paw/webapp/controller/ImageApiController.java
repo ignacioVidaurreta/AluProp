@@ -3,6 +3,7 @@ package ar.edu.itba.paw.webapp.controller;
 import ar.edu.itba.paw.interfaces.service.ImageService;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -10,7 +11,6 @@ import javax.ws.rs.core.CacheControl;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.time.LocalDateTime;
 import java.util.Date;
 
 @Path("image")
@@ -21,6 +21,7 @@ public class ImageApiController {
     private ImageService imageService;
 
     @Path("/{id}")
+    @GET
     public Response image(@PathParam(value = "id") long id) {
         final int oneHour = 3600;
         byte[] image = imageService.get(id).getImage();
