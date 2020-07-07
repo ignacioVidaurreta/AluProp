@@ -29,20 +29,16 @@ export class TokenInterceptor implements HttpInterceptor {
       });
     }
     
-    return next.handle(request).pipe(
-      filter(response => response instanceof HttpResponse),
-      tap(
-        (response) => {
-           console.log(response);
-        }),
-      catchError(
-        (response: HttpErrorResponse) => {
-          if (response.status === 404){
-            console.log(response);
-            this.router.navigate(['/error/404']);
-          }
-          return EMPTY;
-        })
+    return next.handle(request).pipe(catchError(
+      (response: HttpErrorResponse) => {
+        if (response.status >= 404 && response.status < 500){
+          this.router.navigate(['/error/404']);
+        }
+        if (response.status >= 500 && response.status < 600){
+          this.router.navigate(['/error/500']);
+        }
+        return EMPTY;
+      })
     );
   }
 }
