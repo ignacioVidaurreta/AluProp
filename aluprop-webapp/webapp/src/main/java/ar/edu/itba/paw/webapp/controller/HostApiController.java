@@ -42,24 +42,15 @@ public class HostApiController {
 
     @Path("/proposals")
     @GET
-    public Response proposals(){
-        User user = userService.getCurrentlyLoggedUser();
-        Collection<Proposal> proposals = proposalService.getProposalsForOwnedProperties(user);
-
-        Stream<Proposal> validProposals = proposals.stream().filter(proposal ->
-                !proposal.getState().equals(ProposalState.PENDING)
-                        && !proposal.getState().equals(ProposalState.DROPPED)
-                        && !proposal.getState().equals(ProposalState.CANCELED)
-        );
-
-        return Response.ok(validProposals
-                        .map((proposal -> {
-                            final Property property =
-                                    propertyService.getPropertyWithRelatedEntities(proposal.getProperty().getId());
-                            return ProposalDto.withPropertyWithRelatedEntities(proposal, property);
-                        }))
-                        .collect(Collectors.toList()))
-                .build();
+    public Response proposals(@QueryParam("pageNumber") @DefaultValue("0") int pageNumber,
+                              @QueryParam("pageSize") @DefaultValue("12") int pageSize) {
+        PageResponse<Proposal> proposals = userService.getHostProposals(new PageRequest(pageNumber, pageSize));
+        PageResponse<ProposalDto> proposalDtos = new PageResponse<>(proposals,
+                proposals.getResponseData()
+                        .stream()
+                        .map(ProposalDto::fromProposal)
+                        .collect(Collectors.toList()));
+        return Response.ok(proposalDtos).build();
     }
 
     @GET
