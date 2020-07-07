@@ -37,7 +37,7 @@ const routes: Routes = [
     path: 'error/:code',
     component: ErrorComponent,
   },
-  { path: '**', redirectTo: '' }
+  { path: '**', redirectTo: 'error/404' }
 ];
 
 @NgModule({
