@@ -148,10 +148,11 @@ export class DetailedPropertyComponent implements OnInit {
   }
 
   deleteProperty() {
-    // this.deleteSub = this.propertyService.deleteProperty(this.property.id).subscribe(
-    //   () => {
-    //   }
-    // );
-    this.router.navigate(['/user/' + this.currentUser?.id ], { queryParams: {'deletion': "SUCCESSFUL"}});
+    this.deleteSub = this.propertyService.deleteProperty(this.property.id).subscribe(
+      (response) => {
+        console.log(response);
+        this.router.navigate(['/user/' + this.currentUser?.id ], { queryParams: {'deletion': "SUCCESSFUL"}});
+      }
+    );
   }
 }
