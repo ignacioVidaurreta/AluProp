@@ -160,4 +160,14 @@ public class APUserService implements UserService {
                 userDao.countUserProperties(currentUserId),
                 userDao.getUserProperties(pageRequest, currentUserId));
     }
+
+    @Override
+    public PageResponse<Proposal> getHostProposals(PageRequest pageRequest) {
+        if(pageRequest.getPageNumber() < 0 || pageRequest.getPageSize() < 1)
+            pageRequest = new PageRequest(PageRequest.DEFAULT_PAGE_NUMBER, PageRequest.DEFAULT_PAGE_SIZE);
+        final long currentUserId = getCurrentlyLoggedUser().getId();
+        return new PageResponse<>(pageRequest,
+                userDao.countValidProposals(currentUserId),
+                userDao.getValidHostProposals(pageRequest, currentUserId));
+    }
 }

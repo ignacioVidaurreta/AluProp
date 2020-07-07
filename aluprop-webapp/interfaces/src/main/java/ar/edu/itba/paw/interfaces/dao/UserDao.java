@@ -23,4 +23,8 @@ public interface UserDao {
     Collection<Proposal> getUserProposals(PageRequest pageRequest, long userId);
     Long countUserProperties(long userId);
     Collection<Property> getUserProperties(PageRequest pageRequest, long userId);
+
+    Long countValidProposals(long userId);
+
+    Collection<Proposal> getValidHostProposals(PageRequest pageRequest, long userId);
 }

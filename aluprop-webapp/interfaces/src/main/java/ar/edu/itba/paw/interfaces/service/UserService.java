@@ -21,4 +21,5 @@ public interface UserService {
     PageResponse<Property> getCurrentUserInterests(PageRequest pageRequest);
     PageResponse<Proposal> getCurrentUserProposals(PageRequest pageRequest);
     PageResponse<Property> getCurrentUserProperties(PageRequest pageRequest);
+    PageResponse<Proposal> getHostProposals(PageRequest pageRequest);
 }
