@@ -1,6 +1,8 @@
 package ar.edu.itba.paw.webapp.controller;
 
 import ar.edu.itba.paw.interfaces.Either;
+import ar.edu.itba.paw.interfaces.PageRequest;
+import ar.edu.itba.paw.interfaces.PageResponse;
 import ar.edu.itba.paw.interfaces.service.ImageService;
 import ar.edu.itba.paw.interfaces.service.PropertyService;
 import ar.edu.itba.paw.interfaces.service.ProposalService;
@@ -40,36 +42,28 @@ public class HostApiController {
 
     @Path("/proposals")
     @GET
-    public Response proposals(){
-        User user = userService.getCurrentlyLoggedUser();
-        Collection<Proposal> proposals = proposalService.getProposalsForOwnedProperties(user);
-
-        Stream<Proposal> validProposals = proposals.stream().filter(proposal ->
-                !proposal.getState().equals(ProposalState.PENDING)
-                        && !proposal.getState().equals(ProposalState.DROPPED)
-                        && !proposal.getState().equals(ProposalState.CANCELED)
-        );
-
-        return Response.ok(validProposals
-                        .map((proposal -> {
-                            final Property property =
-                                    propertyService.getPropertyWithRelatedEntities(proposal.getProperty().getId());
-                            return ProposalDto.withPropertyWithRelatedEntities(proposal, property);
-                        }))
-                        .collect(Collectors.toList()))
-                .build();
+    public Response proposals(@QueryParam("pageNumber") @DefaultValue("0") int pageNumber,
+                              @QueryParam("pageSize") @DefaultValue("12") int pageSize) {
+        PageResponse<Proposal> proposals = userService.getHostProposals(new PageRequest(pageNumber, pageSize));
+        PageResponse<IndexProposalDto> proposalDtos = new PageResponse<>(proposals,
+                proposals.getResponseData()
+                        .stream()
+                        .map(IndexProposalDto::fromProposal)
+                        .collect(Collectors.toList()));
+        return Response.ok(proposalDtos).build();
     }
 
     @GET
     @Path("/properties")
-    public Response getProperties(){
-        User user = userService.getCurrentlyLoggedUser();
-        Collection<Property> ownedProperties = userService.getWithRelatedEntities(user.getId()).getOwnedProperties();
-
-        return Response.ok(ownedProperties.stream()
-                            .map(IndexPropertyDto::fromProperty)
-                            .collect(Collectors.toList()))
-                .build();
+    public Response getProperties(@QueryParam("pageNumber") @DefaultValue("0") int pageNumber,
+                                  @QueryParam("pageSize") @DefaultValue("12") int pageSize) {
+        PageResponse<Property> properties = userService.getCurrentUserProperties(new PageRequest(pageNumber, pageSize));
+        PageResponse<IndexPropertyDto> propertyDtos = new PageResponse<>(properties,
+                                                    properties.getResponseData()
+                                                            .stream()
+                                                            .map(IndexPropertyDto::fromProperty)
+                                                            .collect(Collectors.toList()));
+        return Response.ok(propertyDtos).build();
     }
 
     @POST

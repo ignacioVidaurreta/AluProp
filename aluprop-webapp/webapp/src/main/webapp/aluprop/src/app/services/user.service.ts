@@ -28,21 +28,24 @@ export class UserService {
     return this.http.get<User>(BASE_API_URL + '/' + id);
   }
 
-  getAllProposalsFromUserProposals(): Observable<Proposal[]>{
-    console.log(BASE_API_URL_USER_PROPOSALS);
-    return this.http.get<Proposal[]>(BASE_API_URL_USER_PROPOSALS);
+  getAllProposalsFromUserProposals(pageRequest: PageRequest): Observable<PageResponse<Proposal>>{
+    let params = {pageSize: String(pageRequest.pageSize), pageNumber: String(pageRequest.pageNumber) };
+    return this.http.get<PageResponse<Proposal>>(BASE_API_URL_USER_PROPOSALS, {params: params});
   }
 
-  getAllProposals(): Observable<Proposal[]>{
-    return this.http.get<Proposal[]>(BASE_API_URL_PROPOSALS);
+  getAllProposals(pageRequest: PageRequest): Observable<PageResponse<Proposal>>{
+    let params = {pageSize: String(pageRequest.pageSize), pageNumber: String(pageRequest.pageNumber) };
+    return this.http.get<PageResponse<Proposal>>(BASE_API_URL_PROPOSALS, {params: params});
   }
 
-  getAllOwnedProperties(): Observable<Property[]>{
-    return this.http.get<Property[]>(BASE_API_URL_OWNED_PROPERTIES);
+  getAllOwnedProperties(pageRequest: PageRequest): Observable<PageResponse<Property>>{
+    let params = {pageSize: String(pageRequest.pageSize), pageNumber: String(pageRequest.pageNumber) };
+    return this.http.get<PageResponse<Property>>(BASE_API_URL_OWNED_PROPERTIES, {params: params});
   }
 
-  getAllInterestedProperties(): Observable<Property[]>{
-    return this.http.get<Property[]>(BASE_API_URL_INTERESTED_PROPERTIES);
+  getAllInterestedProperties(pageRequest: PageRequest): Observable<PageResponse<Property>>{
+    let params = {pageSize: String(pageRequest.pageSize), pageNumber: String(pageRequest.pageNumber) };
+    return this.http.get<PageResponse<Property>>(BASE_API_URL_INTERESTED_PROPERTIES, {params: params});
   }
 
   isUserLoggedIn(): Observable<boolean>{

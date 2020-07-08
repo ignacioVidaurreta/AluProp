@@ -8,6 +8,8 @@ import ar.edu.itba.paw.interfaces.dao.CareerDao;
 import ar.edu.itba.paw.interfaces.dao.UniversityDao;
 import ar.edu.itba.paw.interfaces.dao.UserDao;
 import ar.edu.itba.paw.interfaces.service.UserService;
+import ar.edu.itba.paw.model.Property;
+import ar.edu.itba.paw.model.Proposal;
 import ar.edu.itba.paw.model.User;
 import ar.edu.itba.paw.model.enums.Role;
 import org.slf4j.Logger;
@@ -127,5 +129,45 @@ public class APUserService implements UserService {
         if(principal instanceof UserDetails)
             return userDao.getUserWithRelatedEntitiesByEmail(((UserDetails) principal).getUsername());
         else return userDao.getUserWithRelatedEntitiesByEmail(principal.toString());
+    }
+
+    @Override
+    public PageResponse<Property> getCurrentUserInterests(PageRequest pageRequest) {
+        if(pageRequest.getPageNumber() < 0 || pageRequest.getPageSize() < 1)
+            pageRequest = new PageRequest(PageRequest.DEFAULT_PAGE_NUMBER, PageRequest.DEFAULT_PAGE_SIZE);
+        final long currentUserId = getCurrentlyLoggedUser().getId();
+        return new PageResponse<>(pageRequest,
+                                userDao.countUserInterests(currentUserId),
+                                userDao.getUserInterests(pageRequest, currentUserId));
+    }
+
+    @Override
+    public PageResponse<Proposal> getCurrentUserProposals(PageRequest pageRequest) {
+        if(pageRequest.getPageNumber() < 0 || pageRequest.getPageSize() < 1)
+            pageRequest = new PageRequest(PageRequest.DEFAULT_PAGE_NUMBER, PageRequest.DEFAULT_PAGE_SIZE);
+        final long currentUserId = getCurrentlyLoggedUser().getId();
+        return new PageResponse<>(pageRequest,
+                                userDao.countUserProposals(currentUserId),
+                                userDao.getUserProposals(pageRequest, currentUserId));
+    }
+
+    @Override
+    public PageResponse<Property> getCurrentUserProperties(PageRequest pageRequest) {
+        if(pageRequest.getPageNumber() < 0 || pageRequest.getPageSize() < 1)
+            pageRequest = new PageRequest(PageRequest.DEFAULT_PAGE_NUMBER, PageRequest.DEFAULT_PAGE_SIZE);
+        final long currentUserId = getCurrentlyLoggedUser().getId();
+        return new PageResponse<>(pageRequest,
+                userDao.countUserProperties(currentUserId),
+                userDao.getUserProperties(pageRequest, currentUserId));
+    }
+
+    @Override
+    public PageResponse<Proposal> getHostProposals(PageRequest pageRequest) {
+        if(pageRequest.getPageNumber() < 0 || pageRequest.getPageSize() < 1)
+            pageRequest = new PageRequest(PageRequest.DEFAULT_PAGE_NUMBER, PageRequest.DEFAULT_PAGE_SIZE);
+        final long currentUserId = getCurrentlyLoggedUser().getId();
+        return new PageResponse<>(pageRequest,
+                userDao.countValidProposals(currentUserId),
+                userDao.getValidHostProposals(pageRequest, currentUserId));
     }
 }

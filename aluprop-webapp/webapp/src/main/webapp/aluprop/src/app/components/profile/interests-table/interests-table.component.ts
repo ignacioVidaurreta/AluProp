@@ -5,6 +5,7 @@ import {Property} from "../../../models/property";
 import {Subscription} from "rxjs";
 import {UserService} from "../../../services/user.service";
 import {ActivatedRoute} from "@angular/router";
+import {PageRequest} from "../../../interfaces/page-request";
 
 
 @Component({
@@ -16,12 +17,16 @@ export class InterestsTableComponent implements OnInit {
   displayedColumns: string[] = ['name'];
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  totalItems: number;
+  pageSize: number;
 
+  pageRequest: PageRequest;
   interestedPropertiesSub: Subscription;
   dataSource;
 
   constructor(private userService: UserService, private route: ActivatedRoute) {
     this.dataSource = [];
+    this.pageRequest = {pageNumber: 0, pageSize: 10}
   }
 
   ngOnInit(): void {
@@ -34,14 +39,18 @@ export class InterestsTableComponent implements OnInit {
   }
 
   onPageChange(pageEvent: PageEvent){
+    this.pageRequest.pageNumber = pageEvent.pageIndex;
+    this.pageRequest.pageSize = pageEvent.pageSize;
     this.interestedPropertiesSub.unsubscribe();
     this.createPageSubscription();
   }
 
   createPageSubscription(){
-    this.interestedPropertiesSub = this.userService.getAllInterestedProperties().subscribe((interestedProperties) => {
-      console.log(interestedProperties);
-      this.dataSource = new MatTableDataSource<Property>(interestedProperties);
+    this.interestedPropertiesSub = this.userService.getAllInterestedProperties(this.pageRequest).subscribe((pageResponse) => {
+      console.log(pageResponse);
+      this.dataSource = new MatTableDataSource<Property>(pageResponse.responseData);
+      this.totalItems = pageResponse.totalItems;
+      this.pageSize = pageResponse.pageSize;
     });
   }
 }

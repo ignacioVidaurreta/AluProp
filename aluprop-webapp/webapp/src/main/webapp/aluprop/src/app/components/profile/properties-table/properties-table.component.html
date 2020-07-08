@@ -24,7 +24,10 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns;" [routerLink]="['/property/' + row.id]"></tr>
   </table>
 
-  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+  <mat-paginator [length]="totalItems"
+                 [pageSize]="pageSize"
+                 [pageSizeOptions]="[5, 10, 25, 100]"
+                 (page)="onPageChange($event)" showFirstLastButtons></mat-paginator>
 </div>
 <ng-template #empty>
   <mat-card class="mat-elevation-z8">

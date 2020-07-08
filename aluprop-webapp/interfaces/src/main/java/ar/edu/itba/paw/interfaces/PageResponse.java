@@ -15,10 +15,10 @@ public class PageResponse<T> {
         this.responseData = responseData;
     }
 
-    public PageResponse(int pageNumber, int pageSize, Long totalItems, Collection<T> responseData) {
-        this.pageNumber = pageNumber;
-        this.pageSize = pageSize;
-        this.totalItems = totalItems;
+    public PageResponse(PageResponse page, Collection<T> responseData) {
+        this.pageNumber = page.pageNumber;
+        this.pageSize = page.pageSize;
+        this.totalItems = page.totalItems;
         this.responseData = responseData;
     }
 
