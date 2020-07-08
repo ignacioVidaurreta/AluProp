@@ -190,9 +190,9 @@ public class APUserDao implements UserDao {
 
     @Override
     public Long countValidProposals(long userId) {
-        return entityManager.createQuery("SELECT COUNT(p.id) FROM Proposal p WHERE p.state != 'PENDING' AND " +
-                                                                                    "p.state != 'DROPPED' AND " +
-                                                                                    "p.state != 'CANCELLED' AND " +
+        return entityManager.createQuery("SELECT COUNT(p.id) FROM Proposal p WHERE p.state <> 'PENDING' AND " +
+                                                                                    "p.state <> 'DROPPED' AND " +
+                                                                                    "p.state <> 'CANCELED' AND " +
                                                                                     "p.property.id IN " +
                                             "(FROM Property pty WHERE pty.owner.id = :userId)", Long.class)
                                             .setParameter("userId", userId)
@@ -201,12 +201,14 @@ public class APUserDao implements UserDao {
 
     @Override
     public Collection<Proposal> getValidHostProposals(PageRequest pageRequest, long userId) {
-        TypedQuery<Proposal> query = entityManager.createQuery("FROM Proposal p WHERE p.state != 'PENDING' AND " +
-                                                                                        "p.state != 'DROPPED' AND " +
-                                                                                        "p.state != 'CANCELLED' AND " +
+        TypedQuery<Proposal> query = entityManager.createQuery("FROM Proposal p WHERE p.state <> 'PENDING' AND " +
+                                                                                        "p.state <> 'DROPPED' AND " +
+                                                                                        "p.state <> 'CANCELED' AND " +
                                                                                         "p.property.id IN " +
                                                                     "(FROM Property pty WHERE pty.owner.id = :userId)", Proposal.class);
         query.setParameter("userId", userId);
-        return  paginator.makePagedQuery(query, pageRequest).getResultList();
+        Collection<Proposal> proposals =  paginator.makePagedQuery(query, pageRequest).getResultList();
+        proposals.forEach(p -> p.getUserProposals().isEmpty());
+        return proposals;
     }
 }

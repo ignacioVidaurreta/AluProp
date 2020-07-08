@@ -48,10 +48,10 @@ public class GuestApiController {
     public Response getCurrentUserProposals(@QueryParam("pageNumber") @DefaultValue("0") int pageNumber,
                                             @QueryParam("pageSize") @DefaultValue("12") int pageSize){
         PageResponse<Proposal> proposals = userService.getCurrentUserProposals(new PageRequest(pageNumber, pageSize));
-        PageResponse<ProposalDto> proposalDtos = new PageResponse<>(proposals,
+        PageResponse<IndexProposalDto> proposalDtos = new PageResponse<>(proposals,
                                                                 proposals.getResponseData()
                                                                         .stream()
-                                                                        .map(ProposalDto::fromProposal)
+                                                                        .map(IndexProposalDto::fromProposal)
                                                                         .collect(Collectors.toList()));
         return Response.ok(proposalDtos).build();
     }
