@@ -3,7 +3,7 @@
     <ngb-carousel>
       <ng-template *ngFor="let img of property.images" ngbSlide>
         <div>
-          <img class="d-block w-100 detailed-property-image" [ngClass]="(property.availability == 'RENTED') ? 'grayscale' : ''" [attr.src]="'data:image/JPEG;base64,' + img.image ">
+          <img class="d-block w-100 detailed-property-image" [ngClass]="(property.availability == 'RENTED') ? 'grayscale' : ''" [attr.src]="img.image">
         </div>
       </ng-template>
     </ngb-carousel>

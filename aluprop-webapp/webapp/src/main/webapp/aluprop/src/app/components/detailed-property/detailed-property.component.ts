@@ -14,6 +14,8 @@ import {MetadataService} from "../../metadata.service";
 import {TranslateService} from "@ngx-translate/core";
 import { Router } from '@angular/router';
 import {MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition} from "@angular/material/snack-bar";
+import {ImageService} from "../../services/image.service";
+import {DomSanitizer} from "@angular/platform-browser";
 
 
 @Component({
@@ -40,7 +42,16 @@ export class DetailedPropertyComponent implements OnInit {
   userIsloogedIn: boolean;
   deleteSub: Subscription;
 
-  constructor( private propertyService: PropertyService, private router: Router, private userService: UserService, private translateService: TranslateService, private metadataService: MetadataService, private authenticationService: AuthenticationService, public dialog: MatDialog, private route: ActivatedRoute) {
+  constructor( private propertyService: PropertyService,
+               private router: Router,
+               private userService: UserService,
+               private translateService: TranslateService,
+               private metadataService: MetadataService,
+               private authenticationService: AuthenticationService,
+               public dialog: MatDialog,
+               private route: ActivatedRoute,
+               private imageService: ImageService,
+               private _sanitizer: DomSanitizer) {
     this.languageChangedSub = translateService.onLangChange.subscribe((newLang) => this.translateRulesAndServices());
   }
 
@@ -73,6 +84,7 @@ export class DetailedPropertyComponent implements OnInit {
     this.propertySub = this.propertyService.getById(this.propertyId).subscribe((property) => {
       this.property = property;
       this.translateRulesAndServices();
+      this.fetchPropertyImages();
       this.currentUserSub = this.authenticationService.getCurrentUser().subscribe((currentUser)=> {
         this.currentUser = currentUser;
         this.userIsloogedIn = this.isUserLoggedIn();
@@ -89,6 +101,16 @@ export class DetailedPropertyComponent implements OnInit {
           }
       });
       });
+  }
+
+  fetchPropertyImages() {
+    this.property.images.forEach(
+      (image) => {
+        this.imageService.getImage(image.id).subscribe(imageData => {
+          image.image = this._sanitizer.bypassSecurityTrustResourceUrl(imageData);
+        });
+      }
+    );
   }
 
   isUserLoggedIn(){
