@@ -28,13 +28,14 @@ export class UserService {
     return this.http.get<User>(BASE_API_URL + '/' + id);
   }
 
-  getAllProposalsFromUserProposals(): Observable<Proposal[]>{
-    console.log(BASE_API_URL_USER_PROPOSALS);
-    return this.http.get<Proposal[]>(BASE_API_URL_USER_PROPOSALS);
+  getAllProposalsFromUserProposals(pageRequest: PageRequest): Observable<PageResponse<Proposal>>{
+    let params = {pageSize: String(pageRequest.pageSize), pageNumber: String(pageRequest.pageNumber) };
+    return this.http.get<PageResponse<Proposal>>(BASE_API_URL_USER_PROPOSALS, {params: params});
   }
 
-  getAllProposals(): Observable<Proposal[]>{
-    return this.http.get<Proposal[]>(BASE_API_URL_PROPOSALS);
+  getAllProposals(pageRequest: PageRequest): Observable<PageResponse<Proposal>>{
+    let params = {pageSize: String(pageRequest.pageSize), pageNumber: String(pageRequest.pageNumber) };
+    return this.http.get<PageResponse<Proposal>>(BASE_API_URL_PROPOSALS, {params: params});
   }
 
   getAllOwnedProperties(pageRequest: PageRequest): Observable<PageResponse<Property>>{
