@@ -140,7 +140,9 @@ public class WebAuthConfig extends WebSecurityConfigurerAdapter {
             new AntPathRequestMatcher("/api/user/**", "POST"),
             new AntPathRequestMatcher("/api/user/**", "GET"),
             new AntPathRequestMatcher("/api/proposal/**", "POST"),
-            new AntPathRequestMatcher("/api/proposal/**", "GET")
+            new AntPathRequestMatcher("/api/proposal/**", "GET"),
+            new AntPathRequestMatcher("/api/notification/**", "POST"),
+            new AntPathRequestMatcher("/api/notification/**", "GET")
         );
     }
 
