@@ -43,17 +43,17 @@ export const Availability = {
 
 export type SortOption = 'NEWEST' | 
                           'CAPACITY_DESC' | 
-                          'CAPACITY_ASC' | 
+                          'CAPACITY' | 
                           'PRINCE_DESC' | 
-                          'PRICE_ASC' | 
+                          'PRICE' | 
                           'BUDGET_DESC' | 
-                          'BUDGET_ASC';
+                          'BUDGET';
 export const SortOption = {
   Newest: 'NEWEST' as SortOption,
   HighestCapacity: 'CAPACITY_DESC' as SortOption,
-  LowestCapacity: 'CAPACITY_ASC' as SortOption,
+  LowestCapacity: 'CAPACITY' as SortOption,
   HighestPrice: 'PRICE_DESC' as SortOption,
-  LowestPrice: 'PRICE_ASC' as SortOption,
+  LowestPrice: 'PRICE' as SortOption,
   HighestBudget: 'BUDGET_DESC' as SortOption,
-  LowestBudget: 'BUDGET_ASC' as SortOption,
+  LowestBudget: 'BUDGET' as SortOption,
 };              

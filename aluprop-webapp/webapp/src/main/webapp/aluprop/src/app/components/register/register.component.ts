@@ -99,7 +99,7 @@ export class RegisterComponent implements OnInit {
 
   signUp() {
     if(this.signUpForm.valid)
-      this.authenticationService.signUp(this.signUpForm.value);
+      this.authenticationService.signUp(this.signUpForm.value).subscribe(() => console.log('holaaa'));
   }
 
 

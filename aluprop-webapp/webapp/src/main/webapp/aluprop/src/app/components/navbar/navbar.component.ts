@@ -4,6 +4,7 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 import { Observable, Subscription } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
 import { User, Role } from "../../models/user";
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-navbar',
@@ -34,8 +35,7 @@ export class NavbarComponent implements OnInit {
   }
 
   logout(): void{
-    this.authenticationService.logout()
-    this.router.navigate(["/login"])
+    this.authenticationService.logout().pipe(take(1)).subscribe((response) => this.router.navigate(["/login"]));
   }
 
   isUserLoggedIn(){

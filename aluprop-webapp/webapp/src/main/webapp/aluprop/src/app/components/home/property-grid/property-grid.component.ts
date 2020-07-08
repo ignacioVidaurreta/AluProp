@@ -7,6 +7,8 @@ import { PageResponse } from 'src/app/interfaces/page-response';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { ActivatedRoute, Router } from '@angular/router';
 import { filter } from 'rxjs/operators';
+import { ImageService } from 'src/app/services/image.service';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-property-grid',
@@ -60,9 +62,10 @@ export class PropertyGridComponent implements OnInit, OnDestroy {
 
   constructor(private propertyService: PropertyService,
               private route: ActivatedRoute,
-              private router: Router) {
+              private router: Router,
+              private imageService: ImageService,
+              private _sanitizer: DomSanitizer) {
     this.pageRequest = {pageNumber: 0, pageSize: 12}
-
     this.searchParamsSub = route.queryParams.pipe(
       filter((params) => Object.keys(params).length !== 0)
     ).subscribe((params)=>{
@@ -97,6 +100,7 @@ export class PropertyGridComponent implements OnInit, OnDestroy {
         this.properties = pageResponse.responseData;
         this.totalItems = pageResponse.totalItems;
         this.pageSize = pageResponse.pageSize;
+        this.fetchPropertyImages();
         // console.log(this.properties);
       });
     }
@@ -105,10 +109,20 @@ export class PropertyGridComponent implements OnInit, OnDestroy {
         this.properties = pageResponse.responseData;
         this.totalItems = pageResponse.totalItems;
         this.pageSize = pageResponse.pageSize;
+        this.fetchPropertyImages();
         // console.log(this.properties);
       });
     }
-    
+  }
+
+  fetchPropertyImages() {
+    this.properties.forEach(
+      (property) => {
+        this.imageService.getImage(property.mainImage.id).subscribe(imageData => {
+          property.mainImage.image = this._sanitizer.bypassSecurityTrustResourceUrl(imageData);
+        });
+      }
+    );
   }
 
 }
