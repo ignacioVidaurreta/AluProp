@@ -80,8 +80,8 @@ public class APPropertyDao implements PropertyDao {
     @Override
     public Collection<Property> advancedSearch(PageRequest pageRequest, SearchableProperty property) {
         StringBuilder searchString = new StringBuilder("FROM Property p WHERE ");
-        buildCondition(property);
-        searchString.append(conditionBuilder.buildAsStringBuilder());
+        WhereConditionBuilder builder = buildCondition(property);
+        searchString.append(builder.buildAsStringBuilder());
         if(searchString.toString().equals("FROM Property p WHERE "))
             return getAllActive(pageRequest);
         searchString.append("ORDER BY");
@@ -94,8 +94,8 @@ public class APPropertyDao implements PropertyDao {
     @Override
     public long totalItemsOfSearch(SearchableProperty property) {
         StringBuilder searchString = new StringBuilder("SELECT COUNT(p.id) FROM Property p WHERE ");
-        buildCondition(property);
-        searchString.append(conditionBuilder.buildAsStringBuilder());
+        WhereConditionBuilder builder = buildCondition(property);
+        searchString.append(builder.buildAsStringBuilder());
         if(searchString.toString().equals("SELECT COUNT(p.id) FROM Property p WHERE "))
             return countAvailable();
         TypedQuery<Long> query = entityManager.createQuery(searchString.toString(), Long.class);
@@ -127,65 +127,63 @@ public class APPropertyDao implements PropertyDao {
         query.setParameter("availability", Availability.AVAILABLE);
     }
 
-    private void buildCondition(SearchableProperty property) {
-        conditionBuilder.begin();
+    private WhereConditionBuilder buildCondition(SearchableProperty property) {
+        WhereConditionBuilder builder = conditionBuilder.begin();
         if(searchableDescription(property))
-            conditionBuilder.descriptionCondition("lower(p.description)","lower(p.caption)", ":description");
+            builder = builder.descriptionCondition("lower(p.description)","lower(p.caption)", ":description");
         if(searchablePropertyType(property))
-            conditionBuilder.equalityCondition("p.propertyType", ":propertyType");
+            builder = builder.equalityCondition("p.propertyType", ":propertyType");
         if(searchableNeighbourhood(property))
-            conditionBuilder.equalityCondition("p.neighbourhood.id", ":neighbourhood");
+            builder = builder.equalityCondition("p.neighbourhood.id", ":neighbourhood");
         if(searchablePrivacyLevel(property))
-            conditionBuilder.equalityCondition("p.privacyLevel", ":privacyLevel");
-        getBudgetConditions(property);
+            builder = builder.equalityCondition("p.privacyLevel", ":privacyLevel");
+        builder = getBudgetConditions(property, builder);
         if(property.getServiceIds() != null && property.getServiceIds().length > 0)
             for(int i = 0; i < property.getServiceIds().length; i++)
-                conditionBuilder.simpleInCondition(":service" + i, "p.services");
+                builder = builder.simpleInCondition(":service" + i, "p.services");
         if(property.getRuleIds() != null && property.getRuleIds().length > 0)
             for(int i = 0; i < property.getRuleIds().length; i++)
-                conditionBuilder.simpleInCondition(":rule" + i, "p.rules");
-        conditionBuilder.equalityCondition("p.availability", ":availability");
+                builder = builder.simpleInCondition(":rule" + i, "p.rules");
+        return builder.equalityCondition("p.availability", ":availability");
     }
 
-    private void getBudgetConditions(SearchableProperty property) {
+    private WhereConditionBuilder getBudgetConditions(SearchableProperty property, WhereConditionBuilder builder) {
         if(searchableCapacity(property)) {
             if(searchableMinPrice(property)) {
                 if(searchableMaxPrice(property)) {
-                    conditionBuilder.lessOrEqualThanCondition("p.capacity", ":capacity");
-                    conditionBuilder.lessOrEqualThanCondition("p.price/p.capacity",":maxPrice");
-                    conditionBuilder.greaterOrEqualThanCondition("p.price/p.capacity",":minPrice");
+                    builder = builder.lessOrEqualThanCondition("p.capacity", ":capacity");
+                    builder = builder.lessOrEqualThanCondition("p.price/p.capacity",":maxPrice");
+                    builder = builder.greaterOrEqualThanCondition("p.price/p.capacity",":minPrice");
                 }
                 else {
-                    conditionBuilder.lessOrEqualThanCondition("p.capacity", ":capacity");
-                    conditionBuilder.greaterOrEqualThanCondition("p.price/p.capacity",":minPrice");
+                    builder = builder.lessOrEqualThanCondition("p.capacity", ":capacity");
+                    builder = builder.greaterOrEqualThanCondition("p.price/p.capacity",":minPrice");
                 }
             }
             else {
                 if(searchableMaxPrice(property)) {
-                    conditionBuilder.lessOrEqualThanCondition("p.capacity", ":capacity");
-                    conditionBuilder.lessOrEqualThanCondition("p.price/p.capacity",":maxPrice");
+                    builder = builder.lessOrEqualThanCondition("p.capacity", ":capacity");
+                    builder = builder.lessOrEqualThanCondition("p.price/p.capacity",":maxPrice");
                 }
                 else {
-                    conditionBuilder.lessOrEqualThanCondition("p.capacity", ":capacity");
+                    builder = builder.lessOrEqualThanCondition("p.capacity", ":capacity");
                 }
             }
         }
         else {
             if(searchableMinPrice(property)) {
                 if(searchableMaxPrice(property)) {
-                    conditionBuilder.lessOrEqualThanCondition("p.price/p.capacity",":maxPrice");
-                    conditionBuilder.greaterOrEqualThanCondition("p.price/p.capacity",":minPrice");
+                    builder = builder.lessOrEqualThanCondition("p.price/p.capacity",":maxPrice");
                 }
-                else {
-                    conditionBuilder.greaterOrEqualThanCondition("p.price/p.capacity",":minPrice");
-                }
+                builder = builder.greaterOrEqualThanCondition("p.price/p.capacity",":minPrice");
             }
             else {
                 if(searchableMaxPrice(property)) {
-                    conditionBuilder.lessOrEqualThanCondition("p.price/p.capacity",":maxPrice");
+                    builder = builder.lessOrEqualThanCondition("p.price/p.capacity",":maxPrice");
                 }
             }
         }
+        return builder;
     }
 
     // transforms searchable property type into regular property type

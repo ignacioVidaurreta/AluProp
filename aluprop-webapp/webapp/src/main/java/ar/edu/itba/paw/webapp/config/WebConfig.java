@@ -207,7 +207,6 @@ public class WebConfig implements WebMvcConfigurer {
     // HqlWhereConditionBuilder contains a string builder as a class attribute and having it as a
     // singleton would create a race condition.
     @Bean
-    @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
     public WhereConditionBuilder whereConditionBuilder() {
         return new HqlWhereConditionBuilder();
     }

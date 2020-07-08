@@ -6,40 +6,45 @@ public class HqlWhereConditionBuilder implements WhereConditionBuilder {
 
     private StringBuilder condition;
 
+    public HqlWhereConditionBuilder() { }
+
+    private HqlWhereConditionBuilder(StringBuilder builder) {
+        condition = new StringBuilder(builder);
+    }
+
     @Override
     public WhereConditionBuilder begin() {
-        condition = new StringBuilder();
-        return this;
+        return new HqlWhereConditionBuilder(new StringBuilder());
     }
 
     @Override
     public HqlWhereConditionBuilder equalityCondition(String left, String right) {
         comparisonCondition(left, " = ", right);
-        return this;
+        return new HqlWhereConditionBuilder(condition);
     }
 
     @Override
     public HqlWhereConditionBuilder greaterThanCondition(String left, String right) {
         comparisonCondition(left, " > ", right);
-        return this;
+        return new HqlWhereConditionBuilder(condition);
     }
 
     @Override
     public HqlWhereConditionBuilder lessThanCondition(String left, String right) {
         comparisonCondition(left, " < ", right);
-        return this;
+        return new HqlWhereConditionBuilder(condition);
     }
 
     @Override
     public HqlWhereConditionBuilder greaterOrEqualThanCondition(String left, String right) {
         comparisonCondition(left, " >= ", right);
-        return this;
+        return new HqlWhereConditionBuilder(condition);
     }
 
     @Override
     public HqlWhereConditionBuilder lessOrEqualThanCondition(String left, String right) {
         comparisonCondition(left, " <= ", right);
-        return this;
+        return new HqlWhereConditionBuilder(condition);
     }
 
     @Override
@@ -48,7 +53,7 @@ public class HqlWhereConditionBuilder implements WhereConditionBuilder {
         condition.append(" in ( FROM ");
         condition.append(subgroup);
         condition.append(" )  AND ");
-        return this;
+        return new HqlWhereConditionBuilder(condition);
     }
 
     @Override
@@ -62,7 +67,7 @@ public class HqlWhereConditionBuilder implements WhereConditionBuilder {
         condition.append(searchQuery);
         condition.append(")");
         condition.append(" AND ");
-        return this;
+        return new HqlWhereConditionBuilder(condition);
     }
 
     @Override
