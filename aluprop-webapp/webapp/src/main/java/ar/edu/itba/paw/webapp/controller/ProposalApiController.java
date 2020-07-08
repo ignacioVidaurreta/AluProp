@@ -26,6 +26,7 @@ import java.util.stream.Stream;
 @Path("proposal")
 @Produces(value = { MediaType.APPLICATION_JSON })
 public class ProposalApiController {
+
     private final static Logger logger = LoggerFactory.getLogger(ProposalApiController.class);
 
     @Autowired
@@ -37,9 +38,8 @@ public class ProposalApiController {
     @Path("/{proposalId}")
     public Response proposal(@PathParam("proposalId") long proposalId) {
         Proposal proposal = proposalService.getWithRelatedEntities(proposalId);
-        if(proposal == null){
+        if(proposal == null)
             return Response.status(Response.Status.NOT_FOUND).build();
-        }
         final Property property = propertyService.getPropertyWithRelatedEntities(proposal.getProperty().getId());
         return Response.ok(ProposalDto.withPropertyWithRelatedEntities(proposal, property)).build();
     }
@@ -48,7 +48,8 @@ public class ProposalApiController {
     @Path("/{proposalId}/userProposals")
     public Response userProposalsFromProposal(@PathParam("proposalId") long proposalId){
         Proposal proposal = proposalService.getWithRelatedEntities(proposalId);
-
+        if (proposal == null)
+            return Response.status(Response.Status.NOT_FOUND).build();
         
         // Only show user proposals that don't include the creator
         Stream<UserProposal> userProposalStream = proposal.getUserProposals().stream().map(userProposal -> {
@@ -68,9 +69,9 @@ public class ProposalApiController {
     @Path("/{proposalId}/creatorUserProposal")
     public Response userProposalOfCreator(@PathParam("proposalId") long proposalId){
         Proposal proposal = proposalService.getWithRelatedEntities(proposalId);
-        if(proposal == null){
-            logger.error("Invalid Proposal with id " + proposalId);
-            return Response.status(Response.Status.BAD_REQUEST).build();
+        if (proposal == null) {
+            logger.info("Invalid Proposal with id " + proposalId);
+            return Response.status(Response.Status.NOT_FOUND).build();
         }
         User creator = proposal.getCreator();
         return Response.ok(UserProposalDto.fromCreator(creator)).build();

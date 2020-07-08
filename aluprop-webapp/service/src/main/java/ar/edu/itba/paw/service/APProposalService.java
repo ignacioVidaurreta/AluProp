@@ -43,13 +43,8 @@ public class APProposalService implements ProposalService {
     private final static String INVITATION_SUBJECT_CODE= "notifications.proposals.invitation.subject";
     private final static String INVITATION_BODY_CODE = "notifications.proposals.invitation";
 
-    private final static String ACCEPTED_SUBJECT_CODE= "notifications.proposals.accepted.subject";
-    private final static String ACCEPTED_BODY_CODE = "notifications.proposals.accepted";
-
     @Autowired
     private ProposalDao proposalDao;
-    @Autowired
-    private UserDao userDao;
     @Autowired
     private PropertyDao propertyDao;
     @Autowired
@@ -116,7 +111,16 @@ public class APProposalService implements ProposalService {
 
     @Override
     public Proposal getWithRelatedEntities(long id) {
-        return proposalDao.getWithRelatedEntities(id);
+        Proposal p = proposalDao.getWithRelatedEntities(id);
+        User u = userService.getCurrentlyLoggedUser();
+        if (isRelatedToProposal(p, u)) return null;
+        return p;
+    }
+
+    private boolean isRelatedToProposal(Proposal p, User u) {
+        return p.getCreator().getId() != u.getId() &&
+                !userIsInvitedToProposal(u, p) &&
+                p.getProperty().getOwner().getId() != u.getId();
     }
 
     @Override
@@ -137,19 +141,11 @@ public class APProposalService implements ProposalService {
 
     private void sendProposalSentNotifications(User u, Proposal proposal) {
         if (proposal.isCompletelyAccepted(proposal.getCreator().getId())){
-            User creator = userService.getWithRelatedEntities(proposal.getCreator().getId());
             notificationService.sendNotifications(SENT_SUBJECT_CODE, SENT_BODY_CODE, "/proposal/" + proposal.getId(), proposal.getUsers(), u.getId());
-
             Property property = propertyDao.getPropertyWithRelatedEntities(proposal.getProperty().getId());
-
             notificationService.sendNotification(SENT_HOST_SUBJECT_CODE, SENT_HOST_BODY_CODE, "/proposal/" + proposal.getId(), property.getOwner());
             proposalDao.setState(proposal.getId(), ProposalState.SENT);
         }
-    }
-
-    private void sendProposalAcceptedNotifications(User u, Proposal proposal) {
-        User creator = userService.getWithRelatedEntities(proposal.getCreator().getId());
-        notificationService.sendNotifications(ACCEPTED_SUBJECT_CODE, ACCEPTED_BODY_CODE, "/proposal/" + proposal.getId(), proposal.getUsers(), u.getId());
     }
 
     private boolean userIsInvitedToProposal(User user, Proposal proposal){
@@ -194,7 +190,7 @@ public class APProposalService implements ProposalService {
     }
     private boolean userOwnsProposalProperty(long proposalId){
         User u = userService.getCurrentlyLoggedUser();
-        Proposal proposal = getWithRelatedEntities(proposalId);
+        Proposal proposal = proposalDao.getWithRelatedEntities(proposalId);
         return (proposal != null && proposal.getProperty().getOwner().getId() == u.getId());
     }
 

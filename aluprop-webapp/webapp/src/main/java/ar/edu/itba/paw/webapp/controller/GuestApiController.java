@@ -82,6 +82,8 @@ public class GuestApiController {
     @Path("/{proposalId}/userInfo")
     public Response userInfo(@PathParam(value = "proposalId") long proposalId) {
         Proposal proposal = proposalService.getWithRelatedEntities(proposalId);
+        if (proposal == null)
+            return Response.status(Response.Status.NOT_FOUND).build();
         User currentUser = userService.getCurrentlyLoggedUser();
         boolean hasReplied;
 
