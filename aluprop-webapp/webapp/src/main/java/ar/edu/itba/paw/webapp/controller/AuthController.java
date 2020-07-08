@@ -73,10 +73,11 @@ public class AuthController {
 
     private SignUpForm signUpForm(String json) {
         try {
+            logger.error(json);
             return new ObjectMapper().readValue(json, SignUpForm.class);
         }
         catch (IOException e) {
-            throw new IllegalArgumentException("malformed json");
+            throw new IllegalArgumentException(String.format("malformed json:  %s", e));
         }
     }
 

@@ -37,7 +37,7 @@
              </div>
              <div *ngIf="currentUser.role == 'ROLE_GUEST'">
                <span translate>proposal.accepted</span><br/>
-               <span><span translate>proposal.host-info</span> {{proposal.property.owner.name}} | {{proposal.property.owner.email}} | {{proposal.property.owner.contactNumber}}</span>
+               <span><span translate>proposal.host-info</span> {{proposal.property.owner.name}} | {{proposal.property.owner.email}} | {{proposal.property.owner.phoneNumber}}</span>
              </div>
           </div>
           <div translate *ngIf="proposal.state == 'SENT' && currentUser.role == 'ROLE_GUEST'">

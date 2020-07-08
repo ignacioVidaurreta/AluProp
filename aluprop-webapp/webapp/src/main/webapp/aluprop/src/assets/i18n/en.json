@@ -33,7 +33,10 @@
     "required-field-error": "Field required",
     "login-message": "Already have an account? Log in",
     "password-mismatch": "Passwords must match",
-    "invalid-email-error": "Invalid email"
+    "repeated-email-error": "An user already exists with that email",
+    "invalid-email-error": "Invalid email",
+    "university": "University",
+    "career": "Career"
   },
   "log-in": {
     "login": "Log in",

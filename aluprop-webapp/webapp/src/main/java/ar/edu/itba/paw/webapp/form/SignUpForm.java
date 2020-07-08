@@ -6,6 +6,7 @@ import org.hibernate.validator.constraints.Range;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+
 public class SignUpForm {
     @NotBlank
     private String name;

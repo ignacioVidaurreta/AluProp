@@ -11,11 +11,11 @@ export class User {
   lastName: string;
   birthDate: Date;
   gender: Gender;
-  passwordHash: string;
+  password: string;
   university: University;
   career: Career;
   bio: string;
-  contactNumber: string;
+  phoneNumber: string;
   role: Role;
   interestedProperties: Property[]; //GUEST
   userProposals: UserProposal[]; //GUEST
@@ -37,10 +37,9 @@ export const Gender = {
 };
 
 
-export interface SignUpForm {
+export class SignUpForm {
   email: string;
   password: string;
-  repeatPassword: string;
   name:string ;
   lastName: string;
   phoneNumber: number;

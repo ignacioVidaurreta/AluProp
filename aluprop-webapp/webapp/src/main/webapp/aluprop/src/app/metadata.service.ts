@@ -6,6 +6,8 @@ import { Service } from './models/service';
 import { Neighborhood } from './models/neighborhood';
 import { TranslateService } from '@ngx-translate/core';
 import { take } from 'rxjs/operators';
+import { University } from './models/university';
+import { Career } from './models/career';
 
 const BASE_API_URL = 'http://localhost:8080/api/';
 
@@ -31,6 +33,14 @@ export class MetadataService {
 
   getAllNeighborhoods(): Observable<Neighborhood[]> {
     return this.http.get<Neighborhood[]>(BASE_API_URL + 'property/neighbourhood/');
+  }
+
+  getAllUniversities(): Observable<University[]> {
+    return this.http.get<University[]> (BASE_API_URL + 'user/university')
+  }
+
+  getAllCareers(): Observable<Career[]> {
+    return this.http.get<Career[]> (BASE_API_URL + 'user/career')
   }
 
   translateMetadataArray(input: Rule[] | Service[]){

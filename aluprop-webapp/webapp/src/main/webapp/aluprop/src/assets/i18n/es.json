@@ -33,7 +33,10 @@
     "required-field-error": "Campo obligatorio",
     "login-message": "Ya tenes cuenta? Iniciar sesión",
     "password-mismatch": "Las contraseñas deben coincidir",
-    "invalid-email-error": "Email inválido"
+    "invalid-email-error": "Email inválido",
+    "repeated-email-error": "Ya existe un usuario con ese email",
+    "university": "Universidad",
+    "career": "Carrera"
   },
   "log-in": {
     "login": "Iniciar Sesión",

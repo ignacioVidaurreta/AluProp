@@ -7,7 +7,8 @@
         <mat-form-field class="form-element">
           <mat-label translate>sign-up.email</mat-label>
           <input matInput type="email" formControlName="email"/>
-          <mat-error><span translate>sign-up.invalid-email-error</span></mat-error>
+          <mat-error *ngIf="!repeatedEmail"><span translate>sign-up.invalid-email-error</span></mat-error>
+          <mat-error *ngIf="repeatedEmail"><span translate>sign-up.repeated-email-error</span></mat-error>
         </mat-form-field>
 
         <mat-form-field class="form-element password">
@@ -24,7 +25,7 @@
         <div class="field-row form-element">
           <mat-form-field class="first-name">
             <mat-label translate>sign-up.first-name</mat-label>
-            <input matInput type="text" formControlName="firstName"/>
+            <input matInput type="text" formControlName="name"/>
             <mat-error><span translate>sign-up.required-field-error</span></mat-error>
           </mat-form-field>
 
@@ -44,19 +45,36 @@
 
           <mat-form-field>
             <mat-label translate>sign-up.birthday</mat-label>
-            <input matInput type="date" formControlName="birthday"/>
+            <input matInput type="date" formControlName="birthdate"/>
             <mat-error><span translate>sign-up.required-field-error</span></mat-error>
           </mat-form-field>
         </div>
         
+        
         <mat-form-field class="form-element">
           <mat-label translate>sign-up.i-am-a</mat-label>
-          <mat-select formControlName="privacy">
-              <mat-option value="0"><span translate>sign-up.student</span></mat-option>
-              <mat-option value="1"><span translate>sign-up.host</span></mat-option>
+          <mat-select formControlName="role">
+              <mat-option value="ROLE_GUEST"><span translate>sign-up.student</span></mat-option>
+              <mat-option value="ROLE_HOST"><span translate>sign-up.host</span></mat-option>
           </mat-select>
           <mat-error><span translate>sign-up.required-field-error</span></mat-error>
         </mat-form-field>
+        <div class="field-row form-element" *ngIf="isGuest">
+          <mat-form-field>
+            <mat-label translate>sign-up.university</mat-label>
+            <mat-select formControlName="university">
+              <mat-option *ngFor="let university of universities" [value]="university"> {{ university.name }}</mat-option>
+            </mat-select>
+            <mat-error><span translate>sign-up.required-field-error</span></mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label translate>sign-up.career</mat-label>
+            <mat-select formControlName="career">
+              <mat-option *ngFor="let career of careers" [value]="career"> {{ career.name }}</mat-option>
+            </mat-select>
+            <mat-error><span translate>sign-up.required-field-error</span></mat-error>
+          </mat-form-field>
+        </div>
 
         <mat-form-field class="form-element">
           <mat-label translate>sign-up.gender</mat-label>
