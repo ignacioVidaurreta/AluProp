@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
 import {User, SignUpForm} from "../models/user";
 import {HttpClient} from "@angular/common/http";
-import { map, take } from 'rxjs/operators';
+import { take, tap } from 'rxjs/operators';
 
 const BASE_API_URL = 'http://localhost:8080/api/';
 const LOCAL_STORAGE_AUTH_TOKEN = 'aluToken';
@@ -32,21 +32,19 @@ export class AuthenticationService {
 
   signUp(signUpForm: SignUpForm){
     console.log(signUpForm);
-    return this.http.post<User>(BASE_API_URL + 'signUp', signUpForm, {observe: 'response'}).pipe(map(
+    return this.http.post<User>(BASE_API_URL + 'signUp', signUpForm, {observe: 'response'}).pipe(tap(
       (response)=>{
         this.setAuthToken(response.headers.get('X-TOKEN'));
         this.currentUserSubject.next(response.body);
-        return response;
       })
     );
   }
 
   login(signUpForm: any){
-    return this.http.post<User>(BASE_API_URL + 'login', signUpForm, {observe: 'response'}).pipe(map(
+    return this.http.post<User>(BASE_API_URL + 'login', signUpForm, {observe: 'response'}).pipe(tap(
       (response)=>{
         this.setAuthToken(response.headers.get('X-TOKEN'));
         this.currentUserSubject.next(response.body);
-        return response;
       })
     );
   }
@@ -62,7 +60,7 @@ export class AuthenticationService {
 
   logout(){
     this.currentUserSubject.next(null);
-    return this.http.get<User>(BASE_API_URL + 'out/logout/');
+    return this.http.get<User>(BASE_API_URL + 'auth/logout/');
   }
 
 }

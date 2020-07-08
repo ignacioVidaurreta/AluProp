@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
 import {PageRequest} from "../../interfaces/page-request";
 import {PageResponse} from "../../interfaces/page-response";
 import {Subscription} from "rxjs";
@@ -8,11 +8,14 @@ import {MatPaginator, PageEvent} from "@angular/material/paginator";
 import {ProposalService} from "../../services/proposal.service";
 import {ActivatedRoute} from "@angular/router";
 import {AuthenticationService} from "../../services/authentication.service";
+import {filter} from "rxjs/operators";
+import {MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.scss']
+  styleUrls: ['./profile.component.scss'],
+  providers: [MatSnackBar]
 })
 export class ProfileComponent implements OnInit {
   userId: number;
@@ -20,8 +23,28 @@ export class ProfileComponent implements OnInit {
   userSub: Subscription;
   currentUser: User;
   currentUserSub: Subscription;
+  deletionParamsSub: Subscription;
 
-  constructor(private userService: UserService, private route: ActivatedRoute, private authenticationService: AuthenticationService) { }
+  horizontalPosition: MatSnackBarHorizontalPosition = 'center';
+  verticalPosition: MatSnackBarVerticalPosition = 'top';
+
+  openSnackBar() {
+    this._snackBar.open('You have successfully deleted your property', 'Dismiss', {
+      duration: 2000,
+      horizontalPosition: this.horizontalPosition,
+      verticalPosition: this.verticalPosition,
+    });
+  }
+
+  constructor( private cdr: ChangeDetectorRef, private _snackBar: MatSnackBar,private userService: UserService, private route: ActivatedRoute, private authenticationService: AuthenticationService) {
+    this.deletionParamsSub = route.queryParams.pipe(
+      filter((params) => Object.keys(params).length !== 0)
+    ).subscribe((params)=>{
+      if(params.deletion == 'SUCCESSFUL')
+        this.openSnackBar();
+      this.createPageSubscription();
+    });
+  }
 
   ngOnInit(): void {
     this.userId = +this.route.snapshot.paramMap.get("id");
@@ -29,11 +52,12 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
-    if (this.userSub){ this.userSub.unsubscribe()};
-    if (this.currentUserSub){ this.currentUserSub.unsubscribe()};
+    if (this.userSub){ this.userSub.unsubscribe()}
+    if (this.currentUserSub){ this.currentUserSub.unsubscribe()}
+    if (this.deletionParamsSub) { this.deletionParamsSub.unsubscribe()}
   }
 
-  onPageChange(pageEvent: PageEvent){
+  onPageChange(){
     if (this.userSub){ this.userSub.unsubscribe()};
     if (this.currentUserSub){ this.currentUserSub.unsubscribe()};
     this.createPageSubscription();

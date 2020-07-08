@@ -49,7 +49,6 @@ export class PropertyService {
   }
 
   getInterestedUsersByPropertyId(id: number): Observable<User[]> {
-    // console.log(BASE_API_URL_PROPERTY + id);
     return this.http.get<User[]>(BASE_API_URL_PROPERTY + id + '/interestedUsers');
   }
 
@@ -73,6 +72,12 @@ export class PropertyService {
     console.log('Marking uninterest:');
     console.log(propertyId);
     return this.http.post(BASE_API_URL + 'guest/' + propertyId + '/uninterested', {});
+  }
+
+  deleteProperty(propertyId: number) {
+    console.log('Deleting property:');
+    console.log(propertyId);
+    return this.http.post(BASE_API_URL + 'host/delete/' + propertyId, {});
   }
 
 }

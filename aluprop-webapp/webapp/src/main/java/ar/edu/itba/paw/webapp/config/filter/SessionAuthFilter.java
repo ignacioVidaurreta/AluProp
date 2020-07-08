@@ -18,6 +18,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Collections;
@@ -35,6 +36,8 @@ public class SessionAuthFilter extends AbstractAuthenticationProcessingFilter {
     private RequestMatcher guestMatcher;
     @Autowired
     private RequestMatcher anonymousMatcher;
+    @Autowired
+    private RequestMatcher logoutMatcher;
 
     public SessionAuthFilter() {
         super("/**");
@@ -55,6 +58,22 @@ public class SessionAuthFilter extends AbstractAuthenticationProcessingFilter {
         return new AnonymousAuthenticationToken("AP_ANONYMOUS",
                 "ANONYMOUS",
                 Collections.singletonList(new SimpleGrantedAuthority("NONE")));
+    }
+
+    @Override
+    protected void successfulAuthentication(HttpServletRequest request,
+                                            HttpServletResponse response,
+                                            FilterChain chain,
+                                            Authentication authResult) throws IOException, ServletException {
+        super.successfulAuthentication(request, response, chain, authResult);
+        if (logoutMatcher.matches(request)) {
+            APUsernamePasswordAuthToken token = tokenHandler.parseToken(request);
+            if (token != null) {
+                Timestamp expiry = new Timestamp(tokenHandler.expiry(token.getToken()).getTime());
+                jwtService.addToBlacklist(token.getToken(), expiry);
+            }
+        }
+        chain.doFilter(request, response);
     }
 
     private Authentication checkHost(Authentication auth) {
