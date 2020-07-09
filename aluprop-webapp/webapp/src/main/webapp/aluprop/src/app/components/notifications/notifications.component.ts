@@ -51,7 +51,7 @@ export class NotificationsComponent implements OnInit {
     }
     this.notifications.forEach((notification) => {
       this.translateService.get(notification.subjectCode).pipe(take(1)).subscribe((value) => notification.translatedSubject = value);
-      this.translateService.get(notification.textCode).pipe(take(1)).subscribe((value) => notification.translatedText = value);
+      this.translateService.get(notification.textCode + ".text").pipe(take(1)).subscribe((value) => notification.translatedText = value);
     })
 
     this.dataSource = new MatTableDataSource<Notification>(this.notifications);

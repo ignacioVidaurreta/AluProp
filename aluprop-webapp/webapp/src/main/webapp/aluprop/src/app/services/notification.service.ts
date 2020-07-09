@@ -4,7 +4,6 @@ import { HttpClient } from '@angular/common/http';
 import { Notification } from 'src/app/models/notification';
 
 const BASE_API_URL = 'http://localhost:8080/api';
-const JSON_NOTIFICATIONS = '../assets/json/dummyNotifications.json';
 
 @Injectable({
   providedIn: 'root'
@@ -15,11 +14,9 @@ export class NotificationService {
 
   getUnread(): Observable<Notification[]> {
     return this.http.get<Notification[]>(BASE_API_URL + '/notification');
-    //  return this.http.get<Notification[]>(JSON_NOTIFICATIONS);
   }
 
   getAll(): Observable<Notification[]> {
-    return this.http.get<Notification[]>(BASE_API_URL + '/notification'); // 
-    // return this.http.get<Notification[]>(JSON_NOTIFICATIONS);
+    return this.http.get<Notification[]>(BASE_API_URL + '/notification');
   }
 }

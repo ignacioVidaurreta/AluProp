@@ -6,6 +6,7 @@
   display: flex;
   flex-direction: column;
   padding: 0 0.5rem 0.3rem 0.5rem;
+  width: 310px;
 }
 
 .title {
@@ -36,7 +37,7 @@
 mat-list-item:hover {
   cursor: pointer;
   animation: hover_animation 0.3s;
-  animation-fill-mode:forwards; 
+  animation-fill-mode:forwards;
 }
 
 .no-hover:hover{
@@ -48,4 +49,14 @@ a {
   text-decoration: none;
   color: inherit;
   font-weight: 400;
+}
+
+
+::ng-deep .mat-list .mat-list-item .mat-line{
+  word-wrap: break-word;
+  white-space: pre-wrap;
+}
+
+::ng-deep  .mat-list .mat-list-item{
+  height:initial!important;
 }
