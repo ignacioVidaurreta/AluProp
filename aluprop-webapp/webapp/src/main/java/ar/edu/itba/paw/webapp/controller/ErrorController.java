@@ -26,34 +26,34 @@ public class ErrorController {
     @Autowired
     private ModelAndViewPopulator navigationUtility;
 
-    @RequestMapping(value = "errors", method= RequestMethod.GET)
-    public ModelAndView renderErrorPage(@ModelAttribute FilteredSearchForm searchForm,
-                                        HttpServletRequest httpRequest){
-
-        ModelAndView errorPage = new ModelAndView();
-        int httpErrorCode = getErrorCode(httpRequest);
-
-        switch (httpErrorCode){
-            case HttpURLConnection.HTTP_BAD_REQUEST:
-            case HttpURLConnection.HTTP_NOT_FOUND:
-                errorPage.setViewName("redirect:/404");
-                break;
-            case HttpURLConnection.HTTP_FORBIDDEN:
-                errorPage.setViewName("redirect:/403");
-                break;
-            case HttpURLConnection.HTTP_BAD_METHOD:
-            case HttpURLConnection.HTTP_INTERNAL_ERROR:
-                errorPage.setViewName("redirect:/500");
-                break;
-            default:
-                errorPage = navigationUtility.mavWithNavigationAttributes("errorPage");
-                // TODO: hardcoded english message
-                errorPage.addObject("errorMsg", "Unhandled Error. Something went wrong!");
-                break;
-        }
-
-        return errorPage;
-    }
+//    @RequestMapping(value = "errors", method= RequestMethod.GET)
+//    public ModelAndView renderErrorPage(@ModelAttribute FilteredSearchForm searchForm,
+//                                        HttpServletRequest httpRequest){
+//
+//        ModelAndView errorPage = new ModelAndView();
+//        int httpErrorCode = getErrorCode(httpRequest);
+//
+//        switch (httpErrorCode){
+//            case HttpURLConnection.HTTP_BAD_REQUEST:
+//            case HttpURLConnection.HTTP_NOT_FOUND:
+//                errorPage.setViewName("redirect:/404");
+//                break;
+//            case HttpURLConnection.HTTP_FORBIDDEN:
+//                errorPage.setViewName("redirect:/403");
+//                break;
+//            case HttpURLConnection.HTTP_BAD_METHOD:
+//            case HttpURLConnection.HTTP_INTERNAL_ERROR:
+//                errorPage.setViewName("redirect:/500");
+//                break;
+//            default:
+//                errorPage = navigationUtility.mavWithNavigationAttributes("errorPage");
+//                // TODO: hardcoded english message
+//                errorPage.addObject("errorMsg", "Unhandled Error. Something went wrong!");
+//                break;
+//        }
+//
+//        return errorPage;
+//    }
 
     private int getErrorCode(HttpServletRequest httpRequest) {
         return (Integer) httpRequest

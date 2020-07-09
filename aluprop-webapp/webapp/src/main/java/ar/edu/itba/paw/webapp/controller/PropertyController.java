@@ -52,15 +52,15 @@ public class PropertyController {
 
     @Autowired
     private StatusCodeParser statusCodeParser;
-
-    @RequestMapping(value = "/", method = RequestMethod.GET, produces = "text/html")
-    public String index() {
-//        final ModelAndView mav = navigationUtility.mavWithNavigationAttributes("index");
-//        String propertyOrderString = request.getParameter("orderBy")==null?"NEWEST":request.getParameter("orderBy");
-//        PageResponse<Property> response = propertyService.getAll(new PageRequest(pageNumber, pageSize), PropertyOrder.valueOf(propertyOrderString));
-//        navigationUtility.addPaginationAttributes(mav, response);
-        return "index";
-    }
+//
+//    @RequestMapping(value = "/", method = RequestMethod.GET, produces = "text/html")
+//    public String index() {
+////        final ModelAndView mav = navigationUtility.mavWithNavigationAttributes("index");
+////        String propertyOrderString = request.getParameter("orderBy")==null?"NEWEST":request.getParameter("orderBy");
+////        PageResponse<Property> response = propertyService.getAll(new PageRequest(pageNumber, pageSize), PropertyOrder.valueOf(propertyOrderString));
+////        navigationUtility.addPaginationAttributes(mav, response);
+//        return "index";
+//    }
 
 //    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
 //    public ModelAndView get(@ModelAttribute("proposalForm") final ProposalForm form,
