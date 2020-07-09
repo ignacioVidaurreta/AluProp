@@ -53,26 +53,23 @@ public class PropertyController {
     @Autowired
     private StatusCodeParser statusCodeParser;
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
-    public ModelAndView index(HttpServletRequest request,
-                              @RequestParam(required = false, defaultValue = "0") int pageNumber,
-                              @ModelAttribute FilteredSearchForm searchForm,
-                              @RequestParam(required = false, defaultValue = "12") int pageSize) {
-        final ModelAndView mav = navigationUtility.mavWithNavigationAttributes("index");
-        String propertyOrderString = request.getParameter("orderBy")==null?"NEWEST":request.getParameter("orderBy");
-        PageResponse<Property> response = propertyService.getAll(new PageRequest(pageNumber, pageSize), PropertyOrder.valueOf(propertyOrderString));
-        navigationUtility.addPaginationAttributes(mav, response);
-        return mav;
+    @RequestMapping(value = "/", method = RequestMethod.GET, produces = "text/html")
+    public String index() {
+//        final ModelAndView mav = navigationUtility.mavWithNavigationAttributes("index");
+//        String propertyOrderString = request.getParameter("orderBy")==null?"NEWEST":request.getParameter("orderBy");
+//        PageResponse<Property> response = propertyService.getAll(new PageRequest(pageNumber, pageSize), PropertyOrder.valueOf(propertyOrderString));
+//        navigationUtility.addPaginationAttributes(mav, response);
+        return "index";
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ModelAndView get(@ModelAttribute("proposalForm") final ProposalForm form,
-                            @ModelAttribute FilteredSearchForm searchForm,
-                            @PathVariable("id") long id) {
-        final ModelAndView mav = navigationUtility.mavWithNavigationAttributes("detailedProperty");
-        addObjectsToMavForDetailedProperty(id, mav);
-        return mav;
-    }
+//    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+//    public ModelAndView get(@ModelAttribute("proposalForm") final ProposalForm form,
+//                            @ModelAttribute FilteredSearchForm searchForm,
+//                            @PathVariable("id") long id) {
+//        final ModelAndView mav = navigationUtility.mavWithNavigationAttributes("detailedProperty");
+//        addObjectsToMavForDetailedProperty(id, mav);
+//        return mav;
+//    }
 
     private void addObjectsToMavForDetailedProperty(long propertyId, ModelAndView mav) {
         Property prop = propertyService.getPropertyWithRelatedEntities(propertyId);
@@ -122,27 +119,27 @@ public class PropertyController {
                 .addObject("interests", propertyService.getInterestsOfUser(userId));
     }
 
-    @RequestMapping(value = "/search", method = RequestMethod.GET)
-    public ModelAndView search(HttpServletRequest request,@RequestParam(required = false, defaultValue = "0") int pageNumber,
-                               @RequestParam(required = false, defaultValue = "12") int pageSize,
-                               @Valid @ModelAttribute FilteredSearchForm searchForm,
-                               final BindingResult errors,
-                               Locale loc) {
-        PropertyOrder propertyOrder = request.getParameter("orderBy") == null?
-                                    PropertyOrder.NEWEST :
-                                    PropertyOrder.valueOf(request.getParameter("orderBy"));
-        if(searchForm.getMinPrice() > searchForm.getMaxPrice()){
-            String errorMsg = messageSource.getMessage("system.rangeError", null, loc);
-            errors.addError(new FieldError("rangeError", "minPrice",errorMsg));
-        }
-        if (errors.hasErrors())
-            return index(request, pageNumber, searchForm, pageSize);
-        final ModelAndView mav = navigationUtility.mavWithNavigationAttributes("index");
-        mav.addObject("isSearch", true);
-        PageResponse<Property> response = propertyService.advancedSearch(new PageRequest(pageNumber, pageSize), propertyForSearch(searchForm, propertyOrder));
-        navigationUtility.addPaginationAttributes(mav, response);
-        return mav;
-    }
+//    @RequestMapping(value = "/search", method = RequestMethod.GET)
+//    public ModelAndView search(HttpServletRequest request,@RequestParam(required = false, defaultValue = "0") int pageNumber,
+//                               @RequestParam(required = false, defaultValue = "12") int pageSize,
+//                               @Valid @ModelAttribute FilteredSearchForm searchForm,
+//                               final BindingResult errors,
+//                               Locale loc) {
+//        PropertyOrder propertyOrder = request.getParameter("orderBy") == null?
+//                                    PropertyOrder.NEWEST :
+//                                    PropertyOrder.valueOf(request.getParameter("orderBy"));
+//        if(searchForm.getMinPrice() > searchForm.getMaxPrice()){
+//            String errorMsg = messageSource.getMessage("system.rangeError", null, loc);
+//            errors.addError(new FieldError("rangeError", "minPrice",errorMsg));
+//        }
+//        if (errors.hasErrors())
+//            return index(request, pageNumber, searchForm, pageSize);
+//        final ModelAndView mav = navigationUtility.mavWithNavigationAttributes("index");
+//        mav.addObject("isSearch", true);
+//        PageResponse<Property> response = propertyService.advancedSearch(new PageRequest(pageNumber, pageSize), propertyForSearch(searchForm, propertyOrder));
+//        navigationUtility.addPaginationAttributes(mav, response);
+//        return mav;
+//    }
 
     private SearchableProperty propertyForSearch(FilteredSearchForm searchForm, PropertyOrder propertyOrder) {
         return new SearchableProperty.Builder()

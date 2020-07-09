@@ -67,13 +67,13 @@ public class WebConfig implements WebMvcConfigurer {
     @Value("${db.name}")
     private String dbName;
 
-//    @Bean
-//    public ViewResolver viewResolver() {
-//        final InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
-//        viewResolver.setPrefix("/aluprop/dist/aluprop/");
-//        viewResolver.setSuffix(".html");
-//        return viewResolver;
-//    }
+    @Bean
+    public ViewResolver viewResolver() {
+        final InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
+        viewResolver.setPrefix("/aluprop/dist/aluprop/");
+        viewResolver.setSuffix(".html");
+        return viewResolver;
+    }
 
     @Bean
     public DataSource dataSource() {
