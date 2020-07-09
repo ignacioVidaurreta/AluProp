@@ -67,14 +67,13 @@ public class WebConfig implements WebMvcConfigurer {
     @Value("${db.name}")
     private String dbName;
 
-    @Bean
-    public ViewResolver viewResolver() {
-        final InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
-        viewResolver.setViewClass(JstlView.class);
-        viewResolver.setPrefix("/WEB-INF/jsp/");
-        viewResolver.setSuffix(".jsp");
-        return viewResolver;
-    }
+//    @Bean
+//    public ViewResolver viewResolver() {
+//        final InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
+//        viewResolver.setPrefix("/aluprop/dist/aluprop/");
+//        viewResolver.setSuffix(".html");
+//        return viewResolver;
+//    }
 
     @Bean
     public DataSource dataSource() {
@@ -108,7 +107,11 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(final ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
+//        registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
+        registry.addResourceHandler("/assets/img/**").addResourceLocations("/aluprop/dist/aluprop/assets/img/");
+        registry.addResourceHandler("/assets/json/**").addResourceLocations("/aluprop/dist/aluprop/assets/json/");
+        registry.addResourceHandler("/assets/i18n/**").addResourceLocations("/aluprop/dist/aluprop/assets/i18n/");
+        registry.addResourceHandler("/index.html").addResourceLocations("/aluprop/dist/aluprop/index.html");
     }
 
     @Override

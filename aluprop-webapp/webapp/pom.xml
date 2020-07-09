@@ -156,7 +156,7 @@
   </dependencies>
 
   <build>
-    <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
+    <pluginManagement>
       <plugins>
         <plugin>
           <artifactId>maven-clean-plugin</artifactId>
@@ -166,6 +166,7 @@
         <plugin>
           <artifactId>maven-resources-plugin</artifactId>
           <version>3.0.2</version>
+
         </plugin>
         <plugin>
           <artifactId>maven-compiler-plugin</artifactId>
@@ -175,18 +176,94 @@
           <artifactId>maven-surefire-plugin</artifactId>
           <version>2.22.1</version>
         </plugin>
+
         <plugin>
           <artifactId>maven-war-plugin</artifactId>
           <version>3.2.2</version>
+          <!--<configuration>-->
+            <!--<warSourceIncludes>/WEB-INF/**/*, /aluprop/dist/*</warSourceIncludes>-->
+          <!--</configuration>-->
         </plugin>
+
         <plugin>
           <artifactId>maven-install-plugin</artifactId>
           <version>2.5.2</version>
         </plugin>
+
         <plugin>
           <artifactId>maven-deploy-plugin</artifactId>
           <version>2.8.2</version>
         </plugin>
+
+        <!-- Plugin to execute command  "npm install" and "npm run build" inside /angular directory -->
+        <!--<plugin>-->
+        <!--<groupId>com.github.eirslett</groupId>-->
+        <!--<artifactId>frontend-maven-plugin</artifactId>-->
+        <!--<version>1.0</version>-->
+        <!--<configuration>-->
+        <!--<workingDirectory>src/main/webapp/aluprop</workingDirectory>-->
+        <!--<installDirectory>temp</installDirectory>-->
+        <!--</configuration>-->
+        <!--<executions>-->
+        <!--&lt;!&ndash; It will install nodejs and npm &ndash;&gt;-->
+        <!--<execution>-->
+        <!--<id>install node and npm</id>-->
+        <!--<goals>-->
+        <!--<goal>install-node-and-npm</goal>-->
+        <!--</goals>-->
+        <!--<configuration>-->
+        <!--<nodeVersion>v6.3.1</nodeVersion>-->
+        <!--<npmVersion>3.9.5</npmVersion>-->
+        <!--</configuration>-->
+        <!--</execution>-->
+
+        <!--&lt;!&ndash; It will execute command "npm install" inside "/angular" directory &ndash;&gt;-->
+        <!--<execution>-->
+        <!--<id>npm install</id>-->
+        <!--<goals>-->
+        <!--<goal>npm</goal>-->
+        <!--</goals>-->
+        <!--<configuration>-->
+        <!--<arguments>install</arguments>-->
+        <!--</configuration>-->
+        <!--</execution>-->
+
+        <!--&lt;!&ndash; It will execute command "npm build" inside "/angular" directory to clean and create "/dist" directory&ndash;&gt;-->
+        <!--<execution>-->
+        <!--<id>npm build</id>-->
+        <!--<goals>-->
+        <!--<goal>npm</goal>-->
+        <!--</goals>-->
+        <!--<configuration>-->
+        <!--<arguments>run build</arguments>-->
+        <!--</configuration>-->
+        <!--</execution>-->
+        <!--</executions>-->
+        <!--</plugin>-->
+        <!-- Plugin to copy the content of /angular/dist/ directory to output directory (ie/ /target/transactionManager-1.0/) -->
+        <!--<plugin>-->
+          <!--<groupId>org.apache.maven.plugins</groupId>-->
+          <!--<artifactId>maven-resources-plugin</artifactId>-->
+          <!--<version>2.4.2</version>-->
+          <!--<executions>-->
+            <!--<execution>-->
+              <!--<id>default-copy-resources</id>-->
+              <!--<phase>process-resources</phase>-->
+              <!--<goals>-->
+                <!--<goal>copy-resources</goal>-->
+              <!--</goals>-->
+              <!--<configuration>-->
+                <!--<overwrite>true</overwrite>-->
+                <!--<outputDirectory>target/WEB-INF/</outputDirectory>-->
+                <!--<resources>-->
+                  <!--<resource>-->
+                    <!--<directory>src/main/webapp/aluprop/dist/aluprop/</directory>-->
+                  <!--</resource>-->
+                <!--</resources>-->
+              <!--</configuration>-->
+            <!--</execution>-->
+          <!--</executions>-->
+        <!--</plugin>-->
       </plugins>
     </pluginManagement>
   </build>
