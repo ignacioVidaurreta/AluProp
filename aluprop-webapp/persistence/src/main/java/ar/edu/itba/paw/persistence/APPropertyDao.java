@@ -279,6 +279,7 @@ public class APPropertyDao implements PropertyDao {
         property.getServices().isEmpty();
         property.getImages().isEmpty();
         property.getInterestedUsers().isEmpty();
+        property.getProposals().isEmpty();
         return property;
     }
 
