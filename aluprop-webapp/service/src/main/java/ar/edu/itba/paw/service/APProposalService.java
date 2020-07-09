@@ -25,9 +25,6 @@ import java.util.List;
 @Service
 public class APProposalService implements ProposalService {
 
-    static final String PROPERTY_NOT_EXISTS = "The property for this proposal does not exist.";
-    static final String CREATOR_NOT_EXISTS = "The creator of this proposal does not exist.";
-
     private final static String DELETE_SUBJECT_CODE= "notifications.proposals.deleted.subject";
     private final static String DELETE_BODY_CODE = "notifications.proposals.deleted";
 
@@ -97,7 +94,6 @@ public class APProposalService implements ProposalService {
         proposalDao.dropProposal(proposal.getId());
         return HttpURLConnection.HTTP_OK;
     }
-
 
     @Override
     public long findDuplicateProposal(Proposal proposal, long[] userIds){

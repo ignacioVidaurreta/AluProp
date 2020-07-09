@@ -11,12 +11,10 @@ public interface ProposalDao {
     Proposal get(long id);
     Proposal getWithRelatedEntities(long id);
     Collection<Proposal> getAllProposalForUserId(long id);
-
     void setAcceptInvite(long userId, long proposalId);
     void setDeclineInvite(long userId, long proposalId);
-
     void setState(long proposalId, ProposalState state);
-
     long findDuplicateProposal(Proposal p, long[] userIds);
     Collection<Proposal> getProposalsForOwnedProperties(long id);
+    void delete(long id);
 }

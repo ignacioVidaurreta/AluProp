@@ -169,4 +169,11 @@ public class APProposalDao implements ProposalDao {
         proposals.forEach(p -> p.getUserProposals().isEmpty());
         return proposals;
     }
+
+    @Override
+    @Transactional
+    public void delete(long id) {
+        Proposal proposal = get(id);
+        entityManager.remove(proposal);
+    }
 }
