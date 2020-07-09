@@ -112,6 +112,7 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addResourceHandler("/assets/img/**").addResourceLocations("/aluprop/dist/aluprop/assets/img/");
         registry.addResourceHandler("/assets/json/**").addResourceLocations("/aluprop/dist/aluprop/assets/json/");
         registry.addResourceHandler("/assets/i18n/**").addResourceLocations("/aluprop/dist/aluprop/assets/i18n/");
+        registry.addResourceHandler("/**.js").addResourceLocations("/aluprop/dist/aluprop/");
         registry.addResourceHandler("/index.html").addResourceLocations("/aluprop/dist/aluprop/index.html");
     }
 
