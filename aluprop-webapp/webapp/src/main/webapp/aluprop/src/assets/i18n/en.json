@@ -97,9 +97,9 @@
     "individual": "Individual",
     "shared": "Shared",
     "max-capacity": "Max capacity",
-    "budget": "Budget",
-    "min-rent": "Min rent per month",
-    "max-rent": "Max rent per month",
+    "budget": "Individual monthly budget (rent per person)",
+    "min-rent": "Min",
+    "max-rent": "Max",
     "rules": "Rules",
     "unspecified": "None specified"
   },
