@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Observable, BehaviorSubject, Subscription } from 'rxjs';
 import {User, SignUpForm} from "../models/user";
 import {HttpClient} from "@angular/common/http";
 import { take, tap } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 const BASE_API_URL = 'http://localhost:8080/api/';
 const LOCAL_STORAGE_AUTH_TOKEN = 'aluToken';
@@ -15,7 +16,8 @@ export class AuthenticationService {
   private currentUserSubject= new BehaviorSubject<User>(null);
   public currentUser: Observable<User>;
 
-  constructor(private http: HttpClient){
+  constructor(private http: HttpClient,
+              private router: Router){
     if (localStorage.getItem(LOCAL_STORAGE_AUTH_TOKEN)){
       this.authToken = localStorage.getItem(LOCAL_STORAGE_AUTH_TOKEN);
     }
@@ -58,10 +60,13 @@ export class AuthenticationService {
     localStorage.setItem(LOCAL_STORAGE_AUTH_TOKEN, newVal);
   }
 
-  logout() {
+  logout(): Subscription {
     this.currentUserSubject.next(null);
     return this.http.post<User>(BASE_API_URL + 'auth/logout/', null)
-      .subscribe(response => this.setAuthToken(null));
+      .subscribe(response => {
+        this.setAuthToken(null);
+        this.router.navigate(["/login"]);
+      })
   }
 
 }
