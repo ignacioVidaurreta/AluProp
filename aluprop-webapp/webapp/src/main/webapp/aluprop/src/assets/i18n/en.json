@@ -131,10 +131,12 @@
   },
   "proposal": {
     "proposal": "Proposal",
-    "declined-host": "This proposal has been dropped.",
+    "dropped-host": "This proposal has been dropped.",
+    "declined-host": "You have declined this offer.",
     "declined": "The owner of the property has declined the offer, this proposal is no longer active.",
     "dropped": "This proposal has been dropped by its creator and it is no longer active.",
     "find-another-property": "Find another property and make a new proposal!",
+    "find-another-proposal": "Answer another proposal",
     "canceled": "One or more users have declined the proposal and it is no longer active.",
     "accepted-host": "You have accepted the offer, now you can contact the guests! The property has now become inactive.",
     "accepted": "The host has accepted the offer! Now you can contact the other students and the host.",

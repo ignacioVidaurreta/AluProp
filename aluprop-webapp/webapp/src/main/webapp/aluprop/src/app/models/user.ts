@@ -15,7 +15,7 @@ export class User {
   university: University;
   career: Career;
   bio: string;
-  phoneNumber: string;
+  contactNumber: string;
   role: Role;
   interestedProperties: Property[]; //GUEST
   userProposals: UserProposal[]; //GUEST
