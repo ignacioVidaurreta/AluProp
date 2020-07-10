@@ -3,7 +3,7 @@
 }
 .card-img-top {
   object-fit: cover;
-  width: 380px;
+  // width: 380px;
   height: 250px;
 }
 
@@ -26,6 +26,15 @@
   font-weight: bold;
   font-size: 17px;
   margin: 0 16px;
+}
+
+mat-card {
+  height: 100%;
+}
+
+mat-card-content {
+  margin-bottom: 0;
+  padding: 0.7rem;
 }
 
 mat-card-actions {
