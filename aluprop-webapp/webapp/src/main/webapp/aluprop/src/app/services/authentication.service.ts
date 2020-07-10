@@ -18,17 +18,19 @@ export class AuthenticationService {
 
   constructor(private http: HttpClient,
               private router: Router){
-    if (localStorage.getItem(LOCAL_STORAGE_AUTH_TOKEN)){
+    if (localStorage.getItem(LOCAL_STORAGE_AUTH_TOKEN) && localStorage.getItem(LOCAL_STORAGE_AUTH_TOKEN) != 'null'){
       this.authToken = localStorage.getItem(LOCAL_STORAGE_AUTH_TOKEN);
     }
   }
 
   getCurrentUser(): Observable<User>{
-    this.http.get<User>(BASE_API_URL + 'user').pipe(take(1)).subscribe(
-      (user) => {
-        this.currentUserSubject.next(<User>user);
-      }
-    );
+    if (this.getAuthToken()){
+      this.http.get<User>(BASE_API_URL + 'user').pipe(take(1)).subscribe(
+        (user) => {
+          this.currentUserSubject.next(<User>user);
+        }
+      );
+    }
     return this.currentUserSubject.asObservable();
   }
 
@@ -64,7 +66,7 @@ export class AuthenticationService {
     this.currentUserSubject.next(null);
     return this.http.post<User>(BASE_API_URL + 'auth/logout/', null)
       .subscribe(response => {
-        this.setAuthToken(null);
+        this.setAuthToken('');
         this.router.navigate(["/login"]);
       })
   }

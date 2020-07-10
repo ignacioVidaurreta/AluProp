@@ -48,10 +48,8 @@ export class MetadataService {
       return;
     }
     input.forEach((elem) => {
-      console.log(elem);
       this.translateService.get(elem.name).pipe(take(1)).subscribe((value) => {
         elem.translatedText = value;
-        console.log(value);
       });
     })
   }
