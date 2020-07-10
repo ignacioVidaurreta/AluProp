@@ -1,0 +1,105 @@
+  <div class="create-property-form">
+  <mat-card-header>
+    <mat-card-title class="card-title" translate>create-property.publish-a-property</mat-card-title>
+  </mat-card-header>
+  <form [formGroup]="createPropertyForm">
+    <div class="column-container">
+      <mat-card class="prop-info mat-elevation-z4">
+        <h3 translate>create-property.complete-property-info</h3>
+        <mat-form-field>
+          <mat-label translate>create-property.name</mat-label>
+          <input matInput type="text" formControlName="name"/>
+          <mat-error><span translate>create-property.error-msg.name</span></mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="description">
+          <mat-label translate>create-property.description</mat-label>
+          <textarea matInput type="text" formControlName="description"></textarea>
+          <mat-error><span translate>create-property.error-msg.description</span></mat-error>
+        </mat-form-field>
+
+        <div class="field-row">
+          <mat-form-field class="property-type">
+            <mat-label translate>create-property.property-type</mat-label>
+            <mat-select formControlName="propertyType">
+                <mat-option [value]="propertyTypeOptions[0]"><span translate>search-filters.house</span></mat-option>
+                <mat-option [value]="propertyTypeOptions[1]"><span translate>search-filters.apartment</span></mat-option>
+                <mat-option [value]="propertyTypeOptions[2]"><span translate>search-filters.loft</span></mat-option>
+            </mat-select>
+            <mat-error><span translate>create-property.error-msg.property-type</span></mat-error>
+          </mat-form-field>
+  
+          <mat-form-field>
+            <mat-label translate>create-property.neighborhood</mat-label>
+            <mat-select formControlName="neighborhood">
+              <mat-option *ngFor="let neighborhood of neighborhoods" [value]="neighborhood">{{ neighborhood.name }}</mat-option>
+            </mat-select>
+            <mat-error><span translate>create-property.error-msg.neighborhood</span></mat-error>
+          </mat-form-field>
+        </div>
+        
+
+        <mat-form-field>
+          <mat-label translate>create-property.privacy</mat-label>
+          <mat-select formControlName="privacy">
+              <mat-option value="false"><span translate>search-filters.individual</span></mat-option>
+              <mat-option value="true"><span translate>search-filters.shared</span></mat-option>
+          </mat-select>
+          <mat-error><span translate>create-property.error-msg.privacy</span></mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label translate>create-property.capacity</mat-label>
+          <input matInput type="text" formControlName="capacity"/>
+          <mat-error><span translate>create-property.error-msg.capacity</span></mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label translate>create-property.rent-per-month</mat-label>
+          <input matInput matInput type="number" formControlName="rent"/>
+          <mat-error><span translate>create-property.error-msg.rent</span></mat-error>
+        </mat-form-field>
+
+        
+        <div class="field-row">
+          <mat-form-field class="rules">
+              <mat-label translate>create-property.rules</mat-label>
+              <mat-select formControlName="rules" multiple>
+                  <mat-option *ngFor="let rule of rules" [value]="removeTranslatedTextAttribute(rule)">
+                      {{rule.translatedText}}
+                  </mat-option>
+              </mat-select>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label translate>create-property.services</mat-label>
+            <mat-select formControlName="services" multiple>
+                <mat-option *ngFor="let service of services" [value]="removeTranslatedTextAttribute(service)">
+                    {{service.translatedText}}
+                </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </mat-card>
+      <mat-card class="prop-pictures mat-elevation-z4">
+        <form-field class="form-group">
+          <h3 translate>create-property.upload-up-to-4-pictures</h3>
+          <!-- <app-file-uploader (fileSelected)="detectFiles($event)"></app-file-uploader> -->
+          <div class="image-container">
+            <div *ngFor="let image of currentlyUploadedImages; let i = index" class="uploaded-image">
+              <mat-icon class="close-button" (click)="removeSelectedImage(i)">highlight_off</mat-icon>
+              <img class="preview-image" [src]="domSanitizer.bypassSecurityTrustUrl(image)"/>
+            </div>
+          </div>
+          <div class="upload-button">
+            <div class="upload-button-image">+</div>
+            <input class="image-uploader" formControlName="pictures" type="file" multiple accept="image/x-png,image/jpeg" (change)="detectFiles($event)">
+          </div>
+          <mat-error class="pictures-error" *ngIf="notEnoughFiles"><span translate>create-property.error-msg.notEnoughPictures</span></mat-error>
+          <mat-error class="pictures-error" *ngIf="tooManyFiles"><span translate>create-property.error-msg.tooManyPictures</span></mat-error>
+        </form-field>
+      </mat-card>
+    </div>
+    <button class="btn btn-md btn-primary text-upper" type="submit" (click)="publishProperty()" translate>create-property.publish-property</button>
+  </form>
+</div>

@@ -1,0 +1,75 @@
+<div *ngIf="dataSource else empty" class="mat-elevation-z8">
+  <table mat-table [dataSource]="dataSource">
+    <div *ngIf="userRole == 'ROLE_GUEST'; else host">
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell translate *matHeaderCellDef>proposals-table.proposals</th>
+        <td mat-cell *matCellDef="let proposal">{{proposal?.property.description}}</td>
+      </ng-container>
+
+      <!-- Ownership Column -->
+      <ng-container matColumnDef="ownership">
+        <th mat-header-cell translate class="state" *matHeaderCellDef>proposals-table.creator</th>
+        <td mat-cell class="state" *matCellDef="let proposal">
+          <div *ngIf="proposal?.creator.id == userId"><span style="color: gold;"><mat-icon class="state-icon">star_outline</mat-icon></span></div>
+        </td>
+      </ng-container>
+    </div>
+
+    <ng-template #host>
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell translate *matHeaderCellDef>proposals-table.proposals</th>
+        <td mat-cell *matCellDef="let proposal">
+          <div style="display: flex;flex-flow: row">
+            <div>{{proposal?.property.description}}</div>
+            <div style="padding-left: 4px; color:dimgrey;font-style: italic" *ngFor="let userProposal of proposal.userProposals">| {{userProposal.user.name}}</div>
+          </div>
+        </td>
+      </ng-container>
+
+      <!-- State Column -->
+      <ng-container matColumnDef="ownership">
+        <th mat-header-cell translate class="state" *matHeaderCellDef>proposals-table.state</th>
+        <td mat-cell class="state" *matCellDef="let proposal">
+          <div *ngIf="proposal?.state == 'SENT'">
+            <span style="color: darkorange;"><mat-icon>schedule</mat-icon></span>
+          </div>
+          <div *ngIf="proposal?.state == 'ACCEPTED'">
+            <span style="color: green;"><mat-icon>check</mat-icon></span>
+          </div>
+          <div *ngIf="proposal?.state == 'DECLINED'">
+            <span style="color: firebrick;"><mat-icon>clear</mat-icon></span>
+          </div>
+          <div *ngIf="proposal?.state == 'DROPPED'">
+            <span style="color: dimgrey;"><mat-icon>block</mat-icon></span>
+          </div>
+  <!--        This states we no longer use-->
+  <!--        <div *ngIf="proposal.state == 'CANCELLED'">-->
+  <!--          <span style="color: dimgrey;"><mat-icon>block</mat-icon></span>-->
+  <!--        </div>-->
+  <!--        <div *ngIf="proposal.state == 'PENDING'">-->
+  <!--          <span style="color: dimgrey;"><mat-icon>block</mat-icon></span>-->
+  <!--        </div>-->
+        </td>
+      </ng-container>
+    </ng-template>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;" [routerLink]="['/proposal/' + row.id]" class="row-hover"></tr>
+  </table>
+
+  <mat-paginator [length]="totalItems"
+                 [pageSize]="pageSize"
+                 [pageSizeOptions]="[5, 10, 25, 100]"
+                 (page)="onPageChange($event)" showFirstLastButtons></mat-paginator>
+</div>
+<ng-template #empty>
+  <mat-card class="mat-elevation-z8">
+    <mat-card-subtitle style="font-size: 12px;font-weight: 500;" translate>proposals-table.proposals</mat-card-subtitle>
+    <mat-card-content>
+      <p *ngIf="userRole == 'ROLE_GUEST'" translate>proposals-table.no-proposals-guest</p>
+      <p *ngIf="userRole == 'ROLE_HOST'" translate>proposals-table.no-proposals-host</p>
+    </mat-card-content>
+  </mat-card>
+</ng-template>

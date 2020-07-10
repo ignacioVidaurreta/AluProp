@@ -1,0 +1,133 @@
+[{
+  "id": 2,
+  "userProposals": [{
+    "user": {
+      "name": "Clara"
+    }
+  }],
+  "property": {
+    "id": 0,
+    "caption": "Alto depto con vista al mar ahre que era una laguna",
+    "description": "Depto en pilar",
+    "propertyType": "APARTMENT",
+    "neighborhood": {
+      "id": 0,
+      "name": "Pilar",
+      "city": {
+        "id": 0,
+        "name": "Pilar",
+        "province": "",
+        "country": "",
+        "neighborhoods": ""
+      },
+      "properties": ""
+    },
+    "address": "Tu vieja 1728",
+    "privacyLevel": "true",
+    "capacity": 3,
+    "price": 1882
+  },
+  "state": "DECLINED",
+  "creator": {
+    "name": "Joe",
+    "lastName": "Chrome",
+    "university": "ITBA",
+    "birthDate": "07/07/1993",
+    "bio": "Me gustan los drones",
+    "role": "ROLE_HOST",
+    "gender": "MALE",
+    "id": 1,
+    "email": "aloha@lel.com"
+  }
+},{
+  "id": 2,
+  "userProposals": [{
+    "user": {
+      "name": "Pedro"
+    }
+  },{
+    "user": {
+      "name": "Clara"
+    }
+  }],
+  "property": {
+    "id": 0,
+    "caption": "Alto depto con vista al mar ahre que era una laguna",
+    "description": "Depto en pilar",
+    "propertyType": "APARTMENT",
+    "neighborhood": {
+      "id": 0,
+      "name": "Pilar",
+      "city": {
+        "id": 0,
+        "name": "Pilar",
+        "province": "",
+        "country": "",
+        "neighborhoods": ""
+      },
+      "properties": ""
+    },
+    "address": "Tu vieja 1728",
+    "privacyLevel": "true",
+    "capacity": 3,
+    "price": 1882
+  },
+  "state": "ACCEPTED",
+  "creator": {
+    "name": "Joe",
+    "lastName": "Chrome",
+    "university": "ITBA",
+    "birthDate": "07/07/1993",
+    "bio": "Me gustan los drones",
+    "role": "ROLE_HOST",
+    "gender": "MALE",
+    "id": 1,
+    "email": "aloha@lel.com"
+  }
+},
+  {
+    "id": 2,
+    "userProposals": [{
+      "user": {
+        "name": "Pedro"
+      }
+    },{
+      "user": {
+        "name": "Clara"
+      }
+    }],
+    "property": {
+      "id": 0,
+      "caption": "Alto depto con vista al mar ahre que era una laguna",
+      "description": "Depto en pilar",
+      "propertyType": "APARTMENT",
+      "neighborhood": {
+        "id": 0,
+        "name": "Pilar",
+        "city": {
+          "id": 0,
+          "name": "Pilar",
+          "province": "",
+          "country": "",
+          "neighborhoods": ""
+        },
+        "properties": ""
+      },
+      "address": "Tu vieja 1728",
+      "privacyLevel": "true",
+      "capacity": 3,
+      "price": 1882
+    },
+    "state": "SENT",
+    "creator": {
+      "name": "Joe",
+      "lastName": "Chrome",
+      "university": "ITBA",
+      "birthDate": "07/07/1993",
+      "bio": "Me gustan los drones",
+      "role": "ROLE_HOST",
+      "gender": "MALE",
+      "id": 1,
+      "email": "aloha@lel.com"
+    }
+  }]

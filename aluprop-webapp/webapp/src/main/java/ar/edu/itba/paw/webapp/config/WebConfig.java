@@ -67,15 +67,6 @@ public class WebConfig implements WebMvcConfigurer {
     @Value("${db.name}")
     private String dbName;
 
-//    @Bean
-//    public ViewResolver viewResolver() {
-//        final InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
-//        viewResolver.setPrefix("/aluprop/dist/aluprop/");
-//        viewResolver.setSuffix(".html");
-//        System.out.println(viewResolver.toString());
-//        return viewResolver;
-//    }
-
     @Bean
     public DataSource dataSource() {
         final SimpleDriverDataSource ds = new SimpleDriverDataSource();
@@ -109,11 +100,11 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(final ResourceHandlerRegistry registry) {
 //        registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
-        registry.addResourceHandler("/assets/img/**").addResourceLocations("/aluprop/dist/aluprop/assets/img/");
-        registry.addResourceHandler("/assets/json/**").addResourceLocations("/aluprop/dist/aluprop/assets/json/");
-        registry.addResourceHandler("/assets/i18n/**").addResourceLocations("/aluprop/dist/aluprop/assets/i18n/");
-        registry.addResourceHandler("/**.js").addResourceLocations("/aluprop/dist/aluprop/");
-        registry.addResourceHandler("/index.html").addResourceLocations("/aluprop/dist/aluprop/index.html");
+        registry.addResourceHandler("/assets/img/**").addResourceLocations("/angular/assets/img/");
+        registry.addResourceHandler("/assets/json/**").addResourceLocations("/angular/assets/json/");
+        registry.addResourceHandler("/assets/i18n/**").addResourceLocations("/angular/assets/i18n/");
+        registry.addResourceHandler("/**.js").addResourceLocations("/angular/");
+        registry.addResourceHandler("/index.html").addResourceLocations("/angular/index.html");
     }
 
     @Override

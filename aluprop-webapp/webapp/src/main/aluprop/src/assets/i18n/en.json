@@ -1,0 +1,224 @@
+{
+  "home": {
+    "sort-by": "Sort by",
+    "sort": {
+      "newest": "Newest",
+      "capacity-highest": "Highest capacity",
+      "capacity-lowest": "Lowest capacity",
+      "price-highest": "Highest price per month",
+      "price-lowest": "Lowest price per month",
+      "budget-highest": "Highest budget",
+      "budget-lowest": "Lowest budget"
+    }
+  },
+  "sign-up": {
+    "sign-up": "Sign up",
+    "email": "Your e-mail address",
+    "password": "Your password",
+    "repeat-password": "Re-enter your password",
+    "first-name": "First name",
+    "last-name": "Last name",
+    "phone": "Phone number",
+    "birthday": "Date of birth",
+    "i-am-a": "I am a",
+    "student": "Student",
+    "host": "Host",
+    "bio": "Bio",
+    "bio-sample-text": "Tell us a little about yourself...",
+    "gender": "Gender",
+    "choose": "Choose",
+    "male": "Male",
+    "female": "Female",
+    "other": "Other",
+    "required-field-error": "Field required",
+    "login-message": "Already have an account? Log in",
+    "password-mismatch": "Passwords must match",
+    "repeated-email-error": "An user already exists with that email",
+    "invalid-email-error": "Invalid email",
+    "university": "University",
+    "career": "Career"
+  },
+  "log-in": {
+    "login": "Log in",
+    "no-account": "No account? Register!",
+    "username": "Username",
+    "password": "Password",
+    "invalid-credentials": "Username or password is invalid"
+  },
+  "navbar": {
+    "search": "Search...",
+    "signup": "Sign Up",
+    "or": " or ",
+    "login": "Log in",
+    "hi": "Hi, {{name}}!",
+    "logout": "Log out",
+    "publish-a-property": "Publish a property"
+  },
+  "notifications": {
+    "notifications": "Notifications",
+    "no-new-notifications": "No new notifications",
+    "new-notifications": "New notifications",
+    "view-all": "View all",
+    "newProposalSubject": "There's a new proposal for your Property!"
+  },
+  "search-filters": {
+    "property-type": "Property type",
+    "house": "House",
+    "apartment": "Apartment",
+    "loft": "Loft",
+    "neighborhood": "Neighborhood",
+    "privacy": "Privacy",
+    "individual": "Individual",
+    "shared": "Shared",
+    "max-capacity": "Max capacity",
+    "budget": "Budget",
+    "min-rent": "Min rent per month",
+    "max-rent": "Max rent per month",
+    "rules": "Rules",
+    "unspecified": "None specified"
+  },
+  "property-card": {
+    "see-more": "See more"
+  },
+  "profile": {
+    "bio": "Bio"
+  },
+  "proposals-table": {
+    "proposals": "Proposals",
+    "creator": "Creator",
+    "state": "State",
+    "no-proposals-guest": "You are not participating in any proposals.",
+    "no-proposals-host": "You haven't received any proposals."
+  },
+  "properties-table": {
+    "properties": "Properties",
+    "state": "State",
+    "active": "Active",
+    "inactive": "Inactive",
+    "no-properties": "You haven't published any properties.",
+    "publish-a-property": "Publish your first property here."
+  },
+  "interests-table": {
+    "interests": "Interests",
+    "no-interests": "You are not interested in any properties.",
+    "find-a-property": "Find a property that suits you and show your interest!"
+  },
+  "proposal": {
+    "proposal": "Proposal",
+    "declined-host": "This proposal has been dropped.",
+    "declined": "The owner of the property has declined the offer, this proposal is no longer active.",
+    "dropped": "This proposal has been dropped by its creator and it is no longer active.",
+    "find-another-property": "Find another property and make a new proposal!",
+    "canceled": "One or more users have declined the proposal and it is no longer active.",
+    "accepted-host": "You have accepted the offer, now you can contact the guests! The property has now become inactive.",
+    "accepted": "The host has accepted the offer! Now you can contact the other students and the host.",
+    "host-info": " Host's information:",
+    "sent": "An offer has been sent to the host, you will receive a notification when they reply!",
+    "rented-host": "This property is currently inactive. In order to answer the proposal please make it active.",
+    "decline": "Decline",
+    "accept": "Accept",
+    "your-property": "This is your property. You can either accept or decline the offer:",
+    "cancel": "Drop proposal",
+    "you-would-pay": "You would pay",
+    "per-month": "per month.",
+    "already-replied": "You have already replied to this proposal."
+  },
+  "proposals-user-table": {
+    "user": "User",
+    "information": "Information",
+    "response": "Response",
+    "gender-MALE": "Male",
+    "gender-FEMALE": "Female",
+    "gender-OTHER": "Other"
+  },
+  "create-property": {
+    "publish-a-property": "Publish a property 🏠",
+    "upload-up-to-4-pictures": "Upload up to 4 pictures of the property:",
+    "complete-property-info": "Complete property info",
+    "pictures-to-upload": "Pictures to upload:",
+    "name": "Name",
+    "description": "Description",
+    "property-type": "Property type",
+    "neighborhood": "Neighborhood",
+    "privacy": "Privacy",
+    "capacity": "Capacity",
+    "rent-per-month": "Rent per month",
+    "rules": "Rules:",
+    "services": "Services:",
+    "publish-property": "Publish property",
+    "error-msg": {
+      "notEnoughPictures": "Please upload at least 1 picture of the property",
+      "tooManyPictures": "You may only upload up to 4 pictures of the property",
+      "name": "Please write a name with 50 characters or less",
+      "description": "Please write a description in 700 characters or less",
+      "property-type": "Please select a property type",
+      "neighborhood": "Please select a neighborhood",
+      "privacy": "Please select a level of privacy",
+      "capacity": "Please select a value between 1 and 100",
+      "rent": "Rent per month must be at least $1"
+    }
+  },
+  "detailed-property": {
+    "inactive": " [ Inactive ]",
+    "apartment": "Apartment in ",
+    "loft": "Loft in ",
+    "house": "House in ",
+    "guests": "guests | ",
+    "shared": "Shared",
+    "individual": "Individual",
+    "month": "/ month",
+    "property-is-inactive": "This property is inactive, you cannot create proposals or show interest in it.",
+    "interested-users": "Interested users",
+    "pause-property": "Pause property",
+    "activate-property": "Activate property",
+    "delete-property": "Delete property",
+    "create-proposal": "Create proposal",
+    "not-interested": "I'm not interested anymore",
+    "interested": "I'm interested",
+    "must-be-logged-in": "You must be logged in to show interest.",
+    "empty-rules": "This property has no special rules",
+    "empty-services": "This property has no special services"
+  },
+  "create-proposal-modal": {
+    "create-proposal": "Create proposal",
+    "select-up-to":"Select up to ",
+    "other-students": " other students to create a proposal to rent this property and split the rent.",
+    "warning-limit": "If you create a proposal without selecting anyone, the offer will be sent directly to the host and you will be paying full rent.",
+    "view-profile": "View profile",
+    "you-have-selected": "You have selected ",
+    "you-have-already-selected": "You have already selected ",
+    "other-students-selected": " other students.",
+    "other-students-selected-max": " other students. This is the maximum capacity for this property and you won't be able to select more students. If you want to change the selected options, please unselect one of them first.",
+    "each-student-will-be-paying": "Each student will be paying ",
+    "month": "/ month",
+    "no-other-students-are-interested": "No other users have shown interest in this property!",
+    "close": "Close",
+    "create": "Create"
+  },
+  "interested-users": {
+    "interested-users": "Interested users",
+    "view-profile": "View profile",
+    "close": "Close"
+  },
+  "rules": {
+    "noSmoking": "No smoking",
+    "noPets": "No pets"
+  },
+  "services": {
+    "internet": "Internet",
+    "laundryMachine": "Laundry machine",
+    "kitchen": "Kitchen"
+  },
+  "error": {
+    "500-title": "Oops, something went wrong!",
+    "500-subtitle": "We're sorry, we have detected an error in the website. Our staff has been notified and will repair it.",
+    "500-subtitle2": "We invite you to contact us at",
+    "500-subtitle3": "and we'll get back at you when we fix this issue. Thank you!",
+    "404-title": "404 Error: Page not found",
+    "404-subtitle": "We couldn't find the page you were looking for :( click ",
+    "404-home": "here",
+    "404-subtitle2": "to get back to the homepage.",
+    "403-title": "403: Forbidden",
+    "403-subtitle": "Sorry, you are not allowed in here."
+  }
+}

@@ -1,0 +1,44 @@
+<div *ngIf="dataSource">
+  <table mat-table [dataSource]="dataSource">
+
+    <!-- User Column -->
+    <ng-container matColumnDef="user">
+      <th mat-header-cell translate *matHeaderCellDef>proposals-user-table.user</th>
+      <td mat-cell *matCellDef="let userProposal">{{userProposal?.user.name}}</td>
+    </ng-container>
+
+    <!-- Information Column -->
+    <ng-container matColumnDef="information">
+      <th mat-header-cell translate style="text-align: center" *matHeaderCellDef>proposals-user-table.information</th>
+      <td mat-cell style="text-align: center" *matCellDef="let userProposal">
+        <div *ngIf="proposalState == 'ACCEPTED'; else elseBlock1">{{userProposal?.user.university.name}} - {{ ageFromDateOfBirthday(userProposal?.user.birthDate) }} - <span translate>proposals-user-table.gender-{{userProposal?.user.gender.toString()}}</span> | {{userProposal?.user.email}} - {{userProposal?.user.phoneNumber}}</div>
+        <ng-template #elseBlock1>{{userProposal?.user.university.name}} - {{ ageFromDateOfBirthday(userProposal?.user.birthDate) }} - <span translate>proposals-user-table.gender-{{userProposal?.user.gender.toString()}}</span></ng-template>
+      </td>
+    </ng-container>
+
+    <!-- Response state Column -->
+    <ng-container matColumnDef="response">
+      <th mat-header-cell translate class="state" *matHeaderCellDef>proposals-user-table.response</th>
+      <td mat-cell class="state" *matCellDef="let userProposal">
+        <div *ngIf="userProposal?.user.id == proposalCreator?.id; else elseBlock2">
+          <span style="color: gold;"><mat-icon class="state-icon">star_outline</mat-icon></span>
+        </div>
+        <ng-template #elseBlock2>
+          <div *ngIf="userProposal?.state == 'PENDING'">
+            <span style="color: darkorange;"><mat-icon class="state-icon">schedule</mat-icon></span>
+          </div>
+          <div *ngIf="userProposal?.state == 'ACCEPTED'">
+            <span style="color: green;"><mat-icon class="state-icon">check</mat-icon></span>
+          </div>
+          <div *ngIf="userProposal?.state == 'REJECTED'">
+            <span style="color: firebrick;"><mat-icon class="state-icon">clear</mat-icon></span>
+          </div>
+        </ng-template>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;" [routerLink]="['/user/' + row.user.id]"></tr>
+
+  </table>
+</div>

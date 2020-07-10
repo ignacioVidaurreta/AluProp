@@ -1,0 +1,71 @@
+mat-toolbar{
+  position:fixed;
+  z-index: 2;
+}
+
+mat-toolbar-row{
+  align-content: space-between;
+}
+
+.aluprop-logo-container{
+  flex: auto;
+  text-align: left;
+}
+
+.aluprop-logo {
+  height: 50px;
+  margin: 0 4px 3px 0;
+  vertical-align: middle;
+}
+
+app-search-bar{
+  // flex:auto;
+}
+
+.navbar-show-small {
+  display: none;
+}
+
+.login-buttons-and-flags{
+  display: flex;
+  flex: auto;
+  align-items: center;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.or{
+  margin:5px;
+}
+
+.sign-up-button, .log-in-button{
+  text-decoration: none;
+  color:white;
+  font-weight: bold;
+  margin-right: 12px;
+  cursor: pointer;
+}
+
+.flag{
+  width:35px;
+  margin:0.4rem;
+  cursor: pointer;
+}
+
+/**
+  * Rules for when the device is detected to be a small screen.
+  * Moves content two rows instead of one.
+  */
+@media (max-width: 720px) {
+  .navbar-hide-small {
+    display: none;
+  }
+
+  .navbar-show-small {
+    display: block;
+  }
+}
+
+.greeting {
+  margin-right: 10px;
+}
