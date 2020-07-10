@@ -33,15 +33,13 @@ public class PropertyApiController {
     public Response index(@BeanParam PropertySearchRequest propertySearchRequest,
                           @QueryParam("pageNumber") @DefaultValue("0") int pageNumber,
                           @QueryParam("pageSize") @DefaultValue("12") int pageSize) {
-        throw new IllegalArgumentException("bitch please");
-        /*
         PageResponse<Property> properties = propertyService.getAll(new PageRequest(pageNumber, pageSize),
                                                                 propertySearchRequest.getOrderBy());
         PageResponse<IndexPropertyDto> response = new PageResponse<>(properties, properties.getResponseData()
                                                                                 .stream()
                                                                                 .map(IndexPropertyDto::fromProperty)
                                                                                 .collect(Collectors.toList()));
-        return Response.ok(response).build();*/
+        return Response.ok(response).build();
     }
 
     @Path("search")
