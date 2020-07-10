@@ -9,7 +9,8 @@
       "price-lowest": "Mínima renta por mes",
       "budget-highest": "Máximo presupuesto por persona",
       "budget-lowest": "Mínimo presupuesto por persona"
-    }
+    },
+    "student": "estudiante"
   },
   "sign-up": {
     "sign-up": "Registrarse",
