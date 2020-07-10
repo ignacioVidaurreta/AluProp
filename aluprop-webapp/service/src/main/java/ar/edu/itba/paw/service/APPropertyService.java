@@ -7,6 +7,7 @@ import ar.edu.itba.paw.interfaces.service.PropertyService;
 import ar.edu.itba.paw.interfaces.service.ProposalService;
 import ar.edu.itba.paw.interfaces.service.UserService;
 import ar.edu.itba.paw.model.*;
+import ar.edu.itba.paw.model.enums.Availability;
 import ar.edu.itba.paw.model.enums.PropertyOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -91,6 +92,7 @@ public class APPropertyService implements PropertyService {
 
     @Override
     public Either<Property, Collection<String>> create(Property property) {
+        property.setAvailability(Availability.AVAILABLE);
         errors = new LinkedList<>();
         checkRelatedEntitiesExist(property);
         if(!errors.isEmpty())
