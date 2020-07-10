@@ -37,11 +37,11 @@ export class MetadataService {
   }
 
   getAllUniversities(): Observable<University[]> {
-    return this.http.get<University[]> (BASE_API_URL + 'user/university')
+    return this.http.get<University[]> (BASE_API_URL + 'data/university')
   }
 
   getAllCareers(): Observable<Career[]> {
-    return this.http.get<Career[]> (BASE_API_URL + 'user/career')
+    return this.http.get<Career[]> (BASE_API_URL + 'data/career')
   }
 
   translateMetadataArray(input: Rule[] | Service[]){
