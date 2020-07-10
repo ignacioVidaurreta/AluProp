@@ -66,11 +66,11 @@
           </div>
           <div *ngIf="currentUser?.role == 'ROLE_HOST'">
           </div>
-          <div *ngIf="currentUser?.role == 'ROLE_GUEST' && currentUserIsInterested == true">
+          <div *ngIf="currentUser?.role == 'ROLE_GUEST' && currentUserIsInterested == true && property.availability == 'AVAILABLE'">
             <button mat-raised-button color="primary" (click)="openDialogCreateProposal()"><span translate>detailed-property.create-proposal</span></button>
             <button *ngIf="property.availability == 'AVAILABLE'" (click)="markUninterest()" mat-raised-button color="accent"><span translate>detailed-property.not-interested</span></button>
           </div>
-          <div *ngIf="currentUser?.role == 'ROLE_GUEST' && currentUserIsInterested == false">
+          <div *ngIf="currentUser?.role == 'ROLE_GUEST' && currentUserIsInterested == false && property.availability == 'AVAILABLE'">
             <button mat-raised-button style="width: 100%;" (click)="markInterest()" color="primary"><span translate>detailed-property.interested</span></button>
           </div>
         </ng-template>

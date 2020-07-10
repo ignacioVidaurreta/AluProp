@@ -91,11 +91,11 @@ export class DetailedPropertyComponent implements OnInit {
         this.interestedUsersSub = this.propertyService.getInterestedUsersByPropertyId(this.propertyId).subscribe((interestedUsers) => {
         this.interestedUsers = interestedUsers;
         var index = interestedUsers.map(function(user) { return user?.id; }).indexOf(this.currentUser?.id);
+        interestedUsers.splice(index,1);
         this.interestedUsersWithoutCurrentUser = interestedUsers;
         });
         if(this.currentUser?.role == 'ROLE_GUEST') {
           this.currentUserIsInterestedSub = this.propertyService.isCurrentUserInterested(this.propertyId).subscribe((currentUserIsInterested) => {
-            console.log(currentUserIsInterested);
             this.currentUserIsInterested = currentUserIsInterested;
           });
           }
@@ -117,7 +117,6 @@ export class DetailedPropertyComponent implements OnInit {
     if( this.currentUser ){
       return true;
     }
-    console.log(this.currentUser)
     return false;
   }
 
@@ -149,21 +148,18 @@ export class DetailedPropertyComponent implements OnInit {
   }
 
   changePropertyAvailability() {
-    console.log(this.property.availability);
     this.changePropertyStatusSub = this.propertyService.changePropertyAvailability(this.property.id).subscribe(
       () => {this.onPageChange();}
     );
   }
 
   markUninterest() {
-    console.log(this.currentUserIsInterested);
     this.uninterestSub = this.propertyService.markUninterest(this.property.id).subscribe(
       () => {this.onPageChange();}
     );
   }
 
   markInterest() {
-    console.log(this.currentUserIsInterested);
     this.interestSub = this.propertyService.markInterest(this.property.id).subscribe(
       () => {this.onPageChange();}
     );
@@ -172,7 +168,6 @@ export class DetailedPropertyComponent implements OnInit {
   deleteProperty() {
     this.deleteSub = this.propertyService.deleteProperty(this.property.id).subscribe(
       (response) => {
-        console.log(response);
         this.router.navigate(['/user/' + this.currentUser?.id ], { queryParams: {'deletion': "SUCCESSFUL"}});
       }
     );

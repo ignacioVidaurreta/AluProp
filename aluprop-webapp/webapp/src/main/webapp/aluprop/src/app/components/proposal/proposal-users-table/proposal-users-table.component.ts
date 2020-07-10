@@ -5,7 +5,7 @@ import {Proposal, ProposalState} from "../../../models/proposal";
 import {UserProposal} from "../../../models/userProposal";
 import {ProposalService} from "../../../services/proposal.service";
 import {ActivatedRoute} from "@angular/router";
-import {Subscription} from "rxjs";
+import {Observable, Subscription} from "rxjs";
 import {User} from "../../../models/user";
 import * as moment from 'moment';
 import {take} from "rxjs/operators";
@@ -21,6 +21,7 @@ export class ProposalUsersTableComponent implements OnInit {
 
   @Input() proposalState: ProposalState;
   @Input() proposalCreator: User;
+  @Input() reload: Observable<void>;
 
   dataSource;
   userProposals: UserProposal[];
@@ -29,6 +30,7 @@ export class ProposalUsersTableComponent implements OnInit {
   creatorSub: Subscription;
   creatorUserProposal: UserProposal;
   proposalId: number;
+  private reloadSubscription: Subscription;
 
 
   constructor(private proposalService: ProposalService, private route: ActivatedRoute) {
@@ -39,17 +41,19 @@ export class ProposalUsersTableComponent implements OnInit {
 
   ngOnInit(): void {
     this.proposalId = +this.route.snapshot.paramMap.get("id");
+    this.reloadSubscription = this.reload.subscribe(() => this.onPageChange());
     this.createPageSubscription();
   }
 
   ngOnDestroy(): void {
-    this.userProposalsSub.unsubscribe();
-    this.creatorSub.unsubscribe();
+    this.userProposalsSub?.unsubscribe();
+    this.creatorSub?.unsubscribe();
+    this.reloadSubscription?.unsubscribe();
   }
 
-  onPageChange(pageEvent: PageEvent){
-    this.userProposalsSub.unsubscribe();
-    this.creatorSub.unsubscribe();
+  onPageChange(){
+    this.userProposalsSub?.unsubscribe();
+    this.creatorSub?.unsubscribe();
     this.createPageSubscription();
   }
 
@@ -61,7 +65,6 @@ export class ProposalUsersTableComponent implements OnInit {
         console.log(creatorUserProposal);
         this.creatorUserProposal= creatorUserProposal;
         this.dataSource = new MatTableDataSource<UserProposal>([this.creatorUserProposal].concat(this.userProposals));
-        console.log(this.dataSource);
       });
     });
   }

@@ -11,7 +11,7 @@
     <ng-container matColumnDef="information">
       <th mat-header-cell translate style="text-align: center" *matHeaderCellDef>proposals-user-table.information</th>
       <td mat-cell style="text-align: center" *matCellDef="let userProposal">
-        <div *ngIf="proposalState == 'ACCEPTED'; else elseBlock1">{{userProposal?.user.university.name}} - {{ ageFromDateOfBirthday(userProposal?.user.birthDate) }} - <span translate>proposals-user-table.gender-{{userProposal?.user.gender.toString()}}</span> | {{userProposal?.user.email}} - {{userProposal?.user.phoneNumber}}</div>
+        <div *ngIf="proposalState == 'ACCEPTED'; else elseBlock1">{{userProposal?.user.university.name}} - {{ ageFromDateOfBirthday(userProposal?.user.birthDate) }} - <span translate>proposals-user-table.gender-{{userProposal?.user.gender.toString()}}</span> | {{userProposal?.user.email}} - {{userProposal?.user.contactNumber}}</div>
         <ng-template #elseBlock1>{{userProposal?.user.university.name}} - {{ ageFromDateOfBirthday(userProposal?.user.birthDate) }} - <span translate>proposals-user-table.gender-{{userProposal?.user.gender.toString()}}</span></ng-template>
       </td>
     </ng-container>

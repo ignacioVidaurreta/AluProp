@@ -131,10 +131,12 @@
   },
   "proposal": {
     "proposal": "Propuesta",
-    "declined-host": "La propuesta ha sido dada de baja.",
+    "dropped-host": "La propuesta ha sido dada de baja.",
+    "declined-host": "Has rechazado la propuesta.",
     "declined": "El dueño de la propiedad ha declinado la oferta y por lo tanto se encuentra inactiva.",
     "dropped": "El creador de esta propuesta la ha cancelado y por lo tanto se encuentra inactiva.",
     "find-another-property": "Encuentra otra propiedad y crea una propuesta nueva",
+    "find-another-proposal": "Responde otra propuesta que hayas recibido",
     "canceled": "Uno o más usuarios han declinado la propuesta y por lo tanto se encuentra inactiva.",
     "accepted-host": "Has aceptado la propuesta, ahora puedes contactar a los estudiantes! La propiedad ahora está deshabilitada.",
     "accepted": "El dueño de la propiedad ha aceptado la oferta! Ahora puedes contactar al resto de los estudiantes y al dueño.",

@@ -44,4 +44,30 @@ export class ProposalService {
     const payload = {inviteeIds: invitedUserIds};
     return this.http.post<Proposal>(BASE_API_URL + 'guest/proposal/' + propertyId, payload);
   }
+
+  acceptProposalGuest(proposalId: number) {
+    console.log('accepting proposal');
+    return this.http.post(BASE_API_URL + 'guest/' + proposalId + '/accept', {});
+  }
+
+  declineProposalGuest(proposalId: number) {
+    console.log('declining proposal');
+    return this.http.post(BASE_API_URL + 'guest/' + proposalId + '/decline', {});
+  }
+
+  dropProposal(proposalId: number) {
+    console.log('droping proposal');
+    return this.http.post(BASE_API_URL + 'guest/' + proposalId + '/cancel', {});
+  }
+
+  acceptProposalHost(proposalId: number) {
+    console.log('accepting proposal');
+    return this.http.post(BASE_API_URL + 'host/' + proposalId + '/accept', {});
+  }
+
+  declineProposalHost(proposalId: number) {
+    console.log('accepting proposal');
+    return this.http.post(BASE_API_URL + 'host/' + proposalId + '/decline', {});
+  }
+
 }
