@@ -96,11 +96,6 @@ public class APProposalService implements ProposalService {
     }
 
     @Override
-    public long findDuplicateProposal(Proposal proposal, long[] userIds){
-        return proposalDao.findDuplicateProposal(proposal, userIds);
-    }
-
-    @Override
     public Proposal get(long id) {
         return proposalDao.get(id);
     }
@@ -131,7 +126,7 @@ public class APProposalService implements ProposalService {
         if (!userIsInvitedToProposal(u, proposal))
             return HttpURLConnection.HTTP_FORBIDDEN;
         proposalDao.setAcceptInvite(u.getId(), proposalId);
-            sendProposalSentNotifications(u, proposalDao.get(proposalId));
+        sendProposalSentNotifications(u, proposalDao.get(proposalId));
         return HttpURLConnection.HTTP_OK;
     }
 
@@ -171,7 +166,7 @@ public class APProposalService implements ProposalService {
         if (!userOwnsProposalProperty(proposalId))
             return HttpURLConnection.HTTP_FORBIDDEN;
         proposalDao.setState(proposalId, state);
-        if (state == ProposalState.ACCEPTED || state == ProposalState.DECLINED){
+        if (state == ProposalState.ACCEPTED || state == ProposalState.DECLINED) {
             Proposal proposal = proposalDao.get(proposalId);
             User currentUser = userService.getCurrentlyLoggedUser();
             notificationService.sendNotifications(state == ProposalState.ACCEPTED?"notifications.proposals.accepted.subject":"notifications.proposals.declined.subject",
@@ -184,6 +179,7 @@ public class APProposalService implements ProposalService {
         }
         return HttpURLConnection.HTTP_OK;
     }
+
     private boolean userOwnsProposalProperty(long proposalId){
         User u = userService.getCurrentlyLoggedUser();
         Proposal proposal = proposalDao.getWithRelatedEntities(proposalId);
