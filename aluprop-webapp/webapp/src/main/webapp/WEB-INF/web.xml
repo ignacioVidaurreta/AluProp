@@ -36,7 +36,7 @@
   </servlet>
 
   <error-page>
-    <location> /errors </location>
+    <location> /api/error </location>
   </error-page>
 
   <servlet-mapping>

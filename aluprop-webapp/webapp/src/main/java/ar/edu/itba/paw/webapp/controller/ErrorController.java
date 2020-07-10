@@ -1,31 +1,21 @@
 package ar.edu.itba.paw.webapp.controller;
 
-import ar.edu.itba.paw.interfaces.service.UserService;
-import ar.edu.itba.paw.model.User;
-import ar.edu.itba.paw.webapp.form.FilteredSearchForm;
-import ar.edu.itba.paw.webapp.helperClasses.ModelAndViewPopulator;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
-
 import javax.servlet.http.HttpServletRequest;
-import java.net.HttpURLConnection;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.Response;
 
-@Controller
+@Path("error")
 public class ErrorController {
 
-    private static final Logger logger = LoggerFactory.getLogger(ErrorController.class);
-
-    @Autowired
-    private UserService userService;
-    @Autowired
-    private ModelAndViewPopulator navigationUtility;
-
+//    private static final Logger logger = LoggerFactory.getLogger(ErrorController.class);
+//
+//    @Autowired
+//    private UserService userService;
+//    @Autowired
+//    private ModelAndViewPopulator navigationUtility;
+//
 //    @RequestMapping(value = "errors", method= RequestMethod.GET)
 //    public ModelAndView renderErrorPage(@ModelAttribute FilteredSearchForm searchForm,
 //                                        HttpServletRequest httpRequest){
@@ -54,27 +44,13 @@ public class ErrorController {
 //
 //        return errorPage;
 //    }
+    @GET
+    public Response error(@Context HttpServletRequest request){
+        return Response.status(getErrorCode(request)).build();
+    }
 
-    private int getErrorCode(HttpServletRequest httpRequest) {
-        return (Integer) httpRequest
+    private int getErrorCode(HttpServletRequest request) {
+        return (Integer) request
                 .getAttribute("javax.servlet.error.status_code");
-    }
-
-    @RequestMapping(value = "403", method = RequestMethod.GET)
-    public ModelAndView forbidden(@ModelAttribute FilteredSearchForm searchForm) {
-        final User u = userService.getCurrentlyLoggedUser();
-        if(u != null)
-            logger.warn("User tried to access forbidden endpoint: " + u.toString());
-        return navigationUtility.mavWithNavigationAttributes("403");
-    }
-
-    @RequestMapping(value = "404", method = RequestMethod.GET)
-    public ModelAndView notFound(@ModelAttribute FilteredSearchForm searchForm) {
-        return navigationUtility.mavWithNavigationAttributes("404");
-    }
-
-    @RequestMapping(value = "500", method = RequestMethod.GET)
-    public ModelAndView internalServerError(@ModelAttribute FilteredSearchForm searchForm) {
-        return navigationUtility.mavWithNavigationAttributes("500");
     }
 }

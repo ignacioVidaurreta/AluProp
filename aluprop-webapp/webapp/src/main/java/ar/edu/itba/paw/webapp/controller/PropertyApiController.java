@@ -27,8 +27,6 @@ public class PropertyApiController {
     @Autowired
     private RuleService ruleService;
     @Autowired
-    private UserService userService;
-    @Autowired
     private ServiceService serviceService;
 
     @GET

@@ -58,9 +58,10 @@ export class AuthenticationService {
     localStorage.setItem(LOCAL_STORAGE_AUTH_TOKEN, newVal);
   }
 
-  logout(){
+  logout() {
     this.currentUserSubject.next(null);
-    return this.http.get<User>(BASE_API_URL + 'auth/logout/');
+    return this.http.post<User>(BASE_API_URL + 'auth/logout/', null)
+      .subscribe(response => this.setAuthToken(null));
   }
 
 }

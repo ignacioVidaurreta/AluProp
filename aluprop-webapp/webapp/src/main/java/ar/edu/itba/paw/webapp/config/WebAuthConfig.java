@@ -148,6 +148,6 @@ public class WebAuthConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public RequestMatcher logoutMatcher() {
-        return new AntPathRequestMatcher("/api/auth/logout");
+        return new AntPathRequestMatcher("/api/auth/logout/", "POST");
     }
 }
