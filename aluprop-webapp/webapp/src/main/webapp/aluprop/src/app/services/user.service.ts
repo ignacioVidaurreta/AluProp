@@ -10,6 +10,7 @@ import {Property} from "../models/property";
 import { environment } from "../../environments/environment"
 
 const BASE_API_URL = environment.apiUrl;
+const BASE_API_URL_USER = `${BASE_API_URL}user/`;
 const BASE_API_URL_USER_PROPOSALS = `${BASE_API_URL}guest/proposals`;
 const BASE_API_URL_PROPOSALS = `${BASE_API_URL}host/proposals`;
 const BASE_API_URL_OWNED_PROPERTIES = `${BASE_API_URL}host/properties`;
@@ -25,8 +26,8 @@ export class UserService {
   constructor(private http: HttpClient) { }
 
   getUserById(id: number): Observable<User>{
-    console.log(BASE_API_URL + id);
-    return this.http.get<User>(BASE_API_URL + id);
+    console.log(BASE_API_URL_USER + id);
+    return this.http.get<User>(BASE_API_URL_USER + id);
   }
 
   getAllProposalsFromUserProposals(pageRequest: PageRequest): Observable<PageResponse<Proposal>>{
