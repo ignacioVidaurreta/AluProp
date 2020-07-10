@@ -2,7 +2,9 @@
   height: 100%;
 }
 .card-img-top {
-  object-fit: scale-down;
+  object-fit: cover;
+  width: 380px;
+  height: 250px;
 }
 
 .prop-title {
