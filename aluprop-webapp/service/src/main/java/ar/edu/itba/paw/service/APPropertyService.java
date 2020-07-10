@@ -2,6 +2,7 @@ package ar.edu.itba.paw.service;
 
 import ar.edu.itba.paw.interfaces.*;
 import ar.edu.itba.paw.interfaces.dao.*;
+import ar.edu.itba.paw.interfaces.service.NotificationService;
 import ar.edu.itba.paw.interfaces.service.PropertyService;
 import ar.edu.itba.paw.interfaces.service.ProposalService;
 import ar.edu.itba.paw.interfaces.service.UserService;
@@ -35,6 +36,8 @@ public class APPropertyService implements PropertyService {
     private NeighbourhoodDao neighbourhoodDao;
     @Autowired
     private ProposalDao proposalDao;
+    @Autowired
+    private NotificationService notificationService;
 
 
     @Autowired
@@ -100,8 +103,12 @@ public class APPropertyService implements PropertyService {
         Property property = propertyDao.getPropertyWithRelatedEntities(id);
         if(currentUser.getId() != property.getOwner().getId())
             return HttpURLConnection.HTTP_NOT_FOUND;
-        for (Proposal p : property.getProposals())
+        for (Proposal p : property.getProposals()) {
+            Collection<Notification> notifications = proposalDao.getNotificationsForProposal(p.getId());
+            for (Notification n : notifications)
+                notificationService.delete(n.getId());
             proposalDao.delete(p.getId());
+        }
         propertyDao.delete(id);
         return HttpURLConnection.HTTP_OK;
     }

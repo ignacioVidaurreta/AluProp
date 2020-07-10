@@ -37,6 +37,7 @@ import {MatTabsModule} from "@angular/material/tabs";
 import { CreateProposalModalComponent } from './components/detailed-property/create-proposal-modal/create-proposal-modal.component';
 import { TokenInterceptor } from './services/token-interceptor';
 import { ErrorComponent } from './components/error/error.component';
+import {MatBadgeModule} from "@angular/material/badge";
 
 @NgModule({
   schemas: [ CUSTOM_ELEMENTS_SCHEMA],
@@ -65,26 +66,27 @@ import { ErrorComponent } from './components/error/error.component';
     CreateProposalModalComponent,
     ErrorComponent,
   ],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    FormsModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-    MaterialModule,
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
-        deps: [HttpClient]
-      }
-    }),
-    NgbModule,
-    MatTabsModule,
-    MatDialogModule
-  ],
+    imports: [
+        BrowserModule,
+        BrowserAnimationsModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        FormsModule,
+        ReactiveFormsModule,
+        HttpClientModule,
+        MaterialModule,
+        TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useFactory: HttpLoaderFactory,
+                deps: [HttpClient]
+            }
+        }),
+        NgbModule,
+        MatTabsModule,
+        MatDialogModule,
+        MatBadgeModule
+    ],
   exports: [
     FormsModule,
     MaterialModule

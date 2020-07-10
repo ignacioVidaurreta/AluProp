@@ -50,9 +50,9 @@ public class ModelAndViewPopulator {
         User user = userService.getCurrentlyLoggedUser();
         if(user != null) {
             Collection<Notification> unreadNotifications =
-                    notificationService.getAllUnreadNotificationsForUser(user.getId(), NOTIFICATION_PAGE_REQUEST);
+                    notificationService.getAllUnreadNotificationsForUser();
             Collection<Notification> notifications =
-                    notificationService.getAllNotificationsForUser(user.getId(), NOTIFICATION_PAGE_REQUEST);
+                    notificationService.getAllNotificationsForUser(NOTIFICATION_PAGE_REQUEST).getResponseData();
             Proposal[] unreadNotificationProposals = getProposalsForNotifications((List<Notification>)unreadNotifications);
             Proposal[] notificationProposals = getProposalsForNotifications((List<Notification>)notifications);
             mav.addObject("currentUser", user);

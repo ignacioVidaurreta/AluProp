@@ -48,7 +48,7 @@ public class APNotificationDaoTest {
 
     @Test
     public void getAllUnreadNotificationsForUserReturnsOnlyUnreadNotificationsTest(){
-        Collection<Notification> expectedUnreadNotifications = notificationDao.getAllUnreadNotificationsForUser(1, pageRequest);
+        Collection<Notification> expectedUnreadNotifications = notificationDao.getAllUnreadNotificationsForUser(1);
 
         for(Notification notif : expectedUnreadNotifications){
             Assert.assertEquals(NotificationState.UNREAD, notif.getState());

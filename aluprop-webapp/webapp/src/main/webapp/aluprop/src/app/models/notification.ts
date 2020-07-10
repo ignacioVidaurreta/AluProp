@@ -1,4 +1,5 @@
 import { User } from './user';
+import {Proposal} from "./proposal";
 
 export class Notification {
   user: User;
@@ -9,6 +10,7 @@ export class Notification {
   translatedText: string;
   link: string;
   state: NotificationState;
+  proposal: Proposal;
 }
 
 export type NotificationState  = 'UNREAD' | 'READ';
