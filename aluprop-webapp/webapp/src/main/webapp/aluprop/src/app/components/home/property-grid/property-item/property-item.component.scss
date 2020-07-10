@@ -18,10 +18,6 @@
 
 }
 
-.prop-description {
-
-}
-
 .prop-price {
   font-weight: bold;
   font-size: 17px;
@@ -30,11 +26,17 @@
 
 mat-card {
   height: 100%;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
 }
 
 mat-card-content {
   margin-bottom: 0;
   padding: 0.7rem;
+  display: flex;
+  flex-direction: column; 
+  flex: 1;
 }
 
 mat-card-actions {
