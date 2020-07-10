@@ -115,4 +115,16 @@ public class HostApiController {
         int statusCode = propertyService.delete(propertyId, currentUser);
         return Response.status(Response.Status.fromStatusCode(statusCode)).build();
     }
+
+    @Path("{proposalId}/accept")
+    @POST
+    public Response accept(@PathParam("proposalId") long proposalId) {
+        return Response.status(proposalService.setState(proposalId, ProposalState.ACCEPTED)).build();
+    }
+
+    @Path("{proposalId}/decline")
+    @POST
+    public Response decline(@PathParam("proposalId") long proposalId) {
+        return Response.status(proposalService.setState(proposalId, ProposalState.DECLINED)).build();
+    }
 }

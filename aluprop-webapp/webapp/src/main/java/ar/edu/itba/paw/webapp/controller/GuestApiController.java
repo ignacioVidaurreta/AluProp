@@ -11,6 +11,7 @@ import ar.edu.itba.paw.model.Property;
 import ar.edu.itba.paw.model.Proposal;
 import ar.edu.itba.paw.model.User;
 import ar.edu.itba.paw.model.UserProposal;
+import ar.edu.itba.paw.model.enums.ProposalState;
 import ar.edu.itba.paw.model.enums.UserProposalState;
 import ar.edu.itba.paw.webapp.dto.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -132,5 +133,23 @@ public class GuestApiController {
         if (!maybeProposal.hasValue())
             return Response.status(Response.Status.BAD_REQUEST).entity(maybeProposal.alternative()).build();
         return Response.ok(ProposalDto.fromProposal(maybeProposal.value())).build();
+    }
+
+    @Path("{proposalId}/cancel")
+    @POST
+    public Response cancel(@PathParam("proposalId") long proposalId) {
+        return Response.status(proposalService.delete(proposalId)).build();
+    }
+
+    @Path("{proposalId}/accept")
+    @POST
+    public Response accept(@PathParam("proposalId") long proposalId) {
+        return Response.status(proposalService.setAcceptInvite(proposalId)).build();
+    }
+
+    @Path("{proposalId}/decline")
+    @POST
+    public Response decline(@PathParam("proposalId") long proposalId) {
+        return Response.status(proposalService.setDeclineInvite(proposalId)).build();
     }
 }
