@@ -1,3 +1,8 @@
+:host {
+  display: flex;
+  justify-content: center;  
+}
+
 .detailed-property-image {
   object-fit: cover;
   height: 500px;
@@ -9,18 +14,19 @@
   justify-content: center;
   flex-flow: column;
   align-items: center;
+  width: 80%;
 }
 
 .detailed-property-cards-container {
   display: flex;
   justify-content: space-between;
-  width: 50%;
+  width: 100%;
+  margin-bottom: 3rem;
 }
 
 .detailed-property-carousel {
   margin-top: 3rem;
   margin-bottom: 2rem;
-  width: 50%;
   border-radius: 4px;
 }
 
