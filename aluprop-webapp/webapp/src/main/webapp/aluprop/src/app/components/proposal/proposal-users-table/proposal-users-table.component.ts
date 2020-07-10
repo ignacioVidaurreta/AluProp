@@ -65,7 +65,6 @@ export class ProposalUsersTableComponent implements OnInit {
         console.log(creatorUserProposal);
         this.creatorUserProposal= creatorUserProposal;
         this.dataSource = new MatTableDataSource<UserProposal>([this.creatorUserProposal].concat(this.userProposals));
-        console.log(this.dataSource);
       });
     });
   }

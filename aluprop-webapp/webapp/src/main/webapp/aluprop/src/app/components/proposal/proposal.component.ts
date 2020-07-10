@@ -56,23 +56,17 @@ export class ProposalComponent implements OnInit {
 
   createPageSubscription() {
     this.proposalSub = this.proposalService.getById(this.proposalId).subscribe((proposal) => {
-      console.log(this.proposalId);
       console.log(proposal);
       this.proposal = proposal;
       this.fetchPropertyImage();
       this.currentUserSub = this.authenticationService.getCurrentUser().subscribe((currentUser)=> {
-        console.log(currentUser);
         this.currentUser = currentUser;
         if(this.currentUser.role == 'ROLE_GUEST') {
           this.userInfoSub = this.proposalService.getGuestUserInfoByProposalId(this.proposalId).subscribe((userInfo) => {
             this.budget = userInfo.budget;
-            console.log(userInfo.isInvited);
             this.isInvited = userInfo.isInvited;
             this.hasReplied = userInfo.hasReplied;
             console.log(userInfo);
-            console.log(this.isInvited);
-            console.log(this.hasReplied);
-            console.log(this.budget);
           });
         }
       });
