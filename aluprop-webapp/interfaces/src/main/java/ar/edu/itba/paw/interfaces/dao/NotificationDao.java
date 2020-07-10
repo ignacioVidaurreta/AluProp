@@ -8,9 +8,10 @@ import java.util.Collection;
 public interface NotificationDao {
     Notification get(long id);
     Collection<Notification> getAll(PageRequest pageRequest);
+    Long count(long userId);
     Collection<Notification> getAllNotificationsForUser(long id, PageRequest pageRequest);
-    Collection<Notification> getAllUnreadNotificationsForUser(long id, PageRequest pageRequest);
-    Collection<Notification> unreadWithRelatedEntities(long userId, PageRequest pageRequest);
+    Collection<Notification> getAllUnreadNotificationsForUser(long id);
     Notification createNotification(Notification notification);
     void markRead(long notificationId);
+    void delete(long id);
 }

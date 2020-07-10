@@ -2,7 +2,9 @@ package ar.edu.itba.paw.service;
 
 import ar.edu.itba.paw.interfaces.*;
 import ar.edu.itba.paw.interfaces.dao.*;
+import ar.edu.itba.paw.interfaces.service.NotificationService;
 import ar.edu.itba.paw.interfaces.service.PropertyService;
+import ar.edu.itba.paw.interfaces.service.ProposalService;
 import ar.edu.itba.paw.interfaces.service.UserService;
 import ar.edu.itba.paw.model.*;
 import ar.edu.itba.paw.model.enums.PropertyOrder;
@@ -32,6 +34,10 @@ public class APPropertyService implements PropertyService {
     private RuleDao ruleDao;
     @Autowired
     private NeighbourhoodDao neighbourhoodDao;
+    @Autowired
+    private ProposalDao proposalDao;
+    @Autowired
+    private NotificationService notificationService;
 
 
     @Autowired
@@ -94,9 +100,15 @@ public class APPropertyService implements PropertyService {
 
     @Override
     public int delete(long id, User currentUser) {
-        Property property = propertyDao.get(id);
+        Property property = propertyDao.getPropertyWithRelatedEntities(id);
         if(currentUser.getId() != property.getOwner().getId())
-            return HttpURLConnection.HTTP_FORBIDDEN;
+            return HttpURLConnection.HTTP_NOT_FOUND;
+        for (Proposal p : property.getProposals()) {
+            Collection<Notification> notifications = proposalDao.getNotificationsForProposal(p.getId());
+            for (Notification n : notifications)
+                notificationService.delete(n.getId());
+            proposalDao.delete(p.getId());
+        }
         propertyDao.delete(id);
         return HttpURLConnection.HTTP_OK;
     }

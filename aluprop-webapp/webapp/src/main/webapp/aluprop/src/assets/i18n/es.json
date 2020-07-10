@@ -59,7 +59,33 @@
     "no-new-notifications": "No tienes notificationes nuevas",
     "new-notifications": "Notificaciones Nuevas",
     "view-all": "Ver todas",
-    "newProposalSubject": "Hay una nueva propuesta para tu propiedad!"
+    "newProposalSubject": "Hay una nueva propuesta para tu propiedad!",
+    "proposals": {
+      "deleted": {
+        "subject": "Una propuesta para \"{{propertyName}}\" ha sido cancelada.",
+        "text": "Lamentablemente, el creador de la propuesta la ha cancelado."
+      },
+      "sent": {
+        "subject": "Una propuesta para \"{{propertyName}}\" ha sido enviada!",
+        "text": "Todos los miembros de la propuesta han aceptado y por lo tanto ha sido enviada al dueño de la propiedad!"
+      },
+      "hostProposal": {
+        "subject": "Hay una propuesta nueva para su propiedad, \"{{propertyName}}\"!",
+        "text": "Puedes ver los integrantes y aceptarla o declinarla."
+      },
+      "declined": {
+        "subject": "Una propuesta para \"{{propertyName}}\" se ha cancelado.",
+        "text": "Lamentablemente, alguien ha rechazado la propuesta y por lo tanto se ha cancelado."
+      },
+      "invitation": {
+        "subject": "Te han invitado a una propuesta para \"{{propertyName}}\"!",
+        "text": "Puedes ver la propuesta con sus miembros y aceptarla o declinarla."
+      },
+      "accepted": {
+        "subject": "Una propuesta para \"{{propertyName}}\" de la que eres miembro ha sido aceptada!",
+        "text": "El dueño de la propiedad ha aceptado la oferta."
+      }
+    }
   },
   "search-filters": {
     "property-type": "Tipo de propiedad",

@@ -4,10 +4,16 @@
   </div>
   <hr class="divider">
   <mat-list role="list">
-    <mat-list-item *ngFor="let notification of notifications"><a href="{{notification.link}}">{{notification.translatedSubject}}</a></mat-list-item>
+    <mat-list-item [ngClass]="(notification.state == 'UNREAD') ? 'unread' : ''" *ngFor="let notification of notifications">
+      <a (click)="markRead(notification )">
+        <div mat-line>{{notification.translatedSubject}}</div>
+        <div mat-line>{{notification.translatedText}}</div>
+      </a>
+      <mat-divider></mat-divider>
+    </mat-list-item>
     <mat-list-item class="no-hover" *ngIf="!notifications"><span translate>notifications.no-new-notifications</span></mat-list-item>
   </mat-list>
-  <div class="view-all"  [routerLink]="['/notifications']" translate>
+  <div class="view-all" (click)="viewAll()" translate>
     notifications.view-all
   </div>
 </mat-card>

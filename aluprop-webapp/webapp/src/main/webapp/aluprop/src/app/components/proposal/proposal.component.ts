@@ -35,14 +35,14 @@ export class ProposalComponent implements OnInit {
 
   ngOnDestroy(): void {
     this.userInfoSub?.unsubscribe();
-    this.proposalSub.unsubscribe();
-    this.currentUserSub.unsubscribe();
+    this.proposalSub?.unsubscribe();
+    this.currentUserSub?.unsubscribe();
   }
 
   onPageChange(pageEvent: PageEvent) {
     this.userInfoSub?.unsubscribe();
-    this.proposalSub.unsubscribe();
-    this.currentUserSub.unsubscribe();
+    this.proposalSub?.unsubscribe();
+    this.currentUserSub?.unsubscribe();
     this.createPageSubscription();
   }
 

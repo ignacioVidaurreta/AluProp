@@ -25,9 +25,6 @@ import java.util.List;
 @Service
 public class APProposalService implements ProposalService {
 
-    static final String PROPERTY_NOT_EXISTS = "The property for this proposal does not exist.";
-    static final String CREATOR_NOT_EXISTS = "The creator of this proposal does not exist.";
-
     private final static String DELETE_SUBJECT_CODE= "notifications.proposals.deleted.subject";
     private final static String DELETE_BODY_CODE = "notifications.proposals.deleted";
 
@@ -98,12 +95,6 @@ public class APProposalService implements ProposalService {
         return HttpURLConnection.HTTP_OK;
     }
 
-
-    @Override
-    public long findDuplicateProposal(Proposal proposal, long[] userIds){
-        return proposalDao.findDuplicateProposal(proposal, userIds);
-    }
-
     @Override
     public Proposal get(long id) {
         return proposalDao.get(id);
@@ -135,7 +126,7 @@ public class APProposalService implements ProposalService {
         if (!userIsInvitedToProposal(u, proposal))
             return HttpURLConnection.HTTP_FORBIDDEN;
         proposalDao.setAcceptInvite(u.getId(), proposalId);
-            sendProposalSentNotifications(u, proposalDao.get(proposalId));
+        sendProposalSentNotifications(u, proposalDao.get(proposalId));
         return HttpURLConnection.HTTP_OK;
     }
 
@@ -175,7 +166,7 @@ public class APProposalService implements ProposalService {
         if (!userOwnsProposalProperty(proposalId))
             return HttpURLConnection.HTTP_FORBIDDEN;
         proposalDao.setState(proposalId, state);
-        if (state == ProposalState.ACCEPTED || state == ProposalState.DECLINED){
+        if (state == ProposalState.ACCEPTED || state == ProposalState.DECLINED) {
             Proposal proposal = proposalDao.get(proposalId);
             User currentUser = userService.getCurrentlyLoggedUser();
             notificationService.sendNotifications(state == ProposalState.ACCEPTED?"notifications.proposals.accepted.subject":"notifications.proposals.declined.subject",
@@ -188,6 +179,7 @@ public class APProposalService implements ProposalService {
         }
         return HttpURLConnection.HTTP_OK;
     }
+
     private boolean userOwnsProposalProperty(long proposalId){
         User u = userService.getCurrentlyLoggedUser();
         Proposal proposal = proposalDao.getWithRelatedEntities(proposalId);

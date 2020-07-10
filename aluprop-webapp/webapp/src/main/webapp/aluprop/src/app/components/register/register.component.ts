@@ -36,7 +36,14 @@ export class RegisterComponent implements OnInit {
     university: new FormControl(''),
     career: new FormControl('')
   },
-    {validators: this.checkIfMatchingPasswords('password', 'repeatPassword')}
+    {
+      validators: 
+      [
+        this.checkIfMatchingPasswords('password', 'repeatPassword'),
+        this.checkRequiredUniversity('university', 'role'),
+        this.checkRequiredCareer('career', 'role')
+      ]
+    }
   );
   formChangesSub: Subscription;
 
@@ -177,6 +184,32 @@ export class RegisterComponent implements OnInit {
         return {notEquivalent: true};
       } else {
         passwordConfirmationInput.setErrors(null);
+      }
+    };
+  }
+
+  private checkRequiredUniversity(universityKey: string, roleKey: string) {
+    return (group: FormGroup) => {
+      const universityInput = group.controls[universityKey],
+        roleInput = group.controls[roleKey];
+      if (roleInput.value === Role.Guest && !universityInput.value) {
+        universityInput.setErrors({invalid: true});
+        return {invalid: true};
+      } else {
+        universityInput.setErrors(null);
+      }
+    };
+  }
+
+  private checkRequiredCareer(careerKey: string, roleKey: string) {
+    return (group: FormGroup) => {
+      const careerInput = group.controls[careerKey],
+        roleInput = group.controls[roleKey];
+      if (roleInput.value === Role.Guest && !careerInput.value) {
+        careerInput.setErrors({invalid: true});
+        return {invalid: true};
+      } else {
+        careerInput.setErrors(null);
       }
     };
   }

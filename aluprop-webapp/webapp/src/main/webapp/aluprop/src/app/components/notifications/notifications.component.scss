@@ -1,7 +1,6 @@
 :host {
   display: block;
-  margin: 5%;
-  margin-top: 10%;
+  margin: 10%;
 }
 
 table {
@@ -15,11 +14,15 @@ table {
 td:hover {
   cursor: pointer;
   animation: hover_animation 0.3s;
-  animation-fill-mode:forwards; 
+  animation-fill-mode:forwards;
 }
 
 a {
   text-decoration: none;
   color: inherit;
   font-weight: 400;
+}
+
+.unread {
+  background-color: #fffecc !important;
 }

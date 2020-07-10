@@ -1,5 +1,6 @@
 package ar.edu.itba.paw.interfaces.dao;
 
+import ar.edu.itba.paw.model.Notification;
 import ar.edu.itba.paw.model.Proposal;
 import ar.edu.itba.paw.model.enums.ProposalState;
 
@@ -11,12 +12,11 @@ public interface ProposalDao {
     Proposal get(long id);
     Proposal getWithRelatedEntities(long id);
     Collection<Proposal> getAllProposalForUserId(long id);
-
     void setAcceptInvite(long userId, long proposalId);
     void setDeclineInvite(long userId, long proposalId);
-
     void setState(long proposalId, ProposalState state);
-
     long findDuplicateProposal(Proposal p, long[] userIds);
     Collection<Proposal> getProposalsForOwnedProperties(long id);
+    void delete(long id);
+    Collection<Notification> getNotificationsForProposal(long id);
 }
