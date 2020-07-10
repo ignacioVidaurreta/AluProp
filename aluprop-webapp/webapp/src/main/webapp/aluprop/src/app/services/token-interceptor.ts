@@ -37,7 +37,7 @@ export class TokenInterceptor implements HttpInterceptor {
         if (response.status >= 500 && response.status < 600){
           this.router.navigate(['/error/500']);
         }
-        return EMPTY;
+        return Observable.throw(response);
       })
     );
   }
