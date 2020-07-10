@@ -3,10 +3,7 @@ package ar.edu.itba.paw.webapp.controller;
 import ar.edu.itba.paw.interfaces.service.ImageService;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.CacheControl;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
@@ -34,5 +31,11 @@ public class ImageApiController {
         if (image == null)
             return builder.status(Response.Status.NOT_FOUND).build();
         return builder.build();
+    }
+
+    @POST
+    public Response create(byte[] image) {
+        imageService.create(image);
+        return Response.ok().build();
     }
 }

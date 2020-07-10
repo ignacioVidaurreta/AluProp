@@ -82,7 +82,6 @@ public class HostApiController {
     private Property createProperty(PropertyDto propertyDto) {
         createImages(propertyDto);
         Property property = propertyDto.toProperty(userService.getCurrentlyLoggedUser());
-        property.setAvailability(Availability.AVAILABLE);
         Either<Property, Collection<String>> maybeProperty = propertyService.create(property);
         if (!maybeProperty.hasValue())
             throw new IllegalPropertyStateException(maybeProperty.alternative().toString());
