@@ -4,12 +4,12 @@ import {PageRequest} from "../interfaces/page-request";
 import {Observable} from "rxjs";
 import {Proposal} from "../models/proposal";
 import {UserProposal} from "../models/userProposal";
-import {User} from "../models/user";
-import {Property} from "../models/property";
+import { environment } from "../../environments/environment"
 
-const BASE_API_URL = 'http://localhost:8080/api/';
-const BASE_API_URL_PROPOSAL = 'http://localhost:8080/api/proposal/';
-const BASE_API_URL_PROPOSAL_USER_INFO = 'http://localhost:8080/api/guest/';
+
+const BASE_API_URL = environment.apiUrl;
+const BASE_API_URL_PROPOSAL = `${BASE_API_URL}proposal/`;
+const BASE_API_URL_PROPOSAL_USER_INFO = `${BASE_API_URL}guest/`;
 
 @Injectable({
   providedIn: 'root'

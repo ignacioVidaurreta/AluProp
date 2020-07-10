@@ -8,8 +8,9 @@ import { TranslateService } from '@ngx-translate/core';
 import { take } from 'rxjs/operators';
 import { University } from './models/university';
 import { Career } from './models/career';
+import { environment } from './../environments/environment'
 
-const BASE_API_URL = 'http://localhost:8080/api/';
+const BASE_API_URL = environment.apiUrl;
 
 @Injectable({
   providedIn: 'root'

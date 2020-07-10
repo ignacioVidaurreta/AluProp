@@ -7,13 +7,14 @@ import {User} from "../models/user";
 import {UserProposal} from "../models/userProposal";
 import {Proposal} from "../models/proposal";
 import {Property} from "../models/property";
+import { environment } from "../../environments/environment"
 
-const BASE_API_URL = 'http://localhost:8080/api/user';
-const BASE_API_URL_USER_PROPOSALS = 'http://localhost:8080/api/guest/proposals';
-const BASE_API_URL_PROPOSALS = 'http://localhost:8080/api/host/proposals';
-const BASE_API_URL_OWNED_PROPERTIES = 'http://localhost:8080/api/host/properties';
-const BASE_API_URL_INTERESTED_PROPERTIES = 'http://localhost:8080/api/guest/interests';
-const BASE_API_URL_IS_USER_LOGGED_IN = 'http://localhost:8080/api/user/loginStatus';
+const BASE_API_URL = environment.apiUrl;
+const BASE_API_URL_USER_PROPOSALS = `${BASE_API_URL}guest/proposals`;
+const BASE_API_URL_PROPOSALS = `${BASE_API_URL}host/proposals`;
+const BASE_API_URL_OWNED_PROPERTIES = `${BASE_API_URL}host/properties`;
+const BASE_API_URL_INTERESTED_PROPERTIES = `${BASE_API_URL}guest/interests`;
+const BASE_API_URL_IS_USER_LOGGED_IN = `${BASE_API_URL}user/loginStatus`;
 
 
 @Injectable({
@@ -24,8 +25,8 @@ export class UserService {
   constructor(private http: HttpClient) { }
 
   getUserById(id: number): Observable<User>{
-    console.log(BASE_API_URL + '/' + id);
-    return this.http.get<User>(BASE_API_URL + '/' + id);
+    console.log(BASE_API_URL + id);
+    return this.http.get<User>(BASE_API_URL + id);
   }
 
   getAllProposalsFromUserProposals(pageRequest: PageRequest): Observable<PageResponse<Proposal>>{
