@@ -7,9 +7,14 @@ mat-toolbar-row{
   align-content: space-between;
 }
 
+::ng-deep .aluprop-logo-container .mat-button-focus-overlay {
+  background: none;
+}
+
 .aluprop-logo-container{
   flex: auto;
   text-align: left;
+  background: none;
 }
 
 .aluprop-logo {
@@ -41,7 +46,6 @@ app-search-bar{
 .sign-up-button, .log-in-button{
   text-decoration: none;
   color:white;
-  font-weight: bold;
   margin-right: 12px;
   cursor: pointer;
 }
@@ -68,4 +72,5 @@ app-search-bar{
 
 .greeting {
   margin-right: 10px;
+  outline: none;
 }
