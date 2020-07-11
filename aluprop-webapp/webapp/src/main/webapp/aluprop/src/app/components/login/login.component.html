@@ -1,8 +1,7 @@
-<mat-card class="login-card">
+<div class="register-page">
+<mat-card class="login-card mat-elevation-z8" style="padding: 25px">
   <form [formGroup]="loginForm">
-    <mat-card-header>
-      <mat-card-title class="login-title" translate>log-in.login</mat-card-title>
-    </mat-card-header>
+    <mat-card-title class="login-title" style="font-size: 2rem;margin-bottom: 32px" translate>log-in.login</mat-card-title>
 
     <mat-card-content class="form-container">
         <div>
@@ -20,12 +19,18 @@
           </div>
         </div>
       <!-- <mat-spinner [style.display]="showSpinner ? 'block' : 'none'"></mat-spinner> -->
-      <a routerLink="/register" translate> log-in.no-account </a>
     </mat-card-content>
     <mat-card-content *ngIf="hasInvalidCredentials" class="alert alert-danger error-msg" translate> log-in.invalid-credentials</mat-card-content>
 
+    <mat-card-footer>
+      <a routerLink="/register" style="float: right;padding-right: 16px;padding-bottom: 16px" translate>
+        log-in.no-account
+      </a>
+    </mat-card-footer>
+
     <mat-card-actions>
-      <button class="login-submit-btn" mat-raised-button (click)="login()" color="primary"><span translate>log-in.login</span></button>
+      <button class="login-submit-btn" mat-raised-button (click)="login()" color="primary" style="float: right;margin-right: 8px"><span translate>log-in.login</span></button>
     </mat-card-actions>
   </form>
 </mat-card>
+</div>
