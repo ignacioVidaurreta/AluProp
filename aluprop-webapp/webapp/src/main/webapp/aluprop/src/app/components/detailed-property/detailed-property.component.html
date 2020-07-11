@@ -55,7 +55,7 @@
       </mat-card-content>
       <mat-card-actions>
         <div *ngIf="userIsloogedIn == false; else loggedIn">
-          <button mat-raised-button style="width: 100%;" [routerLink]="['/login/']" color="primary"><span translate>detailed-property.interested</span></button>
+          <button mat-raised-button style="width: 100%;" (click)="navigatToLogLinWithInterestIntention()" color="primary"><span translate>detailed-property.interested</span></button>
         </div>
         <ng-template #loggedIn>
           <div *ngIf="currentUser?.role == 'ROLE_HOST' && currentUser?.id == property.owner.id" translate>

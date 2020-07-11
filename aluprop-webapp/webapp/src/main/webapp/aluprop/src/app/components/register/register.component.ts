@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
 import { AuthenticationService} from '../../services/authentication.service'
 import { Validators, FormControl, FormGroup } from '@angular/forms';
@@ -59,6 +59,7 @@ export class RegisterComponent implements OnInit {
   constructor(
     private authenticationService: AuthenticationService,
     private router: Router,
+    private activatedRoute: ActivatedRoute,
     private metadataService: MetadataService
   ) { 
     this.createdUser = new SignUpForm();
@@ -214,4 +215,11 @@ export class RegisterComponent implements OnInit {
     };
   }
 
+  navigateToLogIn() {
+    if (this.activatedRoute.snapshot.queryParams.sonuestro){
+      this.router.navigate(['login'], {queryParamsHandling: 'preserve'});
+    } else {
+      this.router.navigate(['login']);
+    }
+  }
 }

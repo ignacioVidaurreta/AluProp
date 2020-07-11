@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
 import { AuthenticationService} from '../../services/authentication.service'
 import { FormControl, Validators, FormGroup } from '@angular/forms';
@@ -12,6 +12,7 @@ import { FormControl, Validators, FormGroup } from '@angular/forms';
 export class LoginComponent implements OnInit {
 
   constructor(private router: Router, 
+              private activatedRoute: ActivatedRoute,
               private authenticationService: AuthenticationService){ }
 
   loginForm = new FormGroup({    
@@ -37,6 +38,15 @@ export class LoginComponent implements OnInit {
       }, (error: any) => {
         this.hasInvalidCredentials = true;
       });
+    }
+  }
+
+  navigateToRegister() {
+    if (this.activatedRoute.snapshot.queryParams.sonuestro){
+      console.log('heeeey mona');
+      this.router.navigate(['register'], {queryParamsHandling: 'preserve'});
+    } else {
+      this.router.navigate(['register']);
     }
   }
 
