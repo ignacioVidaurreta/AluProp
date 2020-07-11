@@ -4,6 +4,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
 import { AuthenticationService} from '../../services/authentication.service'
 import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { PropertyService } from 'src/app/services/property.service';
+import { Role } from 'src/app/models/user';
 
 @Component({
   selector: 'app-login',
@@ -34,7 +35,7 @@ export class LoginComponent implements OnInit {
         if (response){
           this.hasInvalidCredentials = false;
 
-          if (this.activatedRoute.snapshot.queryParams.sonuestro){
+          if (this.activatedRoute.snapshot.queryParams.sonuestro && response.body.role === Role.Guest){
             this.propertyService.markInterest(this.activatedRoute.snapshot.queryParams.sonuestro).subscribe(
               (response) => {
                 this.router.navigate(['property/'+ this.activatedRoute.snapshot.queryParams.sonuestro]);

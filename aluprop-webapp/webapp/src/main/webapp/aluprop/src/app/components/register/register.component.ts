@@ -148,7 +148,7 @@ export class RegisterComponent implements OnInit {
       this.authenticationService.signUp(this.createdUser).subscribe((response) =>{
         this.repeatedEmail = false;
         if (response){
-          if (this.activatedRoute.snapshot.queryParams.sonuestro){
+          if (this.activatedRoute.snapshot.queryParams.sonuestro && response.body.role === Role.Guest){
             this.propertyService.markInterest(this.activatedRoute.snapshot.queryParams.sonuestro).subscribe(
               (response) => {
                 this.router.navigate(['property/'+ this.activatedRoute.snapshot.queryParams.sonuestro]);
