@@ -5,7 +5,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from '../app-routing.module';
 
-fdescribe('AuthGuardService', () => {
+describe('AuthGuardService', () => {
   let service: AuthGuardService;
 
   beforeEach(() => {
