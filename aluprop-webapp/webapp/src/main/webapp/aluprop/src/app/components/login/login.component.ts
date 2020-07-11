@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
 import { AuthenticationService} from '../../services/authentication.service'
 import { FormControl, Validators, FormGroup } from '@angular/forms';
+import { PropertyService } from 'src/app/services/property.service';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +14,8 @@ export class LoginComponent implements OnInit {
 
   constructor(private router: Router, 
               private activatedRoute: ActivatedRoute,
-              private authenticationService: AuthenticationService){ }
+              private authenticationService: AuthenticationService,
+              private propertyService: PropertyService){ }
 
   loginForm = new FormGroup({    
     username: new FormControl('', [Validators.required]),
@@ -31,7 +33,15 @@ export class LoginComponent implements OnInit {
       this.authenticationService.login(this.loginForm.value).subscribe( (response) =>{
         if (response){
           this.hasInvalidCredentials = false;
-          this.router.navigate([""]);
+
+          if (this.activatedRoute.snapshot.queryParams.sonuestro){
+            this.propertyService.markInterest(this.activatedRoute.snapshot.queryParams.sonuestro).subscribe(
+              (response) => {
+                this.router.navigate(['property/'+ this.activatedRoute.snapshot.queryParams.sonuestro]);
+              });
+          } else {
+            this.router.navigate([""]);
+          }
         } else {
           this.hasInvalidCredentials = true;
         }
@@ -43,7 +53,6 @@ export class LoginComponent implements OnInit {
 
   navigateToRegister() {
     if (this.activatedRoute.snapshot.queryParams.sonuestro){
-      console.log('heeeey mona');
       this.router.navigate(['register'], {queryParamsHandling: 'preserve'});
     } else {
       this.router.navigate(['register']);

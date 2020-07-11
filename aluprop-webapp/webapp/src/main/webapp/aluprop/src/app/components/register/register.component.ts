@@ -8,6 +8,7 @@ import {User, SignUpForm, Role} from "../../models/user";
 import { MetadataService } from 'src/app/metadata.service';
 import { University } from 'src/app/models/university';
 import { Career } from 'src/app/models/career';
+import { PropertyService } from 'src/app/services/property.service';
 
 
 @Component({
@@ -60,7 +61,8 @@ export class RegisterComponent implements OnInit {
     private authenticationService: AuthenticationService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private metadataService: MetadataService
+    private metadataService: MetadataService,
+    private propertyService: PropertyService
   ) { 
     this.createdUser = new SignUpForm();
     this.formChangesSub = this.signUpForm.valueChanges.subscribe((filters) => {
@@ -146,7 +148,14 @@ export class RegisterComponent implements OnInit {
       this.authenticationService.signUp(this.createdUser).subscribe((response) =>{
         this.repeatedEmail = false;
         if (response){
-          this.router.navigate([""]);
+          if (this.activatedRoute.snapshot.queryParams.sonuestro){
+            this.propertyService.markInterest(this.activatedRoute.snapshot.queryParams.sonuestro).subscribe(
+              (response) => {
+                this.router.navigate(['property/'+ this.activatedRoute.snapshot.queryParams.sonuestro]);
+              });
+          } else {
+            this.router.navigate([""]);
+          }
         } else {
         }
       }, (error: any) => {
