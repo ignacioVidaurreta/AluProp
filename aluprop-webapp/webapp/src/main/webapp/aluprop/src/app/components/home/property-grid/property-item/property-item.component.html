@@ -1,4 +1,4 @@
-<mat-card [routerLink]="['/property/' + property.id]">
+<mat-card style="outline: none;" [routerLink]="['/property/' + property.id]">
   <img *ngIf="property.mainImage" mat-card-image class="card-img-top" [attr.src]="property.mainImage?.image ">
   <mat-card-content>
         <span class="prop-title">{{property.description}}</span>

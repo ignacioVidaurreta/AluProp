@@ -1,6 +1,6 @@
 <div *ngIf="property" class="detailed-property-container">
   <div class="detailed-property-carousel mat-elevation-z8">
-    <ngb-carousel>
+    <ngb-carousel style="outline:none">
       <ng-template *ngFor="let img of property.images" ngbSlide>
         <div>
           <img class="d-block w-100 detailed-property-image" [ngClass]="(property.availability == 'RENTED') ? 'grayscale' : ''" [attr.src]="img.image">
@@ -9,7 +9,7 @@
     </ngb-carousel>
   </div>
   <div class="detailed-property-cards-container">
-    <mat-card style="width: 72%" class="mat-elevation-z8">
+    <mat-card style="width: 77%" class="mat-elevation-z8">
       <mat-card-header>
         <mat-card-title style="margin-bottom: 16px;">{{property.description}}<span style="color: darkorange;" translate *ngIf="property.availability == 'RENTED'">detailed-property.inactive</span></mat-card-title>
         <mat-card-subtitle translate>
@@ -41,7 +41,7 @@
         </mat-tab-group>
       </mat-card-content>
     </mat-card>
-    <mat-card style="width: 25%;height: fit-content;" class="mat-elevation-z8">
+    <mat-card style="width: 20%;height: fit-content;" class="mat-elevation-z8">
       <mat-card-header>
         <mat-card-title>
           <span>${{property.price}} </span>
