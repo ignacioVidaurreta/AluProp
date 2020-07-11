@@ -31,10 +31,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.ViewResolver;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
@@ -98,13 +95,17 @@ public class WebConfig implements WebMvcConfigurer {
     }
 
     @Override
+    public void addViewControllers(ViewControllerRegistry registry) {
+        registry.addViewController("/").setViewName("forward:/index.html");
+    }
+
+    @Override
     public void addResourceHandlers(final ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/assets/img/**").addResourceLocations("/angular/assets/img/");
         registry.addResourceHandler("/assets/json/**").addResourceLocations("/angular/assets/json/");
         registry.addResourceHandler("/assets/i18n/**").addResourceLocations("/angular/assets/i18n/");
         registry.addResourceHandler("/**.js").addResourceLocations("/angular/");
         registry.addResourceHandler("/index.html").addResourceLocations("/angular/index.html");
-        registry.addResourceHandler("/").addResourceLocations("/angular/index.html"); //Does not work :(
     }
 
     @Override
