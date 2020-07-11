@@ -27,7 +27,7 @@ public class SignUpForm {
     private String bio;
 
     @Size(min = 8, max = 15)
-    private String phoneNumber;
+    private String contactNumber;
 
     @Range(min=0)
     private int universityId = -1;
@@ -57,12 +57,12 @@ public class SignUpForm {
         this.bio = bio;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public String getContactNumber() {
+        return contactNumber;
     }
 
     public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+        this.contactNumber = phoneNumber;
     }
 
     public int getUniversityId() {

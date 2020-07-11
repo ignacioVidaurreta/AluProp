@@ -40,6 +40,13 @@ public class APNotificationDao implements NotificationDao {
     }
 
     @Override
+    public Long count(long userId) {
+        return entityManager.createQuery("SELECT COUNT(n.id) FROM Notification n WHERE n.user.id = :id", Long.class)
+                                .setParameter("id", userId)
+                                .getSingleResult();
+    }
+
+    @Override
     public Collection<Notification> getAllNotificationsForUser(long id, PageRequest pageRequest) {
         TypedQuery<Notification> query = entityManager
                                     .createQuery(USER_NOTIFICATIONS_QUERY, Notification.class);
@@ -48,11 +55,10 @@ public class APNotificationDao implements NotificationDao {
     }
 
     @Override
-    public Collection<Notification> getAllUnreadNotificationsForUser(long id, PageRequest pageRequest) {
-        TypedQuery<Notification> query = entityManager
-                .createQuery(UNREAD_USER_NOTIFICATIONS_QUERY, Notification.class);
-        query.setParameter("id", id);
-        return paginator.makePagedQuery(query, pageRequest).getResultList();
+    public Collection<Notification> getAllUnreadNotificationsForUser(long id) {
+        return  entityManager.createQuery(UNREAD_USER_NOTIFICATIONS_QUERY, Notification.class)
+                            .setParameter("id", id)
+                            .getResultList();
     }
 
     @Override
@@ -72,7 +78,9 @@ public class APNotificationDao implements NotificationDao {
     }
 
     @Override
-    public Collection<Notification> unreadWithRelatedEntities(long userId, PageRequest pageRequest) {
-        return null;
+    @Transactional
+    public void delete(long id) {
+        Notification n = get(id);
+        entityManager.remove(n);
     }
 }

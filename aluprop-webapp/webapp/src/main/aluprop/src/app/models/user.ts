@@ -15,7 +15,7 @@ export class User {
   university: University;
   career: Career;
   bio: string;
-  phoneNumber: string;
+  contactNumber: string;
   role: Role;
   interestedProperties: Property[]; //GUEST
   userProposals: UserProposal[]; //GUEST
@@ -42,7 +42,7 @@ export class SignUpForm {
   password: string;
   name:string ;
   lastName: string;
-  phoneNumber: number;
+  contactNumber: number;
   birthDate: string;
   role: number;
   universityId: number;

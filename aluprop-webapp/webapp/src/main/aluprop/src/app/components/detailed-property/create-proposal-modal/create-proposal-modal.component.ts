@@ -6,6 +6,7 @@ import {Property} from "../../../models/property";
 import {MatSelectionList, MatSelectionListChange} from "@angular/material/list";
 import {Subscription} from "rxjs";
 import {ProposalService} from "../../../services/proposal.service";
+import { Router } from '@angular/router';
 
 export interface DialogData {
   interestedUsers: User[];
@@ -42,7 +43,10 @@ export class CreateProposalModalComponent implements OnInit, AfterViewInit {
     });
   }
 
-  constructor(public dialogRef: MatDialogRef<CreateProposalModalComponent>, @Inject(MAT_DIALOG_DATA) public data: DialogData, private proposalService: ProposalService) { }
+  constructor(public dialogRef: MatDialogRef<CreateProposalModalComponent>, 
+              @Inject(MAT_DIALOG_DATA) public data: DialogData, 
+              private proposalService: ProposalService,
+              private router: Router) { }
 
   onNoClick(): void {
     this.dialogRef.close();
@@ -57,7 +61,7 @@ export class CreateProposalModalComponent implements OnInit, AfterViewInit {
     console.log(invitedUsersIds);
     this.createProposalSub = this.proposalService.createProposal(invitedUsersIds, this.data.property.id).subscribe(
       (proposal) => {
-        console.log(proposal);
+        this.router.navigate(['proposal/' + proposal.id]);
       });
   }
 

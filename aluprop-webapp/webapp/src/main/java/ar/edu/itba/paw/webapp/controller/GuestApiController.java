@@ -92,7 +92,7 @@ public class GuestApiController {
         boolean hasReplied;
 
         Optional<Boolean> maybeHasReplied = checkUserHasReplied(currentUser, proposal);
-        if(!maybeHasReplied.isPresent())
+        if(!maybeHasReplied.isPresent() || proposal.getCreator().equals(currentUser))
             return Response.ok(ProposalUserInfoDto.fromData(false, false, -1f)).build();
 
         hasReplied = maybeHasReplied.get();

@@ -4,12 +4,12 @@ import {PageRequest} from "../interfaces/page-request";
 import {Observable} from "rxjs";
 import {Proposal} from "../models/proposal";
 import {UserProposal} from "../models/userProposal";
-import {User} from "../models/user";
-import {Property} from "../models/property";
+import { environment } from "../../environments/environment"
 
-const BASE_API_URL = 'http://localhost:8080/api/';
-const BASE_API_URL_PROPOSAL = 'http://localhost:8080/api/proposal/';
-const BASE_API_URL_PROPOSAL_USER_INFO = 'http://localhost:8080/api/guest/';
+
+const BASE_API_URL = environment.apiUrl;
+const BASE_API_URL_PROPOSAL = `${BASE_API_URL}proposal/`;
+const BASE_API_URL_PROPOSAL_USER_INFO = `${BASE_API_URL}guest/`;
 
 @Injectable({
   providedIn: 'root'
@@ -44,4 +44,30 @@ export class ProposalService {
     const payload = {inviteeIds: invitedUserIds};
     return this.http.post<Proposal>(BASE_API_URL + 'guest/proposal/' + propertyId, payload);
   }
+
+  acceptProposalGuest(proposalId: number) {
+    console.log('accepting proposal');
+    return this.http.post(BASE_API_URL + 'guest/' + proposalId + '/accept', {});
+  }
+
+  declineProposalGuest(proposalId: number) {
+    console.log('declining proposal');
+    return this.http.post(BASE_API_URL + 'guest/' + proposalId + '/decline', {});
+  }
+
+  dropProposal(proposalId: number) {
+    console.log('droping proposal');
+    return this.http.post(BASE_API_URL + 'guest/' + proposalId + '/cancel', {});
+  }
+
+  acceptProposalHost(proposalId: number) {
+    console.log('accepting proposal');
+    return this.http.post(BASE_API_URL + 'host/' + proposalId + '/accept', {});
+  }
+
+  declineProposalHost(proposalId: number) {
+    console.log('accepting proposal');
+    return this.http.post(BASE_API_URL + 'host/' + proposalId + '/decline', {});
+  }
+
 }

@@ -9,7 +9,8 @@
       "price-lowest": "Lowest price per month",
       "budget-highest": "Highest budget",
       "budget-lowest": "Lowest budget"
-    }
+    },
+    "student": "student"
   },
   "sign-up": {
     "sign-up": "Sign up",
@@ -59,7 +60,33 @@
     "no-new-notifications": "No new notifications",
     "new-notifications": "New notifications",
     "view-all": "View all",
-    "newProposalSubject": "There's a new proposal for your Property!"
+    "newProposalSubject": "There's a new proposal for your Property!",
+    "proposals": {
+      "deleted": {
+        "subject": "A proposal for \"{{propertyName}}\" has been deleted.",
+        "text": "Unfortunately, the creator of the proposal has cancelled it."
+      },
+      "sent": {
+        "subject": "A proposal for \"{{propertyName}}\" has been sent",
+        "text": "All members of a proposal have accepted, so it has been sent to the property's owner"
+      },
+      "hostProposal": {
+        "subject": "There is a new proposal for your property, \"{{propertyName}}\"",
+        "text": "You can see the members and as accept or decline it."
+      },
+      "declined": {
+        "subject": "A proposal for \"{{propertyName}}\" has been cancelled.",
+        "text": "Unfortunately, a member of the proposal has declined and it has therefore been cancelled."
+      },
+      "invitation": {
+        "subject": "You have been invited to a proposal for \"{{propertyName}}\"",
+        "text": "You can view the proposal with all of its members and accept or decline it."
+      },
+      "accepted": {
+        "subject": "A proposal you are in for \"{{propertyName}}\" has been accepted",
+        "text": "The owner of the property has accepted your offer."
+      }
+    }
   },
   "search-filters": {
     "property-type": "Property type",
@@ -71,9 +98,9 @@
     "individual": "Individual",
     "shared": "Shared",
     "max-capacity": "Max capacity",
-    "budget": "Budget",
-    "min-rent": "Min rent per month",
-    "max-rent": "Max rent per month",
+    "budget": "Individual monthly budget (rent per person)",
+    "min-rent": "Min",
+    "max-rent": "Max",
     "rules": "Rules",
     "unspecified": "None specified"
   },
@@ -105,10 +132,12 @@
   },
   "proposal": {
     "proposal": "Proposal",
-    "declined-host": "This proposal has been dropped.",
+    "dropped-host": "This proposal has been dropped.",
+    "declined-host": "You have declined this offer.",
     "declined": "The owner of the property has declined the offer, this proposal is no longer active.",
     "dropped": "This proposal has been dropped by its creator and it is no longer active.",
     "find-another-property": "Find another property and make a new proposal!",
+    "find-another-proposal": "Answer another proposal",
     "canceled": "One or more users have declined the proposal and it is no longer active.",
     "accepted-host": "You have accepted the offer, now you can contact the guests! The property has now become inactive.",
     "accepted": "The host has accepted the offer! Now you can contact the other students and the host.",
@@ -132,9 +161,9 @@
     "gender-OTHER": "Other"
   },
   "create-property": {
-    "publish-a-property": "Publish a property 🏠",
+    "publish-a-property": "Publish a property",
     "upload-up-to-4-pictures": "Upload up to 4 pictures of the property:",
-    "complete-property-info": "Complete property info",
+    "complete-property-info": "Complete property info:",
     "pictures-to-upload": "Pictures to upload:",
     "name": "Name",
     "description": "Description",

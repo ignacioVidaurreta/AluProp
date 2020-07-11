@@ -1,6 +1,7 @@
 package ar.edu.itba.paw.webapp.dto;
 
 import ar.edu.itba.paw.model.Notification;
+import ar.edu.itba.paw.model.Proposal;
 import ar.edu.itba.paw.model.enums.NotificationState;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 
@@ -14,7 +15,7 @@ public class NotificationDto {
     private String textCode;
     private String link;
     private NotificationState state;
-    private ProposalDto proposal;
+    private IndexProposalDto proposal;
 
     public static NotificationDto fromNotification(Notification notification) {
         NotificationDto ret = new NotificationDto();
@@ -23,6 +24,12 @@ public class NotificationDto {
         ret.textCode = notification.getTextCode();
         ret.link = notification.getLink();
         ret.state = notification.getState();
+        return ret;
+    }
+
+    public static NotificationDto withProposal(Notification notification, Proposal proposal) {
+        NotificationDto ret = fromNotification(notification);
+        ret.proposal = IndexProposalDto.fromProposal(proposal);
         return ret;
     }
 
@@ -46,11 +53,7 @@ public class NotificationDto {
         return state;
     }
 
-    public ProposalDto getProposal() {
+    public IndexProposalDto getProposal() {
         return proposal;
-    }
-
-    public void setProposal(ProposalDto proposal) {
-        this.proposal = proposal;
     }
 }

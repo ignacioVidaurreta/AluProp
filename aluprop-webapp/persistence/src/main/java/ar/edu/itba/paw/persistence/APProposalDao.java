@@ -176,4 +176,11 @@ public class APProposalDao implements ProposalDao {
         Proposal proposal = get(id);
         entityManager.remove(proposal);
     }
+
+    @Override
+    @Transactional
+    public Collection<Notification> getNotificationsForProposal(long id) {
+        return entityManager.createQuery("FROM Notification n WHERE n.link like '%" + Long.toString(id) + "%'", Notification.class)
+                            .getResultList();
+    }
 }

@@ -4,22 +4,35 @@
     margin-top: 10%;
 }
 
-.login-container{
-    display: flex;
-    flex-flow: column;
+.register-page{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
 }
 
-.login-title{
-    display: flex;
-    justify-content: left;
-    font-size: 2rem;
+a {
+  color: #007bff !important;
+  cursor: pointer;
 }
-
-.login-submit-btn{
-    float: right;
-}
-
-.form-container {
-    font-size: 1rem;
-    margin: 16px 12px 8px 0px;
-}
+//
+//.login-container{
+//    display: flex;
+//    flex-flow: column;
+//}
+//
+//.login-title{
+//    display: flex;
+//    justify-content: left;
+//    font-size: 2rem;
+//}
+//
+//.login-submit-btn{
+//    float: right;
+//}
+//
+//.form-container{
+//    font-size: 1rem;
+//    margin: 16px 12px 8px 0px;
+//}

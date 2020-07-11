@@ -6,7 +6,11 @@
   display: flex;
   flex-direction: column;
   padding: 0 0.5rem 0.3rem 0.5rem;
-  width: 310px;
+  width: 330px;
+}
+
+.mat-list-base {
+  padding-top: 0px;
 }
 
 .title {
@@ -55,8 +59,22 @@ a {
 ::ng-deep .mat-list .mat-list-item .mat-line{
   word-wrap: break-word;
   white-space: pre-wrap;
+  padding: 8px 4px;
 }
 
 ::ng-deep  .mat-list .mat-list-item{
   height:initial!important;
+}
+
+.mat-line {
+  line-height: initial;
+}
+
+.unread {
+  background-color: #fffecc !important;
+}
+
+::ng-deep .mat-list-item-content {
+  padding-top: 8px;
+  padding-bottom: 8px;
 }

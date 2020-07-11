@@ -6,6 +6,8 @@ import { Service } from 'src/app/models/service';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { EventEmitter } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { TranslateService } from '@ngx-translate/core';
+import { MetadataService } from 'src/app/metadata.service';
 
 @Component({
   selector: 'app-search-filters',
@@ -18,8 +20,13 @@ export class SearchFiltersComponent implements OnInit, OnDestroy {
   privacyLevelOption = PrivacyLevel;
 
   neighborhoods: Neighborhood[];
-  rules: Rule[] = [{id: 0, name: 'Mascotas Prohibidas', properties: []}, {id: 1, name: 'Fiestas Prohibidas', properties: []}];
-  services: Service[];
+  neighborhoodsSub: Subscription;
+  rules: Rule[] = [];
+  rulesSub: Subscription;
+  services: Service[] = [];
+  servicesSub: Subscription;
+
+  languageChangedSub: Subscription;
 
   filterForm = new FormGroup({
     propertyType: new FormControl(''),
@@ -36,14 +43,33 @@ export class SearchFiltersComponent implements OnInit, OnDestroy {
   @Output()
   filters = new EventEmitter();
   
-  constructor() { }
-  
+  constructor(translateService: TranslateService, private metadataService: MetadataService) {
+    this.languageChangedSub = translateService.onLangChange.subscribe((newLang) => this.translateRulesAndServices());
+  }
+
+  translateRulesAndServices(){
+    this.metadataService.translateMetadataArray(this.rules);
+    this.metadataService.translateMetadataArray(this.services);
+  }
+
   ngOnInit(): void {
     this.formChangesSub = this.filterForm.valueChanges.subscribe((filters) => this.filters.emit(filters));
+    this.rulesSub = this.metadataService.getAllRules().subscribe((rules) => {
+      this.rules = rules;
+      this.translateRulesAndServices();
+    });
+    this.servicesSub = this.metadataService.getAllServices().subscribe((services) => {
+      this.services = services;
+      this.translateRulesAndServices();
+    });
+    this.neighborhoodsSub = this.metadataService.getAllNeighborhoods().subscribe((neighborhoods) => this.neighborhoods = neighborhoods);
   }
 
   ngOnDestroy(){
-    this.formChangesSub.unsubscribe();
+    if (this.formChangesSub) { this.formChangesSub.unsubscribe();}
+    if (this.rulesSub) { this.rulesSub.unsubscribe();}
+    if (this.servicesSub) { this.servicesSub.unsubscribe();}
+    if (this.neighborhoodsSub) { this.neighborhoodsSub.unsubscribe();}
   }
   
 }

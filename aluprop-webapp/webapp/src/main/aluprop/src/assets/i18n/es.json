@@ -9,7 +9,8 @@
       "price-lowest": "Mínima renta por mes",
       "budget-highest": "Máximo presupuesto por persona",
       "budget-lowest": "Mínimo presupuesto por persona"
-    }
+    },
+    "student": "estudiante"
   },
   "sign-up": {
     "sign-up": "Registrarse",
@@ -59,7 +60,33 @@
     "no-new-notifications": "No tienes notificationes nuevas",
     "new-notifications": "Notificaciones Nuevas",
     "view-all": "Ver todas",
-    "newProposalSubject": "Hay una nueva propuesta para tu propiedad!"
+    "newProposalSubject": "Hay una nueva propuesta para tu propiedad!",
+    "proposals": {
+      "deleted": {
+        "subject": "Una propuesta para \"{{propertyName}}\" ha sido cancelada.",
+        "text": "Lamentablemente, el creador de la propuesta la ha cancelado."
+      },
+      "sent": {
+        "subject": "Una propuesta para \"{{propertyName}}\" ha sido enviada",
+        "text": "Todos los miembros de la propuesta han aceptado y por lo tanto ha sido enviada al dueño de la propiedad"
+      },
+      "hostProposal": {
+        "subject": "Hay una propuesta nueva para su propiedad, \"{{propertyName}}\"",
+        "text": "Puedes ver los integrantes y aceptarla o declinarla."
+      },
+      "declined": {
+        "subject": "Una propuesta para \"{{propertyName}}\" se ha cancelado.",
+        "text": "Lamentablemente, alguien ha rechazado la propuesta y por lo tanto se ha cancelado."
+      },
+      "invitation": {
+        "subject": "Te han invitado a una propuesta para \"{{propertyName}}\"",
+        "text": "Puedes ver la propuesta con sus miembros y aceptarla o declinarla."
+      },
+      "accepted": {
+        "subject": "Una propuesta para \"{{propertyName}}\" de la que eres miembro ha sido aceptada",
+        "text": "El dueño de la propiedad ha aceptado la oferta."
+      }
+    }
   },
   "search-filters": {
     "property-type": "Tipo de propiedad",
@@ -71,7 +98,7 @@
     "individual": "Individual",
     "shared": "Compartida",
     "max-capacity": "Capacidad máxima",
-    "budget": "Precio por mes",
+    "budget": "Presupuesto mensual (renta por persona)",
     "min-rent": "Mínimo",
     "max-rent": "Máximo",
     "rules": "Reglas",
@@ -105,10 +132,12 @@
   },
   "proposal": {
     "proposal": "Propuesta",
-    "declined-host": "La propuesta ha sido dada de baja.",
+    "dropped-host": "La propuesta ha sido dada de baja.",
+    "declined-host": "Has rechazado la propuesta.",
     "declined": "El dueño de la propiedad ha declinado la oferta y por lo tanto se encuentra inactiva.",
     "dropped": "El creador de esta propuesta la ha cancelado y por lo tanto se encuentra inactiva.",
     "find-another-property": "Encuentra otra propiedad y crea una propuesta nueva",
+    "find-another-proposal": "Responde otra propuesta que hayas recibido",
     "canceled": "Uno o más usuarios han declinado la propuesta y por lo tanto se encuentra inactiva.",
     "accepted-host": "Has aceptado la propuesta, ahora puedes contactar a los estudiantes! La propiedad ahora está deshabilitada.",
     "accepted": "El dueño de la propiedad ha aceptado la oferta! Ahora puedes contactar al resto de los estudiantes y al dueño.",
@@ -132,7 +161,7 @@
     "gender-OTHER": "Otro"
   },
   "create-property": {
-    "publish-a-property": "Publicar una propiedad 🏠",
+    "publish-a-property": "Publicar una propiedad",
     "upload-up-to-4-pictures": "Subir hasta 4 imágenes de la propiedad",
     "complete-property-info": "Completar información de la propiedad",
     "pictures-to-upload": "Seleccionar imágenes:",

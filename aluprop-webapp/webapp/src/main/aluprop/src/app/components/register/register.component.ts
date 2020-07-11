@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
 import { AuthenticationService} from '../../services/authentication.service'
 import { Validators, FormControl, FormGroup } from '@angular/forms';
@@ -8,6 +8,7 @@ import {User, SignUpForm, Role} from "../../models/user";
 import { MetadataService } from 'src/app/metadata.service';
 import { University } from 'src/app/models/university';
 import { Career } from 'src/app/models/career';
+import { PropertyService } from 'src/app/services/property.service';
 
 
 @Component({
@@ -28,7 +29,7 @@ export class RegisterComponent implements OnInit {
     repeatPassword: new FormControl('', [Validators.required]),
     name: new FormControl('', [Validators.required]),
     lastName: new FormControl('', [Validators.required]),
-    phoneNumber: new FormControl('', [Validators.required]),
+    contactNumber: new FormControl('', [Validators.required]),
     birthdate: new FormControl('', [Validators.required]),
     role: new FormControl('', [Validators.required]),
     bio: new FormControl('', [Validators.required]),
@@ -59,11 +60,13 @@ export class RegisterComponent implements OnInit {
   constructor(
     private authenticationService: AuthenticationService,
     private router: Router,
-    private metadataService: MetadataService
+    private activatedRoute: ActivatedRoute,
+    private metadataService: MetadataService,
+    private propertyService: PropertyService
   ) { 
     this.createdUser = new SignUpForm();
     this.formChangesSub = this.signUpForm.valueChanges.subscribe((filters) => {
-      this.onPhoneChange(filters['phoneNumber']);
+      this.onPhoneChange(filters['contactNumber']);
       this.isGuest = filters["role"] === Role.Guest;
       
       this.repeatedEmail = this.createdUser.email && this.createdUser.email === filters['email']
@@ -106,8 +109,8 @@ export class RegisterComponent implements OnInit {
       phoneForm = this.includeAreaCode(phoneForm, numbersInAreaCode);
     }
 
-    if (this.signUpForm.get('phoneNumber').value !== phoneForm){
-      this.signUpForm.get('phoneNumber').setValue(phoneForm);
+    if (this.signUpForm.get('contactNumber').value !== phoneForm){
+      this.signUpForm.get('contactNumber').setValue(phoneForm);
     }
   }
 
@@ -145,7 +148,14 @@ export class RegisterComponent implements OnInit {
       this.authenticationService.signUp(this.createdUser).subscribe((response) =>{
         this.repeatedEmail = false;
         if (response){
-          this.router.navigate([""]);
+          if (this.activatedRoute.snapshot.queryParams.sonuestro && response.body.role === Role.Guest){
+            this.propertyService.markInterest(this.activatedRoute.snapshot.queryParams.sonuestro).subscribe(
+              (response) => {
+                this.router.navigate(['property/'+ this.activatedRoute.snapshot.queryParams.sonuestro]);
+              });
+          } else {
+            this.router.navigate([""]);
+          }
         } else {
         }
       }, (error: any) => {
@@ -164,7 +174,7 @@ export class RegisterComponent implements OnInit {
     this.createdUser.birthDate = this.signUpForm.value["birthdate"]
     this.createdUser.gender = this.signUpForm.value["gender"]
     this.createdUser.bio = this.signUpForm.value["bio"];
-    this.createdUser.phoneNumber = this.signUpForm.value["phoneNumber"];
+    this.createdUser.contactNumber = this.signUpForm.value["contactNumber"];
     console.log(this.createdUser.role);
     if(this.signUpForm.value["role"] == Role.Guest) {
       this.createdUser.universityId = this.signUpForm.value["university"].id;
@@ -214,4 +224,11 @@ export class RegisterComponent implements OnInit {
     };
   }
 
+  navigateToLogIn() {
+    if (this.activatedRoute.snapshot.queryParams.sonuestro){
+      this.router.navigate(['login'], {queryParamsHandling: 'preserve'});
+    } else {
+      this.router.navigate(['login']);
+    }
+  }
 }

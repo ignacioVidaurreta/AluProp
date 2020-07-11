@@ -17,10 +17,6 @@ public class UserApiController {
 
     @Autowired
     private UserService userService;
-    @Autowired
-    private UniversityService universityService;
-    @Autowired
-    private CareerService careerService;
 
     @GET
     public Response currentUser() {
@@ -32,26 +28,6 @@ public class UserApiController {
     @Path("/{userId}")
     public Response user(@PathParam("userId") long userId) {
         return Response.ok(UserDto.fromUser(userService.getWithRelatedEntities(userId))).build();
-    }
-
-    @GET
-    @Path("/university")
-    public Response university() {
-        return Response.ok(universityService.getAll()
-                                            .stream()
-                                            .map(UniversityDto::fromUniversity)
-                                            .collect(Collectors.toList()))
-                    .build();
-    }
-
-    @GET
-    @Path("/career")
-    public Response career() {
-        return Response.ok(careerService.getAll()
-                                            .stream()
-                                            .map(CareerDto::fromCareer)
-                                            .collect(Collectors.toList()))
-                .build();
     }
 
     @GET
