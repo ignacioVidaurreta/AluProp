@@ -42,7 +42,7 @@ export class SignUpForm {
   password: string;
   name:string ;
   lastName: string;
-  phoneNumber: number;
+  contactNumber: number;
   birthDate: string;
   role: number;
   universityId: number;

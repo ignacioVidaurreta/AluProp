@@ -1,12 +1,14 @@
 :host {
   display: flex;
-  justify-content: center;  
+  justify-content: center;
 }
 
 .detailed-property-image {
   object-fit: cover;
   height: 500px;
   border-radius: 4px;
+  width: 100%;
+  outline: none;
 }
 
 .detailed-property-container {
@@ -28,6 +30,12 @@
   margin-top: 3rem;
   margin-bottom: 2rem;
   border-radius: 4px;
+  width: 100%;
+  outline: none;
+}
+
+::ng-deep .detailed-property-carousel {
+  outline: none;
 }
 
 .grayscale {

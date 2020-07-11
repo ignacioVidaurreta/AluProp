@@ -29,7 +29,7 @@ export class RegisterComponent implements OnInit {
     repeatPassword: new FormControl('', [Validators.required]),
     name: new FormControl('', [Validators.required]),
     lastName: new FormControl('', [Validators.required]),
-    phoneNumber: new FormControl('', [Validators.required]),
+    contactNumber: new FormControl('', [Validators.required]),
     birthdate: new FormControl('', [Validators.required]),
     role: new FormControl('', [Validators.required]),
     bio: new FormControl('', [Validators.required]),
@@ -66,7 +66,7 @@ export class RegisterComponent implements OnInit {
   ) { 
     this.createdUser = new SignUpForm();
     this.formChangesSub = this.signUpForm.valueChanges.subscribe((filters) => {
-      this.onPhoneChange(filters['phoneNumber']);
+      this.onPhoneChange(filters['contactNumber']);
       this.isGuest = filters["role"] === Role.Guest;
       
       this.repeatedEmail = this.createdUser.email && this.createdUser.email === filters['email']
@@ -109,8 +109,8 @@ export class RegisterComponent implements OnInit {
       phoneForm = this.includeAreaCode(phoneForm, numbersInAreaCode);
     }
 
-    if (this.signUpForm.get('phoneNumber').value !== phoneForm){
-      this.signUpForm.get('phoneNumber').setValue(phoneForm);
+    if (this.signUpForm.get('contactNumber').value !== phoneForm){
+      this.signUpForm.get('contactNumber').setValue(phoneForm);
     }
   }
 
@@ -174,7 +174,7 @@ export class RegisterComponent implements OnInit {
     this.createdUser.birthDate = this.signUpForm.value["birthdate"]
     this.createdUser.gender = this.signUpForm.value["gender"]
     this.createdUser.bio = this.signUpForm.value["bio"];
-    this.createdUser.phoneNumber = this.signUpForm.value["phoneNumber"];
+    this.createdUser.contactNumber = this.signUpForm.value["contactNumber"];
     console.log(this.createdUser.role);
     if(this.signUpForm.value["role"] == Role.Guest) {
       this.createdUser.universityId = this.signUpForm.value["university"].id;

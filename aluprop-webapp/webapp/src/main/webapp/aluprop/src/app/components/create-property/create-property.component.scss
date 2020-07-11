@@ -16,6 +16,9 @@
   display: flex;
   justify-content: left;
   font-size: 2rem;
+  margin-left: 32px;
+  margin-top: 24px;
+  margin-right: 16px;
 }
 
 h3 {
@@ -47,7 +50,7 @@ textarea{
   }
 
   .prop-info {
-    width: 50%;
+    //width: 50%;
     justify-content: center;
 
     mat-form-field {
@@ -65,7 +68,7 @@ textarea{
 
       mat-form-field {
         display: inline-block;
-        width: 48%;
+        width: 48.8%;
       }
 
       .property-type, .rules{
@@ -75,8 +78,8 @@ textarea{
   }
 
   .prop-pictures {
-    width: 50%;
-    
+    //width: 50%;
+
     form-field {
       display: flex;
       flex-direction: column;
@@ -86,7 +89,7 @@ textarea{
         margin-bottom: 4%;
       }
     }
-    
+
   }
 }
 
@@ -102,7 +105,7 @@ textarea{
     border-color: #3f51b5;
     width: 120px;
   }
-  
+
   .close-button {
     position: absolute;
     cursor: pointer;
@@ -145,8 +148,8 @@ textarea{
   }
 }
 
-button {
-  font-size: large;
-  margin: 1rem;
-  width: 48%;
-}
+//button {
+//  font-size: large;
+//  margin: 1rem;
+//  width: 48%;
+//}

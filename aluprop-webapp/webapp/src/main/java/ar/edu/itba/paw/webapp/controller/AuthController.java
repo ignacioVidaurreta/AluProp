@@ -92,7 +92,7 @@ public class AuthController {
                 .withCareerId(form.getCareerId())
                 .withBio(form.getBio())
                 .withBirthDate(Date.valueOf(form.getBirthDate()))
-                .withContactNumber(form.getPhoneNumber())
+                .withContactNumber(form.getContactNumber())
                 .withRole(Role.valueOf(form.getRole()))
                 .build();
     }

@@ -72,7 +72,7 @@ public class APProposalService implements ProposalService {
         return new Proposal.Builder()
                         .withCreator(userService.getCurrentlyLoggedUser())
                         .withProperty(property)
-                        .withState(ids.length == 0 ? ProposalState.PENDING : ProposalState.SENT)
+                        .withState(ids.length == 0 ? ProposalState.SENT : ProposalState.PENDING)
                         .build();
     }
 

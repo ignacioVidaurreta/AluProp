@@ -67,11 +67,11 @@
         "text": "Lamentablemente, el creador de la propuesta la ha cancelado."
       },
       "sent": {
-        "subject": "Una propuesta para \"{{propertyName}}\" ha sido enviada!",
-        "text": "Todos los miembros de la propuesta han aceptado y por lo tanto ha sido enviada al dueño de la propiedad!"
+        "subject": "Una propuesta para \"{{propertyName}}\" ha sido enviada",
+        "text": "Todos los miembros de la propuesta han aceptado y por lo tanto ha sido enviada al dueño de la propiedad"
       },
       "hostProposal": {
-        "subject": "Hay una propuesta nueva para su propiedad, \"{{propertyName}}\"!",
+        "subject": "Hay una propuesta nueva para su propiedad, \"{{propertyName}}\"",
         "text": "Puedes ver los integrantes y aceptarla o declinarla."
       },
       "declined": {
@@ -79,11 +79,11 @@
         "text": "Lamentablemente, alguien ha rechazado la propuesta y por lo tanto se ha cancelado."
       },
       "invitation": {
-        "subject": "Te han invitado a una propuesta para \"{{propertyName}}\"!",
+        "subject": "Te han invitado a una propuesta para \"{{propertyName}}\"",
         "text": "Puedes ver la propuesta con sus miembros y aceptarla o declinarla."
       },
       "accepted": {
-        "subject": "Una propuesta para \"{{propertyName}}\" de la que eres miembro ha sido aceptada!",
+        "subject": "Una propuesta para \"{{propertyName}}\" de la que eres miembro ha sido aceptada",
         "text": "El dueño de la propiedad ha aceptado la oferta."
       }
     }
@@ -161,7 +161,7 @@
     "gender-OTHER": "Otro"
   },
   "create-property": {
-    "publish-a-property": "Publicar una propiedad 🏠",
+    "publish-a-property": "Publicar una propiedad",
     "upload-up-to-4-pictures": "Subir hasta 4 imágenes de la propiedad",
     "complete-property-info": "Completar información de la propiedad",
     "pictures-to-upload": "Seleccionar imágenes:",

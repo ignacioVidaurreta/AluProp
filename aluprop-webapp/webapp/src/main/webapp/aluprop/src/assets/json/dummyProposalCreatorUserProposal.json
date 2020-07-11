@@ -12,7 +12,7 @@
     "gender": "MALE",
     "id": 1,
     "email": "aloha@lel.com",
-    "phoneNumber": "134567890"
+    "contactNumber": "134567890"
   },
   "proposal": {
     "id": 1,
