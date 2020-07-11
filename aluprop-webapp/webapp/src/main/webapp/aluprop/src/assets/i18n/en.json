@@ -68,10 +68,10 @@
       },
       "sent": {
         "subject": "A proposal for \"{{propertyName}}\" has been sent",
-        "text": "All memebers of a proposal have accepted, so it has been sent to the property's owner!"
+        "text": "All members of a proposal have accepted, so it has been sent to the property's owner"
       },
       "hostProposal": {
-        "subject": "There is a new proposal for your property, \"{{propertyName}}\"!",
+        "subject": "There is a new proposal for your property, \"{{propertyName}}\"",
         "text": "You can see the members and as accept or decline it."
       },
       "declined": {
@@ -79,11 +79,11 @@
         "text": "Unfortunately, a member of the proposal has declined and it has therefore been cancelled."
       },
       "invitation": {
-        "subject": "You have been invited to a proposal for \"{{propertyName}}\"!",
+        "subject": "You have been invited to a proposal for \"{{propertyName}}\"",
         "text": "You can view the proposal with all of its members and accept or decline it."
       },
       "accepted": {
-        "subject": "A proposal you are in for \"{{propertyName}}\" has been accepted!",
+        "subject": "A proposal you are in for \"{{propertyName}}\" has been accepted",
         "text": "The owner of the property has accepted your offer."
       }
     }
