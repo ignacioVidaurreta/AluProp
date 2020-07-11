@@ -61,7 +61,7 @@ public class APProposalService implements ProposalService {
 
         // If duplicated proposal, return the old proposal.
         long duplicateId = proposalDao.findDuplicateProposal(proposal, userIds);
-        if(duplicateId == -1){
+        if(duplicateId != -1){
             return Either.valueFrom(proposalDao.getWithRelatedEntities(duplicateId));
         }
 
