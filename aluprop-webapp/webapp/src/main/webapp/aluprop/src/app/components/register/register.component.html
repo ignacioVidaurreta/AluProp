@@ -1,9 +1,9 @@
   <div class="register-page">
-    <mat-card-header>
+    <mat-card class="mat-elevation-z8">
       <mat-card-title class="card-title title" translate>sign-up.sign-up</mat-card-title>
-    </mat-card-header>
-    <form [formGroup]="signUpForm">
-      <mat-card class="form-container prop-info mat-elevation-z4">
+      <mat-card-content>
+      <form [formGroup]="signUpForm">
+      <mat-card class="form-container prop-info mat-elevation-z0">
         <mat-form-field class="form-element">
           <mat-label translate>sign-up.email</mat-label>
           <input matInput type="email" formControlName="email"/>
@@ -49,8 +49,8 @@
             <mat-error><span translate>sign-up.required-field-error</span></mat-error>
           </mat-form-field>
         </div>
-        
-        
+
+
         <mat-form-field class="form-element">
           <mat-label translate>sign-up.i-am-a</mat-label>
           <mat-select formControlName="role">
@@ -94,11 +94,17 @@
 
 
         <mat-card-footer>
-          <a routerLink="/login" translate> 
+          <a routerLink="/login" style="float: right;padding-right: 16px" translate>
             sign-up.login-message
           </a>
         </mat-card-footer>
+
+        <mat-card-actions>
+          <button mat-raised-button color="primary" style="float: right;margin-right: 0px;margin-bottom: 0px;" type="submit" (click)="signUp()"><span translate>sign-up.sign-up</span></button>
+        </mat-card-actions>
+        
       </mat-card>
-      <button class="btn btn-md btn-primary text-upper" style="float: right;" type="submit" (click)="signUp()" translate>sign-up.sign-up</button>
-    </form>
+      </form>
+      </mat-card-content>
+    </mat-card>
   </div>
