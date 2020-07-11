@@ -24,8 +24,12 @@ export class AuthenticationService {
     }
   }
 
+  isLoggedIn(): boolean{
+    return this.getAuthToken() && this.getAuthToken() !== '';
+  }
+
   getCurrentUser(): Observable<User>{
-    if (this.getAuthToken()){
+    if (this.isLoggedIn()){
       this.http.get<User>(BASE_API_URL + 'user').pipe(take(1)).subscribe(
         (user) => {
           this.currentUserSubject.next(<User>user);
