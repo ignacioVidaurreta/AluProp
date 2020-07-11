@@ -6,10 +6,13 @@ import { Property } from '../models/property';
 import { PageResponse } from '../interfaces/page-response';
 import {Proposal} from "../models/proposal";
 import {User} from "../models/user";
+import { environment } from './../../environments/environment'
 
-const BASE_API_URL = 'http://localhost:8080/api/';
-const BASE_API_URL_PROPERTY = 'http://localhost:8080/api/property/';
-const BASE_API_URL_PROPERTY_IS_CURRENT_USER_INTERESTED = 'http://localhost:8080/api/guest/interested/';
+const BASE_API_URL = environment.apiUrl;
+const BASE_API_URL_PROPERTY = `${BASE_API_URL}property/`;
+const BASE_API_URL_PROPERTY_IS_CURRENT_USER_INTERESTED = `${BASE_API_URL}guest/interested/`;
+
+
 
 const httpOptions = {
   headers: new HttpHeaders({

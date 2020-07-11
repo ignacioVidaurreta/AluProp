@@ -4,8 +4,9 @@ import {User, SignUpForm} from "../models/user";
 import {HttpClient} from "@angular/common/http";
 import { take, tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { environment } from './../../environments/environment'
 
-const BASE_API_URL = 'http://localhost:8080/api/';
+const BASE_API_URL = environment.apiUrl;
 const LOCAL_STORAGE_AUTH_TOKEN = 'aluToken';
 
 @Injectable({
