@@ -226,10 +226,6 @@
         <plugin>
           <artifactId>maven-war-plugin</artifactId>
           <version>3.2.2</version>
-          <configuration>
-            <packagingExcludes>**/logback-test.xml</packagingExcludes>
-            <warSourceIncludes>/WEB-INF/**/*, /aluprop/dist/*</warSourceIncludes>
-          </configuration>
         </plugin>
 
         <plugin>
