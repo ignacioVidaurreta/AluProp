@@ -161,9 +161,9 @@
     "gender-OTHER": "Other"
   },
   "create-property": {
-    "publish-a-property": "Publish a property 🏠",
+    "publish-a-property": "Publish a property",
     "upload-up-to-4-pictures": "Upload up to 4 pictures of the property:",
-    "complete-property-info": "Complete property info",
+    "complete-property-info": "Complete property info:",
     "pictures-to-upload": "Pictures to upload:",
     "name": "Name",
     "description": "Description",
