@@ -56,7 +56,15 @@ public class APProposalService implements ProposalService {
         Property property = propertyService.get(propertyId);
         if (property == null) return Either.alternativeFrom("the given property does not exist");
         if (!validProperty(property, userIds)) return Either.alternativeFrom("the given proposal is invalid for this property");
+
         Proposal proposal = createProposal(property, userIds);
+
+        // If duplicated proposal, return the old proposal.
+        long duplicateId = proposalDao.findDuplicateProposal(proposal, userIds);
+        if(duplicateId == -1){
+            return Either.valueFrom(proposalDao.getWithRelatedEntities(duplicateId));
+        }
+
         Proposal result = proposalDao.create(proposal, userIds);
         sendNotifications(result);
         return Either.valueFrom(result);
