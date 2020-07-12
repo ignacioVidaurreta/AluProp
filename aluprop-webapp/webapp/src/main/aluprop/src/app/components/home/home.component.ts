@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -12,8 +12,11 @@ export class HomeComponent implements OnInit, OnDestroy {
   queryParamsSub: Subscription;
   queryParams: any;
 
-  constructor(private route: ActivatedRoute) {
+  constructor(private route: ActivatedRoute, private router: Router) {
     this.queryParamsSub = route.queryParams.subscribe((params) => this.queryParams = params);
+    this.router.routeReuseStrategy.shouldReuseRoute = function(){
+      return false;
+    }
   }
 
   ngOnInit(): void {}

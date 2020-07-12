@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/services/authentication.service';
-import { Observable, Subscription } from 'rxjs';
+import {Observable, Subject, Subscription} from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
 import { User, Role } from "../../models/user";
 import { take } from 'rxjs/operators';
