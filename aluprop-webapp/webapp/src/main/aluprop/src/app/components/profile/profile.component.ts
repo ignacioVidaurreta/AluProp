@@ -6,7 +6,7 @@ import {User} from "../../models/user";
 import {UserService} from "../../services/user.service";
 import {MatPaginator, PageEvent} from "@angular/material/paginator";
 import {ProposalService} from "../../services/proposal.service";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {AuthenticationService} from "../../services/authentication.service";
 import {filter} from "rxjs/operators";
 import {MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition} from "@angular/material/snack-bar";
@@ -36,7 +36,12 @@ export class ProfileComponent implements OnInit {
     });
   }
 
-  constructor( private cdr: ChangeDetectorRef, private _snackBar: MatSnackBar,private userService: UserService, private route: ActivatedRoute, private authenticationService: AuthenticationService) {
+  constructor( private cdr: ChangeDetectorRef, 
+              private _snackBar: MatSnackBar,
+              private userService: UserService, 
+              private route: ActivatedRoute, 
+              private router: Router,
+              private authenticationService: AuthenticationService) {
     this.deletionParamsSub = route.queryParams.pipe(
       filter((params) => Object.keys(params).length !== 0)
     ).subscribe((params)=>{
@@ -70,6 +75,8 @@ export class ProfileComponent implements OnInit {
       this.currentUserSub = this.authenticationService.getCurrentUser().subscribe((currentUser)=> {
         this.currentUser = currentUser;
       });
+    }, (error: any) => {
+      this.router.navigate(['error/404']);
     });
   }
 
