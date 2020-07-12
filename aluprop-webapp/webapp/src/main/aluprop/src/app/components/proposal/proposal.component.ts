@@ -3,7 +3,7 @@ import {ProposalService} from "../../services/proposal.service";
 import {PageEvent} from "@angular/material/paginator";
 import {Subject, Subscription} from "rxjs";
 import {Proposal} from "../../models/proposal";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import {UserProposal} from "../../models/userProposal";
 import {User} from "../../models/user";
 import {UserService} from "../../services/user.service";
@@ -32,6 +32,7 @@ export class ProposalComponent implements OnInit {
   constructor(private authenticationService: AuthenticationService,
               private proposalService: ProposalService,
               private route: ActivatedRoute,
+              private router: Router,
               private imageService: ImageService,
               private _sanitizer: DomSanitizer) {
   }
@@ -70,6 +71,8 @@ export class ProposalComponent implements OnInit {
           });
         }
       });
+    }, (error: any) => {
+      this.router.navigate(['error/404']);
     });
   }
 
