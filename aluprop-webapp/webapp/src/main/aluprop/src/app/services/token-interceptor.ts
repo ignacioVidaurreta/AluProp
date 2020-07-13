@@ -9,7 +9,7 @@ import {
   HttpErrorResponse
 } from '@angular/common/http';
 import { AuthenticationService } from './authentication.service';
-import { Observable, EMPTY } from 'rxjs';
+import {Observable, EMPTY, throwError} from 'rxjs';
 import { tap, filter, catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
@@ -25,9 +25,9 @@ export class TokenInterceptor implements HttpInterceptor {
         setHeaders: {
           Authorization: `Bearer ${this.authService.getAuthToken()}`
         }
-      });      
+      });
     }
-    
+
     return next.handle(request).pipe(catchError(
       (response: HttpErrorResponse) => {
         if (response.status >= 404 && response.status < 500){
@@ -36,7 +36,7 @@ export class TokenInterceptor implements HttpInterceptor {
         if (response.status >= 500 && response.status < 600){
           this.router.navigate(['/error/500']);
         }
-        return Observable.throw(response);
+        return throwError(response);
       })
     );
   }
