@@ -1,11 +1,11 @@
-import { Component, OnInit, Output, OnDestroy } from '@angular/core';
+import {Component, OnInit, Output, OnDestroy, Input} from '@angular/core';
 import { PropertyType, PrivacyLevel } from '../../../../models/property';
 import { Neighborhood } from 'src/app/models/neighborhood';
 import { Rule } from 'src/app/models/rule';
 import { Service } from 'src/app/models/service';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { EventEmitter } from '@angular/core';
-import { Subscription } from 'rxjs';
+import {Observable, Subscription} from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
 import { MetadataService } from 'src/app/metadata.service';
 
@@ -18,6 +18,9 @@ export class SearchFiltersComponent implements OnInit, OnDestroy {
 
   propertyTypeOptions = PropertyType;
   privacyLevelOption = PrivacyLevel;
+
+  @Input() resetFilters: Observable<void>;
+  resetFiltersSub: Subscription;
 
   neighborhoods: Neighborhood[];
   neighborhoodsSub: Subscription;
@@ -39,10 +42,10 @@ export class SearchFiltersComponent implements OnInit, OnDestroy {
     services: new FormControl(this.services)
   });
   formChangesSub: Subscription;
-  
+
   @Output()
   filters = new EventEmitter();
-  
+
   constructor(translateService: TranslateService, private metadataService: MetadataService) {
     this.languageChangedSub = translateService.onLangChange.subscribe((newLang) => this.translateRulesAndServices());
   }
@@ -63,6 +66,7 @@ export class SearchFiltersComponent implements OnInit, OnDestroy {
       this.translateRulesAndServices();
     });
     this.neighborhoodsSub = this.metadataService.getAllNeighborhoods().subscribe((neighborhoods) => this.neighborhoods = neighborhoods);
+    this.resetFiltersSub = this.resetFilters.subscribe(() => {this.filterForm.reset()});
   }
 
   ngOnDestroy(){
@@ -71,5 +75,5 @@ export class SearchFiltersComponent implements OnInit, OnDestroy {
     if (this.servicesSub) { this.servicesSub.unsubscribe();}
     if (this.neighborhoodsSub) { this.neighborhoodsSub.unsubscribe();}
   }
-  
+
 }

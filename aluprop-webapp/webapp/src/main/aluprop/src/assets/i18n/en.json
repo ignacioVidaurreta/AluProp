@@ -10,7 +10,9 @@
       "budget-highest": "Highest budget",
       "budget-lowest": "Lowest budget"
     },
-    "student": "student"
+    "student": "student",
+    "no-search-results": "There are no properties that match your search. Try changing the search filters.",
+    "no-properties": "We are sorry. There are no properties available."
   },
   "sign-up": {
     "sign-up": "Sign up",
@@ -102,6 +104,7 @@
     "min-rent": "Min",
     "max-rent": "Max",
     "rules": "Rules",
+    "services": "Services",
     "unspecified": "None specified"
   },
   "property-card": {

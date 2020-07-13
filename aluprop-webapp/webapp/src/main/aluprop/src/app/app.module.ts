@@ -38,6 +38,7 @@ import { CreateProposalModalComponent } from './components/detailed-property/cre
 import { TokenInterceptor } from './services/token-interceptor';
 import { ErrorComponent } from './components/error/error.component';
 import {MatBadgeModule} from "@angular/material/badge";
+import {MatChipsModule} from "@angular/material/chips";
 
 @NgModule({
   schemas: [ CUSTOM_ELEMENTS_SCHEMA],
@@ -85,7 +86,8 @@ import {MatBadgeModule} from "@angular/material/badge";
         NgbModule,
         MatTabsModule,
         MatDialogModule,
-        MatBadgeModule
+        MatBadgeModule,
+        MatChipsModule
     ],
   exports: [
     FormsModule,

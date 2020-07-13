@@ -13,7 +13,7 @@
             <mat-label translate>search-filters.neighborhood</mat-label>
             <mat-select formControlName="neighborhood">
                 <div *ngFor="let neighborhood of neighborhoods">
-                    <mat-option class="filter-select-option" value="neighborhood.id">{{ neighborhood.name }}</mat-option>
+                    <mat-option class="filter-select-option" [value]="neighborhood.id">{{ neighborhood.name }}</mat-option>
                 </div>
             </mat-select>
             <mat-error>Error</mat-error>
@@ -53,7 +53,7 @@
                 </mat-option>
             </mat-select>
          </mat-form-field>
-         <mat-label translate>Services</mat-label>
+         <mat-label translate>search-filters.services</mat-label>
          <mat-form-field>
             <mat-label translate>search-filters.unspecified</mat-label>
             <mat-select formControlName="services" multiple>

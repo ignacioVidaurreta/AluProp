@@ -10,7 +10,9 @@
       "budget-highest": "Máximo presupuesto por persona",
       "budget-lowest": "Mínimo presupuesto por persona"
     },
-    "student": "estudiante"
+    "student": "estudiante",
+    "no-search-results": "No hay propiedades que coincidan con tu búsqueda. Intentá buscando con otros filtros.",
+    "no-properties": "No hay propiedades para mostrar. Te pedimos disculpas"
   },
   "sign-up": {
     "sign-up": "Registrarse",
@@ -102,6 +104,7 @@
     "min-rent": "Mínimo",
     "max-rent": "Máximo",
     "rules": "Reglas",
+    "services": "Servicios",
     "unspecified": "Sin especificar"
   },
   "property-card": {

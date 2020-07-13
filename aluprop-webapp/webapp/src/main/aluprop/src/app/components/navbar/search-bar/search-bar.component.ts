@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
+import {Subject} from "rxjs";
 
 @Component({
   selector: 'app-search-bar',
@@ -10,15 +11,16 @@ export class SearchBarComponent implements OnInit {
 
   showFilters = false;
   searchFilters: any;
+  resetFilters: Subject<void> = new Subject<void>();
 
   @ViewChild('searchInput') searchInput: ElementRef;
 
 
-  @HostListener('document:click', ['$event']) 
+  @HostListener('document:click', ['$event'])
   onDocumentClick(event) {
     if (this.showFilters === true && event.path.filter(
-        (elem)=> elem.id === 'toggle-filters' || 
-                            elem.id === 'filters' || 
+        (elem)=> elem.id === 'toggle-filters' ||
+                            elem.id === 'filters' ||
                             elem.classList?.contains('filter-select-option')).length !== 1){
       this.showFilters = false;
       console.log('dsfdsf');
@@ -40,6 +42,9 @@ export class SearchBarComponent implements OnInit {
     this.showFilters = false;
     this.searchFilters.description = this.searchInput.nativeElement.value;
     this.router.navigate(['/'], { queryParams: this.searchFilters});
+    this.searchInput.nativeElement.value = "";
+    this.searchInput.nativeElement.blur();
+    this.resetFilters.next();
   }
 
   setSearchFilters(filters: any){
