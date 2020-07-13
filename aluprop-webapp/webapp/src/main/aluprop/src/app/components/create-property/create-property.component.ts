@@ -10,6 +10,7 @@ import { PropertyService } from 'src/app/services/property.service';
 import { MetadataService } from 'src/app/metadata.service';
 import { TranslateService } from '@ngx-translate/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-create-property',
@@ -36,7 +37,7 @@ export class CreatePropertyComponent implements OnInit {
 
   createPropertyForm = new FormGroup({
     pictures: new FormControl(''),
-    
+
     name: new FormControl('', [Validators.required]),
     description: new FormControl('', [Validators.required]),
     propertyType: new FormControl('', [Validators.required]),
@@ -55,9 +56,10 @@ export class CreatePropertyComponent implements OnInit {
   tooManyFiles =  false;
   notEnoughFiles =  false;
   currentlyUploadedImages: string[] = [];
-  
-  constructor(private propertyService: PropertyService, 
-              private metadataService: MetadataService, 
+
+  constructor(private propertyService: PropertyService,
+              private metadataService: MetadataService,
+              private router: Router,
               private translateService: TranslateService,
               public domSanitizer: DomSanitizer) {
     this.createdProperty = new Property();
@@ -69,7 +71,7 @@ export class CreatePropertyComponent implements OnInit {
     this.metadataService.translateMetadataArray(this.rules);
     this.metadataService.translateMetadataArray(this.services);
   }
-  
+
   ngOnInit(): void {
     // this.formChangesSub = this.createPropertyForm.valueChanges.subscribe((filters) => {
     //   // this.filters.emit(filters)
@@ -122,7 +124,9 @@ export class CreatePropertyComponent implements OnInit {
     this.generatePropertyFromForm();
     this.publishPropertySub = this.propertyService.publishProperty(this.createdProperty).subscribe(
       (property) => {
+        console.log('property has been created');
         console.log(property);
+        this.router.navigate(['property/' + property.id]);
       });
   }
 
