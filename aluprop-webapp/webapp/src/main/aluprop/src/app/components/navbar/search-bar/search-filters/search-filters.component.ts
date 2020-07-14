@@ -33,7 +33,7 @@ export class SearchFiltersComponent implements OnInit, OnDestroy {
 
   filterForm = new FormGroup({
     propertyType: new FormControl(''),
-    neighborhood: new FormControl(''),
+    neighbourhoodId: new FormControl(''),
     privacy: new FormControl(''),
     maxCapacity: new FormControl('', [Validators.pattern('[0-9]*')]),
     minPrice: new FormControl('', [Validators.pattern('[0-9]*')]),

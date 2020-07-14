@@ -11,7 +11,7 @@
         </mat-form-field>
         <mat-form-field>
             <mat-label translate>search-filters.neighborhood</mat-label>
-            <mat-select formControlName="neighborhood">
+            <mat-select formControlName="neighbourhoodId">
                 <div *ngFor="let neighborhood of neighborhoods">
                     <mat-option class="filter-select-option" [value]="neighborhood.id">{{ neighborhood.name }}</mat-option>
                 </div>
