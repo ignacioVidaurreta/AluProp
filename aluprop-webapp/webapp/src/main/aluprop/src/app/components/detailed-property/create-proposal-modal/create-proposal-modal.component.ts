@@ -56,9 +56,7 @@ export class CreateProposalModalComponent implements OnInit, AfterViewInit {
   }
 
   createProposal() {
-    console.log(this.selectedOptions);
     let invitedUsersIds = this.selectedOptions.map((user) => user.id);
-    console.log(invitedUsersIds);
     this.createProposalSub = this.proposalService.createProposal(invitedUsersIds, this.data.property.id).subscribe(
       (proposal) => {
         this.router.navigate(['proposal/' + proposal.id]);
@@ -66,7 +64,6 @@ export class CreateProposalModalComponent implements OnInit, AfterViewInit {
   }
 
   onNgModelChange($event){
-    console.log($event);
     this.selectedOption=$event;
   }
 
