@@ -166,7 +166,6 @@ export class RegisterComponent implements OnInit {
   }
 
   generateUserFromForm(): void {
-    console.log(this.signUpForm);
     this.createdUser.email = this.signUpForm.get("email").value;
     this.createdUser.name = this.signUpForm.get("name").value;
     this.createdUser.lastName = this.signUpForm.get("lastName").value;
@@ -175,7 +174,6 @@ export class RegisterComponent implements OnInit {
     this.createdUser.gender = this.signUpForm.value["gender"]
     this.createdUser.bio = this.signUpForm.value["bio"];
     this.createdUser.contactNumber = this.signUpForm.value["contactNumber"];
-    console.log(this.createdUser.role);
     if(this.signUpForm.value["role"] == Role.Guest) {
       this.createdUser.universityId = this.signUpForm.value["university"].id;
       this.createdUser.careerId = this.signUpForm.value["career"].id;

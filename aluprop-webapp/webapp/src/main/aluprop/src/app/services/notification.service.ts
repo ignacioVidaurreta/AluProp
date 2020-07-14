@@ -28,8 +28,6 @@ export class NotificationService {
   }
 
   changeNotificationState(notificationId: number): Observable<any>{
-    console.log('Marking notif as read:');
-    console.log(notificationId);
     return this.http.post(BASE_API_URL + 'notification/' + notificationId, {});
   }
 }

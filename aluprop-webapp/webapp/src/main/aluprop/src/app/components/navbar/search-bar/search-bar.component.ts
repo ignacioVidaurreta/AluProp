@@ -23,7 +23,6 @@ export class SearchBarComponent implements OnInit {
                             elem.id === 'filters' ||
                             elem.classList?.contains('filter-select-option')).length !== 1){
       this.showFilters = false;
-      console.log('dsfdsf');
     }
   }
 

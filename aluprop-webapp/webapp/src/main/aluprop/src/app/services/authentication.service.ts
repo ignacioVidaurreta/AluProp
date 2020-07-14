@@ -40,7 +40,6 @@ export class AuthenticationService {
   }
 
   signUp(signUpForm: SignUpForm){
-    console.log(signUpForm);
     return this.http.post<User>(BASE_API_URL + 'auth/signup', signUpForm, {observe: 'response'}).pipe(tap(
       (response)=>{
         this.setAuthToken(response.headers.get('X-TOKEN'));

@@ -71,7 +71,6 @@ export class ProfileComponent implements OnInit {
   createPageSubscription(){
     this.userSub = this.userService.getUserById(this.userId).subscribe((user) => {
       this.user = user;
-      console.log(this.user);
       this.currentUserSub = this.authenticationService.getCurrentUser().subscribe((currentUser)=> {
         this.currentUser = currentUser;
       });

@@ -124,8 +124,6 @@ export class CreatePropertyComponent implements OnInit {
     this.generatePropertyFromForm();
     this.publishPropertySub = this.propertyService.publishProperty(this.createdProperty).subscribe(
       (property) => {
-        console.log('property has been created');
-        console.log(property);
         this.router.navigate(['property/' + property.id]);
       });
   }
@@ -137,7 +135,6 @@ export class CreatePropertyComponent implements OnInit {
   }
 
   generatePropertyFromForm() {
-    console.log(this.createPropertyForm.get('name'));
     if (this.currentlyUploadedImages.length === 0){
       this.tooManyFiles = false;
       this.notEnoughFiles = true;
@@ -152,9 +149,6 @@ export class CreatePropertyComponent implements OnInit {
         this.createdProperty.images.push(<Image>{id: index, image: image.split(',')[1]});
       }
     );
-
-    console.log(this.createPropertyForm.controls['rules'].value);
-    console.log(this.createPropertyForm.controls['propertyType'].value);
 
     this.createdProperty.description = this.createPropertyForm.controls['name'].value;
     this.createdProperty.caption = this.createPropertyForm.controls['description'].value;

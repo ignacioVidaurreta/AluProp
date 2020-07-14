@@ -42,7 +42,6 @@ export class NavbarComponent implements OnInit {
     if( this.currentUser ){
       return true;
     }
-    console.log(this.currentUser)
     return false;
   }
 

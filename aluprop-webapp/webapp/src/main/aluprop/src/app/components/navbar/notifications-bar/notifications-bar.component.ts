@@ -29,9 +29,7 @@ export class NotificationsBarComponent implements OnInit {
 
   createPageSubscription() {
     this.notificationService.getUnread().pipe(take(1)).subscribe((notifications) => {
-      console.log(notifications);
       if(notifications.length > 0) {
-        console.log('notif len' + notifications.length);
         this.badgeNumber = notifications.length;
         this.hidden = false;
       }
@@ -42,7 +40,6 @@ export class NotificationsBarComponent implements OnInit {
   }
 
   updateBadge() {
-    console.log('update badge');
     this.toggleNotifications();
     this.createPageSubscription();
   }

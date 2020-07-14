@@ -26,7 +26,6 @@ export class UserService {
   constructor(private http: HttpClient) { }
 
   getUserById(id: number): Observable<User>{
-    console.log(BASE_API_URL_USER + id);
     return this.http.get<User>(BASE_API_URL_USER + id);
   }
 
