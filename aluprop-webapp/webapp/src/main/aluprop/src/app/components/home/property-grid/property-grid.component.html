@@ -1,3 +1,4 @@
+<div *ngIf="properties">
 <mat-form-field appearance="fill">
   <mat-label translate>home.sort-by</mat-label>
   <mat-select (selectionChange)="onSortSelected($event)">
@@ -37,3 +38,8 @@
               [pageSizeOptions]="[5, 10, 12, 25, 100]"
               (page)="onPageChange($event)">
 </mat-paginator>
+</div>
+<div *ngIf="!properties" style="display: flex;justify-content: center;height: 100%">
+  <mat-spinner style="align-self: center;margin-top:20%"></mat-spinner>
+</div>
+
