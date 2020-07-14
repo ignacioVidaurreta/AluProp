@@ -1,4 +1,4 @@
-package ar.edu.itba.paw.webapp.helperClasses;
+package ar.edu.itba.paw.webapp.helper_classes;
 
 import ar.edu.itba.paw.interfaces.IdNamePair;
 import ar.edu.itba.paw.interfaces.PageRequest;

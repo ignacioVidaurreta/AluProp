@@ -1,4 +1,4 @@
-package ar.edu.itba.paw.webapp.helperClasses;
+package ar.edu.itba.paw.webapp.helper_classes;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.ModelAndView;

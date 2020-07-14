@@ -4,7 +4,7 @@ import ar.edu.itba.paw.interfaces.service.JwtService;
 import ar.edu.itba.paw.model.enums.Role;
 import ar.edu.itba.paw.webapp.auth.APUsernamePasswordAuthToken;
 import ar.edu.itba.paw.webapp.exception.IllegalAccessException;
-import ar.edu.itba.paw.webapp.helperClasses.JwtTokenHandler;
+import ar.edu.itba.paw.webapp.helper_classes.JwtTokenHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -19,10 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.Collections;
-import java.util.Date;
 
 public class SessionAuthFilter extends AbstractAuthenticationProcessingFilter {
 

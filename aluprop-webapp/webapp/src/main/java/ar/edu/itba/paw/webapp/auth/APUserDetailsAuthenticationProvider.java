@@ -1,8 +1,7 @@
 package ar.edu.itba.paw.webapp.auth;
 
 import ar.edu.itba.paw.interfaces.service.JwtService;
-import ar.edu.itba.paw.webapp.exception.IllegalAccessException;
-import ar.edu.itba.paw.webapp.helperClasses.JwtTokenHandler;
+import ar.edu.itba.paw.webapp.helper_classes.JwtTokenHandler;
 import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

@@ -1,4 +1,4 @@
-package ar.edu.itba.paw.webapp.helperClasses;
+package ar.edu.itba.paw.webapp.helper_classes;
 
 import ar.edu.itba.paw.model.User;
 import ar.edu.itba.paw.webapp.auth.APUsernamePasswordAuthToken;
@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.SecureRandom;
-import java.time.LocalDateTime;
 import java.util.Date;
 
 @Component

@@ -6,7 +6,7 @@ import ar.edu.itba.paw.interfaces.SearchableProperty;
 import ar.edu.itba.paw.interfaces.service.*;
 import ar.edu.itba.paw.model.Property;
 import ar.edu.itba.paw.model.User;
-import ar.edu.itba.paw.webapp.beanParams.PropertySearchRequest;
+import ar.edu.itba.paw.webapp.bean_params.PropertySearchRequest;
 import ar.edu.itba.paw.webapp.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
