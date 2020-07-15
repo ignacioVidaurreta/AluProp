@@ -6,9 +6,9 @@ import ar.edu.itba.paw.model.enums.*;
 import java.sql.Date;
 import java.util.HashSet;
 
-//import static ar.edu.itba.paw.service.APNotificationServiceTest.LINK;
-//import static ar.edu.itba.paw.service.APNotificationServiceTest.SUBJECT_CODE;
-//import static ar.edu.itba.paw.service.APNotificationServiceTest.TEXT_CODE;
+import static ar.edu.itba.paw.service.APNotificationServiceTest.LINK;
+import static ar.edu.itba.paw.service.APNotificationServiceTest.SUBJECT_CODE;
+import static ar.edu.itba.paw.service.APNotificationServiceTest.TEXT_CODE;
 
 public class Factories {
 
@@ -72,13 +72,13 @@ public class Factories {
                 .build();
     }
 
-//    static Notification notificationCreator(){
-//        return new Notification.Builder()
-//                .withUser(userCreator())
-//                .withSubjectCode(SUBJECT_CODE)
-//                .withTextCode(TEXT_CODE)
-//                .withLink(LINK)
-//                .withState(NotificationState.UNREAD)
-//                .build();
-//    }
+    static Notification notificationCreator(){
+        return new Notification.Builder()
+                .withUser(userCreator())
+                .withSubjectCode(SUBJECT_CODE)
+                .withTextCode(TEXT_CODE)
+                .withLink(LINK)
+                .withState(NotificationState.UNREAD)
+                .build();
+    }
 }

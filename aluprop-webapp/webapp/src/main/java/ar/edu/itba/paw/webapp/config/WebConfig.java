@@ -7,7 +7,6 @@ import ar.edu.itba.paw.interfaces.WhereConditionBuilder;
 import ar.edu.itba.paw.interfaces.builders.HqlWhereConditionBuilder;
 import ar.edu.itba.paw.interfaces.beans.APMailSenderBean;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.*;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
@@ -30,12 +29,9 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.LocaleResolver;
-import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
-import org.springframework.web.servlet.view.InternalResourceViewResolver;
-import org.springframework.web.servlet.view.JstlView;
 
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
@@ -49,7 +45,7 @@ import java.util.Properties;
 @ComponentScan({ "ar.edu.itba.paw.webapp.controller",
                 "ar.edu.itba.paw.persistence",
                 "ar.edu.itba.paw.service",
-                "ar.edu.itba.paw.webapp.helperClasses",
+                "ar.edu.itba.paw.webapp.helper_classes",
                 "ar.edu.itba.paw.webapp.config.handler" })
 @PropertySource("classpath:application.properties")
 @Configuration

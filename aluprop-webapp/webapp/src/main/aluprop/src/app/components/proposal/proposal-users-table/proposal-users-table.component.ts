@@ -32,6 +32,8 @@ export class ProposalUsersTableComponent implements OnInit {
   proposalId: number;
   private reloadSubscription: Subscription;
 
+  responseData: UserProposal[];
+
 
   constructor(private proposalService: ProposalService, private route: ActivatedRoute) {
     this.userProposals = [];
@@ -62,6 +64,7 @@ export class ProposalUsersTableComponent implements OnInit {
       this.userProposals = userProposals;
       this.creatorSub = this.proposalService.getCreatorUserProposal(this.proposalId).subscribe((creatorUserProposal) => {
         this.creatorUserProposal= creatorUserProposal;
+        this.responseData = [this.creatorUserProposal].concat(this.userProposals);
         this.dataSource = new MatTableDataSource<UserProposal>([this.creatorUserProposal].concat(this.userProposals));
       });
     });

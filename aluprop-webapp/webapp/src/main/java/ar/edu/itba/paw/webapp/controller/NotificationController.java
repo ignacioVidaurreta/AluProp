@@ -1,6 +1,6 @@
 package ar.edu.itba.paw.webapp.controller;
 
-import ar.edu.itba.paw.webapp.helperClasses.ModelAndViewPopulator;
+import ar.edu.itba.paw.webapp.helper_classes.ModelAndViewPopulator;
 import ar.edu.itba.paw.webapp.form.FilteredSearchForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

@@ -101,7 +101,6 @@ public class APProposalServiceTest {
 
         Assert.assertEquals(HttpURLConnection.HTTP_NOT_FOUND, httpCode);
     }
-    */
 
     /*
     @Test

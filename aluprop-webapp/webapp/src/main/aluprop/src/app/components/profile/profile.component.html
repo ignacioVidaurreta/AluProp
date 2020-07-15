@@ -15,10 +15,6 @@
     </mat-card-content>
   </mat-card>
 </div>
-<!--<div *ngIf="checkParams()">-->
-<!--</div>-->
-<!-- <div *ngIf="deletionParams?.deletion == 'SUCCESSFUL'" style="color:green;text-align: center;font-size: 26px" >Successful delete!</div> -->
-<!--<ng-template #spinner><mat-spinner style="position: relative; margin-top:30%; margin-left: 50%; margin-right: 50%;"></mat-spinner></ng-template>-->
 <div *ngIf="user?.id == currentUser?.id && user?.role == 'ROLE_GUEST'" class="user-properties">
     <app-interests-table id="left-table"></app-interests-table>
     <app-proposals-table id="right-table" [userRole]="user?.role"></app-proposals-table>
@@ -26,4 +22,7 @@
 <div *ngIf="user?.id == currentUser?.id && user?.role == 'ROLE_HOST'" class="user-properties">
   <app-properties-table id="left-table"></app-properties-table>
   <app-proposals-table id="right-table" [userRole]="user?.role"></app-proposals-table>
+</div>
+<div *ngIf="!user" style="display: flex;justify-content: center;height: 100%">
+  <mat-spinner style="align-self: center;margin-top:20%"></mat-spinner>
 </div>

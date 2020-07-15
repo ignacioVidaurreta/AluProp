@@ -30,6 +30,8 @@ export class ProposalsTableComponent implements OnInit {
   proposalsSub: Subscription;
   dataSource;
 
+  responseData: Proposal[];
+
   constructor(private userService: UserService, private route: ActivatedRoute) {
     this.dataSource = [];
     this.pageRequest = {pageNumber: 0, pageSize: 10}
@@ -55,6 +57,7 @@ export class ProposalsTableComponent implements OnInit {
   createPageSubscription(){
     if(this.userRole == "ROLE_GUEST") {
       this.proposalsSub = this.userService.getAllProposalsFromUserProposals(this.pageRequest).subscribe((pageResponse) => {
+        this.responseData = pageResponse.responseData;
         this.dataSource = new MatTableDataSource<Proposal>(pageResponse.responseData);
         this.totalItems = pageResponse.totalItems;
         this.pageSize = pageResponse.pageSize;
@@ -62,6 +65,7 @@ export class ProposalsTableComponent implements OnInit {
     }
     else {
       this.proposalsSub = this.userService.getAllProposals(this.pageRequest).subscribe((pageResponse) => {
+        this.responseData = pageResponse.responseData;
         this.dataSource = new MatTableDataSource<Proposal>(pageResponse.responseData);
         this.totalItems = pageResponse.totalItems;
         this.pageSize = pageResponse.pageSize;

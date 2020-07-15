@@ -1,38 +1,24 @@
 package ar.edu.itba.paw.webapp.controller;
 
-import ar.edu.itba.paw.interfaces.Either;
-import ar.edu.itba.paw.interfaces.PageRequest;
-import ar.edu.itba.paw.interfaces.PageResponse;
 import ar.edu.itba.paw.interfaces.SearchableProperty;
 import ar.edu.itba.paw.interfaces.service.PropertyService;
 import ar.edu.itba.paw.interfaces.service.ProposalService;
 import ar.edu.itba.paw.interfaces.service.UserService;
 import ar.edu.itba.paw.model.Property;
-import ar.edu.itba.paw.model.Proposal;
 import ar.edu.itba.paw.model.User;
-import ar.edu.itba.paw.model.enums.Availability;
 import ar.edu.itba.paw.model.enums.PropertyOrder;
-import ar.edu.itba.paw.model.enums.ProposalState;
 import ar.edu.itba.paw.model.enums.Role;
 import ar.edu.itba.paw.webapp.form.FilteredSearchForm;
-import ar.edu.itba.paw.webapp.form.ProposalForm;
-import ar.edu.itba.paw.webapp.helperClasses.ModelAndViewPopulator;
-import ar.edu.itba.paw.webapp.helperClasses.StatusCodeParser;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import ar.edu.itba.paw.webapp.helper_classes.ModelAndViewPopulator;
+import ar.edu.itba.paw.webapp.helper_classes.StatusCodeParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
 import java.net.HttpURLConnection;
-import java.util.List;
-import java.util.Locale;
 
 @Controller
 public class PropertyController {

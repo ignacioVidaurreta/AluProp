@@ -1,4 +1,4 @@
-package ar.edu.itba.paw.webapp.beanParams;
+package ar.edu.itba.paw.webapp.bean_params;
 
 import ar.edu.itba.paw.interfaces.enums.SearchablePrivacyLevel;
 import ar.edu.itba.paw.interfaces.enums.SearchablePropertyType;
