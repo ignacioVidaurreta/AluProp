@@ -57,6 +57,6 @@ public class APImageDao implements ImageDao {
     public void delete(Image image) {
         if(image == null || image.getId() < 1)
             return;
-        entityManager.remove(image);
+        entityManager.remove(entityManager.contains(image) ? image : entityManager.merge(image));
     }
 }
