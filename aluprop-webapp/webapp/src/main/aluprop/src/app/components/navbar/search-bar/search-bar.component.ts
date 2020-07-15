@@ -20,13 +20,12 @@ export class SearchBarComponent implements OnInit {
 
   @HostListener('document:click', ['$event'])
   onDocumentClick(event) {
-    // console.log(event.path);
     if (this.showFilters === true && event.path.filter(
         (elem) => elem.id === 'toggle-filters' ||
                             elem.id === 'filters' ||
                             elem.classList?.contains('filter-select-option')||
                             elem.classList?.contains('cdk-overlay-backdrop')||
-                            elem.innerHTML === 'search').length === 0){
+                            elem.id === 'search-button').length === 0){
       this.showFilters = false;
     }
   }
@@ -42,22 +41,21 @@ export class SearchBarComponent implements OnInit {
   }
 
   search(){
-    if (!this.filterForm && !this.searchInput.nativeElement.value){
-      console.log(this.filterForm);
-      console.log(this.searchInput.nativeElement.value);
+    if (!this.filterForm && !this.searchInput.nativeElement.value)
       return;
-    }
     const searchFilters: any = {};
-    searchFilters.description = this.searchInput.nativeElement.value;
-    Object.assign(searchFilters, this.deleteEmptyElements(this.filterForm.value));
-    
-    if (this.filterForm.valid){
-      this.router.navigate(['/'], { queryParams: searchFilters});
-      this.searchInput.nativeElement.value = "";
-      this.searchInput.nativeElement.blur();
-      this.resetFilters.next();
-      this.showFilters = false;
+    if (this.filterForm){
+      if (!this.filterForm.valid)
+        return;
+      Object.assign(searchFilters, this.deleteEmptyElements(this.filterForm.value));
     }
+    if (this.searchInput.nativeElement.value)
+      searchFilters.description = this.searchInput.nativeElement.value;
+    this.router.navigate(['/'], { queryParams: searchFilters});
+    this.searchInput.nativeElement.value = "";
+    this.searchInput.nativeElement.blur();
+    this.resetFilters.next();
+    this.showFilters = false;
   }
 
   setFilterForm(filterForm: FormGroup){
