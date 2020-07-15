@@ -72,6 +72,46 @@ public class Factories {
                 .build();
     }
 
+    static Property propertyCreatorCustomCapacity(int capacity) {
+        return new Property.Builder()
+                .withId(APPropertyServiceTest.PROPERTY_ID)
+                .withCaption(APPropertyServiceTest.CAPTION)
+                .withDescription(APPropertyServiceTest.CAPTION)
+                .withPropertyType(PropertyType.APARTMENT)
+                .withNeighbourhood(new Neighbourhood(APPropertyServiceTest.NEIGHBOURHOOD_ID))
+                .withPrivacyLevel(true)
+                .withCapacity(capacity)
+                .withPrice(APPropertyServiceTest.PRICE)
+                .withRules(new HashSet<>())
+                .withInterestedUsers(new HashSet<>())
+                .withServices(new HashSet<>())
+                .withImages(new HashSet<>())
+                .withMainImage(new Image(APPropertyServiceTest.IMAGE_ID))
+                .withOwnerId(APPropertyServiceTest.OWNER_ID)
+                .withAvailability(Availability.valueOf("AVAILABLE"))
+                .build();
+    }
+
+    static Property propertyCreatorCustomAvailability(Availability availability) {
+        return new Property.Builder()
+                .withId(APPropertyServiceTest.PROPERTY_ID)
+                .withCaption(APPropertyServiceTest.CAPTION)
+                .withDescription(APPropertyServiceTest.CAPTION)
+                .withPropertyType(PropertyType.APARTMENT)
+                .withNeighbourhood(new Neighbourhood(APPropertyServiceTest.NEIGHBOURHOOD_ID))
+                .withPrivacyLevel(true)
+                .withCapacity(APPropertyServiceTest.CAPACITY)
+                .withPrice(APPropertyServiceTest.PRICE)
+                .withRules(new HashSet<>())
+                .withInterestedUsers(new HashSet<>())
+                .withServices(new HashSet<>())
+                .withImages(new HashSet<>())
+                .withMainImage(new Image(APPropertyServiceTest.IMAGE_ID))
+                .withOwnerId(APPropertyServiceTest.OWNER_ID)
+                .withAvailability(availability)
+                .build();
+    }
+
     static Notification notificationCreator(){
         return new Notification.Builder()
                 .withUser(userCreator())

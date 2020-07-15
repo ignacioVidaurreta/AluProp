@@ -3,6 +3,8 @@ package ar.edu.itba.paw.webapp.helper_classes;
 import ar.edu.itba.paw.model.User;
 import ar.edu.itba.paw.webapp.auth.APUsernamePasswordAuthToken;
 import io.jsonwebtoken.*;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
@@ -10,14 +12,16 @@ import java.security.SecureRandom;
 import java.util.Date;
 
 @Component
+@PropertySource("classpath:application.properties")
 public class JwtTokenHandler {
 
     private final SecureRandom random = new SecureRandom();
-    private final String secret = "aWFtdmVyeXNhZmUK"; // TODO: adjust for prod
-    private final long oneMonth = 2592000000L;
+    @Value("${jwt.secret}")
+    private String secret;
 
     public String createToken(User user) {
         final Date currentDate = new Date();
+        final long oneMonth = 2592000000L;
         return Jwts.builder()
                 .setClaims(Jwts.claims().setSubject(user.getEmail()))
                 .setHeaderParam("salt", random.nextLong())

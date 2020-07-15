@@ -105,7 +105,9 @@
     "max-rent": "Máximo",
     "rules": "Reglas",
     "services": "Servicios",
-    "unspecified": "Sin especificar"
+    "unspecified": "Sin especificar",
+    "error-capacity": "Error, por favor ingrese un número mayor a cero",
+    "error-budget": "Error, por favor ingrese un número mayor o igual a cero"
   },
   "property-card": {
     "see-more": "Ver más"
