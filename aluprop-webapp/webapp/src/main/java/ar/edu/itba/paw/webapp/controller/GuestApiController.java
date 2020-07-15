@@ -140,7 +140,7 @@ public class GuestApiController {
             return Response.status(Response.Status.BAD_REQUEST).entity(NO_LANGUAGE_ERROR).build();
         Locale loc = new Locale(language);
         String url = request.getRequestURL().toString();
-        String host = url.substring(0, url.indexOf("api/guest/proposal/" + propertyId));
+        String host = url.substring(0, url.indexOf("/api/guest/proposal/" + propertyId));
         Either<Proposal, String> maybeProposal = proposalService.createProposal(propertyId, proposalCreationDto.getInviteeIds(), host, loc);
         if (!maybeProposal.hasValue())
             return Response.status(Response.Status.BAD_REQUEST).entity(maybeProposal.alternative()).build();
@@ -156,7 +156,7 @@ public class GuestApiController {
             return Response.status(Response.Status.BAD_REQUEST).entity(NO_LANGUAGE_ERROR).build();
         Locale loc = new Locale(language);
         String url = request.getRequestURL().toString();
-        String host = url.substring(0, url.indexOf("api/guest/" + proposalId + "/cancel"));
+        String host = url.substring(0, url.indexOf("/api/guest/" + proposalId + "/cancel"));
         return Response.status(proposalService.delete(proposalId, host, loc)).build();
     }
 
@@ -169,7 +169,7 @@ public class GuestApiController {
             return Response.status(Response.Status.BAD_REQUEST).entity(NO_LANGUAGE_ERROR).build();
         Locale loc = new Locale(language);
         String url = request.getRequestURL().toString();
-        String host = url.substring(0, url.indexOf("api/guest/" + proposalId + "/accept"));
+        String host = url.substring(0, url.indexOf("/api/guest/" + proposalId + "/accept"));
         return Response.status(proposalService.setAcceptInvite(proposalId, host, loc)).build();
     }
 
@@ -182,7 +182,7 @@ public class GuestApiController {
             return Response.status(Response.Status.BAD_REQUEST).entity(NO_LANGUAGE_ERROR).build();
         Locale loc = new Locale(language);
         String url = request.getRequestURL().toString();
-        String host = url.substring(0, url.indexOf("api/guest/" + proposalId + "/decline"));
+        String host = url.substring(0, url.indexOf("/api/guest/" + proposalId + "/decline"));
         return Response.status(proposalService.setDeclineInvite(proposalId, host, loc)).build();
     }
 }

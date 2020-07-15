@@ -130,7 +130,7 @@ public class HostApiController {
             return Response.status(Response.Status.BAD_REQUEST).entity(NO_LANGUAGE_ERROR).build();
         Locale loc = new Locale(language);
         String url = request.getRequestURL().toString();
-        String host = url.substring(0, url.indexOf("api/host/" + proposalId + "/accept"));
+        String host = url.substring(0, url.indexOf("/api/host/" + proposalId + "/accept"));
         return Response.status(proposalService.setState(proposalId, ProposalState.ACCEPTED, host, loc)).build();
     }
 
@@ -143,7 +143,7 @@ public class HostApiController {
             return Response.status(Response.Status.BAD_REQUEST).entity(NO_LANGUAGE_ERROR).build();
         Locale loc = new Locale(language);
         String url = request.getRequestURL().toString();
-        String host = url.substring(0, url.indexOf("api/host/" + proposalId + "/decline"));
+        String host = url.substring(0, url.indexOf("/api/host/" + proposalId + "/decline"));
         return Response.status(proposalService.setState(proposalId, ProposalState.DECLINED, host, loc)).build();
     }
 }
