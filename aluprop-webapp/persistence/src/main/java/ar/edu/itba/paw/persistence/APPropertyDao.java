@@ -106,7 +106,7 @@ public class APPropertyDao implements PropertyDao {
 
     private <T> void addSearchParameters(SearchableProperty property, TypedQuery<T> query) {
         if(searchableDescription(property))
-            query.setParameter("description", MatchMode.ANYWHERE.toMatchString(property.getDescription()));
+            query.setParameter("description", MatchMode.ANYWHERE.toMatchString(property.getDescription().toLowerCase()));
         if(searchablePropertyType(property))
             query.setParameter("propertyType", propertyTypeFromSearchablePropertyType(property.getPropertyType()));
         if(searchableNeighbourhood(property))
