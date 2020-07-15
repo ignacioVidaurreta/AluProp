@@ -33,9 +33,16 @@ public class ImageApiController {
         return builder.build();
     }
 
+    @Path("/resize")
     @POST
-    public Response create(byte[] image) {
-        imageService.create(image);
+    public Response resize() {
+        imageService.resize();
         return Response.ok().build();
+    }
+
+    @Path("/check")
+    @GET
+    public Response checkAspectRatio() {
+        return Response.ok(imageService.checkAspectRatio()).build();
     }
 }

@@ -111,6 +111,8 @@ public class APPropertyService implements PropertyService {
                 notificationService.delete(n.getId());
             proposalDao.delete(p.getId());
         }
+        for (Image i : property.getImages())
+            imageDao.delete(i);
         propertyDao.delete(id);
         return HttpURLConnection.HTTP_OK;
     }

@@ -13,6 +13,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Collection;
 
 @Service
 public class APImageService implements ImageService {
@@ -29,11 +30,11 @@ public class APImageService implements ImageService {
 
     @Override
     public long create(byte[] image) {
-        image = crop(image);
+        image = resize(image);
         return imageDao.create(image);
     }
 
-    private byte[] crop(byte[] image) {
+    private byte[] resize(byte[] image) {
         try (InputStream in = new ByteArrayInputStream(image)) {
             BufferedImage original = ImageIO.read(in);
             double aspectRatio = ((double)original.getHeight())/original.getWidth();
@@ -51,5 +52,34 @@ public class APImageService implements ImageService {
 
         }
         return null;
+    }
+
+    @Override
+    public void resize() {
+        imageDao.getAll().stream()
+                        .map(i -> new Image(i.getId(), resize(i.getImage()), i.getProperty()))
+                        .forEach(imageDao::update);
+    }
+
+    @Override
+    public long checkAspectRatio() {
+        Collection<Image> images = imageDao.getAll();
+        for (Image i : images) {
+            int width = getWidth(i.getImage());
+            if (getWidth(i.getImage()) != WIDTH)
+                return i.getId();
+        }
+        return -1;
+    }
+
+    private int getWidth(byte[] image) {
+        try (InputStream in = new ByteArrayInputStream(image)) {
+            BufferedImage original = ImageIO.read(in);
+            return original.getWidth();
+        }
+        catch (Exception e) {
+
+        }
+        return -1;
     }
 }

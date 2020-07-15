@@ -26,6 +26,12 @@ public class Image {
         this.image = image;
     }
 
+    public Image(long id, byte[] image, Property property) {
+        this.id = id;
+        this.image = image;
+        this.property = property;
+    }
+
     public Image(byte[] image) {
         this.image = image;
     }
