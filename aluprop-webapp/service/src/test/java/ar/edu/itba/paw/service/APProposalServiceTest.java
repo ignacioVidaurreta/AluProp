@@ -101,8 +101,8 @@ public class APProposalServiceTest {
 
         Assert.assertEquals(HttpURLConnection.HTTP_NOT_FOUND, httpCode);
     }
-    */
 
+    /*
     @Test
     public void deleteReturnsOKWhenLoggedUserEqualsProposalCreatorTest(){
         User loggedUser = Factories.userCreator();
@@ -115,7 +115,7 @@ public class APProposalServiceTest {
 
         Assert.assertEquals(HttpURLConnection.HTTP_OK, httpCode);
     }
-
+    */
 
 
 

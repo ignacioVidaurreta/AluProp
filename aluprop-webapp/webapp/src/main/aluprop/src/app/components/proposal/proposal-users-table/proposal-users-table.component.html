@@ -41,4 +41,5 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns;" [routerLink]="['/user/' + row.user.id]"></tr>
 
   </table>
+  <mat-progress-bar *ngIf="!responseData" mode="indeterminate"></mat-progress-bar>
 </div>

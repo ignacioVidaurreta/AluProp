@@ -83,4 +83,7 @@
     </mat-card-content>
   </mat-card>
 </div>
+<div *ngIf="!proposal || !currentUser" style="display: flex;justify-content: center;height: 100%">
+  <mat-spinner style="align-self: center;margin-top:20%"></mat-spinner>
+</div>
 

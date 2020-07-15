@@ -45,7 +45,7 @@ import java.util.Properties;
 @ComponentScan({ "ar.edu.itba.paw.webapp.controller",
                 "ar.edu.itba.paw.persistence",
                 "ar.edu.itba.paw.service",
-        "ar.edu.itba.paw.webapp.helper_classes",
+                "ar.edu.itba.paw.webapp.helper_classes",
                 "ar.edu.itba.paw.webapp.config.handler" })
 @PropertySource("classpath:application.properties")
 @Configuration

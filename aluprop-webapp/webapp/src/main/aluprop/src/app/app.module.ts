@@ -39,6 +39,7 @@ import { TokenInterceptor } from './services/token-interceptor';
 import { ErrorComponent } from './components/error/error.component';
 import {MatBadgeModule} from "@angular/material/badge";
 import {MatChipsModule} from "@angular/material/chips";
+import {MatProgressBarModule} from "@angular/material/progress-bar";
 
 @NgModule({
   schemas: [ CUSTOM_ELEMENTS_SCHEMA],
@@ -66,28 +67,29 @@ import {MatChipsModule} from "@angular/material/chips";
     CreateProposalModalComponent,
     ErrorComponent,
   ],
-    imports: [
-        BrowserModule,
-        BrowserAnimationsModule,
-        AppRoutingModule,
-        BrowserAnimationsModule,
-        FormsModule,
-        ReactiveFormsModule,
-        HttpClientModule,
-        MaterialModule,
-        TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useFactory: HttpLoaderFactory,
-                deps: [HttpClient]
-            }
-        }),
-        NgbModule,
-        MatTabsModule,
-        MatDialogModule,
-        MatBadgeModule,
-        MatChipsModule
-    ],
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    MaterialModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    }),
+    NgbModule,
+    MatTabsModule,
+    MatDialogModule,
+    MatBadgeModule,
+    MatChipsModule,
+    MatProgressBarModule
+  ],
   exports: [
     FormsModule,
     MaterialModule

@@ -62,7 +62,7 @@ public class AuthController {
         Either<User, List<String>> maybeUser = userService.CreateUser(buildUserFromForm(signUpForm),
                 loc,
                 getBaseUrl(request.getRequestURL().toString(),
-                        "/auth/signup"));
+                        "api/auth/signup"));
         if(!maybeUser.hasValue()) {
             logger.debug("NOT A UNIQUE EMAIL");
             return Response.status(Response.Status.BAD_REQUEST).entity("Username already exists").build();
