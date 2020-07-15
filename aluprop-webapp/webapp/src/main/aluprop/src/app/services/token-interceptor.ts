@@ -12,18 +12,21 @@ import { AuthenticationService } from './authentication.service';
 import {Observable, EMPTY, throwError} from 'rxjs';
 import { tap, filter, catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import {TranslateService} from "@ngx-translate/core";
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
 
   constructor(private authService: AuthenticationService,
+              private translateService: TranslateService,
               private router: Router) { }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     if (this.authService.getAuthToken()){
       request = request.clone({
         setHeaders: {
-          Authorization: `Bearer ${this.authService.getAuthToken()}`
+            "Authorization": `Bearer ${this.authService.getAuthToken()}`,
+            "Accept-Language": `${this.translateService.currentLang}`
         }
       });
     }
