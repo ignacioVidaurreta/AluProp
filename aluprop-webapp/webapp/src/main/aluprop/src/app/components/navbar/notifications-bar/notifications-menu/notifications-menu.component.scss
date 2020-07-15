@@ -56,13 +56,13 @@ a {
 }
 
 
-::ng-deep .mat-list .mat-list-item .mat-line{
+:host ::ng-deep .mat-list .mat-list-item .mat-line{
   word-wrap: break-word;
   white-space: pre-wrap;
   padding: 8px 4px;
 }
 
-::ng-deep  .mat-list .mat-list-item{
+:host ::ng-deep  .mat-list .mat-list-item{
   height:initial!important;
 }
 
@@ -74,7 +74,7 @@ a {
   background-color: #fffecc !important;
 }
 
-::ng-deep .mat-list-item-content {
+:host ::ng-deep .mat-list-item-content {
   padding-top: 8px;
   padding-bottom: 8px;
 }

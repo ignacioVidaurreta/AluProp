@@ -7,11 +7,11 @@ mat-toolbar-row{
   align-content: space-between;
 }
 
-::ng-deep .aluprop-logo-container .mat-button-focus-overlay {
+:host ::ng-deep .aluprop-logo-container .mat-button-focus-overlay {
   background: none;
 }
 
-::ng-deep .mat-form-field-appearance-legacy.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label {
+:host ::ng-deep .mat-form-field-appearance-legacy.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label {
   transform: translateY(-0.8em) scale(0.75) perspective(100px) translateZ(0.001px);
 }
 

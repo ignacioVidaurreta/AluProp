@@ -27,7 +27,7 @@ h3 {
   font-weight: 300;
 }
 
-::ng-deep .mat-form-field-wrapper {
+:host ::ng-deep .mat-form-field-wrapper {
   width: 100%;
 }
 

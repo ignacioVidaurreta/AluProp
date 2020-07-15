@@ -2,7 +2,7 @@
   font-size: 15px;
 }
 
-::ng-deep .wide-form-field {
+:host ::ng-deep .wide-form-field {
   width: 100%;
 }
 
@@ -16,7 +16,7 @@ mat-form-field{
   display:flex;
 }
 
-::ng-deep .mat-form-field-wrapper {
+:host ::ng-deep .mat-form-field-wrapper {
   width: 100% !important;
 }
 
