@@ -80,7 +80,7 @@
             </mat-select>
           </mat-form-field>
 
-          <form-field class="form-group">
+          <div class="form-group">
             <p translate>create-property.upload-up-to-4-pictures</p>
             <!-- <app-file-uploader (fileSelected)="detectFiles($event)"></app-file-uploader> -->
             <div class="image-container">
@@ -95,7 +95,7 @@
             </div>
             <mat-error class="pictures-error" *ngIf="notEnoughFiles"><span translate>create-property.error-msg.notEnoughPictures</span></mat-error>
             <mat-error class="pictures-error" *ngIf="tooManyFiles"><span translate>create-property.error-msg.tooManyPictures</span></mat-error>
-          </form-field>
+          </div>
 
 
         </div>
