@@ -1,4 +1,4 @@
-<div *ngIf="dataSource else empty" class="mat-elevation-z8">
+<div *ngIf="dataSource" class="mat-elevation-z8">
   <table mat-table [dataSource]="dataSource">
 
     <!-- Name Column -->
@@ -24,17 +24,19 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns;" [routerLink]="['/property/' + row.id]"></tr>
   </table>
 
+  <div *ngIf="responseData?.length == 0">
+    <div style="margin: 12px;text-align: center">
+    <p translate>properties-table.no-properties</p>
+    <a [routerLink]="['/host/create']"><span translate>properties-table.publish-a-property</span></a>
+    </div>
+    <mat-divider></mat-divider>
+  </div>
+
+  <mat-progress-bar *ngIf="!responseData" mode="indeterminate"></mat-progress-bar>
+
   <mat-paginator [length]="totalItems"
                  [pageSize]="pageSize"
                  [pageSizeOptions]="[5, 10, 25, 100]"
                  (page)="onPageChange($event)" showFirstLastButtons></mat-paginator>
 </div>
-<ng-template #empty>
-  <mat-card class="mat-elevation-z8">
-    <mat-card-subtitle style="font-size: 12px;font-weight: 500;" translate>properties-table.properties</mat-card-subtitle>
-    <mat-card-content>
-      <p translate>properties-table.no-properties</p>
-      <a [routerLink]="['/host/create']"><span translate>properties-table.publish-a-property</span></a>
-    </mat-card-content>
-  </mat-card>
-</ng-template>
+
