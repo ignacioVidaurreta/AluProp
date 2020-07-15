@@ -7,15 +7,16 @@ import ar.edu.itba.paw.model.enums.ProposalState;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Locale;
 
 public interface ProposalService {
-    Either<Proposal, String> createProposal(long propertyId, long[] userIds);
-    int delete(long id);
+    Either<Proposal, String> createProposal(long propertyId, long[] userIds, String url, Locale loc);
+    int delete(long id, String url, Locale loc);
     Proposal get(long id);
     Proposal getWithRelatedEntities(long id);
     Collection<Proposal> getAllProposalForUserId(long id);
-    int setAcceptInvite(long proposalId);
-    int setDeclineInvite(long proposalId);
-    int setState(long proposalId, ProposalState state);
+    int setAcceptInvite(long proposalId, String url, Locale loc);
+    int setDeclineInvite(long proposalId, String ulr, Locale loc);
+    int setState(long proposalId, ProposalState state, String url, Locale loc);
     Collection<Proposal> getProposalsForOwnedProperties(User profileUser);
 }

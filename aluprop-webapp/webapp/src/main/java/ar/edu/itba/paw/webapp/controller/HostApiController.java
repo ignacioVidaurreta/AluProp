@@ -18,11 +18,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.*;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.io.IOException;
 import java.util.Collection;
+import java.util.Locale;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.json.JSONObject;
@@ -30,6 +33,8 @@ import org.json.JSONObject;
 @Path("host")
 @Produces(MediaType.APPLICATION_JSON)
 public class HostApiController {
+
+    private static final String NO_LANGUAGE_ERROR = "This endpoint requires a language";
 
     @Autowired
     UserService userService;
@@ -118,13 +123,27 @@ public class HostApiController {
 
     @Path("{proposalId}/accept")
     @POST
-    public Response accept(@PathParam("proposalId") long proposalId) {
-        return Response.status(proposalService.setState(proposalId, ProposalState.ACCEPTED)).build();
+    public Response accept(@PathParam("proposalId") long proposalId,
+                           @Context HttpServletRequest request) {
+        final String language = request.getHeader("Accept-Language");
+        if (language == null)
+            return Response.status(Response.Status.BAD_REQUEST).entity(NO_LANGUAGE_ERROR).build();
+        Locale loc = new Locale(language);
+        String url = request.getRequestURL().toString();
+        String host = url.substring(0, url.indexOf("api/host/" + proposalId + "/accept"));
+        return Response.status(proposalService.setState(proposalId, ProposalState.ACCEPTED, host, loc)).build();
     }
 
     @Path("{proposalId}/decline")
     @POST
-    public Response decline(@PathParam("proposalId") long proposalId) {
-        return Response.status(proposalService.setState(proposalId, ProposalState.DECLINED)).build();
+    public Response decline(@PathParam("proposalId") long proposalId,
+                            @Context HttpServletRequest request) {
+        final String language = request.getHeader("Accept-Language");
+        if (language == null)
+            return Response.status(Response.Status.BAD_REQUEST).entity(NO_LANGUAGE_ERROR).build();
+        Locale loc = new Locale(language);
+        String url = request.getRequestURL().toString();
+        String host = url.substring(0, url.indexOf("api/host/" + proposalId + "/decline"));
+        return Response.status(proposalService.setState(proposalId, ProposalState.DECLINED, host, loc)).build();
     }
 }

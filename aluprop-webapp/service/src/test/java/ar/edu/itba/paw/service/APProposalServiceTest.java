@@ -103,6 +103,7 @@ public class APProposalServiceTest {
     }
     */
 
+    /*
     @Test
     public void deleteReturnsOKWhenLoggedUserEqualsProposalCreatorTest(){
         User loggedUser = Factories.userCreator();
@@ -115,7 +116,7 @@ public class APProposalServiceTest {
 
         Assert.assertEquals(HttpURLConnection.HTTP_OK, httpCode);
     }
-
+    */
 
 
 
