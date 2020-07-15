@@ -36,10 +36,10 @@ export class ProfileComponent implements OnInit {
     });
   }
 
-  constructor( private cdr: ChangeDetectorRef, 
+  constructor( private cdr: ChangeDetectorRef,
               private _snackBar: MatSnackBar,
-              private userService: UserService, 
-              private route: ActivatedRoute, 
+              private userService: UserService,
+              private route: ActivatedRoute,
               private router: Router,
               private authenticationService: AuthenticationService) {
     this.deletionParamsSub = route.queryParams.pipe(
@@ -47,6 +47,7 @@ export class ProfileComponent implements OnInit {
     ).subscribe((params)=>{
       if(params.deletion == 'SUCCESSFUL')
         this.openSnackBar();
+      this.userId = +this.route.snapshot.paramMap.get("id");
       this.createPageSubscription();
     });
   }
