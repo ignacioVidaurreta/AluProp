@@ -13,7 +13,8 @@ import {ErrorComponent} from "./components/error/error.component";
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
-  { path:'login', component: LoginComponent},
+  { path:'login', 
+    loadChildren: () => import('./components/login/login.module').then(mod => mod.LoginModule)},
   { path:'register', component: RegisterComponent},
   { path:'host/create', component: CreatePropertyComponent},
   {

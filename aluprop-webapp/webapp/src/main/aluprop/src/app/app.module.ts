@@ -46,7 +46,6 @@ import {MatChipsModule} from "@angular/material/chips";
     AppComponent,
     NavbarComponent,
     HomeComponent,
-    LoginComponent,
     PropertyGridComponent,
     PropertyItemComponent,
     RegisterComponent,
