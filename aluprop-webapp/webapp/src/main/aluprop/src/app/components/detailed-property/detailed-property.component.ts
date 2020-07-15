@@ -83,7 +83,6 @@ export class DetailedPropertyComponent implements OnInit {
   createPageSubscription() {
     this.propertySub = this.propertyService.getById(this.propertyId).subscribe((property) => {
       this.property = property;
-      console.log(property);
       this.translateRulesAndServices();
       this.fetchPropertyImages();
       this.currentUserSub = this.authenticationService.getCurrentUser().subscribe((currentUser)=> {
@@ -94,7 +93,6 @@ export class DetailedPropertyComponent implements OnInit {
         var index = interestedUsers.map(function(user) { return user?.id; }).indexOf(this.currentUser?.id);
         interestedUsers.splice(index,1);
         this.interestedUsersWithoutCurrentUser = interestedUsers;
-        console.log(this.interestedUsersWithoutCurrentUser);
         });
         if(this.currentUser?.role == 'ROLE_GUEST') {
           this.currentUserIsInterestedSub = this.propertyService.isCurrentUserInterested(this.propertyId).subscribe((currentUserIsInterested) => {

@@ -17,6 +17,7 @@ import ar.edu.itba.paw.model.enums.PropertyOrder;
 import ar.edu.itba.paw.model.enums.PropertyType;
 
 import org.hibernate.annotations.common.util.impl.LoggerFactory;
+import org.hibernate.criterion.MatchMode;
 import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -104,10 +105,8 @@ public class APPropertyDao implements PropertyDao {
     }
 
     private <T> void addSearchParameters(SearchableProperty property, TypedQuery<T> query) {
-        if(searchableDescription(property)) {
-            String description = "%" + property.getDescription().toLowerCase() + "%";
-            query.setParameter("description", description);
-        }
+        if(searchableDescription(property))
+            query.setParameter("description", MatchMode.ANYWHERE.toMatchString(property.getDescription()));
         if(searchablePropertyType(property))
             query.setParameter("propertyType", propertyTypeFromSearchablePropertyType(property.getPropertyType()));
         if(searchableNeighbourhood(property))

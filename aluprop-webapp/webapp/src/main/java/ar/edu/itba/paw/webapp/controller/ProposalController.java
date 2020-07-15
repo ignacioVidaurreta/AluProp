@@ -7,9 +7,7 @@ import ar.edu.itba.paw.model.User;
 import ar.edu.itba.paw.model.UserProposal;
 import ar.edu.itba.paw.model.enums.UserProposalState;
 import ar.edu.itba.paw.webapp.form.FilteredSearchForm;
-import ar.edu.itba.paw.webapp.helperClasses.ModelAndViewPopulator;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import ar.edu.itba.paw.webapp.helper_classes.ModelAndViewPopulator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -19,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
-import java.net.URI;
 
 @Controller
 @RequestMapping("/proposal")

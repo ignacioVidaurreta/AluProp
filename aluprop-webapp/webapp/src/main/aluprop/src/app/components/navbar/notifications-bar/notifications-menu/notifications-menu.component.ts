@@ -52,17 +52,15 @@ export class NotificationsMenuComponent implements OnInit {
     if (!this.notifications){
       return;
     }
-    console.log(this.notifications);
     this.notifications.forEach((notification) => {
       let propertyName: string;
       propertyName = notification.proposal.property.description;
-      this.translateService.get(notification.subjectCode, {propertyName: propertyName}).pipe(take(1)).subscribe((value) => {console.log(value);notification.translatedSubject = value});
+      this.translateService.get(notification.subjectCode, {propertyName: propertyName}).pipe(take(1)).subscribe((value) => notification.translatedSubject = value);
       this.translateService.get(notification.textCode + ".text").pipe(take(1)).subscribe((value) => notification.translatedText = value);
     })
   }
 
   markRead(notification: Notification) {
-    console.log(notification);
     this.notificationService.changeNotificationState(notification.id).subscribe(
       () => {
         this.readNotification.emit();
@@ -81,11 +79,9 @@ export class NotificationsMenuComponent implements OnInit {
       obs.push(this.notificationService.changeNotificationState(notification.id));
     })
     forkJoin(obs).subscribe(() => {
-      console.log('inside fork join');
       this.readNotification.emit();
       this.onPageChange();
       this.notificationService.unreadNotifications = this.notifications;
-      console.log(this.notificationService.unreadNotifications);
       this.router.navigate(['/notifications']);
     })
   }

@@ -1,41 +1,27 @@
 package ar.edu.itba.paw.webapp.controller;
 
-import ar.edu.itba.paw.interfaces.Either;
 import ar.edu.itba.paw.interfaces.service.*;
 import ar.edu.itba.paw.model.Property;
 import ar.edu.itba.paw.model.Proposal;
 import ar.edu.itba.paw.model.User;
-import ar.edu.itba.paw.model.enums.Gender;
-import ar.edu.itba.paw.model.enums.Role;
-import ar.edu.itba.paw.model.exceptions.IllegalUserStateException;
 import ar.edu.itba.paw.webapp.form.FilteredSearchForm;
 import ar.edu.itba.paw.webapp.form.SignUpForm;
-import ar.edu.itba.paw.webapp.helperClasses.ModelAndViewPopulator;
+import ar.edu.itba.paw.webapp.helper_classes.ModelAndViewPopulator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.support.PagedListHolder;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.WebAuthenticationDetails;
-import org.springframework.security.web.savedrequest.SavedRequest;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Locale;
 
 @Controller
 @RequestMapping("/user")

@@ -46,10 +46,8 @@ export class NotificationsComponent implements OnInit {
   }
 
   createPageSubscription() {
-    console.log("Creating sub");
     this.notificationsSub = this.notificationService.getAll(this.pageRequest).subscribe((pageResponse) => {
       this.notifications = pageResponse.responseData;
-      console.log(pageResponse);
       this.dataSource = new MatTableDataSource<Notification>(pageResponse.responseData);
       this.totalItems = pageResponse.totalItems;
       this.pageSize = pageResponse.pageSize;
@@ -83,7 +81,6 @@ export class NotificationsComponent implements OnInit {
   }
 
   navigateTo(link: string) {
-    console.log(link);
     this.router.navigate([link]);
   }
 

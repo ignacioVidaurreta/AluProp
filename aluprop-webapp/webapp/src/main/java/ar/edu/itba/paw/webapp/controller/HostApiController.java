@@ -72,7 +72,7 @@ public class HostApiController {
         try {
             Property property = createProperty(new ObjectMapper().readValue(new JSONObject(requestBody).toString(),
                                                                             PropertyDto.class));
-            return Response.ok(property).build();
+            return Response.ok(PropertyDto.fromProperty(property)).build();
         } catch (IOException | IllegalPropertyStateException e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
         }
@@ -81,7 +81,8 @@ public class HostApiController {
 
     private Property createProperty(PropertyDto propertyDto) {
         createImages(propertyDto);
-        Property property = propertyDto.toProperty(userService.getCurrentlyLoggedUser());
+        long userId = userService.getCurrentlyLoggedUser().getId();
+        Property property = propertyDto.toProperty(userService.getWithRelatedEntities(userId));
         Either<Property, Collection<String>> maybeProperty = propertyService.create(property);
         if (!maybeProperty.hasValue())
             throw new IllegalPropertyStateException(maybeProperty.alternative().toString());

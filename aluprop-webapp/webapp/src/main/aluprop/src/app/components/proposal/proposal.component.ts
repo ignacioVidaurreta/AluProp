@@ -57,7 +57,6 @@ export class ProposalComponent implements OnInit {
 
   createPageSubscription() {
     this.proposalSub = this.proposalService.getById(this.proposalId).subscribe((proposal) => {
-      console.log(proposal);
       this.proposal = proposal;
       this.fetchPropertyImage();
       this.currentUserSub = this.authenticationService.getCurrentUser().subscribe((currentUser)=> {
@@ -67,7 +66,6 @@ export class ProposalComponent implements OnInit {
             this.budget = userInfo.budget;
             this.isInvited = userInfo.isInvited;
             this.hasReplied = userInfo.hasReplied;
-            console.log(userInfo);
           });
         }
       });

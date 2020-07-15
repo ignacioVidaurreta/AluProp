@@ -36,18 +36,14 @@ export class PropertyService {
 
   search(pageRequest: PageRequest, searchParams: any){
     let params = {pageSize: String(pageRequest.pageSize), pageNumber: String(pageRequest.pageNumber), ...searchParams};
-    console.log(params);
     return this.http.get<PageResponse<Property>>(BASE_API_URL + 'property/search/', {params: params});
   }
 
   getById(id: number): Observable<Property>{
-    console.log(BASE_API_URL_PROPERTY+id);
     return this.http.get<Property>(BASE_API_URL_PROPERTY+id);
   }
 
   publishProperty(property: Property): Observable<Property> {
-    console.log('Posting property:');
-    console.log(property);
     return this.http.post<Property>(BASE_API_URL + 'host/createProperty/', property);
   }
 
@@ -60,26 +56,18 @@ export class PropertyService {
   }
 
   changePropertyAvailability(propertyId: number) {
-    console.log('Pausing property:');
-    console.log(propertyId);
     return this.http.post(BASE_API_URL + 'host/changeStatus/' + propertyId, {});
   }
 
   markInterest(propertyId: number) {
-    console.log('Marking interest:');
-    console.log(propertyId);
     return this.http.post(BASE_API_URL + 'guest/' + propertyId + '/interested', {});
   }
 
   markUninterest(propertyId: number) {
-    console.log('Marking uninterest:');
-    console.log(propertyId);
     return this.http.post(BASE_API_URL + 'guest/' + propertyId + '/uninterested', {});
   }
 
   deleteProperty(propertyId: number) {
-    console.log('Deleting property:');
-    console.log(propertyId);
     return this.http.post(BASE_API_URL + 'host/delete/' + propertyId, {});
   }
 

@@ -49,7 +49,6 @@ export class PropertiesTableComponent implements OnInit {
 
   createPageSubscription(){
     this.ownedPropertiesSub = this.userService.getAllOwnedProperties(this.pageRequest).subscribe((pageResponse) => {
-      console.log(pageResponse);
       this.dataSource = new MatTableDataSource<Property>(pageResponse.responseData);
       this.totalItems = pageResponse.totalItems;
       this.pageSize = pageResponse.pageSize;

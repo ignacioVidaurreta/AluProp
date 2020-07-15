@@ -54,18 +54,14 @@ export class ProposalsTableComponent implements OnInit {
 
   createPageSubscription(){
     if(this.userRole == "ROLE_GUEST") {
-      console.log(this.pageRequest);
       this.proposalsSub = this.userService.getAllProposalsFromUserProposals(this.pageRequest).subscribe((pageResponse) => {
-        console.log(pageResponse);
         this.dataSource = new MatTableDataSource<Proposal>(pageResponse.responseData);
         this.totalItems = pageResponse.totalItems;
         this.pageSize = pageResponse.pageSize;
       });
     }
     else {
-      console.log(this.pageRequest);
       this.proposalsSub = this.userService.getAllProposals(this.pageRequest).subscribe((pageResponse) => {
-        console.log(pageResponse);
         this.dataSource = new MatTableDataSource<Proposal>(pageResponse.responseData);
         this.totalItems = pageResponse.totalItems;
         this.pageSize = pageResponse.pageSize;

@@ -59,10 +59,8 @@ export class ProposalUsersTableComponent implements OnInit {
 
   createPageSubscription(){
     this.userProposalsSub = this.proposalService.getAllUserProposals(this.proposalId).subscribe((userProposals) => {
-      console.log(userProposals);
       this.userProposals = userProposals;
       this.creatorSub = this.proposalService.getCreatorUserProposal(this.proposalId).subscribe((creatorUserProposal) => {
-        console.log(creatorUserProposal);
         this.creatorUserProposal= creatorUserProposal;
         this.dataSource = new MatTableDataSource<UserProposal>([this.creatorUserProposal].concat(this.userProposals));
       });

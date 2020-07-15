@@ -28,7 +28,6 @@ export class SearchBarComponent implements OnInit {
                             elem.classList?.contains('cdk-overlay-backdrop')||
                             elem.innerHTML === 'search').length === 0){
       this.showFilters = false;
-      
     }
   }
 

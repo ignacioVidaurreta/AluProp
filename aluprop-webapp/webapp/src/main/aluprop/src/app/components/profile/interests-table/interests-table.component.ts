@@ -47,7 +47,6 @@ export class InterestsTableComponent implements OnInit {
 
   createPageSubscription(){
     this.interestedPropertiesSub = this.userService.getAllInterestedProperties(this.pageRequest).subscribe((pageResponse) => {
-      console.log(pageResponse);
       this.dataSource = new MatTableDataSource<Property>(pageResponse.responseData);
       this.totalItems = pageResponse.totalItems;
       this.pageSize = pageResponse.pageSize;

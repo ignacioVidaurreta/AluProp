@@ -1,13 +1,12 @@
 package ar.edu.itba.paw.webapp.controller;
 
 import ar.edu.itba.paw.interfaces.Either;
-import ar.edu.itba.paw.interfaces.service.JwtService;
 import ar.edu.itba.paw.interfaces.service.UserService;
 import ar.edu.itba.paw.model.User;
 import ar.edu.itba.paw.model.enums.Gender;
 import ar.edu.itba.paw.model.enums.Role;
 import ar.edu.itba.paw.webapp.form.SignUpForm;
-import ar.edu.itba.paw.webapp.helperClasses.JwtTokenHandler;
+import ar.edu.itba.paw.webapp.helper_classes.JwtTokenHandler;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
