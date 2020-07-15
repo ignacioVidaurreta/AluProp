@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild, ElementRef, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 import {Subject} from "rxjs";
+import { filter } from 'rxjs/operators';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-search-bar',
@@ -10,7 +12,7 @@ import {Subject} from "rxjs";
 export class SearchBarComponent implements OnInit {
 
   showFilters = false;
-  searchFilters: any;
+  filterForm: FormGroup;
   resetFilters: Subject<void> = new Subject<void>();
 
   @ViewChild('searchInput') searchInput: ElementRef;
@@ -18,19 +20,21 @@ export class SearchBarComponent implements OnInit {
 
   @HostListener('document:click', ['$event'])
   onDocumentClick(event) {
+    // console.log(event.path);
     if (this.showFilters === true && event.path.filter(
-        (elem)=> elem.id === 'toggle-filters' ||
+        (elem) => elem.id === 'toggle-filters' ||
                             elem.id === 'filters' ||
-                            elem.classList?.contains('filter-select-option')).length !== 1){
+                            elem.classList?.contains('filter-select-option')||
+                            elem.classList?.contains('cdk-overlay-backdrop')||
+                            elem.innerHTML === 'search').length === 0){
       this.showFilters = false;
-      console.log('dsfdsf');
+      
     }
   }
 
   constructor(private router: Router) { }
 
   ngOnInit(): void {
-    this.searchFilters = {};
     // setInterval(()=>console.log(this.showFilters), 10);
   }
 
@@ -39,16 +43,26 @@ export class SearchBarComponent implements OnInit {
   }
 
   search(){
-    this.showFilters = false;
-    this.searchFilters.description = this.searchInput.nativeElement.value;
-    this.router.navigate(['/'], { queryParams: this.searchFilters});
-    this.searchInput.nativeElement.value = "";
-    this.searchInput.nativeElement.blur();
-    this.resetFilters.next();
+    if (!this.filterForm && !this.searchInput.nativeElement.value){
+      console.log(this.filterForm);
+      console.log(this.searchInput.nativeElement.value);
+      return;
+    }
+    const searchFilters: any = {};
+    searchFilters.description = this.searchInput.nativeElement.value;
+    Object.assign(searchFilters, this.deleteEmptyElements(this.filterForm.value));
+    
+    if (this.filterForm.valid){
+      this.router.navigate(['/'], { queryParams: searchFilters});
+      this.searchInput.nativeElement.value = "";
+      this.searchInput.nativeElement.blur();
+      this.resetFilters.next();
+      this.showFilters = false;
+    }
   }
 
-  setSearchFilters(filters: any){
-    this.searchFilters = this.deleteEmptyElements(filters);
+  setFilterForm(filterForm: FormGroup){
+    this.filterForm = filterForm; //this.searchFilters, this.deleteEmptyElements(filters));
   }
 
   deleteEmptyElements(params: any = {}) {

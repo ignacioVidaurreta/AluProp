@@ -35,16 +35,18 @@ export class SearchFiltersComponent implements OnInit, OnDestroy {
     propertyType: new FormControl(''),
     neighborhood: new FormControl(''),
     privacy: new FormControl(''),
-    maxCapacity: new FormControl('', [Validators.pattern('[0-9]*')]),
-    minPrice: new FormControl('', [Validators.pattern('[0-9]*')]),
-    maxPrice: new FormControl('', [Validators.pattern('[0-9]*')]),
+    maxCapacity: new FormControl('', [Validators.pattern('[0-9]*'), Validators.min(1)]),
+    minPrice: new FormControl('', [Validators.pattern('[0-9]*'), Validators.min(0)]),
+    maxPrice: new FormControl('', [Validators.pattern('[0-9]*'), Validators.min(0)]),
     rules: new FormControl(this.rules),
     services: new FormControl(this.services)
   });
   formChangesSub: Subscription;
 
   @Output()
-  filters = new EventEmitter();
+  filterFormEmit = new EventEmitter();
+  @Output()
+  hasErrors = new EventEmitter();
 
   constructor(translateService: TranslateService, private metadataService: MetadataService) {
     this.languageChangedSub = translateService.onLangChange.subscribe((newLang) => this.translateRulesAndServices());
@@ -56,7 +58,7 @@ export class SearchFiltersComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.formChangesSub = this.filterForm.valueChanges.subscribe((filters) => this.filters.emit(filters));
+    this.formChangesSub = this.filterForm.valueChanges.subscribe((filters) => this.filterFormEmit.emit(this.filterForm));
     this.rulesSub = this.metadataService.getAllRules().subscribe((rules) => {
       this.rules = rules;
       this.translateRulesAndServices();

@@ -87,8 +87,8 @@ export class PropertyGridComponent implements OnInit, OnDestroy {
       filter((params) => Object.keys(params).length !== 0)
     ).subscribe((params)=>{
       this.searchParams = params;
-      console.log(this.searchParams);
-      console.log('CreaingPageSubscription');
+      // console.log(this.searchParams);
+      // console.log('CreaingPageSubscription');
       this.createPageSubscription();
     });
   }
@@ -127,16 +127,16 @@ export class PropertyGridComponent implements OnInit, OnDestroy {
       this.rulesSub = this.metadataService.getAllRules().subscribe((rules) => {
         this.rules = rules;
         this.translateRulesAndServices();
-        console.log(this.rules);
+        // console.log(this.rules);
       });
       this.servicesSub = this.metadataService.getAllServices().subscribe((services) => {
         this.services = services;
         this.translateRulesAndServices();
-        console.log(this.services);
+        // console.log(this.services);
       });
       this.neighborhoodsSub = this.metadataService.getAllNeighborhoods().subscribe((neighborhoods) => {
         this.neighborhoods = neighborhoods;
-        console.log(this.neighborhoods);
+        // console.log(this.neighborhoods);
       });
     }
     else {
