@@ -13,6 +13,8 @@
     <tr mat-row  [ngClass]="(checkUnread(row.id)) ? 'unread' : ''" *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
 
+  <mat-progress-bar *ngIf="!notifications" mode="indeterminate"></mat-progress-bar>
+
   <mat-paginator [length]="totalItems"
                  [pageSize]="pageSize"
                  [pageSizeOptions]="[5, 10, 25, 100]"
