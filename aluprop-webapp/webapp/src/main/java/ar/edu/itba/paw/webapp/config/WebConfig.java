@@ -104,6 +104,7 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addResourceHandler("/assets/json/**").addResourceLocations("/angular/assets/json/");
         registry.addResourceHandler("/assets/i18n/**").addResourceLocations("/angular/assets/i18n/");
         registry.addResourceHandler("/**.js").addResourceLocations("/angular/");
+        registry.addResourceHandler("/**.css").addResourceLocations("/angular/");
         registry.addResourceHandler("/favicon.ico").addResourceLocations("/angular/favicon.ico");
         registry.addResourceHandler("/index.html").addResourceLocations("/angular/index.html");
     }
