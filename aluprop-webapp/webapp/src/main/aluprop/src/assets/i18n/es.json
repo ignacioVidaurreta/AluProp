@@ -60,8 +60,7 @@
     "login": "Iniciar sesión",
     "hi": "Hola, {{name}}!",
     "logout": "Cerrar sesión",
-    "publish-a-property": "Publicar una propiedad",
-    "publishing-a-property": "Publicando"
+    "publish-a-property": "Publicar una propiedad"
   },
   "notifications": {
     "notifications": "Notificationes",
@@ -176,6 +175,7 @@
   },
   "create-property": {
     "publish-a-property": "Publicar una propiedad",
+    "publishing-a-property": "Publicando",
     "upload-up-to-4-pictures": "Subir hasta 4 imágenes de la propiedad",
     "complete-property-info": "Completar información de la propiedad",
     "pictures-to-upload": "Seleccionar imágenes:",
