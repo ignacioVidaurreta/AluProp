@@ -41,7 +41,7 @@ db.password = _database_password_
 
 db.name = _name_of_your_database
 
-rememberme.key = _string_for_spring_security_remember_me_key_
+jwt.secret = _string_for_jwt_secret_
 
 this last one can be any value you choose. However, in production it should be set to a sufficiently long randomly generated string to ensure safety. The file itself should be put in the persistence module under src/main/resources.
 
