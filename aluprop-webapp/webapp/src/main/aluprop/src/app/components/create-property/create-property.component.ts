@@ -121,7 +121,7 @@ export class CreatePropertyComponent implements OnInit {
   }
 
   publishProperty(){
-    if (!this.createPropertyForm.valid)
+    if (!this.createPropertyForm.valid || this.currentlyUploadedImages.length === 0)
       return;
     this.generatePropertyFromForm();
     this.publishPropertySub = this.propertyService.publishProperty(this.createdProperty).subscribe(

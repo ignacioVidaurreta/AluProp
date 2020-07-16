@@ -89,7 +89,7 @@
                 <img class="preview-image" [src]="domSanitizer.bypassSecurityTrustUrl(image)"/>
               </div>
             </div>
-            <div class="upload-button">
+            <div class="upload-button" [hidden]="currentlyUploadedImages.length >= 4">
               <div class="upload-button-image">+</div>
               <input class="image-uploader" formControlName="pictures" type="file" multiple accept="image/x-png,image/jpeg" (change)="detectFiles($event)">
             </div>
