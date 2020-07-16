@@ -15,6 +15,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.core.io.Resource;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.ByteArrayHttpMessageConverter;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -105,7 +106,7 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addViewController("/login/").setViewName("forward:/index.html");
         registry.addViewController("/register").setViewName("forward:/index.html");
         registry.addViewController("/register/").setViewName("forward:/index.html");
-
+        registry.addViewController("/error/404").setViewName("forward:/index.html");
     }
 
     @Override

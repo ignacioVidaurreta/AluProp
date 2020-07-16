@@ -15,7 +15,6 @@ public class ErrorController {
     }
 
     private int getErrorCode(HttpServletRequest request) {
-        return (Integer) request
-                .getAttribute("javax.servlet.error.status_code");
+        return (Integer) request.getAttribute("javax.servlet.error.status_code");
     }
 }
