@@ -7,6 +7,7 @@ import ar.edu.itba.paw.interfaces.dao.NotificationDao;
 import ar.edu.itba.paw.interfaces.service.NotificationService;
 import ar.edu.itba.paw.interfaces.service.UserService;
 import ar.edu.itba.paw.model.Notification;
+import ar.edu.itba.paw.model.Proposal;
 import ar.edu.itba.paw.model.User;
 import ar.edu.itba.paw.model.enums.NotificationState;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -98,5 +99,10 @@ public class APNotificationService implements NotificationService {
     @Override
     public void delete(long id) {
         notificationDao.delete(id);
+    }
+
+    @Override
+    public Collection<Notification> getForUserWithProposal(User u, Proposal proposal) {
+        return notificationDao.getUnreadForUserWithProposal(u, proposal);
     }
 }

@@ -4,6 +4,8 @@ import ar.edu.itba.paw.interfaces.PageRequest;
 import ar.edu.itba.paw.interfaces.Paginator;
 import ar.edu.itba.paw.interfaces.dao.NotificationDao;
 import ar.edu.itba.paw.model.Notification;
+import ar.edu.itba.paw.model.Proposal;
+import ar.edu.itba.paw.model.User;
 import ar.edu.itba.paw.model.enums.NotificationState;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -82,5 +84,14 @@ public class APNotificationDao implements NotificationDao {
     public void delete(long id) {
         Notification n = get(id);
         entityManager.remove(n);
+    }
+
+    @Override
+    @Transactional
+    public Collection<Notification> getUnreadForUserWithProposal(User u, Proposal proposal) {
+        return entityManager.createQuery("FROM Notification n WHERE n.user.id = :userId AND n.state = 'UNREAD' AND n.link LIKE :proposalId", Notification.class)
+                            .setParameter("userId", u.getId())
+                            .setParameter("proposalId", "%" + proposal.getId() + "%")
+                            .getResultList();
     }
 }
