@@ -1,6 +1,7 @@
 package ar.edu.itba.paw.webapp.controller;
 
 import ar.edu.itba.paw.interfaces.service.ImageService;
+import ar.edu.itba.paw.model.Image;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.ws.rs.*;
@@ -20,16 +21,10 @@ public class ImageApiController {
     @Path("/{id}")
     @GET
     public Response image(@PathParam(value = "id") long id) {
-        final int oneHour = 3600;
-        byte[] image = imageService.get(id).getImage();
-        final CacheControl cache = new CacheControl();
-        cache.setNoTransform(false);
-        cache.setMaxAge(oneHour);
-        final Date expireDate = new Date(new Date().getTime() + oneHour);
-        final Response.ResponseBuilder builder = Response.ok(image).header(HttpHeaders.CONTENT_TYPE, "image/*")
-                                                        .cacheControl(cache).expires(expireDate);
+        Image image = imageService.get(id);
         if (image == null)
-            return builder.status(Response.Status.NOT_FOUND).build();
-        return builder.build();
+            return Response.status(Response.Status.NOT_FOUND).build();
+        byte[] array = imageService.get(id).getImage();
+        return  Response.ok(array).build();
     }
 }

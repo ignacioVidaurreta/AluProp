@@ -67,12 +67,13 @@ export class AuthenticationService {
   }
 
   logout(): Subscription {
-    this.currentUserSubject.next(null);
-    return this.http.post<User>(BASE_API_URL + 'auth/logout/', null)
+    const result = this.http.post<User>(BASE_API_URL + 'auth/logout/', null)
       .subscribe(response => {
-        this.setAuthToken('');
-        this.router.navigate(["/login"]);
+        this.currentUserSubject.next(null);
+        this.router.navigate(["/"]);
       })
+    this.setAuthToken('');
+    return result;
   }
 
 }
