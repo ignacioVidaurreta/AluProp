@@ -29,7 +29,7 @@ export class RegisterComponent implements OnInit {
     repeatPassword: new FormControl('', [Validators.required]),
     name: new FormControl('', [Validators.required]),
     lastName: new FormControl('', [Validators.required]),
-    contactNumber: new FormControl('', [Validators.required]),
+    contactNumber: new FormControl('', [Validators.required, Validators.minLength(5)]),
     birthdate: new FormControl('', [Validators.required, this.dateValidator(13, 105)]),
     role: new FormControl('', [Validators.required]),
     bio: new FormControl('', [Validators.required]),
