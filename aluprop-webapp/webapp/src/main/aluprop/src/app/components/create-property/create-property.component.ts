@@ -121,6 +121,8 @@ export class CreatePropertyComponent implements OnInit {
   }
 
   publishProperty(){
+    if (!this.createPropertyForm.valid)
+      return;
     this.generatePropertyFromForm();
     this.publishPropertySub = this.propertyService.publishProperty(this.createdProperty).subscribe(
       (property) => {
