@@ -71,7 +71,7 @@ export class AuthenticationService {
     return this.http.post<User>(BASE_API_URL + 'auth/logout/', null)
       .subscribe(response => {
         this.setAuthToken('');
-        this.router.navigate(["/login"]);
+        this.router.navigate(["/"]);
       })
   }
 
