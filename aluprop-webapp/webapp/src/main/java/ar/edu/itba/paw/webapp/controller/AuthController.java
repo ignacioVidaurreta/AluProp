@@ -64,8 +64,8 @@ public class AuthController {
                 getBaseUrl(request.getRequestURL().toString(),
                         "api/auth/signup"));
         if(!maybeUser.hasValue()) {
-            logger.debug("NOT A UNIQUE EMAIL");
-            return Response.status(Response.Status.BAD_REQUEST).entity("Username already exists").build();
+            logger.debug("Invalid user creation");
+            return Response.status(Response.Status.BAD_REQUEST).entity(maybeUser.alternative()).build();
         }
         return Response.ok(maybeUser.value()).header("X-TOKEN", tokenHandler.createToken(maybeUser.value())).build();
     }
