@@ -2,6 +2,8 @@ package ar.edu.itba.paw.interfaces.dao;
 
 import ar.edu.itba.paw.interfaces.PageRequest;
 import ar.edu.itba.paw.model.Notification;
+import ar.edu.itba.paw.model.Proposal;
+import ar.edu.itba.paw.model.User;
 
 import java.util.Collection;
 
@@ -14,4 +16,5 @@ public interface NotificationDao {
     Notification createNotification(Notification notification);
     void markRead(long notificationId);
     void delete(long id);
+    Collection<Notification> getUnreadForUserWithProposal(User u, Proposal proposal);
 }

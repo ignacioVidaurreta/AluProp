@@ -19,4 +19,5 @@ public interface ProposalService {
     int setDeclineInvite(long proposalId, String ulr, Locale loc);
     int setState(long proposalId, ProposalState state, String url, Locale loc);
     Collection<Proposal> getProposalsForOwnedProperties(User profileUser);
+    void clearNotifications(Proposal proposal);
 }

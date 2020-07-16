@@ -5,6 +5,7 @@ import java.util.Collection;
 import ar.edu.itba.paw.interfaces.PageRequest;
 import ar.edu.itba.paw.interfaces.PageResponse;
 import ar.edu.itba.paw.model.Notification;
+import ar.edu.itba.paw.model.Proposal;
 import ar.edu.itba.paw.model.User;
 
 public interface NotificationService {
@@ -15,4 +16,5 @@ public interface NotificationService {
     void sendNotification(String subjectCode, String textCode, String title, String body, String link, User user);
     void markRead(long notificationId);
     void delete(long id);
+    Collection<Notification> getForUserWithProposal(User u, Proposal proposal);
 }

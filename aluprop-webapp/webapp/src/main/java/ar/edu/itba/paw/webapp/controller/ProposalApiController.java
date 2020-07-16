@@ -39,6 +39,7 @@ public class ProposalApiController {
         Proposal proposal = proposalService.getWithRelatedEntities(proposalId);
         if(proposal == null)
             return Response.status(Response.Status.NOT_FOUND).build();
+        proposalService.clearNotifications(proposal);
         final Property property = propertyService.getPropertyWithRelatedEntities(proposal.getProperty().getId());
         return Response.ok(ProposalDto.withPropertyWithRelatedEntities(proposal, property)).build();
     }
