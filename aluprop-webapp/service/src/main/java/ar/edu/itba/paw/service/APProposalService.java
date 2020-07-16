@@ -30,7 +30,7 @@ public class APProposalService implements ProposalService {
 
     private final static String SENT_SUBJECT_CODE= "notifications.proposals.sent.subject";
     private final static String SENT_BODY_CODE = "notifications.proposals.sent";
-    private final static String SENT_EMAIL_BODY_CODE = "notifications.proposals.sent";
+    private final static String SENT_EMAIL_BODY_CODE = "notifications.proposals.sent.email";
 
     private final static String SENT_HOST_SUBJECT_CODE= "notifications.proposals.hostProposal.subject";
     private final static String SENT_HOST_BODY_CODE= "notifications.proposals.hostProposal";
