@@ -7,14 +7,14 @@
     </mat-option>
   </mat-select>
 </mat-form-field>
-<div *ngIf="searchParams" style="margin-bottom: 16px">
+<div *ngIf="searchParams && !invalidParams" style="margin-bottom: 16px">
   <p translate style="font-size: 16px;font-weight: 500;">Search results for:</p>
   <mat-chip-list aria-label="Fish selection">
     <mat-chip *ngIf="searchParams.description">"{{searchParams.description}}"</mat-chip>
     <mat-chip *ngIf="searchParams.propertyType && searchParams.propertyType == 0"><span><span translate>search-filters.property-type</span>: <span translate>search-filters.house</span></span></mat-chip>
     <mat-chip *ngIf="searchParams.propertyType && searchParams.propertyType == 1"><span><span translate>search-filters.property-type</span>: <span translate>search-filters.apartment</span></span></mat-chip>
     <mat-chip *ngIf="searchParams.propertyType && searchParams.propertyType == 2"><span><span translate>search-filters.property-type</span>: <span translate>search-filters.loft</span></span></mat-chip>
-    <mat-chip *ngIf="searchParams.neighborhood"><span translate>search-filters.neighborhood</span>: {{getNeighborhoodName(+searchParams.neighborhood)}}</mat-chip>
+    <mat-chip *ngIf="searchParams.neighbourhoodId"><span translate>search-filters.neighborhood</span>: {{getNeighborhoodName(+searchParams.neighbourhoodId)}}</mat-chip>
     <mat-chip *ngIf="searchParams.privacy && searchParams.privacy == 0"><span><span translate>search-filters.privacy</span>: <span translate>search-filters.individual</span></span></mat-chip>
     <mat-chip *ngIf="searchParams.privacy && searchParams.privacy == 1"><span><span translate>search-filters.privacy</span>: <span translate>search-filters.shared</span></span></mat-chip>
     <mat-chip *ngIf="searchParams.maxCapacity"><span translate>search-filters.max-capacity</span>: {{searchParams.maxCapacity}}</mat-chip>
@@ -24,16 +24,16 @@
     <mat-chip *ngIf="searchParams.services?.length > 0"><span translate>search-filters.services</span>: {{getServiceNames(searchParams.services)}}</mat-chip>
   </mat-chip-list>
 </div>
-<div *ngIf="searchParams && properties?.length == 0" style="display: flex;justify-content: center;padding-top: 15%;padding-bottom: 15%">
-  <h3 translate>home.no-search-results</h3>
+<div *ngIf="invalidParams || (searchParams && properties?.length == 0)" style="display: flex;justify-content: center;padding-top: 15%;padding-bottom: 15%">
+  <h3><span translate>home.no-search-results <a [routerLink]="['']"><span translate> home.see-all-properties</span></a></span></h3>
 </div>
 <div *ngIf="!searchParams && properties?.length == 0" style="display: flex;justify-content: center;padding-top: 15%;padding-bottom: 15%">
   <h3 translate>home.no-properties</h3>
 </div>
-<div class="grid" *ngIf="properties?.length > 0">
+<div class="grid" *ngIf="!invalidParams && properties?.length > 0">
   <app-property-item *ngFor="let property of properties" [property]="property"></app-property-item>
 </div>
-<mat-paginator style="margin-top: 32px;margin-bottom: 32px" [length]="totalItems"
+<mat-paginator *ngIf="!invalidParams && properties?.length > 0" style="margin-top: 32px;margin-bottom: 32px" [length]="totalItems"
               [pageSize]="pageSize"
               [pageSizeOptions]="[5, 10, 12, 25, 100]"
               (page)="onPageChange($event)">

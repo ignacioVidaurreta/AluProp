@@ -74,6 +74,8 @@ export class PropertyGridComponent implements OnInit, OnDestroy {
 
   languageChangedSub: Subscription;
 
+  invalidParams: boolean;
+
   constructor(private propertyService: PropertyService,
               private route: ActivatedRoute,
               private router: Router,
@@ -82,17 +84,112 @@ export class PropertyGridComponent implements OnInit, OnDestroy {
               translateService: TranslateService,
               private metadataService: MetadataService) {
     this.languageChangedSub = translateService.onLangChange.subscribe((newLang) => this.translateRulesAndServices());
+    this.invalidParams = false;
     this.pageRequest = {pageNumber: 0, pageSize: 12}
     this.searchParamsSub = route.queryParams.pipe(
       filter((params) => Object.keys(params).length !== 0)
     ).subscribe((params)=>{
-      this.searchParams = params;
+      if(this.urlParamsAreValid(params))
+        this.searchParams = params;
+      else {
+        this.invalidParams = true;
+      }
       this.createPageSubscription();
     });
   }
 
   ngOnInit(): void {
     this.createPageSubscription();
+  }
+
+  servicesAreValid(services: any): boolean {
+    if(!(services instanceof Array) && !((typeof services) == "string")){
+      return false;
+    }
+    let isValid: boolean = true;
+    if(services instanceof Array) {
+      services.forEach((serviceId) => {
+        if(Number.isNaN(+serviceId) || (+serviceId) < 1 || (+serviceId) > 3){
+          isValid = false;
+          return isValid;
+        }
+      })
+    }else{ // else is instanceof string
+      if(Number.isNaN(+services) || (+services) < 1 || (+services) > 3)
+      isValid = false;
+    }
+    
+    return isValid;
+  }
+
+  rulesAreValid(rules: any): boolean {
+    if(!(rules instanceof Array) && !((typeof rules) == "string")){
+      return false;
+    }
+    let isValid: boolean = true;
+    if(rules instanceof Array) {
+      rules.forEach((ruleId) => {
+        if(Number.isNaN(+ruleId) || (+ruleId) < 1 || (+ruleId) > 3)
+          isValid = false;
+          return isValid;
+      })
+    }else{ // else is instanceof string
+      if(Number.isNaN(+rules) ||  (+rules) < 1 || (+rules) > 2)
+        isValid = false;
+    }
+    return isValid;    
+  }
+
+  rangeIsValid(min: any, max: any): boolean{
+    if(Number.isNaN(+min) || Number.isNaN(+max))
+      return false;
+    
+    if(+min <0 || +max < 0 || +min > +max)
+      return false
+
+    return true;
+  }
+
+
+
+  valueIsInRange(value:any, min:number, max:number){
+    if(Number.isNaN(+value))
+      return false;
+
+    return +value >= min && +value <= max;
+  }
+  urlParamsAreValid(params: any): boolean{
+    let services = params.services || [];
+    if(!this.servicesAreValid(services))
+      return false;
+
+    let rules = params.rules || [];
+    if(!this.rulesAreValid(rules))
+      return false;
+
+    let minPrice = params.minPrice || 0;
+    let maxPrice = params.maxPrice || 0;
+    if(!this.rangeIsValid(minPrice, maxPrice))
+      return false;
+    
+    let minCapacity = params.minCapacity || 0;
+    let maxCapacity = params.maxCapacity || 0;
+    if(!this.rangeIsValid(minCapacity, maxCapacity))
+      return false;
+    
+    let privacy = params.privacy || 0;
+    if(!this.valueIsInRange(privacy, 0, 1))
+      return false;
+    
+    let propertyType = params.propertyType || 0;
+    if(!this.valueIsInRange(propertyType, 0, 2))
+      return false;
+    
+    let neighborhoodId = params.neighbourhoodId || 1;
+    if(!this.valueIsInRange(neighborhoodId, 1, 5))
+      return false;
+
+    return true;
   }
 
   ngOnDestroy(): void {
@@ -165,25 +262,38 @@ export class PropertyGridComponent implements OnInit, OnDestroy {
     }
   }
 
-  getRuleNames(ruleIds: string[]) {
+  getRuleNames(ruleIds: Array<string> | string) {
     if(this.rules) {
       let ruleNames = "";
-      ruleIds.forEach((ruleId) => {
-        let index = this.rules?.map((rule) => {return rule.id}).indexOf(+ruleId);
-        ruleNames += this.rules[index]?.translatedText + ", ";
-      })
-      return ruleNames.slice(0, -2);
+      if(ruleIds instanceof Array) {
+  
+        ruleIds.forEach((ruleId) => {
+          let index = this.rules?.map((rule) => {return rule.id}).indexOf(+ruleId);
+          ruleNames += this.rules[index]?.translatedText + ", ";
+        })
+        return ruleNames.slice(0, -2);
+      }
+      else {
+        let index = this.rules?.map((rule) => {return rule.id}).indexOf(+ruleIds);
+         return ruleNames += this.rules[index]?.translatedText;
+      }
     }
   }
 
-  getServiceNames(serivceIds: string[]) {
+  getServiceNames(serviceIds: Array<string> | string) {
     if(this.services) {
       let ruleNames = "";
-      serivceIds.forEach((serviceId) => {
-        let index = this.services?.map((rule) => {return rule.id}).indexOf(+serviceId);
-        ruleNames += this.services[index]?.translatedText + ", ";
-      })
-      return ruleNames.slice(0, -2);
+      if(serviceIds instanceof Array) {
+        serviceIds.forEach((serviceId) => {
+          let index = this.services?.map((rule) => {return rule.id}).indexOf(+serviceId);
+          ruleNames += this.services[index]?.translatedText + ", ";
+        })
+        return ruleNames.slice(0, -2);
+      }
+      else {
+        let index = this.services?.map((rule) => {return rule.id}).indexOf(+serviceIds);
+        return  ruleNames += this.services[index]?.translatedText;
+      }
     }
   }
 

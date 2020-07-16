@@ -11,7 +11,8 @@
       "budget-lowest": "Mínimo presupuesto por persona"
     },
     "student": "estudiante",
-    "no-search-results": "No hay propiedades que coincidan con tu búsqueda. Intentá buscando con otros filtros.",
+    "no-search-results": "No hay propiedades que coincidan con tu búsqueda. Intentá buscando con otros filtros o ",
+    "see-all-properties": "explora las propiedades disponibles.",
     "no-properties": "No hay propiedades para mostrar. Te pedimos disculpas"
   },
   "sign-up": {

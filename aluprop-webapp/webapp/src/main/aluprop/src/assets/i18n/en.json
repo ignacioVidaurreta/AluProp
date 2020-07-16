@@ -11,7 +11,8 @@
       "budget-lowest": "Lowest budget"
     },
     "student": "student",
-    "no-search-results": "There are no properties that match your search. Try changing the search filters.",
+    "no-search-results": "There are no properties that match your search. Try changing the search filters or ",
+    "see-all-properties": "check all available properties.",
     "no-properties": "We are sorry. There are no properties available."
   },
   "sign-up": {
