@@ -62,7 +62,7 @@ public class AuthController {
         Either<User, List<String>> maybeUser = userService.CreateUser(buildUserFromForm(signUpForm),
                 loc,
                 getBaseUrl(request.getRequestURL().toString(),
-                        "api/auth/signup"));
+                        "/api/auth/signup"));
         if(!maybeUser.hasValue()) {
             logger.debug("Invalid user creation");
             return Response.status(Response.Status.BAD_REQUEST).entity(maybeUser.alternative()).build();
