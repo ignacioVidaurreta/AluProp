@@ -25,9 +25,11 @@ export class CreateProposalModalComponent implements OnInit, AfterViewInit {
   showErrorMaxGuests: boolean;
   @ViewChild(MatSelectionList) users: MatSelectionList;
   createProposalSub: Subscription;
+  creating: boolean;
 
   ngOnInit(): void {
     this.showErrorMaxGuests = false;
+    this.creating = false;
   }
 
   ngAfterViewInit(): void {
@@ -43,8 +45,8 @@ export class CreateProposalModalComponent implements OnInit, AfterViewInit {
     });
   }
 
-  constructor(public dialogRef: MatDialogRef<CreateProposalModalComponent>, 
-              @Inject(MAT_DIALOG_DATA) public data: DialogData, 
+  constructor(public dialogRef: MatDialogRef<CreateProposalModalComponent>,
+              @Inject(MAT_DIALOG_DATA) public data: DialogData,
               private proposalService: ProposalService,
               private router: Router) { }
 
@@ -56,11 +58,15 @@ export class CreateProposalModalComponent implements OnInit, AfterViewInit {
   }
 
   createProposal() {
-    let invitedUsersIds = this.selectedOptions.map((user) => user.id);
-    this.createProposalSub = this.proposalService.createProposal(invitedUsersIds, this.data.property.id).subscribe(
-      (proposal) => {
-        this.router.navigate(['proposal/' + proposal.id]);
-      });
+    if(!this.creating) {
+      this.creating = true;
+      let invitedUsersIds = this.selectedOptions.map((user) => user.id);
+      this.createProposalSub = this.proposalService.createProposal(invitedUsersIds, this.data.property.id).subscribe(
+        (proposal) => {
+          this.dialogRef.close();
+          this.router.navigate(['proposal/' + proposal.id]);
+        });
+    }
   }
 
   onNgModelChange($event){

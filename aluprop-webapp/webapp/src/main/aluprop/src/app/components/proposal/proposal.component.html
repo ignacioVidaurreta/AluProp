@@ -61,20 +61,35 @@
               <div>
                 <div translate>proposal.your-property</div>
                 <mat-card-actions>
-                  <button mat-button mat-raised-button color="primary" (click)="declineProposal()"><span translate>proposal.decline</span></button>
-                  <button mat-button mat-raised-button color="accent" (click)="acceptProposal()"><span translate>proposal.accept</span></button>
+                  <button mat-button mat-raised-button color="primary" (click)="declineProposal()">
+                    <div [hidden]="!declining"><span translate>proposal.declining</span><mat-spinner style="float: right" class="mySpinner"></mat-spinner></div>
+                    <span translate [hidden]="declining">proposal.decline</span>
+                  </button>
+                  <button mat-button mat-raised-button color="accent" (click)="acceptProposal()">
+                    <div [hidden]="!accepting"><span translate>proposal.accepting</span><mat-spinner style="float: right" class="mySpinner"></mat-spinner></div>
+                    <span translate [hidden]="accepting">proposal.accept</span>
+                  </button>
                 </mat-card-actions>
               </div>
             </ng-template>
           </div>
           <div *ngIf="proposal.state == 'PENDING' && currentUser.id == proposal.creator.id">
-            <button mat-button mat-raised-button color="warn" (click)="cancelProposal()"><span translate>proposal.cancel</span></button>
+            <button mat-button mat-raised-button color="warn" (click)="cancelProposal()">
+              <div [hidden]="!canceling"><span translate>proposal.canceling</span><mat-spinner style="float: right" class="mySpinner"></mat-spinner></div>
+              <span translate [hidden]="canceling">proposal.cancel</span>
+            </button>
           </div>
           <div *ngIf="proposal.state == 'PENDING' && isInvited == true && hasReplied == false">
             <div><span translate>proposal.you-would-pay</span> <b> ${{budget}} </b> <span translate>proposal.per-month</span></div>
             <mat-card-actions>
-             <button mat-button mat-raised-button color="primary" (click)="declineProposal()"><span translate>proposal.decline</span></button>
-             <button mat-button mat-raised-button color="accent" (click)="acceptProposal()"><span translate>proposal.accept</span></button>
+              <button mat-button mat-raised-button color="primary" (click)="declineProposal()">
+                <div [hidden]="!declining"><span translate>proposal.declining</span><mat-spinner style="float: right" class="mySpinner"></mat-spinner></div>
+                <span translate [hidden]="declining">proposal.decline</span>
+              </button>
+              <button mat-button mat-raised-button color="accent" (click)="acceptProposal()">
+                <div [hidden]="!accepting"><span translate>proposal.accepting</span><mat-spinner style="float: right" class="mySpinner"></mat-spinner></div>
+                <span translate [hidden]="accepting">proposal.accept</span>
+              </button>
             </mat-card-actions>
           </div>
           <div *ngIf="proposal.state == 'PENDING' && isInvited == true && hasReplied == true">

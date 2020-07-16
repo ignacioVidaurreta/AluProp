@@ -148,8 +148,19 @@ textarea{
   }
 }
 
-//button {
-//  font-size: large;
-//  margin: 1rem;
-//  width: 48%;
-//}
+:host ::ng-deep .mySpinner{
+  margin-top: 6px;
+  margin-left: 8px;
+  margin-bottom: 4px;
+  width: 25px !important;
+  height: 25px !important;
+  svg {
+    width: 25px !important;
+    height: 25px !important;
+  }
+}
+
+:host ::ng-deep .mySpinner circle {
+  stroke: white;
+}
+
