@@ -40,7 +40,7 @@ export class NotificationsBarComponent implements OnInit {
   }
 
   updateBadge() {
-    this.toggleNotifications();
+    this.showNotifications = false;
     this.createPageSubscription();
   }
 

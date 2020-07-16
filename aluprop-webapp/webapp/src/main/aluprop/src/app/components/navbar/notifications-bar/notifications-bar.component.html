@@ -1,2 +1,2 @@
 <button mat-button id="toggle-notifications" (click)="toggleNotifications()"><mat-icon matBadge="{{badgeNumber}}" [matBadgeHidden]="hidden"  matBadgeSize="small" matBadgeColor="accent">notifications</mat-icon></button>
-<app-notifications-menu (readNotification)="updateBadge()" [hidden]="!showNotifications" (click)="$event.stopPropagation()"></app-notifications-menu>
+<app-notifications-menu (readNotification)="updateBadge()" (closeMenu)="showNotifications = false;" [hidden]="!showNotifications" (click)="$event.stopPropagation()"></app-notifications-menu>

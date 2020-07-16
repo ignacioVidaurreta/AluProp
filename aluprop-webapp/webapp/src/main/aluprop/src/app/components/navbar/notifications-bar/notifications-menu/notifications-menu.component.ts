@@ -17,6 +17,7 @@ export class NotificationsMenuComponent implements OnInit {
   notificationsSub: Subscription;
 
   @Output() readNotification = new EventEmitter();
+  @Output() closeMenu = new EventEmitter();
 
   languageChangedSub: Subscription;
 
@@ -65,11 +66,13 @@ export class NotificationsMenuComponent implements OnInit {
       () => {
         this.readNotification.emit();
         this.onPageChange();
-        this.router.navigate([notification.link]);
       });
+    this.closeMenu.emit();
+    this.router.navigate([notification.link]);
   }
 
   viewAll() {
+    this.closeMenu.emit();
     if(this.notifications.length == 0) {
       this.readNotification.emit();
       this.router.navigate(['/notifications']);
