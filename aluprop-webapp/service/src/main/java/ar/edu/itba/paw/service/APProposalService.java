@@ -243,7 +243,7 @@ public class APProposalService implements ProposalService {
                                                 "/proposal/" + proposal.getId(),
                                                 proposal.getUsers(),
                                                 currentUser.getId());
-            if (state == ProposalState.ACCEPTED)
+            if (state == ProposalState.ACCEPTED && proposal.getProperty().getAvailability() == Availability.AVAILABLE)
                 propertyDao.changeStatus(proposal.getProperty().getId());
         }
         return HttpURLConnection.HTTP_OK;
