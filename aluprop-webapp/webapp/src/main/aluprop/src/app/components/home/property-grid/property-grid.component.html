@@ -31,7 +31,7 @@
   <h3 translate>home.no-properties</h3>
 </div>
 <div class="grid" *ngIf="properties?.length > 0">
-  <app-property-item *ngFor="let property of properties" [property]="property" [routerLink]="['/propiedades/']"></app-property-item>
+  <app-property-item *ngFor="let property of properties" [property]="property"></app-property-item>
 </div>
 <mat-paginator style="margin-top: 32px;margin-bottom: 32px" [length]="totalItems"
               [pageSize]="pageSize"
