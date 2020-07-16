@@ -41,6 +41,7 @@ export class DetailedPropertyComponent implements OnInit {
   uninterestSub: Subscription;
   userIsloogedIn: boolean;
   deleteSub: Subscription;
+  spin: boolean;
 
   constructor( private propertyService: PropertyService,
                private router: Router,
@@ -53,6 +54,7 @@ export class DetailedPropertyComponent implements OnInit {
                private imageService: ImageService,
                private _sanitizer: DomSanitizer) {
     this.languageChangedSub = translateService.onLangChange.subscribe((newLang) => this.translateRulesAndServices());
+    this.spin = true;
   }
 
   ngOnInit(): void {
@@ -96,9 +98,12 @@ export class DetailedPropertyComponent implements OnInit {
         });
         if(this.currentUser?.role == 'ROLE_GUEST') {
           this.currentUserIsInterestedSub = this.propertyService.isCurrentUserInterested(this.propertyId).subscribe((currentUserIsInterested) => {
+            this.spin = false;
             this.currentUserIsInterested = currentUserIsInterested;
           });
-          }
+        } else {
+          this.spin = false;
+        }
       });
       });
   }

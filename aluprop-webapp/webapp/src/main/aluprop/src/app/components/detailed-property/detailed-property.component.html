@@ -54,10 +54,11 @@
         </div>
       </mat-card-content>
       <mat-card-actions>
-        <div *ngIf="userIsloogedIn == false; else loggedIn">
+        <mat-spinner *ngIf="spin" style="margin-left: 20%;margin-bottom:16px"></mat-spinner>
+        <div *ngIf="!userIsloogedIn">
           <button mat-raised-button style="width: 100%;" (click)="navigatToLogLinWithInterestIntention()" color="primary"><span translate>detailed-property.interested</span></button>
         </div>
-        <ng-template #loggedIn>
+        <div *ngIf="userIsloogedIn">
           <div *ngIf="currentUser?.role == 'ROLE_HOST' && currentUser?.id == property.owner.id" translate>
             <button mat-raised-button color="primary" (click)="openDialogInterestedUsers()"><span translate>detailed-property.interested-users</span></button>
             <button *ngIf="property.availability == 'AVAILABLE'" (click)="changePropertyAvailability()" mat-raised-button color="accent"><span translate>detailed-property.pause-property</span></button>
@@ -73,7 +74,7 @@
           <div *ngIf="currentUser?.role == 'ROLE_GUEST' && currentUserIsInterested == false && property.availability == 'AVAILABLE'">
             <button mat-raised-button style="width: 100%;" (click)="markInterest()" color="primary"><span translate>detailed-property.interested</span></button>
           </div>
-        </ng-template>
+        </div>
       </mat-card-actions>
     </mat-card>
   </div>
