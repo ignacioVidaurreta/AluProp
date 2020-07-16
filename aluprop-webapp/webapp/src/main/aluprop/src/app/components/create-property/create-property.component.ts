@@ -38,8 +38,8 @@ export class CreatePropertyComponent implements OnInit {
   createPropertyForm = new FormGroup({
     pictures: new FormControl(''),
 
-    name: new FormControl('', [Validators.required]),
-    description: new FormControl('', [Validators.required]),
+    name: new FormControl('', [Validators.required, Validators.maxLength(50)]),
+    description: new FormControl('', [Validators.required, Validators.maxLength(700)]),
     propertyType: new FormControl('', [Validators.required]),
     neighborhood: new FormControl('', [Validators.required]),
     privacy: new FormControl('', [Validators.required]),
