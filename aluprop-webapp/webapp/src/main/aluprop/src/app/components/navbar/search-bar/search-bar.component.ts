@@ -33,7 +33,6 @@ export class SearchBarComponent implements OnInit {
   constructor(private router: Router) { }
 
   ngOnInit(): void {
-    // setInterval(()=>console.log(this.showFilters), 10);
   }
 
   toggleFilters(){

@@ -43,10 +43,8 @@ export class ProposalComponent implements OnInit {
   ngOnInit(): void {
     this.proposalId = +this.route.snapshot.paramMap.get("id");
     if (!this.authenticationService.isLoggedIn()){
-      console.log('not logged in');
       this.router.navigate(['login'], { queryParams: {'returnProposal': this.proposalId}});
     } else {
-      console.log('logged in');
       this.createPageSubscription();
       this.accepting = false;
       this.declining = false;
