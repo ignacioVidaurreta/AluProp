@@ -7,6 +7,7 @@ import ar.edu.itba.paw.interfaces.service.NotificationService;
 import ar.edu.itba.paw.interfaces.service.PropertyService;
 import ar.edu.itba.paw.interfaces.service.ProposalService;
 import ar.edu.itba.paw.interfaces.service.UserService;
+import ar.edu.itba.paw.model.Notification;
 import ar.edu.itba.paw.model.Property;
 import ar.edu.itba.paw.model.Proposal;
 import ar.edu.itba.paw.model.User;
@@ -258,5 +259,13 @@ public class APProposalService implements ProposalService {
     @Override
     public Collection<Proposal> getProposalsForOwnedProperties(User profileUser) {
         return proposalDao.getProposalsForOwnedProperties(profileUser.getId());
+    }
+
+    @Override
+    public void clearNotifications(Proposal proposal) {
+        User u = userService.getCurrentlyLoggedUser();
+        Collection<Notification> notifications = notificationService.getForUserWithProposal(u, proposal);
+        for (Notification n : notifications)
+            notificationService.markRead(n.getId());
     }
 }
