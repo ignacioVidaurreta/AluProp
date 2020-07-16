@@ -20,7 +20,7 @@
         </div>
       <!-- <mat-spinner [style.display]="showSpinner ? 'block' : 'none'"></mat-spinner> -->
     </mat-card-content>
-    <mat-card-content *ngIf="hasInvalidCredentials" class="alert alert-danger error-msg" translate> log-in.invalid-credentials</mat-card-content>
+    <p *ngIf="hasInvalidCredentials" style="color: firebrick;" translate> log-in.invalid-credentials</p>
 
     <mat-card-footer>
       <a (click)="navigateToRegister()" style="float: right;padding-right: 16px;padding-bottom: 16px" translate>

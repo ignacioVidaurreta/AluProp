@@ -148,8 +148,8 @@ export class RegisterComponent implements OnInit {
 
   signUp() {
     if(!this.signing) {
-      this.signing = true;
       if(this.signUpForm.valid){
+        this.signing = true;
         this.generateUserFromForm();
         this.authenticationService.signUp(this.createdUser).subscribe((response) =>{
           this.repeatedEmail = false;
@@ -163,9 +163,11 @@ export class RegisterComponent implements OnInit {
               this.router.navigate([""]);
             }
           } else {
+            this.signing = false;
           }
         }, (error: any) => {
           this.repeatedEmail = true;
+          this.signing = false;
           this.signUpForm.controls["email"].setErrors({'invalid': true});
         });
       }

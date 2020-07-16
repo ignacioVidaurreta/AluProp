@@ -34,12 +34,11 @@ export class LoginComponent implements OnInit {
 
   login() : void {
     if(!this.logging) {
-      this.logging = true;
       if(this.username.valid && this.password.valid){
+        this.logging = true;
         this.authenticationService.login(this.loginForm.value).subscribe( (response) =>{
           if (response){
             this.hasInvalidCredentials = false;
-
             if (this.activatedRoute.snapshot.queryParams.returnProperty && response.body.role === Role.Guest){
               this.propertyService.markInterest(this.activatedRoute.snapshot.queryParams.returnProperty).subscribe(
                 (response) => {
@@ -52,9 +51,11 @@ export class LoginComponent implements OnInit {
             }
           } else {
             this.hasInvalidCredentials = true;
+            this.logging = false;
           }
         }, (error: any) => {
           this.hasInvalidCredentials = true;
+          this.logging = false;
         });
       }
     }
