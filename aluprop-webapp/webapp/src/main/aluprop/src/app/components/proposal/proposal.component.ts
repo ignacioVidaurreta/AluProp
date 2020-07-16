@@ -28,6 +28,9 @@ export class ProposalComponent implements OnInit {
   hasReplied: boolean;
   userInfoSub: Subscription;
   reloadUsersTable: Subject<void> = new Subject<void>();
+  accepting: boolean;
+  declining: boolean;
+  canceling: boolean;
 
   constructor(private authenticationService: AuthenticationService,
               private proposalService: ProposalService,
@@ -45,6 +48,9 @@ export class ProposalComponent implements OnInit {
     } else {
       console.log('logged in');
       this.createPageSubscription();
+      this.accepting = false;
+      this.declining = false;
+      this.canceling = false;
     }
   }
 
@@ -67,7 +73,7 @@ export class ProposalComponent implements OnInit {
       this.fetchPropertyImage();
       this.currentUserSub = this.authenticationService.getCurrentUser().subscribe((currentUser)=> {
         this.currentUser = currentUser;
-        if(this.currentUser.role == 'ROLE_GUEST') {
+        if(this.currentUser?.role == 'ROLE_GUEST') {
           this.userInfoSub = this.proposalService.getGuestUserInfoByProposalId(this.proposalId).subscribe((userInfo) => {
             this.budget = userInfo.budget;
             this.isInvited = userInfo.isInvited;
@@ -87,38 +93,47 @@ export class ProposalComponent implements OnInit {
   }
 
   acceptProposal() {
-    if (this.currentUser.role == 'ROLE_GUEST') {
-      this.proposalService.acceptProposalGuest(this.proposal.id).pipe(take(1)).subscribe(() => {
-        this.onPageChange();
-        this.reloadUsersTable.next()
-      });
-    } else if(this.currentUser.role == 'ROLE_HOST') {
-      this.proposalService.acceptProposalHost(this.proposal.id).pipe(take(1)).subscribe(() => {
-        this.onPageChange();
-        this.reloadUsersTable.next()
-      });
+    if(!this.accepting && !this.declining) {
+      this.accepting = true;
+      if (this.currentUser?.role == 'ROLE_GUEST') {
+        this.proposalService.acceptProposalGuest(this.proposal.id).pipe(take(1)).subscribe(() => {
+          this.onPageChange();
+          this.reloadUsersTable.next()
+        });
+      } else if(this.currentUser?.role == 'ROLE_HOST') {
+        this.proposalService.acceptProposalHost(this.proposal.id).pipe(take(1)).subscribe(() => {
+          this.onPageChange();
+          this.reloadUsersTable.next()
+        });
+      }
     }
   }
 
   declineProposal() {
-    if (this.currentUser.role == 'ROLE_GUEST') {
-      this.proposalService.declineProposalGuest(this.proposal.id).pipe(take(1)).subscribe(() => {
-        this.onPageChange();
-        this.reloadUsersTable.next()
-      });
-    } else if(this.currentUser.role == 'ROLE_HOST') {
-      this.proposalService.declineProposalHost(this.proposal.id).pipe(take(1)).subscribe(() => {
-        this.onPageChange();
-        this.reloadUsersTable.next()
-      });
+    if(!this.declining && !this.accepting) {
+      this.declining = true;
+      if (this.currentUser?.role == 'ROLE_GUEST') {
+        this.proposalService.declineProposalGuest(this.proposal.id).pipe(take(1)).subscribe(() => {
+          this.onPageChange();
+          this.reloadUsersTable.next()
+        });
+      } else if(this.currentUser?.role == 'ROLE_HOST') {
+        this.proposalService.declineProposalHost(this.proposal.id).pipe(take(1)).subscribe(() => {
+          this.onPageChange();
+          this.reloadUsersTable.next()
+        });
+      }
     }
   }
 
   cancelProposal() {
-    this.proposalService.dropProposal(this.proposal.id).pipe(take(1)).subscribe(() => {
-      this.onPageChange();
-      this.reloadUsersTable.next()
-    });
+    if(!this.canceling) {
+      this.canceling = true;
+      this.proposalService.dropProposal(this.proposal.id).pipe(take(1)).subscribe(() => {
+        this.onPageChange();
+        this.reloadUsersTable.next()
+      });
+    }
   }
 
 }

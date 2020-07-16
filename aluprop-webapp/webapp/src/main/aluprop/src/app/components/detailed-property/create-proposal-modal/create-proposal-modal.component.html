@@ -28,5 +28,8 @@
 </div>
 <div mat-dialog-actions style="float: right;">
     <button mat-raised-button mat-dialog-close><span translate>create-proposal-modal.close</span></button>
-    <button mat-raised-button mat-dialog-close (click)="createProposal()" color="primary"><span translate>create-proposal-modal.create</span></button>
+  <button mat-raised-button (click)="createProposal()" color="primary">
+    <div [hidden]="!creating"><span translate>create-proposal-modal.creating</span><mat-spinner style="float: right" class="mySpinner"></mat-spinner></div>
+    <span translate [hidden]="creating">create-proposal-modal.create</span>
+  </button>
 </div>

@@ -17,6 +17,7 @@
   },
   "sign-up": {
     "sign-up": "Registrarse",
+    "signing-up": "Registrándose",
     "email": "Su cuenta de e-mail",
     "password": "Su contraseña ",
     "repeat-password": "Repita su contraseña",
@@ -45,7 +46,8 @@
     "career": "Carrera"
   },
   "log-in": {
-    "login": "Iniciar Sesión",
+    "login": "Iniciar sesión",
+    "logging": "Iniciando sesión",
     "no-account": "No tiene cuenta? Registrese!",
     "username": "Usuario",
     "password": "Contraseña",
@@ -153,9 +155,12 @@
     "sent": "Una oferta se ha enviado al dueño de la propiedad, recibirás una notificación cuando responda!",
     "rented-host": "Ésta propiedad se encuentra inactiva. Para poder responder la propuesta por favor activala.",
     "decline": "Rechazar",
+    "declining": "Rechazando",
     "accept": "Aceptar",
+    "accepting": "Aceptando",
     "your-property": "Esta es su propiedad. Puedes aceptar o declinar la oferta:",
     "cancel": "Cancelar propuesta",
+    "canceling": "Cancelando propuesta",
     "you-would-pay": "Usted pagaría",
     "per-month": "por mes.",
     "already-replied": "Usted ya ha respondido a esta propuesta."
@@ -170,6 +175,7 @@
   },
   "create-property": {
     "publish-a-property": "Publicar una propiedad",
+    "publishing-a-property": "Publicando",
     "upload-up-to-4-pictures": "Subir hasta 4 imágenes de la propiedad",
     "complete-property-info": "Completar información de la propiedad",
     "pictures-to-upload": "Seleccionar imágenes:",
@@ -230,7 +236,8 @@
     "month": "/ mes",
     "no-other-students-are-interested": "No hay otros usuarios interesados en esta propiedad.",
     "close": "Cerrar",
-    "create": "Crear"
+    "create": "Crear",
+    "creating": "Creando"
   },
   "interested-users": {
     "interested-users": "Usuarios interesados",

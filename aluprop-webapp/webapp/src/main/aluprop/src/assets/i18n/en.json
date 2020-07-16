@@ -17,6 +17,7 @@
   },
   "sign-up": {
     "sign-up": "Sign up",
+    "signing-up": "Signing up",
     "email": "Your e-mail address",
     "password": "Your password",
     "repeat-password": "Re-enter your password",
@@ -46,6 +47,7 @@
   },
   "log-in": {
     "login": "Log in",
+    "logging": "Logging in",
     "no-account": "No account? Register!",
     "username": "Username",
     "password": "Password",
@@ -153,9 +155,12 @@
     "sent": "An offer has been sent to the host, you will receive a notification when they reply!",
     "rented-host": "This property is currently inactive. In order to answer the proposal please make it active.",
     "decline": "Decline",
+    "declining": "Declining",
     "accept": "Accept",
+    "accepting": "Accepting",
     "your-property": "This is your property. You can either accept or decline the offer:",
     "cancel": "Drop proposal",
+    "canceling": "Droping proposal",
     "you-would-pay": "You would pay",
     "per-month": "per month.",
     "already-replied": "You have already replied to this proposal."
@@ -170,6 +175,7 @@
   },
   "create-property": {
     "publish-a-property": "Publish a property",
+    "publishing-a-property": "Publishing",
     "upload-up-to-4-pictures": "Upload up to 4 pictures of the property:",
     "complete-property-info": "Complete property info:",
     "pictures-to-upload": "Pictures to upload:",
@@ -230,7 +236,8 @@
     "month": "/ month",
     "no-other-students-are-interested": "No other users have shown interest in this property!",
     "close": "Close",
-    "create": "Create"
+    "create": "Create",
+    "creating": "Creating"
   },
   "interested-users": {
     "interested-users": "Interested users",

@@ -29,7 +29,10 @@
     </mat-card-footer>
 
     <mat-card-actions>
-      <button class="login-submit-btn" mat-raised-button (click)="login()" color="primary" style="float: right;margin-right: 8px"><span translate>log-in.login</span></button>
+      <button class="login-submit-btn" mat-raised-button (click)="login()" color="primary" style="float: right;margin-right: 8px">
+        <div [hidden]="!logging"><span translate>log-in.logging</span><mat-spinner style="float: right" class="mySpinner"></mat-spinner></div>
+        <span translate [hidden]="logging">log-in.login</span>
+      </button>
     </mat-card-actions>
   </form>
 </mat-card>

@@ -100,7 +100,10 @@
         </mat-card-footer>
 
         <mat-card-actions>
-          <button mat-raised-button color="primary" style="float: right;margin-right: 0px;margin-bottom: 0px;" type="submit" (click)="signUp()"><span translate>sign-up.sign-up</span></button>
+          <button mat-raised-button color="primary" style="float: right;margin-right: 0px;margin-bottom: 0px;" type="submit" (click)="signUp()">
+            <div [hidden]="!signing"><span translate>sign-up.signing-up</span><mat-spinner style="float: right" class="mySpinner"></mat-spinner></div>
+            <span translate [hidden]="signing">sign-up.sign-up</span>
+          </button>
         </mat-card-actions>
 
       </mat-card>

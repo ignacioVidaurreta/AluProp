@@ -100,7 +100,10 @@
 
         </div>
         <mat-card-actions>
-          <button mat-raised-button color="primary" style="float: right;margin-right: 8px" type="submit" (click)="publishProperty()"><span translate>create-property.publish-property</span></button>
+          <button mat-raised-button color="primary" style="float: right;margin-right: 8px" type="submit" (click)="publishProperty()">
+            <div [hidden]="!creating"><span translate>create-property.publishing-a-property</span><mat-spinner style="float: right" class="mySpinner"></mat-spinner></div>
+            <span translate [hidden]="creating">create-property.publish-property</span>
+          </button>
         </mat-card-actions>
       </mat-card>
 <!--      <mat-card class="prop-pictures mat-elevation-z4">-->

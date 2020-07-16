@@ -23,7 +23,7 @@ export class RegisterComponent implements OnInit {
     "ROLE_HOST": "1",
   };
 
-  signUpForm = new FormGroup({    
+  signUpForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required]),
     repeatPassword: new FormControl('', [Validators.required]),
@@ -38,7 +38,7 @@ export class RegisterComponent implements OnInit {
     career: new FormControl('')
   },
     {
-      validators: 
+      validators:
       [
         this.checkIfMatchingPasswords('password', 'repeatPassword'),
         this.checkRequiredUniversity('university', 'role'),
@@ -63,12 +63,12 @@ export class RegisterComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private metadataService: MetadataService,
     private propertyService: PropertyService
-  ) { 
+  ) {
     this.createdUser = new SignUpForm();
     this.formChangesSub = this.signUpForm.valueChanges.subscribe((filters) => {
       this.onPhoneChange(filters['contactNumber']);
       this.isGuest = filters["role"] === Role.Guest;
-      
+
       this.repeatedEmail = this.createdUser.email && this.createdUser.email === filters['email']
       if (this.repeatedEmail)
         this.signUpForm.controls["email"].setErrors({'invalid': true});
@@ -76,7 +76,11 @@ export class RegisterComponent implements OnInit {
   }
   username: string;
   password: string;
+
+  signing: boolean;
+
   ngOnInit(): void {
+    this.signing = false;
     this.universitySub = this.metadataService.getAllUniversities().subscribe((universities) => {
       this.universities = universities;
     })
@@ -143,25 +147,28 @@ export class RegisterComponent implements OnInit {
   }
 
   signUp() {
-    if(this.signUpForm.valid){
-      this.generateUserFromForm();
-      this.authenticationService.signUp(this.createdUser).subscribe((response) =>{
-        this.repeatedEmail = false;
-        if (response){
-          if (this.activatedRoute.snapshot.queryParams.returnProperty && response.body.role === Role.Guest){
-            this.propertyService.markInterest(this.activatedRoute.snapshot.queryParams.returnProperty).subscribe(
-              (response) => {
-                this.router.navigate(['property/'+ this.activatedRoute.snapshot.queryParams.returnProperty]);
-              });
+    if(!this.signing) {
+      this.signing = true;
+      if(this.signUpForm.valid){
+        this.generateUserFromForm();
+        this.authenticationService.signUp(this.createdUser).subscribe((response) =>{
+          this.repeatedEmail = false;
+          if (response){
+            if (this.activatedRoute.snapshot.queryParams.returnProperty && response.body.role === Role.Guest){
+              this.propertyService.markInterest(this.activatedRoute.snapshot.queryParams.returnProperty).subscribe(
+                (response) => {
+                  this.router.navigate(['property/'+ this.activatedRoute.snapshot.queryParams.returnProperty]);
+                });
+            } else {
+              this.router.navigate([""]);
+            }
           } else {
-            this.router.navigate([""]);
           }
-        } else {
-        }
-      }, (error: any) => {
-        this.repeatedEmail = true;
-        this.signUpForm.controls["email"].setErrors({'invalid': true});
-      });
+        }, (error: any) => {
+          this.repeatedEmail = true;
+          this.signUpForm.controls["email"].setErrors({'invalid': true});
+        });
+      }
     }
   }
 
@@ -233,7 +240,7 @@ export class RegisterComponent implements OnInit {
       }
       return null;
     }
-  } 
+  }
 
   navigateToLogIn() {
     if (this.activatedRoute.snapshot.queryParams.returnProperty){

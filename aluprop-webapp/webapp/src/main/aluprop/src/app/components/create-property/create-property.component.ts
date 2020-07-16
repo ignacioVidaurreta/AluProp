@@ -35,6 +35,8 @@ export class CreatePropertyComponent implements OnInit {
 
   languageChangedSub: Subscription;
 
+  creating: boolean;
+
   createPropertyForm = new FormGroup({
     pictures: new FormControl(''),
 
@@ -76,6 +78,7 @@ export class CreatePropertyComponent implements OnInit {
     // this.formChangesSub = this.createPropertyForm.valueChanges.subscribe((filters) => {
     //   // this.filters.emit(filters)
     // });
+    this.creating = false;
     this.rulesSub = this.metadataService.getAllRules().subscribe((rules) => {
       this.rules = rules;
       this.translateRulesAndServices();
@@ -121,13 +124,16 @@ export class CreatePropertyComponent implements OnInit {
   }
 
   publishProperty(){
-    if (!this.createPropertyForm.valid || this.currentlyUploadedImages.length === 0)
-      return;
-    this.generatePropertyFromForm();
-    this.publishPropertySub = this.propertyService.publishProperty(this.createdProperty).subscribe(
-      (property) => {
-        this.router.navigate(['property/' + property.id]);
-      });
+    if(!this.creating) {
+      this.creating = true;
+      if (!this.createPropertyForm.valid || this.currentlyUploadedImages.length === 0)
+        return;
+      this.generatePropertyFromForm();
+      this.publishPropertySub = this.propertyService.publishProperty(this.createdProperty).subscribe(
+        (property) => {
+          this.router.navigate(['property/' + property.id]);
+        });
+    }
   }
 
   removeTranslatedTextAttribute(input: Rule | Service){
