@@ -3,7 +3,6 @@ package ar.edu.itba.paw.webapp.controller;
 import ar.edu.itba.paw.interfaces.Either;
 import ar.edu.itba.paw.interfaces.PageRequest;
 import ar.edu.itba.paw.interfaces.PageResponse;
-import ar.edu.itba.paw.interfaces.service.NotificationService;
 import ar.edu.itba.paw.interfaces.service.PropertyService;
 import ar.edu.itba.paw.interfaces.service.ProposalService;
 import ar.edu.itba.paw.interfaces.service.UserService;
@@ -11,15 +10,11 @@ import ar.edu.itba.paw.model.Property;
 import ar.edu.itba.paw.model.Proposal;
 import ar.edu.itba.paw.model.User;
 import ar.edu.itba.paw.model.UserProposal;
-import ar.edu.itba.paw.model.enums.ProposalState;
 import ar.edu.itba.paw.model.enums.UserProposalState;
 import ar.edu.itba.paw.webapp.dto.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.JsonObject;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.servlet.http.HttpServletRequest;
@@ -30,9 +25,7 @@ import javax.ws.rs.core.Response;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.Locale;
-import java.util.NoSuchElementException;
 import java.util.Optional;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 @Path("guest")

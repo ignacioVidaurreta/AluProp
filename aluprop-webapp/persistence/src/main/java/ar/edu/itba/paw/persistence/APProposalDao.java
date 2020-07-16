@@ -1,11 +1,14 @@
 package ar.edu.itba.paw.persistence;
 
-import ar.edu.itba.paw.interfaces.dao.*;
-import ar.edu.itba.paw.model.*;
+import ar.edu.itba.paw.interfaces.dao.ProposalDao;
+import ar.edu.itba.paw.model.Notification;
+import ar.edu.itba.paw.model.Proposal;
+import ar.edu.itba.paw.model.User;
+import ar.edu.itba.paw.model.UserProposal;
 import ar.edu.itba.paw.model.enums.ProposalState;
 import ar.edu.itba.paw.model.enums.UserProposalState;
 import org.springframework.stereotype.Repository;
-    import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

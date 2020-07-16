@@ -1,14 +1,13 @@
 package ar.edu.itba.paw.model;
 
-import javax.persistence.*;
 import ar.edu.itba.paw.model.enums.ProposalState;
 import ar.edu.itba.paw.model.enums.UserProposalState;
 
+import javax.persistence.*;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 @Entity

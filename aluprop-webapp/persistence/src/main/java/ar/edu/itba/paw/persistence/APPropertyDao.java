@@ -1,27 +1,28 @@
 package ar.edu.itba.paw.persistence;
 
-import java.util.*;
-
-import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
-import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
-
-import ar.edu.itba.paw.interfaces.*;
-import ar.edu.itba.paw.interfaces.dao.*;
+import ar.edu.itba.paw.interfaces.PageRequest;
+import ar.edu.itba.paw.interfaces.Paginator;
+import ar.edu.itba.paw.interfaces.SearchableProperty;
+import ar.edu.itba.paw.interfaces.WhereConditionBuilder;
+import ar.edu.itba.paw.interfaces.dao.PropertyDao;
 import ar.edu.itba.paw.interfaces.enums.SearchablePrivacyLevel;
 import ar.edu.itba.paw.interfaces.enums.SearchablePropertyType;
 import ar.edu.itba.paw.model.*;
 import ar.edu.itba.paw.model.enums.Availability;
 import ar.edu.itba.paw.model.enums.PropertyOrder;
 import ar.edu.itba.paw.model.enums.PropertyType;
-
 import org.hibernate.annotations.common.util.impl.LoggerFactory;
 import org.hibernate.criterion.MatchMode;
 import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
+import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
+import java.util.Collection;
 
 @Repository
 @Transactional

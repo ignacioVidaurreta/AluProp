@@ -1,7 +1,6 @@
 package ar.edu.itba.paw.persistence;
 
 import ar.edu.itba.paw.interfaces.dao.ProposalDao;
-import ar.edu.itba.paw.model.User;
 import ar.edu.itba.paw.model.enums.ProposalState;
 import org.junit.Assert;
 import org.junit.Test;

@@ -1,11 +1,9 @@
 package ar.edu.itba.paw.webapp.dto;
 
-import ar.edu.itba.paw.interfaces.service.UserService;
 import ar.edu.itba.paw.model.*;
 import ar.edu.itba.paw.model.enums.Availability;
 import ar.edu.itba.paw.model.enums.PropertyType;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Collection;
 import java.util.stream.Collectors;

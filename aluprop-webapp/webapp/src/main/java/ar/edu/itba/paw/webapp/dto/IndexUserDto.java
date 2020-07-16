@@ -5,9 +5,7 @@ import ar.edu.itba.paw.model.enums.Gender;
 import ar.edu.itba.paw.model.enums.Role;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 
-import java.util.Collection;
 import java.util.Date;
-import java.util.stream.Collectors;
 
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 public class IndexUserDto {

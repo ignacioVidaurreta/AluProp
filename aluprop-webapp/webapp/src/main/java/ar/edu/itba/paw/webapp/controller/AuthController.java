@@ -34,7 +34,7 @@ import java.util.Locale;
 @Path("auth")
 public class AuthController {
 
-    private static final Logger logger = LoggerFactory.getLogger(PropertyController.class);
+    private static final Logger logger = LoggerFactory.getLogger(AuthController.class);
 
     private static final String NO_LANGUAGE_ERROR = "This endpoint requires a language";
 

@@ -1,12 +1,14 @@
 package ar.edu.itba.paw.service;
 
 import ar.edu.itba.paw.interfaces.Either;
-import ar.edu.itba.paw.interfaces.dao.*;
-import ar.edu.itba.paw.model.*;
-import ar.edu.itba.paw.model.enums.Availability;
-import ar.edu.itba.paw.model.enums.Gender;
-import ar.edu.itba.paw.model.enums.PropertyType;
-import ar.edu.itba.paw.model.enums.Role;
+import ar.edu.itba.paw.interfaces.dao.ImageDao;
+import ar.edu.itba.paw.interfaces.dao.NeighbourhoodDao;
+import ar.edu.itba.paw.interfaces.dao.PropertyDao;
+import ar.edu.itba.paw.interfaces.dao.UserDao;
+import ar.edu.itba.paw.model.Image;
+import ar.edu.itba.paw.model.Neighbourhood;
+import ar.edu.itba.paw.model.Property;
+import ar.edu.itba.paw.model.User;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,8 +19,8 @@ import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import java.net.HttpURLConnection;
-import java.sql.Date;
-import java.util.*;
+import java.util.Collection;
+import java.util.HashSet;
 
 @RunWith(MockitoJUnitRunner.class)
 public class APPropertyServiceTest {
