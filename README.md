@@ -10,6 +10,27 @@ The application has two different types of user, host and guest. Once a host pub
 
 The page uses spring web-mvc with hibernate as its ORM and spring security to handle user permissions. The front is made using jsp pages and the bootstrap library. The architecture is 3-tiered with controller, service and data access objects layers.
 
+## Building the project
+
+Prerequisites:
+
+- Maven
+
+- Tomcat 7.0
+
+After cloning the repo:
+
+- Make the changes to ```application.properties``` file specified in the **application.properties** section of this document
+
+- Move into the ```/aluprop-webapp``` directory and run ```mvn clean package```
+
+- A ```webapp.war``` file will be generated in ```/aluprop-webapp/webapp/target/aluprop.war```, you should move that file into your ```webapps``` Tomcat folder.
+
+- Run Tomcat and open the URL corresponding to the new .war file.
+
+- Welcome to AluProp :)
+
+
 ## application.properties
 
 Some configuration constants which may vary from user to user are kept in an application properties file that is listed in our .gitignore file. The file should define these constants:
