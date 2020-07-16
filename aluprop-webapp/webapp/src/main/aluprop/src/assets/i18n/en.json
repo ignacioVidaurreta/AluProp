@@ -37,6 +37,7 @@
     "login-message": "Already have an account? Log in",
     "password-mismatch": "Passwords must match",
     "repeated-email-error": "An user already exists with that email",
+    "birth-date-error": "You must be between 13 and 105 years of age to use the platform",
     "invalid-email-error": "Invalid email",
     "university": "University",
     "career": "Career"

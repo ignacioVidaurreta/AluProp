@@ -38,6 +38,7 @@
     "password-mismatch": "Las contraseñas deben coincidir",
     "invalid-email-error": "Email inválido",
     "repeated-email-error": "Ya existe un usuario con ese email",
+    "birth-date-error": "Debe tener entre 13 y 105 años para utilizar la plataforma",
     "university": "Universidad",
     "career": "Carrera"
   },

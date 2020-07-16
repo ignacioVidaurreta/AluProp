@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
 import { AuthenticationService} from '../../services/authentication.service'
-import { Validators, FormControl, FormGroup } from '@angular/forms';
+import { Validators, FormControl, FormGroup, ValidatorFn } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import {User, SignUpForm, Role} from "../../models/user";
 import { MetadataService } from 'src/app/metadata.service';
@@ -30,7 +30,7 @@ export class RegisterComponent implements OnInit {
     name: new FormControl('', [Validators.required]),
     lastName: new FormControl('', [Validators.required]),
     contactNumber: new FormControl('', [Validators.required]),
-    birthdate: new FormControl('', [Validators.required]),
+    birthdate: new FormControl('', [Validators.required, this.dateValidator(13, 105)]),
     role: new FormControl('', [Validators.required]),
     bio: new FormControl('', [Validators.required]),
     gender: new FormControl('', [Validators.required]),
@@ -221,6 +221,19 @@ export class RegisterComponent implements OnInit {
       }
     };
   }
+
+  dateValidator(minAge: number, maxAge: number): ValidatorFn{
+    return control => {
+      const inputYear = new Date(control.value).getFullYear();
+      const currentYear = new Date().getFullYear(); //lol
+      if (currentYear - inputYear < minAge){
+        return {age: 'young'};
+      } else if (currentYear - inputYear > maxAge){
+        return {age: 'old'};
+      }
+      return null;
+    }
+  } 
 
   navigateToLogIn() {
     if (this.activatedRoute.snapshot.queryParams.sonuestro){
