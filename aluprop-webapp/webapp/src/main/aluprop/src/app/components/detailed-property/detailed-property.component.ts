@@ -172,6 +172,6 @@ export class DetailedPropertyComponent implements OnInit {
   }
 
   navigatToLogLinWithInterestIntention() {
-    this.router.navigate(['login'], { queryParams: {'sonuestro': this.propertyId}});
+    this.router.navigate(['login'], { queryParams: {'returnProperty': this.propertyId}});
   }
 }

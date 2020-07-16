@@ -148,10 +148,10 @@ export class RegisterComponent implements OnInit {
       this.authenticationService.signUp(this.createdUser).subscribe((response) =>{
         this.repeatedEmail = false;
         if (response){
-          if (this.activatedRoute.snapshot.queryParams.sonuestro && response.body.role === Role.Guest){
-            this.propertyService.markInterest(this.activatedRoute.snapshot.queryParams.sonuestro).subscribe(
+          if (this.activatedRoute.snapshot.queryParams.returnProperty && response.body.role === Role.Guest){
+            this.propertyService.markInterest(this.activatedRoute.snapshot.queryParams.returnProperty).subscribe(
               (response) => {
-                this.router.navigate(['property/'+ this.activatedRoute.snapshot.queryParams.sonuestro]);
+                this.router.navigate(['property/'+ this.activatedRoute.snapshot.queryParams.returnProperty]);
               });
           } else {
             this.router.navigate([""]);
@@ -236,7 +236,7 @@ export class RegisterComponent implements OnInit {
   } 
 
   navigateToLogIn() {
-    if (this.activatedRoute.snapshot.queryParams.sonuestro){
+    if (this.activatedRoute.snapshot.queryParams.returnProperty){
       this.router.navigate(['login'], {queryParamsHandling: 'preserve'});
     } else {
       this.router.navigate(['login']);

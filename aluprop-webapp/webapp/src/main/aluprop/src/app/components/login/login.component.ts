@@ -35,11 +35,13 @@ export class LoginComponent implements OnInit {
         if (response){
           this.hasInvalidCredentials = false;
 
-          if (this.activatedRoute.snapshot.queryParams.sonuestro && response.body.role === Role.Guest){
-            this.propertyService.markInterest(this.activatedRoute.snapshot.queryParams.sonuestro).subscribe(
+          if (this.activatedRoute.snapshot.queryParams.returnProperty && response.body.role === Role.Guest){
+            this.propertyService.markInterest(this.activatedRoute.snapshot.queryParams.returnProperty).subscribe(
               (response) => {
-                this.router.navigate(['property/'+ this.activatedRoute.snapshot.queryParams.sonuestro]);
+                this.router.navigate(['property/'+ this.activatedRoute.snapshot.queryParams.returnProperty]);
               });
+          } else if (this.activatedRoute.snapshot.queryParams.returnProposal){
+            this.router.navigate(['proposal/'+ this.activatedRoute.snapshot.queryParams.returnProposal]);
           } else {
             this.router.navigate([""]);
           }
@@ -53,7 +55,7 @@ export class LoginComponent implements OnInit {
   }
 
   navigateToRegister() {
-    if (this.activatedRoute.snapshot.queryParams.sonuestro){
+    if (this.activatedRoute.snapshot.queryParams.returnProperty){
       this.router.navigate(['register'], {queryParamsHandling: 'preserve'});
     } else {
       this.router.navigate(['register']);
