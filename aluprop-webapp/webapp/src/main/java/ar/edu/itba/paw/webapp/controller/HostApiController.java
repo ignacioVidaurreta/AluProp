@@ -10,12 +10,15 @@ import ar.edu.itba.paw.interfaces.service.UserService;
 import ar.edu.itba.paw.model.Property;
 import ar.edu.itba.paw.model.Proposal;
 import ar.edu.itba.paw.model.User;
-import ar.edu.itba.paw.model.enums.Availability;
 import ar.edu.itba.paw.model.enums.ProposalState;
 import ar.edu.itba.paw.model.exceptions.IllegalPropertyStateException;
-import ar.edu.itba.paw.webapp.dto.*;
-import org.springframework.beans.factory.annotation.Autowired;
+import ar.edu.itba.paw.webapp.dto.ImageDto;
+import ar.edu.itba.paw.webapp.dto.IndexPropertyDto;
+import ar.edu.itba.paw.webapp.dto.IndexProposalDto;
+import ar.edu.itba.paw.webapp.dto.PropertyDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.servlet.http.HttpServletRequest;
@@ -27,8 +30,6 @@ import java.io.IOException;
 import java.util.Collection;
 import java.util.Locale;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
-import org.json.JSONObject;
 
 @Path("host")
 @Produces(MediaType.APPLICATION_JSON)

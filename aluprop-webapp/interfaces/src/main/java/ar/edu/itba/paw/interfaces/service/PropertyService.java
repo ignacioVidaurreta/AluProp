@@ -7,10 +7,8 @@ import ar.edu.itba.paw.interfaces.SearchableProperty;
 import ar.edu.itba.paw.model.Property;
 import ar.edu.itba.paw.model.User;
 import ar.edu.itba.paw.model.enums.PropertyOrder;
-import org.springframework.lang.Nullable;
 
 import java.util.Collection;
-import java.util.Optional;
 
 public interface PropertyService {
 

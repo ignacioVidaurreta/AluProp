@@ -7,6 +7,5 @@ import java.util.Collection;
 public interface RuleDao {
     Rule get(long id);
     Collection<Rule> getAll();
-
     Collection<Rule> getRulesOfProperty(long propertyId);
 }

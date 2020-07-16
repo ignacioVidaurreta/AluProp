@@ -24,18 +24,6 @@ public class HqlWhereConditionBuilder implements WhereConditionBuilder {
     }
 
     @Override
-    public HqlWhereConditionBuilder greaterThanCondition(String left, String right) {
-        comparisonCondition(left, " > ", right);
-        return new HqlWhereConditionBuilder(condition);
-    }
-
-    @Override
-    public HqlWhereConditionBuilder lessThanCondition(String left, String right) {
-        comparisonCondition(left, " < ", right);
-        return new HqlWhereConditionBuilder(condition);
-    }
-
-    @Override
     public HqlWhereConditionBuilder greaterOrEqualThanCondition(String left, String right) {
         comparisonCondition(left, " >= ", right);
         return new HqlWhereConditionBuilder(condition);

@@ -5,8 +5,6 @@ import ar.edu.itba.paw.model.UserProposal;
 import ar.edu.itba.paw.model.enums.UserProposalState;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 
-import javax.persistence.Index;
-
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 public class UserProposalDto {
 
