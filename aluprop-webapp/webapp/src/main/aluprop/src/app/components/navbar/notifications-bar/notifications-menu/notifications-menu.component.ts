@@ -65,8 +65,8 @@ export class NotificationsMenuComponent implements OnInit {
       () => {
         this.readNotification.emit();
         this.onPageChange();
-        this.router.navigate([notification.link]);
       });
+    this.router.navigate([notification.link]);
   }
 
   viewAll() {
@@ -74,16 +74,18 @@ export class NotificationsMenuComponent implements OnInit {
       this.readNotification.emit();
       this.router.navigate(['/notifications']);
     }
-    let obs: Observable<any>[] = [];
-    this.notifications.forEach((notification) => {
-      obs.push(this.notificationService.changeNotificationState(notification.id));
-    })
-    forkJoin(obs).subscribe(() => {
-      this.readNotification.emit();
-      this.onPageChange();
-      this.notificationService.unreadNotifications = this.notifications;
+    else {
+      let obs: Observable<any>[] = [];
+      this.notifications.forEach((notification) => {
+        obs.push(this.notificationService.changeNotificationState(notification.id));
+      })
+      forkJoin(obs).subscribe(() => {
+        this.readNotification.emit();
+        this.onPageChange();
+        this.notificationService.unreadNotifications = this.notifications;
+      })
       this.router.navigate(['/notifications']);
-    })
+    }
   }
 
 }
