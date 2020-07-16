@@ -32,17 +32,4 @@ public class ImageApiController {
             return builder.status(Response.Status.NOT_FOUND).build();
         return builder.build();
     }
-
-    @Path("/resize")
-    @POST
-    public Response resize() {
-        imageService.resize();
-        return Response.ok().build();
-    }
-
-    @Path("/check")
-    @GET
-    public Response checkAspectRatio() {
-        return Response.ok(imageService.checkAspectRatio()).build();
-    }
 }

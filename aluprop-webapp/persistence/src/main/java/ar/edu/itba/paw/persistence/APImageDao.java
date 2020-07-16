@@ -36,23 +36,6 @@ public class APImageDao implements ImageDao {
         return i.getId();
     }
 
-    @Override
-    @Transactional
-    public Collection<Image> getAll() {
-        Collection<Image> images = entityManager.createQuery("FROM Image i WHERE i.property IS NOT NULL AND i.property.id IN (SELECT id FROM Property)", Image.class).getResultList();
-        images.forEach(i -> i.getProperty().getDescription());
-        return images;
-    }
-
-    @Override
-    @Transactional
-    public void update(Image image) {
-        if (image == null || image.getId() < 1)
-            return;
-        entityManager.merge(image);
-    }
-
-    @Override
     @Transactional
     public void delete(Image image) {
         if(image == null || image.getId() < 1)

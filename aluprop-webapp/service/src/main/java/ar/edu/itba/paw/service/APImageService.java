@@ -53,33 +53,4 @@ public class APImageService implements ImageService {
         }
         return null;
     }
-
-    @Override
-    public void resize() {
-        imageDao.getAll().stream()
-                        .map(i -> new Image(i.getId(), resize(i.getImage()), i.getProperty()))
-                        .forEach(imageDao::update);
-    }
-
-    @Override
-    public long checkAspectRatio() {
-        Collection<Image> images = imageDao.getAll();
-        for (Image i : images) {
-            int width = getWidth(i.getImage());
-            if (getWidth(i.getImage()) != WIDTH)
-                return i.getId();
-        }
-        return -1;
-    }
-
-    private int getWidth(byte[] image) {
-        try (InputStream in = new ByteArrayInputStream(image)) {
-            BufferedImage original = ImageIO.read(in);
-            return original.getWidth();
-        }
-        catch (Exception e) {
-
-        }
-        return -1;
-    }
 }

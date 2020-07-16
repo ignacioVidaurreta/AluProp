@@ -8,7 +8,5 @@ public interface ImageDao {
     Image get(long id);
     Collection<Image> getByProperty(long propertyId);
     long create(byte[] image);
-    Collection<Image> getAll();
-    void update(Image image);
     void delete(Image image);
 }
