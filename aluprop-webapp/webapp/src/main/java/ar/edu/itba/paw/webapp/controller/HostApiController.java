@@ -73,13 +73,13 @@ public class HostApiController {
     }
 
     @POST
+    @Consumes(MediaType.APPLICATION_JSON)
     @Path("/createProperty")
-    public Response handlePropertyCreationErrors(@RequestBody final String requestBody) {
+    public Response handlePropertyCreationErrors(final PropertyDto propertyDto) {
         try {
-            Property property = createProperty(new ObjectMapper().readValue(new JSONObject(requestBody).toString(),
-                                                                            PropertyDto.class));
+            Property property = createProperty(propertyDto);
             return Response.ok(PropertyDto.fromProperty(property)).build();
-        } catch (IOException | IllegalPropertyStateException e) {
+        } catch (Exception e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
         }
 
